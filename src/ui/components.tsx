@@ -1,3 +1,4 @@
+import "./card-geometry.css";
 import { WARD_RULE } from "../content/card-rules";
 import { AffinityLine } from "./Affinities";
 import { omenFace } from "../content/terminology";

@@ -1,0 +1,123 @@
+/* Shared physical Card shape. Geometry overrides legacy screen-specific heights;
+   rules previews stay inside the frame, with full text available in Inspect. */
+.gameplay-card,
+.card-back {
+  box-sizing: border-box;
+  aspect-ratio: 3 / 4;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none;
+  min-width: 0;
+  align-self: start;
+}
+.gameplay-card {
+  width: 100%;
+  container-type: inline-size;
+}
+#root .gameplay-card .card-select {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 15% 10% 30% minmax(0, 1fr);
+  overflow: hidden;
+}
+#root .gameplay-card .card-top,
+#root .gameplay-card .card-affinity,
+#root .gameplay-card .card-illustration,
+#root .gameplay-card .card-rules {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none;
+  min-width: 0;
+  overflow: hidden;
+}
+#root .gameplay-card .card-top {
+  padding: 3cqw 5cqw;
+}
+#root .gameplay-card .card-top > span {
+  font: 600 9cqw/1.02 var(--serif);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+#root .gameplay-card .card-affinity {
+  display: flex;
+  align-items: center;
+  padding: 1cqw 4cqw;
+}
+#root .gameplay-card .card-affinity .affinity-line {
+  font-size: max(8px, 5cqw);
+  line-height: 1.15;
+}
+#root .gameplay-card .card-affinity .affinity-line > span:last-child {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+#root .gameplay-card .card-rules {
+  padding: 4cqw 5cqw;
+}
+#root .gameplay-card .card-rules > strong {
+  font-size: 8.5cqw;
+  line-height: 1.08;
+  margin-bottom: 3cqw;
+}
+#root .gameplay-card .card-rules p {
+  font-size: 6.3cqw;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+/* Four-across Hands are thumbnails: emphasize name and activation cost.
+   Preserve readable full rules in the existing tap/hold inspector. */
+#root .gameplay-card.compact .card-select {
+  grid-template-rows: 24% 13% 19% minmax(0, 1fr);
+}
+#root .gameplay-card.compact .card-top > span {
+  font-size: max(10px, 13cqw);
+}
+#root .gameplay-card.compact .card-affinity .affinity-line > span:first-child {
+  display: none;
+}
+#root .gameplay-card.compact .card-affinity .affinity-line {
+  font-size: 8px;
+  line-height: 1.1;
+}
+#root .gameplay-card.compact .card-rules > strong {
+  font-size: max(10px, 12cqw);
+  margin-bottom: 3px;
+}
+#root .gameplay-card.compact .card-rules p {
+  font-size: 9px;
+  line-height: 1.2;
+  -webkit-line-clamp: 2;
+}
+#root .gameplay-card .card-inspect {
+  top: 25%;
+  bottom: auto;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+}
+#root .gameplay-card.compact .card-inspect {
+  top: 30%;
+}
+#root .card-back {
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* At battlefield thumbnail size, show the complete activation requirement
+   instead of cutting an effect sentence halfway through. Inspect carries rules. */
+@container (max-width: 100px) {
+  #root .gameplay-card.compact .card-select {
+    grid-template-rows: 24% 13% 15% minmax(0, 1fr);
+  }
+  #root .gameplay-card.compact .card-rules p {
+    display: none;
+  }
+}
