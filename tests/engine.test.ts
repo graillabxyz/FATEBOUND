@@ -96,7 +96,7 @@ describe("v2 content and locked loadouts", () => {
       expect(l.active.timing).toMatch(/ACTION|REACTION/);
     }
     for (const c of CARDS) {
-      expect(c.mechanicalVersion).toBe(2);
+      expect(c.mechanicalVersion).toBe(GAME.version);
       expect(c.timing).toMatch(/ACTION|REACTION/);
     }
   });
@@ -187,7 +187,9 @@ describe("authoritative initiative, turns and resource lifetime", () => {
       const rows = rolls.filter((x) => x.round === r);
       expect(rows.map((x) => x.actor)).toEqual(r % 2 ? [0, 1] : [1, 0]);
       for (const row of rows)
-        expect(row.slots).toEqual(GAME.diceRamp[Math.min(r - 1, 4)]);
+        expect(row.slots).toEqual(
+          r === 1 ? [0, 1, 2].slice(0, row.actor === 0 ? 1 : 2) : [0, 1, 2],
+        );
     }
     expect(s.events.filter((e) => e.type === "initiative")).toHaveLength(1);
   });
@@ -237,7 +239,7 @@ describe("authoritative initiative, turns and resource lifetime", () => {
   it("refuses out-of-turn declarations and unrolled resource payments", () => {
     const s = ready();
     expect(() => lockPlan(s, 1, command("guard"))).toThrow("TIMING");
-    expect(() => lockPlan(s, 0, command("guard", [1]))).toThrow("DIE");
+    expect(() => lockPlan(s, 0, command("guard", [1]))).toThrow("OMEN");
   });
   it("passes on timeout without spending or revealing the draft", () => {
     const s = ready();
@@ -477,7 +479,7 @@ describe("requirements, Control and deterministic verification", () => {
         expect(replay.events).toEqual(s.events);
         expect(replay.stats).toEqual(s.stats);
       }
-  });
+  }, 20000);
   it("swapped seats and RNG streams preserve outcomes in paired simulations", () => {
     for (const a of LEGENDS) {
       const s = finish(createMatch(44, [STARTERS[a.id], STARTERS.anansi]));

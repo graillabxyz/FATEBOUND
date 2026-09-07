@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Loadout, LegendId } from "../engine/types";
 import { LEGENDS, legendById } from "../content/legends";
 import { CARDS } from "../content/cards";
-import { DICE } from "../content/dice";
+import { OMENS } from "../content/omens";
 import { STARTERS } from "../content/loadouts";
 import { validateLoadout } from "../engine/rules";
 import type { MatchRecord } from "./data";
@@ -142,7 +142,7 @@ export default function SimulationPanel({
                   </Field>
                 ))}
                 {l.dice.map((id, i) => (
-                  <Field key={`die-${i}`} label={`Collectible die ${i + 1}`}>
+                  <Field key={`die-${i}`} label={`Collectible Omen ${i + 1}`}>
                     <select
                       value={id}
                       onChange={(e) =>
@@ -155,7 +155,7 @@ export default function SimulationPanel({
                         })
                       }
                     >
-                      {DICE.filter(
+                      {OMENS.filter(
                         (d) =>
                           legendById[l.legend].allowedDiceSizes.includes(
                             d.size,
@@ -273,7 +273,7 @@ export default function SimulationPanel({
           <div className="dev-actions">
             <Button
               onClick={() =>
-                downloadJSON("fatebound-simulation.json", {
+                downloadJSON("omnipath-simulation.json", {
                   records,
                   metrics: aggregate(records),
                 })

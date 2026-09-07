@@ -1,3 +1,4 @@
+import { SIGILS } from "../content/terminology";
 import { validateSavedState } from "../engine/validation";
 import {
   advance,
@@ -24,7 +25,7 @@ import type {
 } from "../engine/types";
 import { GAME } from "../content/config";
 import { STARTERS } from "../content/loadouts";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import {
   defaultOptions,
@@ -155,7 +156,7 @@ export class LabController {
     this.editable();
     if (!planningPhases.includes(this.state.phase))
       throw new Error(
-        "Edit dice and assignments during MAIN_ACTION or REACTION_WINDOW.",
+        "Edit Omens and assignments during MAIN_ACTION or REACTION_WINDOW.",
       );
   }
   fateForRound(round: number): number[] | undefined {
@@ -244,7 +245,7 @@ export class LabController {
   }
   assign(actor: Seat, slot: number, target: string) {
     this.planning(actor);
-    int(slot, 0, 2, "Die slot");
+    int(slot, 0, 2, "Omen slot");
     if (
       target &&
       !["guard", "legend", ...this.state.players[actor].loadout.cards].includes(
@@ -281,7 +282,7 @@ export class LabController {
     );
     if (next.controls.length > 2)
       throw new Error(
-        "Production plans allow at most two Control actions. Reset or remove a previous action.",
+        "Production plans allow at most two Focus actions. Reset or remove a previous action.",
       );
     this.drafts[actor] = next;
     this.log("CONTROL", { actor, action });
@@ -473,7 +474,7 @@ export class LabController {
     this.state.roundFate = clone(tokens);
     this.state.players.forEach((p) => {
       p.faces = p.loadout.dice.map((id, i) =>
-        facePosition(tokens[i], dieById[id].size),
+        facePosition(tokens[i], omenById[id].size),
       );
       p.plan = null;
       p.locked = false;
@@ -490,14 +491,14 @@ export class LabController {
     this.planning(actor);
     int(slot, 0, 2, "Slot");
     const p = this.state.players[actor];
-    int(face, 0, dieById[p.loadout.dice[slot]].size - 1, "Face index");
+    int(face, 0, omenById[p.loadout.dice[slot]].size - 1, "Face index");
     p.faces[slot] = face;
     this.drafts[actor].controls = [];
     this.log("FORCE_FACE", {
       actor,
       slot,
       face,
-      warning: "Forced face may break Shared Fate; pending Control cleared.",
+      warning: "Forced face may break Shared Fate; pending Focus cleared.",
     });
     this.changed();
   }
@@ -507,11 +508,39 @@ export class LabController {
   }
   forceSymbol(actor: Seat, slot: number, symbol: string) {
     const p = this.state.players[actor],
-      d = dieById[p.loadout.dice[slot]];
+      d = omenById[p.loadout.dice[slot]];
     const face = d.faces.findIndex((f) => f.effectId === symbol);
     if (face < 0)
-      throw new Error(`DIE INVALID: ${d.name} has no ${symbol} face.`);
+      throw new Error(
+        `OMEN INVALID: ${d.name} has no ${SIGILS[symbol as keyof typeof SIGILS]?.name ?? symbol} face.`,
+      );
     this.setFace(actor, slot, face);
+  }
+  setOmenValue(actor: Seat, slot: number, value: number) {
+    const d = omenById[this.state.players[actor].loadout.dice[slot]];
+    const index = d.faces.findIndex(
+      (f) => f.type === "number" && f.value === value,
+    );
+    if (index < 0)
+      throw new Error(
+        `OMEN INVALID: ${d.name} has no Value ${value}. Fixed faces cannot be edited.`,
+      );
+    this.setFace(actor, slot, index);
+  }
+  setOmenVoid(actor: Seat, slot: number) {
+    const d = omenById[this.state.players[actor].loadout.dice[slot]];
+    const index = d.faces.findIndex((f) => f.type === "blank");
+    if (index < 0) throw new Error(`OMEN INVALID: ${d.name} has no Void face.`);
+    this.setFace(actor, slot, index);
+  }
+  setFocus(actor: Seat, focus: number) {
+    this.editPlayer(actor, { control: focus });
+  }
+  setWard(actor: Seat, ward: number) {
+    this.editPlayer(actor, { guard: ward });
+  }
+  setHeldOmen(actor: Seat, slot: number) {
+    this.setResource(actor, slot, "HELD");
   }
   editPlayer(
     actor: Seat,
@@ -522,9 +551,9 @@ export class LabController {
     this.editable();
     const p = this.state.players[actor],
       next = { ...p, ...clone(patch) };
-    int(next.hp, 0, 1000, "HP");
-    int(next.guard, 0, 1000, "Guard");
-    int(next.control, 0, 6, "Control");
+    int(next.hp, 0, 1000, "Life");
+    int(next.guard, 0, 1000, "Ward");
+    int(next.control, 0, 6, "Focus");
     int(next.damageDealt, 0, 100000, "Damage dealt");
     validateStatuses(next.statuses, p.loadout);
     if (
@@ -599,7 +628,7 @@ export class LabController {
     state: "AVAILABLE" | "HELD" | "SPENT" | "UNROLLED" | "EXPIRED",
   ) {
     this.editable();
-    int(slot, 0, 2, "Die slot");
+    int(slot, 0, 2, "Omen slot");
     this.state.players[actor].dice[slot].state = state;
     this.log("FORCE_RESOURCE", { actor, slot, state });
     this.changed();
@@ -797,6 +826,7 @@ function validateState(state: MatchState, setup: LabSetup) {
       "INITIATIVE_ROLL",
       "ROUND_START",
       "TURN_START",
+      "OMEN_CHOICE",
       "DICE_ROLL",
       "MAIN_ACTION",
       "ACTION_DECLARED",
@@ -820,7 +850,7 @@ function validateState(state: MatchState, setup: LabSetup) {
   state.players.forEach((p) => {
     if (p.faces.length !== 3) throw new Error("Three face indices required.");
     p.faces.forEach((f, i) =>
-      int(f, 0, dieById[p.loadout.dice[i]].size - 1, "Face index"),
+      int(f, 0, omenById[p.loadout.dice[i]].size - 1, "Face index"),
     );
     if (typeof p.locked !== "boolean") throw new Error("Invalid lock state.");
   });
@@ -846,12 +876,12 @@ function validateDraft(plan: Plan, p: PlayerState) {
   )
     throw new Error("Malformed plan.");
   for (const c of plan.controls) {
-    int(c.slot, 0, 2, "Control slot");
+    int(c.slot, 0, 2, "Focus slot");
     if (
       !["flip", "shift"].includes(c.kind) ||
       (c.kind === "shift" && c.direction !== 1 && c.direction !== -1)
     )
-      throw new Error("Invalid Control action.");
+      throw new Error("Invalid Focus action.");
   }
   for (const a of plan.assignments) {
     if (

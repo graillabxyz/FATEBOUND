@@ -8,7 +8,7 @@ import type {
 } from "./types";
 import { cardById } from "../content/cards";
 import { legendById } from "../content/legends";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import {
   assignedFaces,
   assignmentValid,
@@ -215,7 +215,7 @@ export function* resolutionSteps(
           }
           if (d === action && target === 1 - action.actor)
             action.damageTaken += damage;
-          result = `${damage} damage; ${blocked} Guard absorbed; ${prevented} prevented`;
+          result = `${damage} damage; ${blocked} Ward absorbed; ${prevented} prevented`;
           log(state, d.actor, "damage", result, damage);
           break;
         }
@@ -240,7 +240,7 @@ export function* resolutionSteps(
           }
           t.guard += n;
           stats.guard[target] += n;
-          result = `+${n} Guard`;
+          result = `+${n} Ward`;
           log(state, d.actor, "guard", result, n);
           break;
         }
@@ -299,10 +299,10 @@ export function* resolutionSteps(
                   ["AVAILABLE", "HELD"].includes(d.state),
                 );
           if (slot === undefined || slot < 0) {
-            result = "No eligible die";
+            result = "No eligible Omen";
             break;
           }
-          const die = dieById[t.loadout.dice[slot]],
+          const die = omenById[t.loadout.dice[slot]],
             face =
               e.type === "FLIP_DIE"
                 ? die.opposites[t.faces[slot]]
@@ -313,7 +313,7 @@ export function* resolutionSteps(
           }
           t.faces[slot] = face;
           t.dice[slot].modified = true;
-          result = `Die ${slot + 1} changed; requirement will be checked again`;
+          result = `Omen ${slot + 1} changed; requirement will be checked again`;
           break;
         }
         case "CLEANSE":
@@ -352,7 +352,7 @@ export function* resolutionSteps(
             if (p.hp > n) {
               p.hp -= n;
               yield* run(e.effects ?? [], d, priority, multiplier, depth + 1);
-            } else result = "Insufficient HP to pay conversion";
+            } else result = "Insufficient Life to pay conversion";
           } else {
             const spent = Math.min(p.guard, n);
             p.guard -= spent;
@@ -407,7 +407,7 @@ export function* resolutionSteps(
     action.canceled
       ? "Canceled by reaction"
       : valid
-        ? "Target and paid dice still valid"
+        ? "Target and paid Omens still valid"
         : "Requirement no longer met",
     !valid || action.canceled ? "canceled" : "effect",
   );

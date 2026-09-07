@@ -1,3 +1,4 @@
+import { rulesLabel } from "../content/terminology";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppContext, useGame } from "../ui/context";
 import Battle from "../ui/Battle";
@@ -27,7 +28,7 @@ import {
   persistSnapshot,
 } from "./storage";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { recordMatch } from "../metrics/data";
 import { ContentBrowser, DiceLab } from "./Content";
 import SimulationPanel from "../metrics/SimulationPanel";
@@ -186,7 +187,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
             <Button
               onClick={() =>
                 downloadJSON(
-                  `fatebound-lab-${lab.state.seed}.json`,
+                  `omnipath-lab-${lab.state.seed}.json`,
                   lab.report(),
                 )
               }
@@ -195,7 +196,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
             </Button>
             <Button
               onClick={() =>
-                downloadJSON("fatebound-snapshot.json", lab.snapshot())
+                downloadJSON("omnipath-snapshot.json", lab.snapshot())
               }
             >
               Export snapshot
@@ -262,9 +263,9 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
   const tabs = [
     "STATE",
     "FATE",
-    "DICE",
+    "OMENS",
     "CARDS",
-    "HP",
+    "Life",
     "STATUS",
     "PHASE",
     "AI",
@@ -332,7 +333,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                 [
                   "setup",
                   "Battle Lab",
-                  "Set both hands, faces, HP and phases",
+                  "Set both hands, faces, Life and phases",
                   "attack",
                 ],
                 [
@@ -343,7 +344,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                 ],
                 [
                   "dice",
-                  "Dice Lab",
+                  "Omen Lab",
                   "Ordered faces and shared-position comparison",
                   "dice",
                 ],
@@ -368,7 +369,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                 [
                   "balance",
                   "Balance stats",
-                  "Cards, dice, matchups and live usage",
+                  "Cards, Omens, matchups and live usage",
                   "trophy",
                 ],
               ].map(([id, title, desc, icon]) => (
@@ -590,7 +591,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                       : [lab.setup.players[0].rank, lab.setup.players[1].rank],
                   inspectDie:
                     inspectTaps && !hidden
-                      ? (side, i) => selectInspector("DICE", side, i)
+                      ? (side, i) => selectInspector("OMENS", side, i)
                       : undefined,
                   inspectCard:
                     inspectTaps && !hidden
@@ -598,7 +599,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                       : undefined,
                   inspectLegend:
                     inspectTaps && !hidden
-                      ? (side) => selectInspector("HP", side)
+                      ? (side) => selectInspector("Life", side)
                       : undefined,
                 }}
               />
@@ -620,7 +621,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                 </button>
                 <div className="dev-phase-bar">
                   <span>
-                    R{lab.state.round} · {lab.state.phase}
+                    R{lab.state.round} · {rulesLabel(lab.state.phase)}
                     {lab.resolving ? " ⏸" : ""}
                   </span>
                   {lab.state.phase === "MATCH_END" ? (
@@ -672,7 +673,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                       {error}
                     </p>
                   )}
-                  {["DICE", "CARDS", "HP", "STATUS", "AI", "STATE"].includes(
+                  {["OMENS", "CARDS", "Life", "STATUS", "AI", "STATE"].includes(
                     overlay,
                   ) && (
                     <div className="dev-grid2">
@@ -685,20 +686,20 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                           <option value="1">Player B</option>
                         </select>
                       </Field>
-                      {["DICE", "CARDS"].includes(overlay) && (
+                      {["OMENS", "CARDS"].includes(overlay) && (
                         <Field label="Inspect slot">
                           <select
                             value={slot}
                             onChange={(e) => setSlot(+e.target.value)}
                           >
-                            {(overlay === "DICE"
+                            {(overlay === "OMENS"
                               ? lab.state.players[actor].loadout.dice
                               : lab.state.players[actor].loadout.cards
                             ).map((id, i) => (
                               <option key={i} value={i}>
                                 {i + 1}.{" "}
-                                {overlay === "DICE"
-                                  ? dieById[id].name
+                                {overlay === "OMENS"
+                                  ? omenById[id].name
                                   : cardById[id].name}
                               </option>
                             ))}
@@ -729,7 +730,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                       </Field>
                       <AssignmentEditor lab={lab} actor={actor} run={run} />
                       <Toggle
-                        label="Inspect taps (tap cards / dice / Legends)"
+                        label="Inspect taps (tap Cards / Omens / Legends)"
                         value={inspectTaps}
                         onChange={setInspectTaps}
                       />
@@ -790,7 +791,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                     </>
                   ) : overlay === "FATE" ? (
                     <FateEditor lab={lab} run={run} />
-                  ) : overlay === "DICE" ? (
+                  ) : overlay === "OMENS" ? (
                     <DieInspector
                       key={`${actor}:${Math.min(slot, 2)}`}
                       lab={lab}
@@ -806,7 +807,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                       slot={slot}
                       run={run}
                     />
-                  ) : overlay === "HP" || overlay === "STATUS" ? (
+                  ) : overlay === "Life" || overlay === "STATUS" ? (
                     <LegendInspector
                       key={actor}
                       lab={lab}

@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
 import type { Profile, LocalProfileService } from "../services/profile";
-import type { CardDef, DieDef, Legend, Loadout } from "../engine/types";
+import type { CardDef, OmenDefinition, Legend, Loadout } from "../engine/types";
 import type { Cosmetic } from "../content/economy";
 import type { Difficulty } from "../engine/ai";
 import type { Mode } from "../services/match-service";
 export type Inspect =
   | { type: "card"; item: CardDef }
-  | { type: "die"; item: DieDef }
+  | { type: "omen"; item: OmenDefinition; faceIndex?: number }
   | { type: "legend"; item: Legend }
   | { type: "cosmetic"; item: Cosmetic };
 export type AppContextValue = {

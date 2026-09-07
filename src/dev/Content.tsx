@@ -1,7 +1,8 @@
+import { omenFace } from "../content/terminology";
 import { useState } from "react";
 import { CARDS } from "../content/cards";
 import { LEGENDS } from "../content/legends";
-import { DICE, dieBudget } from "../content/dice";
+import { OMENS, omenBudget } from "../content/omens";
 import { STARTERS } from "../content/loadouts";
 import { facePosition, sharedFate } from "../engine/fate";
 import { GameplayCard, LegendArt } from "../ui/components";
@@ -57,7 +58,7 @@ export function ContentBrowser() {
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Damage, Guard, prediction…"
+              placeholder="Damage, Ward, prediction…"
             />
           </Field>
           <div className="dev-grid2">
@@ -105,9 +106,9 @@ export function ContentBrowser() {
               >
                 <option value="all">All requirements</option>
                 <option value="number">Numeric</option>
-                <option value="multi">Two dice</option>
-                <option value="symbol">Symbol</option>
-                <option value="control">Control cost</option>
+                <option value="multi">Two Omens</option>
+                <option value="symbol">Sigil</option>
+                <option value="control">Focus cost</option>
                 <option value="condition">State condition</option>
               </select>
             </Field>
@@ -172,7 +173,7 @@ export function ContentBrowser() {
                   <LegendArt id={l.id} />
                   <h3>{l.name}</h3>
                   <p>
-                    {l.hp} HP · Initiative +{l.initiativeBonus} ·{" "}
+                    {l.hp} Life · Initiative +{l.initiativeBonus} ·{" "}
                     {l.diceSlots.map((s) => `D${s}`).join("/")}
                   </p>
                   <p>{l.passive}</p>
@@ -188,7 +189,7 @@ export function ContentBrowser() {
                     ))}
                   </Section>
                   <p className="dev-muted">
-                    Observed win/damage/Guard metrics appear after a simulation
+                    Observed win/damage/Ward metrics appear after a simulation
                     or play session.
                   </p>
                 </div>
@@ -201,13 +202,13 @@ export function ContentBrowser() {
   );
 }
 export function DiceLab() {
-  const [ids, setIds] = useState([DICE[2].id, DICE[3].id]),
+  const [ids, setIds] = useState([OMENS[2].id, OMENS[3].id]),
     [rolls, setRolls] = useState(0),
     [freq, setFreq] = useState<Record<string, number>>({}),
     [seed, setSeed] = useState(12345);
-  const dice = ids.map((id) => DICE.find((d) => d.id === id)!);
+  const dice = ids.map((id) => OMENS.find((d) => d.id === id)!);
   const primary = dice[0],
-    budget = dieBudget(primary);
+    budget = omenBudget(primary);
   const roll = (count: number) => {
     const next = { ...freq };
     for (let i = rolls; i < rolls + count; i++) {
@@ -226,13 +227,13 @@ export function DiceLab() {
   const unique = [...new Set(pairs)];
   return (
     <div className="dev-stack">
-      <h2>Dice Lab</h2>
+      <h2>Omen Lab</h2>
       <p className="dev-muted">
-        Ordered faces, opposites and the same production Fate tokens. Changing a
-        die resets the sample.
+        Ordered faces, opposites and the same production Fate tokens. Changing
+        an Omen resets the sample.
       </p>
       {ids.map((id, i) => (
-        <Field key={i} label={`Compare die ${i + 1}`}>
+        <Field key={i} label={`Compare Omen ${i + 1}`}>
           <select
             value={id}
             onChange={(e) => {
@@ -241,7 +242,7 @@ export function DiceLab() {
               setRolls(0);
             }}
           >
-            {DICE.map((d) => (
+            {OMENS.map((d) => (
               <option key={d.id} value={d.id}>
                 {d.name} · D{d.size}
               </option>
@@ -251,12 +252,12 @@ export function DiceLab() {
       ))}
       <Button
         onClick={() => {
-          setIds(ids.length === 2 ? [...ids, DICE[4].id] : ids.slice(0, 2));
+          setIds(ids.length === 2 ? [...ids, OMENS[4].id] : ids.slice(0, 2));
           setFreq({});
           setRolls(0);
         }}
       >
-        {ids.length === 2 ? "Add third die" : "Remove third die"}
+        {ids.length === 2 ? "Add third Omen" : "Remove third Omen"}
       </Button>
       <div className="dev-grid2">
         <div className="dev-stat">
@@ -275,11 +276,11 @@ export function DiceLab() {
           <strong>{budget.mean.toFixed(2)}</strong>
         </div>
         <div className="dev-stat">
-          <small>Blank probability</small>
+          <small>Void probability</small>
           <strong>{(budget.blankShare * 100).toFixed(1)}%</strong>
         </div>
         <div className="dev-stat">
-          <small>Symbol probability</small>
+          <small>Sigil probability</small>
           <strong>
             {(
               (primary.faces.filter((f) => f.type === "symbol").length /
@@ -334,18 +335,13 @@ export function DiceLab() {
                       <td key={j}>
                         {f ? (
                           <>
-                            <strong>
-                              {f.type === "number"
-                                ? f.value
-                                : (f.effectId ?? "Blank")}
-                            </strong>
+                            <strong>{omenFace(f).name}</strong>
                             <small>
                               ↔ {d.opposites[i] + 1} · weight {f.balanceWeight}
                               <br />
                               {freq[`${d.id}:${i}`] ?? 0} rolls
                               <br />
-                              {f.type}
-                              {f.effectId ? ` / ${f.effectId}` : ""}
+                              {omenFace(f).kind}
                             </small>
                           </>
                         ) : (
@@ -362,7 +358,7 @@ export function DiceLab() {
       </div>
       <Section title="Exact shared-position comparison">
         <p>
-          Mixed-size dice map the same position to different face indices. All
+          Mixed-size Omens map the same position to different face indices. All
           120 bands are represented.
         </p>
         <div className="dev-table-wrap">
@@ -387,8 +383,7 @@ export function DiceLab() {
                     </td>
                     {pair.split("/").map((p, j) => (
                       <td key={j}>
-                        Face {+p + 1} ·{" "}
-                        {dice[j].faces[+p].effectId ?? dice[j].faces[+p].value}
+                        Face {+p + 1} · {omenFace(dice[j].faces[+p]).name}
                       </td>
                     ))}
                   </tr>
@@ -401,7 +396,7 @@ export function DiceLab() {
       <Section title="Balance totals">
         <Json
           value={dice.map((d) => ({
-            ...dieBudget(d),
+            ...omenBudget(d),
             totalWeight: d.faces.reduce((n, f) => n + f.balanceWeight, 0),
             tags: d.tags,
             compatibility: d.compatibleLegendTags,

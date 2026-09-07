@@ -125,6 +125,7 @@ while (view.phase !== "MATCH_END" && steps++ < 250) {
   ) as 0 | 1;
   if (actual !== actor) continue;
   const context: DecisionContext = {
+    omenRollCount: view.omenRollCount,
     actor,
     phase: view.phase,
     round: view.round,

@@ -1,3 +1,4 @@
+import { GAME } from "../src/content/config";
 import { describe, it, expect } from "vitest";
 import {
   startOnline,
@@ -75,8 +76,11 @@ describe("Server authority", () => {
       ),
       next = expireOnline(s, s.deadline);
     expect(next.revision).toBeGreaterThan(s.revision);
-    expect(next.activePlayer).not.toBe(s.activePlayer);
-    expect(s.phase).toBe("MAIN_ACTION");
+    expect(next.activePlayer).toBe(s.activePlayer);
+    expect(s.phase).toBe("OMEN_CHOICE");
+    expect(next.phase).toBe("MAIN_ACTION");
+    const afterTurn = expireOnline(next, next.deadline);
+    expect(afterTurn.activePlayer).not.toBe(s.activePlayer);
   });
   it("completes a real online command exchange and verifies its replay", () => {
     let s = startOnline(
@@ -119,7 +123,7 @@ describe("Server authority", () => {
     );
     expect(await h.json()).toMatchObject({
       product: "OMNIPATH",
-      mechanicalVersion: 2,
+      mechanicalVersion: GAME.version,
     });
   });
 });

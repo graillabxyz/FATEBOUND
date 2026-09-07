@@ -17,10 +17,10 @@ export default defineConfig(({ command, mode }) => {
             !internal &&
             /(?:^|\/)(dev\/DevLab|metrics\/Dashboard)(?:\.tsx)?$/.test(id)
           )
-            return "\0fatebound-disabled-tools";
+            return "\0omnipath-disabled-tools";
         },
         load(id: string) {
-          if (id === "\0fatebound-disabled-tools")
+          if (id === "\0omnipath-disabled-tools")
             return "export default function DisabledTools(){ return null; }";
         },
       },

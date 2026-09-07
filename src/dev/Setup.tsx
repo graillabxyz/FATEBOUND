@@ -1,6 +1,7 @@
+import { omenFace } from "../content/terminology";
 import { LEGENDS, legendById } from "../content/legends";
 import { CARDS } from "../content/cards";
-import { DICE } from "../content/dice";
+import { OMENS } from "../content/omens";
 import { STARTERS } from "../content/loadouts";
 import { useGame } from "../ui/context";
 import {
@@ -43,7 +44,7 @@ export default function Setup({
       {setup.ignoreRestrictions && (
         <p className="dev-warning">
           Compatibility checks bypassed. Four distinct known cards and three
-          existing dice are still required; all actions use production rules.
+          existing Omens are still required; all actions use production rules.
         </p>
       )}
       {([0, 1] as Seat[]).map((a) => {
@@ -137,7 +138,7 @@ export default function Setup({
               {p.loadout.dice.map((id, i) => (
                 <Field
                   key={i}
-                  label={`Player ${a === 0 ? "A" : "B"} die ${i + 1}`}
+                  label={`Player ${a === 0 ? "A" : "B"} Omen ${i + 1}`}
                 >
                   <select
                     value={id}
@@ -147,7 +148,7 @@ export default function Setup({
                       )
                     }
                   >
-                    {DICE.filter(
+                    {OMENS.filter(
                       (d) =>
                         setup.ignoreRestrictions ||
                         (l.allowedDiceSizes.includes(d.size) &&
@@ -174,17 +175,17 @@ export default function Setup({
             />
             <div className="dev-grid3">
               <NumberField
-                label={`Player ${a === 0 ? "A" : "B"} HP`}
+                label={`Player ${a === 0 ? "A" : "B"} Life`}
                 value={p.hp}
                 onChange={(v) => change((s) => (s.players[a].hp = v))}
               />
               <NumberField
-                label={`Player ${a === 0 ? "A" : "B"} Guard`}
+                label={`Player ${a === 0 ? "A" : "B"} Ward`}
                 value={p.guard}
                 onChange={(v) => change((s) => (s.players[a].guard = v))}
               />
               <NumberField
-                label={`Player ${a === 0 ? "A" : "B"} Control`}
+                label={`Player ${a === 0 ? "A" : "B"} Focus`}
                 max={6}
                 value={p.control}
                 onChange={(v) => change((s) => (s.players[a].control = v))}
@@ -218,7 +219,7 @@ export default function Setup({
                 </select>
               </Field>
             </div>
-            <Section title="Held dice at match entry">
+            <Section title="Held Omens at match entry">
               <p className="dev-muted">
                 Explicit lab resources, including a defender who has not rolled
                 yet. Face positions below are one-based.
@@ -226,7 +227,7 @@ export default function Setup({
               {p.heldFaces.map((f, i) => (
                 <Field
                   key={i}
-                  label={`Player ${a ? "B" : "A"} held die ${i + 1}`}
+                  label={`Player ${a ? "B" : "A"} held Omen ${i + 1}`}
                 >
                   <select
                     value={f ?? "none"}
@@ -240,11 +241,13 @@ export default function Setup({
                       )
                     }
                   >
-                    <option value="none">No override · follow turn ramp</option>
-                    {DICE.find((d) => d.id === p.loadout.dice[i])!.faces.map(
+                    <option value="none">
+                      No override · follow opening rules
+                    </option>
+                    {OMENS.find((d) => d.id === p.loadout.dice[i])!.faces.map(
                       (face, j) => (
                         <option key={j} value={j}>
-                          Face {j + 1}: {face.effectId ?? face.value}
+                          Face {j + 1}: {omenFace(face).name}
                         </option>
                       ),
                     )}
@@ -324,7 +327,7 @@ export default function Setup({
                 </select>
               </Field>
               <p className="dev-muted">
-                Dice held from the previous turn expire at the start of their
+                Omens held from the previous turn expire at the start of their
                 owner’s next turn.
               </p>
               <Field label={`Player ${a === 0 ? "A" : "B"} statuses JSON`}>
@@ -449,9 +452,9 @@ export default function Setup({
           </select>
         </Field>
         <p className="dev-muted">
-          Forced positions are 1–120, normalized across die sizes. Random mode
+          Forced positions are 1–120, normalized across Omen sizes. Random mode
           uses independent seeded turns. The preview below shows the exact face
-          on every equipped die.
+          on every equipped Omen.
         </p>
         <Field label="Fixed shared positions">
           <input

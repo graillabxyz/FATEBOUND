@@ -1,3 +1,4 @@
+import { GAME } from "../src/content/config";
 import type { MatchRecord } from "../src/metrics/data";
 import { validateLoadout } from "../src/engine/rules";
 import { dieById } from "../src/content/dice";
@@ -15,7 +16,7 @@ export function validateRecord(
     !raw ||
     typeof raw.id !== "string" ||
     raw.id.length > 180 ||
-    raw.version !== 2 ||
+    raw.version !== GAME.version ||
     !["live", "simulation", "lab"].includes(source) ||
     raw.source !== source
   )
@@ -71,7 +72,19 @@ export function validateRecord(
     throw new Error("Invalid round metrics.");
   raw.stats.forEach((r) => {
     number(r.round, 1, 99);
-    for (const key of ["damage", "guard", "control", "unused", "held", "expired", "rolls", "reactions", "reactionWindows", "reactionSuccess", "turns"] as const) {
+    for (const key of [
+      "damage",
+      "guard",
+      "control",
+      "unused",
+      "held",
+      "expired",
+      "rolls",
+      "reactions",
+      "reactionWindows",
+      "reactionSuccess",
+      "turns",
+    ] as const) {
       if (!Array.isArray(r[key]) || r[key].length !== 2)
         throw new Error("Invalid per-seat metric.");
       r[key].forEach((n) => number(n));
@@ -92,11 +105,11 @@ export function validateRecord(
     });
     r.faces.forEach((faces, a) => {
       if (faces.length > 3)
-        throw new Error("At most three die observations per turn.");
+        throw new Error("At most three Omen observations per turn.");
       faces.forEach((f) => {
         const [id, index] = f.split(":");
         if (!raw.loadouts[a].dice.includes(id) || !dieById[id])
-          throw new Error("Invalid die ID.");
+          throw new Error("Invalid Omen ID.");
         number(+index, 0, dieById[id].size - 1);
         if (!Number.isInteger(+index))
           throw new Error("Face index must be an integer.");
@@ -104,26 +117,31 @@ export function validateRecord(
     });
   });
   if (!Array.isArray(raw.controls) || raw.controls.length > 600)
-    throw new Error("Invalid Control metrics.");
+    throw new Error("Invalid Focus metrics.");
   raw.controls.forEach((c) => {
     number(c.actor, 0, 1);
     number(c.slot, 0, 2);
     if (!Number.isInteger(c.actor) || !Number.isInteger(c.slot))
       throw new Error("Actor and slot must be integers.");
     if (!["shift", "flip"].includes(c.kind))
-      throw new Error("Invalid Control kind.");
+      throw new Error("Invalid Focus kind.");
   });
-  if (!raw.openingInitiative || ![0,1].includes(raw.openingInitiative.winner)) throw new Error("Opening initiative metrics required.");
-  for (const key of ["rolls","bonuses","totals"] as const) {
-    const values=raw.openingInitiative[key];if(!Array.isArray(values)||values.length!==2)throw new Error("Invalid initiative metrics.");
-    values.forEach(v=>number(v,key==="rolls"?1:0,key==="rolls"?20:40));
+  if (!raw.openingInitiative || ![0, 1].includes(raw.openingInitiative.winner))
+    throw new Error("Opening initiative metrics required.");
+  for (const key of ["rolls", "bonuses", "totals"] as const) {
+    const values = raw.openingInitiative[key];
+    if (!Array.isArray(values) || values.length !== 2)
+      throw new Error("Invalid initiative metrics.");
+    values.forEach((v) =>
+      number(v, key === "rolls" ? 1 : 0, key === "rolls" ? 20 : 40),
+    );
   }
   // Only anonymous content identifiers and numeric outcomes are persisted; no profile or authored build names.
   return {
     id: raw.id,
     source,
     mode: String(raw.mode).slice(0, 40),
-    version: 2,
+    version: GAME.version,
     timestamp: new Date(timestamp).toISOString(),
     durationMs: raw.durationMs,
     rounds: raw.rounds,
@@ -143,7 +161,13 @@ export function validateRecord(
       guard: [...r.guard],
       control: [...r.control],
       unused: [...r.unused],
-      held: [...r.held], expired: [...r.expired], rolls: [...r.rolls], reactions: [...r.reactions], reactionWindows: [...r.reactionWindows], reactionSuccess: [...r.reactionSuccess], turns: [...r.turns],
+      held: [...r.held],
+      expired: [...r.expired],
+      rolls: [...r.rolls],
+      reactions: [...r.reactions],
+      reactionWindows: [...r.reactionWindows],
+      reactionSuccess: [...r.reactionSuccess],
+      turns: [...r.turns],
       cards: r.cards.map((c) => [...c]),
       faces: r.faces.map((f) => [...f]),
     })),

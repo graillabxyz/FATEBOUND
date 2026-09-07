@@ -283,7 +283,7 @@ export default function App() {
                       {result.winner === 0
                         ? "Your decisions made the difference."
                         : result.winner === "draw"
-                          ? "Equal HP. Equal damage. An honorable draw."
+                          ? "Equal Life. Equal damage. An honorable draw."
                           : "Every encounter leaves you wiser."}
                     </p>
                     <RankBadge label={rankLabel(profile)} />
@@ -291,12 +291,12 @@ export default function App() {
                   <div className="result-score">
                     <span>
                       {legendById[result.players[0].loadout.legend].name}
-                      <b>{result.players[0].hp} HP</b>
+                      <b>{result.players[0].hp} Life</b>
                     </span>
                     <span>ROUND {result.round} / 7</span>
                     <span>
                       {legendById[result.players[1].loadout.legend].name}
-                      <b>{result.players[1].hp} HP</b>
+                      <b>{result.players[1].hp} Life</b>
                     </span>
                   </div>
                   <div className="result-rewards">
@@ -357,7 +357,7 @@ export default function App() {
                           const url = URL.createObjectURL(blob);
                           const a = document.createElement("a");
                           a.href = url;
-                          a.download = `fatebound-replay-${result.id}.json`;
+                          a.download = `omnipath-replay-${result.id}.json`;
                           a.click();
                           setTimeout(() => URL.revokeObjectURL(url), 1000);
                           toast("Replay exported.");

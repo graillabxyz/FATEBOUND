@@ -14,7 +14,7 @@ export const COSMETICS: Cosmetic[] = [
   {
     id: "carved",
     name: "Heartwood",
-    kind: "Dice skin",
+    kind: "Omen Skin",
     rarity: "COMMON",
     description: "Warm wood, worn by a thousand decisions.",
     price: 0,
@@ -25,7 +25,7 @@ export const COSMETICS: Cosmetic[] = [
   {
     id: "obsidian",
     name: "Obsidian Fate",
-    kind: "Dice skin",
+    kind: "Omen Skin",
     rarity: "EPIC",
     description: "Volcanic glass. A quiet constellation within.",
     price: 350,
@@ -36,7 +36,7 @@ export const COSMETICS: Cosmetic[] = [
   {
     id: "jade",
     name: "Jade Reverie",
-    kind: "Dice skin",
+    kind: "Omen Skin",
     rarity: "RARE",
     description: "Polished jade that catches the first light.",
     price: 800,
@@ -112,7 +112,7 @@ export const PASS_REWARDS = Array.from({ length: 50 }, (_, i) => ({
         : { type: "coins", amount: 50, label: "50 Coins" },
   premium:
     i % 5 === 4
-      ? { type: "cosmetic", amount: 1, label: "Obsidian dice" }
+      ? { type: "cosmetic", amount: 1, label: "Obsidian Omens" }
       : { type: "gems", amount: 25, label: "25 Gems" },
 }));
 export const QUESTS = [
@@ -129,7 +129,7 @@ export const QUESTS = [
     id: "daily-guard",
     period: "daily",
     name: "Stand your ground",
-    text: "Gain Guard 8 times",
+    text: "Gain Ward 8 times",
     metric: "guards",
     target: 8,
     xp: 75,
@@ -138,7 +138,7 @@ export const QUESTS = [
     id: "daily-control",
     period: "daily",
     name: "Shape your fate",
-    text: "Spend 6 Control",
+    text: "Spend 6 Focus",
     metric: "control",
     target: 6,
     xp: 75,

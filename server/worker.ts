@@ -1,3 +1,4 @@
+import { GAME } from "../src/content/config";
 import { LEGENDS } from "../src/content/legends";
 import { validateRecord } from "./validation";
 import type { MatchRecord } from "../src/metrics/data";
@@ -118,7 +119,11 @@ export default {
     }
     try {
       if (url.pathname === "/api/health")
-        return json({ ok: true, storage: "D1/SQLite", mechanicalVersion: 1 });
+        return json({
+          ok: true,
+          storage: "D1/SQLite",
+          mechanicalVersion: GAME.version,
+        });
       if (url.pathname === "/api/telemetry" && request.method === "POST") {
         const value = await body(request);
         let count = 0;
@@ -176,7 +181,7 @@ export default {
         )
           throw new Error("Invalid matchup filter.");
         const values: unknown[] = [source, since];
-        let where = "source = ? AND created_at >= ? AND mechanical_version = 2";
+        let where = `source = ? AND created_at >= ? AND mechanical_version = ${GAME.version}`;
         if (legend !== "all" && opponent !== "all") {
           where +=
             " AND ((legend_a = ? AND legend_b = ?) OR (legend_a = ? AND legend_b = ?))";

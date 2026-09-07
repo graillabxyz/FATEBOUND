@@ -1,12 +1,19 @@
+import { OmenFaces } from "./OmenFaces";
 import { useState } from "react";
 import { LEGENDS } from "../content/legends";
 import { CARDS } from "../content/cards";
-import { DICE } from "../content/dice";
+import { OMENS } from "../content/omens";
 import { COSMETICS } from "../content/economy";
 import { useGame } from "./context";
-import { Die, GameplayCard, Icon, LegendCard, PageHeading } from "./components";
+import {
+  Omen,
+  GameplayCard,
+  Icon,
+  LegendCard,
+  PageHeading,
+} from "./components";
 export default function Collection() {
-  const { active, profile, inspect } = useGame();
+  const { active, profile, inspect, service } = useGame();
   const [category, setCategory] = useState("Legends");
   const [filter, setFilter] = useState("all");
   const [favorite, setFavorite] = useState(false);
@@ -18,14 +25,14 @@ export default function Collection() {
             ? LEGENDS.length
             : category === "Cards"
               ? CARDS.length
-              : category === "Dice"
-                ? DICE.length
+              : category === "Omens"
+                ? OMENS.length
                 : COSMETICS.length}
           <span> {category.toUpperCase()}</span>
         </span>
       </PageHeading>
       <div className="collection-tabs">
-        {["Legends", "Cards", "Dice", "Cosmetics"].map((c) => (
+        {["Legends", "Cards", "Omens", "Cosmetics"].map((c) => (
           <button
             key={c}
             className={category === c ? "active" : ""}
@@ -104,24 +111,30 @@ export default function Collection() {
             ))}
           </div>
         </>
-      ) : category === "Dice" ? (
+      ) : category === "Omens" ? (
         <>
           <p className="intro-copy">
             Ordered faces. Deliberate tradeoffs.
             <br />
-            The same Fate, interpreted your way.
+            Three fixed Omens. Your choice of probabilities.
           </p>
           <div className="dice-catalog">
-            {DICE.map((d) => (
+            {OMENS.map((d) => (
               <button
                 className="die-catalog-item"
                 key={d.id}
-                onClick={() => inspect({ type: "die", item: d })}
+                onClick={() => inspect({ type: "omen", item: d })}
               >
                 <div className="die-display">
-                  <Die definition={d} skin={profile.skin} />
+                  <Omen definition={d} skin={profile.skin} />
                 </div>
                 <strong>{d.name}</strong>
+                <OmenFaces omen={d} />
+                <small>{d.tags.join(" · ")}</small>
+                <small>
+                  {service.ownedGameplay().has(d.id) ? "Owned" : "Locked"}
+                  {active.dice.includes(d.id) ? " · Equipped" : ""}
+                </small>
                 <span>
                   {d.rarity} · {d.faces.length} faces
                 </span>
@@ -145,8 +158,8 @@ export default function Collection() {
                 style={{ "--cosmetic-color": c.color } as React.CSSProperties}
               >
                 <div className="cosmetic-art">
-                  {c.kind === "Dice skin" ? (
-                    <Die definition={DICE[4]} skin={c.id} />
+                  {c.kind === "Omen Skin" ? (
+                    <Omen definition={OMENS[4]} skin={c.id} />
                   ) : (
                     <Icon name={c.icon} size={50} />
                   )}

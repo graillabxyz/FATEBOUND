@@ -1,9 +1,9 @@
-export type DieSize = 4 | 6 | 8 | 10 | 12 | 20;
+export type OmenSize = 4 | 6 | 8 | 10 | 12 | 20;
 export type LegendId =
   "basajaun" | "anansi" | "tengu" | "leshy" | "quetzalcoatl" | "maui";
 export type SymbolId =
   "guard" | "strike" | "swap" | "steal" | "redirect" | "smash";
-export type Face = {
+export type OmenFace = {
   type: "number" | "symbol" | "blank";
   value: number;
   effectId?: SymbolId;
@@ -12,7 +12,7 @@ export type Face = {
   guardValue?: number;
   tags?: string[];
 };
-export type DieDef = {
+export type OmenDefinition = {
   id: string;
   name: string;
   size: DieSize;
@@ -27,7 +27,7 @@ export type DieDef = {
 };
 export type Category =
   | "Attack"
-  | "Guard"
+  | "Ward"
   | "Counter"
   | "Recovery"
   | "Manipulation"
@@ -162,18 +162,23 @@ export type Loadout = {
   cards: string[];
   dice: string[];
 };
-export type ControlAction = {
+export type FocusAction = {
   slot: number;
   kind: "shift" | "flip";
   direction?: -1 | 1;
 };
 export type Assignment = { target: string; dice: number[] };
-export type Plan = { controls: ControlAction[]; assignments: Assignment[] };
+export type Plan = {
+  omenSlots?: number[];
+  controls: ControlAction[];
+  assignments: Assignment[];
+};
 export const PHASES = [
   "MATCH_INTRO",
   "INITIATIVE_ROLL",
   "ROUND_START",
   "TURN_START",
+  "OMEN_CHOICE",
   "DICE_ROLL",
   "MAIN_ACTION",
   "ACTION_DECLARED",
@@ -185,7 +190,7 @@ export const PHASES = [
   "ROUND_END",
   "MATCH_END",
 ] as const;
-export type DieResource = {
+export type OmenResource = {
   state:
     | "UNROLLED"
     | "ROLLING"
@@ -212,6 +217,7 @@ export type Declaration = {
 export type MatchConfig = {
   maxRounds: number;
   ramp: number[][];
+  openingOmenCounts: [number, number] | null;
   initiativeRolls?: [number, number];
   initiativeWinner?: 0 | 1;
   initiativeBonuses?: [number, number];
@@ -284,6 +290,7 @@ export type MatchState = {
   initiative: 0 | 1;
   activePlayer: 0 | 1;
   turn: number;
+  omenRollCount: number;
   turnInRound: 0 | 1;
   pending: Declaration | null;
   reaction: Declaration | null;
@@ -310,6 +317,7 @@ export type MatchView = Omit<
   players: [PublicPlayer, PublicPlayer];
 };
 export type DecisionContext = {
+  omenRollCount?: number;
   actor?: number;
   resolving?: boolean;
   heldDice?: number;
@@ -330,3 +338,12 @@ export type Replay = {
   turns: ReplayTurn[];
   config: MatchConfig;
 };
+
+/** Compatibility aliases for stored v2 field names. New integrations use the canonical names. */
+export type DieSize = OmenSize;
+export type DieDef = OmenDefinition;
+export type Face = OmenFace;
+export type ControlAction = FocusAction;
+export type DieResource = OmenResource;
+export type Hand = [string, string, string, string];
+export type OmenSkin = { id: string; name: string; appearance: string };

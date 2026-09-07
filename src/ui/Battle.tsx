@@ -1,3 +1,4 @@
+import { rulesLabel } from "../content/terminology";
 import { useEffect, useRef, useState } from "react";
 import type {
   MatchView,
@@ -8,7 +9,7 @@ import type {
 import type { LocalMatchService } from "../services/match-service";
 import { GAME } from "../content/config";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import {
   EMPTY_PLAN,
@@ -19,10 +20,10 @@ import {
 import { useGame } from "./context";
 import {
   CardBack,
-  ControlCounter,
-  Die,
+  FocusCounter,
+  Omen,
   GameplayCard,
-  HealthBar,
+  LifeBar,
   Icon,
   LegendArt,
   PrimaryButton,
@@ -85,13 +86,16 @@ export default function Battle({
     enemy = view.players[1],
     legend = legendById[me.loadout.legend],
     enemyLegend = legendById[enemy.loadout.legend];
+  const choosingOmens = view.phase === "OMEN_CHOICE";
   const reaction = view.phase === "REACTION_WINDOW",
     myDecision =
       !presentation?.viewOnly &&
       (reaction
         ? view.activePlayer === 1
-        : view.phase === "MAIN_ACTION" && view.activePlayer === 0);
+        : ["OMEN_CHOICE", "MAIN_ACTION"].includes(view.phase) &&
+          view.activePlayer === 0);
   const ctx: DecisionContext = {
+    omenRollCount: view.omenRollCount,
     round: view.round,
     fate: view.fate,
     actor: 0,
@@ -129,7 +133,7 @@ export default function Battle({
   const available = (slot: number) =>
     ["AVAILABLE", "HELD"].includes(me.dice[slot].state);
   const eligible = (id: string) => {
-    if (!myDecision) return false;
+    if (!myDecision || choosingOmens) return false;
     for (let mask = 1; mask < 8; mask++) {
       try {
         validatePlan(ctx, {
@@ -226,22 +230,21 @@ export default function Battle({
   const dieState = (side: 0 | 1, slot: number) => {
     const p = view.players[side],
       d = p.dice[slot];
-    if (d.state === "HELD" && reaction && view.activePlayer !== side)
-      return "REACTION AVAILABLE";
+    if (d.state === "HELD") return `${reaction && view.activePlayer !== side ? "HELD · REACT" : "HELD"}${d.modified ? " · FOCUS" : ""}`;
     if (d.modified && ["AVAILABLE", "HELD"].includes(d.state))
-      return "CONTROL MODIFIED";
+      return "FOCUS MODIFIED";
     if (
       d.state === "AVAILABLE" &&
-      dieById[p.loadout.dice[slot]].faces[p.faces[slot]].type === "symbol"
+      omenById[p.loadout.dice[slot]].faces[p.faces[slot]].type === "symbol"
     )
-      return "SPECIAL FACE";
+      return "SIGIL";
     return d.state;
   };
   const pending = view.pending,
     source = pending
       ? (cardById[pending.assignment.target]?.name ??
         (pending.assignment.target === "guard"
-          ? "Universal Guard"
+          ? "Universal Ward"
           : legendById[view.players[pending.actor].loadout.legend].active.name))
       : "";
   return (
@@ -284,7 +287,7 @@ export default function Battle({
                 </span>
               )}
             </div>
-            <HealthBar
+            <LifeBar
               key={`${presentation?.names?.[1] ?? "opponent"}:${enemyLegend.id}`}
               hp={enemy.hp}
               max={enemyLegend.hp}
@@ -292,13 +295,14 @@ export default function Battle({
             />
             <small>
               {presentation?.names?.[1] ?? `${service.difficulty} AI`} ·{" "}
-              {enemy.control} Control
+              {enemy.control} Focus
               {enemy.statuses.length
                 ? ` · ${enemy.statuses.map((s) => `${s.id} ${s.amount}`).join(", ")}`
                 : ""}
             </small>
           </div>
         </section>
+        <div className="battle-section-label">KNOWN HAND</div>
         <div className="opponent-hand">
           {enemy.loadout.cards.map((id, i) => (
             <CardBack
@@ -319,8 +323,8 @@ export default function Battle({
               key={i}
               className={`resource-die resource-${enemy.dice[i].state.toLowerCase()}`}
             >
-              <Die
-                definition={dieById[id]}
+              <Omen
+                definition={omenById[id]}
                 face={
                   ["UNROLLED", "EXPIRED"].includes(enemy.dice[i].state)
                     ? {
@@ -329,14 +333,18 @@ export default function Battle({
                         displayIcon: "—",
                         balanceWeight: 0,
                       }
-                    : dieById[id].faces[enemy.faces[i]]
+                    : omenById[id].faces[enemy.faces[i]]
                 }
                 small
                 rolling={enemy.dice[i].state === "ROLLING"}
-                onClick={
+                onClick={() =>
                   presentation?.inspectDie
-                    ? () => presentation.inspectDie!(1, i)
-                    : undefined
+                    ? presentation.inspectDie(1, i)
+                    : inspect({
+                        type: "omen",
+                        item: omenById[id],
+                        faceIndex: enemy.faces[i],
+                      })
                 }
               />
               <small>{dieState(1, i)}</small>
@@ -347,21 +355,27 @@ export default function Battle({
           className={`turn-announcement ${reaction ? "reaction" : ""}`}
           role="status"
         >
-          <small>{view.phase.replaceAll("_", " ")}</small>
+          <small>
+            {view.phase === "DICE_ROLL" ? "ROLL OMENS" : rulesLabel(view.phase)}
+          </small>
           <strong>
-            {reaction
-              ? view.activePlayer === 1
-                ? "YOUR REACTION"
-                : "OPPONENT REACTION"
-              : view.phase === "MAIN_ACTION"
-                ? view.activePlayer === 0
-                  ? "YOUR TURN"
-                  : "OPPONENT TURN"
-                : view.phase === "ROUND_START"
-                  ? `${legendById[view.players[view.initiative].loadout.legend].name} leads`
-                  : view.phase === "MATCH_END"
-                    ? "MATCH COMPLETE"
-                    : source || "Read the moment"}
+            {choosingOmens
+              ? view.activePlayer === 0
+                ? `CHOOSE ${view.omenRollCount} ${view.omenRollCount === 1 ? "OMEN" : "OMENS"}`
+                : "OPPONENT CHOOSING OMENS"
+              : reaction
+                ? view.activePlayer === 1
+                  ? "YOUR REACTION"
+                  : "OPPONENT REACTION"
+                : view.phase === "MAIN_ACTION"
+                  ? view.activePlayer === 0
+                    ? "YOUR TURN"
+                    : "OPPONENT TURN"
+                  : view.phase === "ROUND_START"
+                    ? `${legendById[view.players[view.initiative].loadout.legend].name} leads`
+                    : view.phase === "MATCH_END"
+                      ? "MATCH COMPLETE"
+                      : source || "Read the moment"}
           </strong>
           {pending && (
             <span>
@@ -402,7 +416,7 @@ export default function Battle({
                       view.players[view.openingInitiative.winner].loadout.legend
                     ].name
                   }{" "}
-                  takes Round 1
+                  takes Initiative
                 </p>
               </>
             ) : (
@@ -416,14 +430,16 @@ export default function Battle({
             {view.events.slice(-30).map((e, i) => (
               <p key={i}>
                 <small>
-                  R{e.round} · {e.type}
+                  R{e.round} · {rulesLabel(e.type)}
                 </small>
-                {e.text}
+                {rulesLabel(e.text)}
               </p>
             ))}
           </div>
         ) : (
-          <div className="turn-last-event">{view.events.at(-1)?.text}</div>
+          <div className="turn-last-event">
+            {rulesLabel(view.events.at(-1)?.text ?? "")}
+          </div>
         )}
         <section
           className={`turn-combatant self ${view.activePlayer === 0 ? "active-turn" : ""}`}
@@ -447,7 +463,7 @@ export default function Battle({
                 </span>
               )}
             </div>
-            <HealthBar
+            <LifeBar
               key={`${presentation?.names?.[0] ?? "player"}:${legend.id}`}
               hp={me.hp}
               max={legend.hp}
@@ -462,6 +478,7 @@ export default function Battle({
             </small>
           </div>
         </section>
+        <div className="battle-section-label">HAND</div>
         <div className="turn-hand">
           {me.loadout.cards.map((id, i) =>
             id ? (
@@ -514,10 +531,12 @@ export default function Battle({
             {myDecision
               ? reaction
                 ? "Available reactions"
-                : "Select dice → choose ability"
-              : "Held dice remain visible"}
+                : choosingOmens
+                  ? `Choose ${view.omenRollCount} equipped Omens`
+                  : "OMENS · select → activate"
+              : "Held Omens remain visible"}
           </span>
-          <ControlCounter value={control} />
+          <FocusCounter value={control} />
         </div>
         <div className="turn-dice-tray">
           {me.loadout.dice.map((id, i) => (
@@ -525,8 +544,8 @@ export default function Battle({
               key={i}
               className={`resource-die resource-${me.dice[i].state.toLowerCase()}`}
             >
-              <Die
-                definition={dieById[id]}
+              <Omen
+                definition={omenById[id]}
                 face={
                   ["UNROLLED", "EXPIRED"].includes(me.dice[i].state)
                     ? {
@@ -535,7 +554,7 @@ export default function Battle({
                         displayIcon: "—",
                         balanceWeight: 0,
                       }
-                    : dieById[id].faces[positions[i]]
+                    : omenById[id].faces[positions[i]]
                 }
                 selected={selection.includes(i)}
                 rolling={me.dice[i].state === "ROLLING"}
@@ -544,7 +563,7 @@ export default function Battle({
                     presentation.inspectDie(0, i);
                     return;
                   }
-                  if (myDecision && available(i)) {
+                  if (myDecision && (choosingOmens || available(i))) {
                     const next = selection.includes(i)
                       ? selection.filter((n) => n !== i)
                       : [...selection, i];
@@ -555,15 +574,38 @@ export default function Battle({
                     });
                   }
                 }}
-                label={`Die slot ${i + 1}, D${dieById[id].size}, ${dieState(0, i)}`}
+                label={`Omen slot ${i + 1}, D${omenById[id].size}, ${dieState(0, i)}`}
               />
+              <button
+                className="omen-info-button"
+                aria-label={`Inspect ${omenById[id].name} faces and Sigils`}
+                onClick={() =>
+                  inspect({
+                    type: "omen",
+                    item: omenById[id],
+                    faceIndex: positions[i],
+                  })
+                }
+              >
+                ⓘ d{omenById[id].size}
+              </button>
               <small>
                 {selection.includes(i) ? "ASSIGNED" : dieState(0, i)}
               </small>
             </div>
           ))}
         </div>
-        {myDecision && (
+        {choosingOmens && myDecision && (
+          <PrimaryButton
+            disabled={selection.length !== view.omenRollCount}
+            onClick={() =>
+              submit({ controls: [], assignments: [], omenSlots: selection })
+            }
+          >
+            Roll {selection.length} {selection.length === 1 ? "Omen" : "Omens"}
+          </PrimaryButton>
+        )}
+        {myDecision && !choosingOmens && (
           <>
             <div className="turn-abilities">
               <button
@@ -582,7 +624,7 @@ export default function Battle({
               >
                 <Icon name="guard" size={14} />
                 <span>
-                  Guard<small>½ number ↓</small>
+                  Ward<small>½ Value ↓</small>
                 </span>
               </button>
             </div>
@@ -600,7 +642,7 @@ export default function Battle({
                       })
                     }
                   >
-                    Shift {direction > 0 ? "+1" : "−1"} · 1
+                    Shift {direction > 0 ? "+1" : "−1"} · 1 Focus
                   </button>
                 ))}
                 <button
@@ -611,7 +653,7 @@ export default function Battle({
                     })
                   }
                 >
-                  Flip · 2
+                  Flip · 2 Focus
                 </button>
               </div>
             )}
@@ -636,7 +678,7 @@ export default function Battle({
                 className="hold-button"
                 onClick={() => submit(structuredClone(EMPTY_PLAN))}
               >
-                {reaction ? "Pass reaction" : "Hold dice · End turn"}
+                {reaction ? "Pass reaction" : "Hold Omens · End turn"}
                 {!service.practice && !reaction ? ` · ${seconds}s` : ""}
               </button>
             </div>

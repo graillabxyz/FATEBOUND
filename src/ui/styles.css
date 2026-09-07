@@ -3907,3 +3907,143 @@ input[type="checkbox"] {
     margin-top: 5px;
   }
 }
+
+/* OMNIPATH's fixed Omen faces share the same visual grammar in every screen. */
+.omen-face-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  justify-content: center;
+  margin: 8px 0;
+}
+.omen-face-token {
+  display: inline-grid;
+  place-items: center;
+  min-width: 21px;
+  min-height: 25px;
+  border: 1px solid #70655166;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #e5ded0;
+  background: #151c20;
+}
+.face-value {
+  color: #eee6d6;
+}
+.face-sigil {
+  color: #e8c481;
+  border-color: #b18c50;
+}
+.face-void {
+  color: #b5bed0;
+  border-style: dashed;
+}
+.omen-explanation {
+  border: 1px solid #82745b66;
+  border-radius: 9px;
+  padding: 12px;
+  margin: 12px 0;
+  background: #151e23;
+}
+.omen-explanation strong {
+  font-size: 16px;
+}
+.omen-explanation p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 7px 0 0;
+}
+.omen-info-button {
+  min-height: 32px;
+  padding: 5px 10px;
+  color: #d9c59c;
+  font-size: 12px;
+  background: transparent;
+}
+.battle-section-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #c5b38d;
+  margin: 5px 15px 2px;
+}
+.control-counter i {
+  background: transparent !important;
+  font-style: normal;
+  color: #555b60;
+  font-size: 14px;
+}
+.control-counter i.lit {
+  color: #dfbf7a;
+  box-shadow: none;
+}
+.ward-break {
+  position: absolute;
+  right: 0;
+  top: -18px;
+  color: #9bd6df;
+  font-size: 13px;
+  animation: ward-shatter 0.65s both;
+  z-index: 3;
+}
+@keyframes ward-shatter {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+.health-hit .health-track i {
+  transition-delay: 0.18s;
+}
+.tutorial-steps {
+  padding: 16px 0;
+  min-height: 190px;
+}
+.tutorial-steps p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.tutorial-steps > small {
+  color: #cfb986;
+}
+.tutorial-face-demo {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+.tutorial-step-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 16px;
+}
+.tutorial-step-buttons button {
+  min-height: 44px;
+  padding: 10px 24px;
+  background: #263237;
+  border: 1px solid #87754f;
+  border-radius: 6px;
+}
+.tutorial-step-buttons button:disabled {
+  opacity: 0.35;
+}
+.mechanical-glossary {
+  margin-top: 24px;
+}
+.mechanical-glossary details {
+  border-bottom: 1px solid #685f454a;
+}
+.mechanical-glossary summary {
+  padding: 13px 0;
+  min-height: 44px;
+  color: #e4d4b2;
+  cursor: pointer;
+}
+.mechanical-glossary p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}

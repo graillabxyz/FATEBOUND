@@ -1,4 +1,5 @@
-import { dieById } from "../content/dice";
+import { GAME } from "../content/config";
+import { omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import type {
   Loadout,
@@ -80,7 +81,7 @@ export function aggregate(
   records: MatchRecord[],
   actorFilter: "all" | "human" | "ai" = "all",
 ) {
-  records = records.filter((r) => r.version === 2);
+  records = records.filter((r) => r.version === GAME.version);
   const byDiceSize: Record<string, { games: number; wins: number }> = {};
   const byLegend: Record<string, EntityMetrics> = {},
     byCard: Record<string, CardMetrics> = {},
@@ -118,7 +119,7 @@ export function aggregate(
     initiativeGames = 0;
 
   for (const r of records) {
-    if (r.version !== 2) continue;
+    if (r.version !== GAME.version) continue;
     if (r.openingInitiative) {
       initiativeGames++;
       if (r.winner !== "draw")
@@ -233,7 +234,7 @@ export function aggregate(
           row.reveals++;
         }
       }
-      for (const size of new Set(l.dice.map((id) => dieById[id].size))) {
+      for (const size of new Set(l.dice.map((id) => omenById[id].size))) {
         const row = (byDiceSize[size] ??= { games: 0, wins: 0 });
         row.games++;
         row.wins += +won;
@@ -314,7 +315,7 @@ export function aggregate(
     byClass,
     byInitiativeBonus,
     damageByRound,
-    games: records.filter((r) => r.version === 2).length,
+    games: records.filter((r) => r.version === GAME.version).length,
     seatWins,
     draws,
     averageRounds: records.length ? rounds / records.length : 0,

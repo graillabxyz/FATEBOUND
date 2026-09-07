@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { rulesLabel } from "../content/terminology";
 import type { ReactNode } from "react";
 export function Field({
   label,
@@ -8,7 +10,7 @@ export function Field({
 }) {
   return (
     <label className="dev-field">
-      <span>{label}</span>
+      <span>{rulesLabel(label)}</span>
       {children}
     </label>
   );
@@ -27,7 +29,7 @@ export function NumberField({
   max?: number;
 }) {
   return (
-    <Field label={label}>
+    <Field label={rulesLabel(label)}>
       <input
         type="number"
         min={min}
@@ -54,7 +56,7 @@ export function Toggle({
         checked={value}
         onChange={(e) => onChange(e.target.checked)}
       />
-      <span>{label}</span>
+      <span>{rulesLabel(label)}</span>
     </label>
   );
 }
@@ -69,13 +71,46 @@ export function Section({
 }) {
   return (
     <details className="dev-section" open={open || undefined}>
-      <summary>{title}</summary>
+      <summary>{rulesLabel(title)}</summary>
       <div className="dev-section-body">{children}</div>
     </details>
   );
 }
 export function Json({ value }: { value: unknown }) {
-  return <pre className="dev-json">{JSON.stringify(value, null, 2)}</pre>;
+  const [raw, setRaw] = useState(false);
+  const present = (v: unknown): unknown =>
+    Array.isArray(v)
+      ? v.map(present)
+      : v && typeof v === "object"
+        ? Object.fromEntries(
+            Object.entries(v).map(([k, x]) => [
+              (
+                {
+                  hp: "life",
+                  guard: "ward",
+                  control: "focus",
+                  dice: "omens",
+                  cards: "hand",
+                  symbol: "sigil",
+                  blankShare: "voidShare",
+                } as Record<string, string>
+              )[k] ?? rulesLabel(k),
+              present(x),
+            ]),
+          )
+        : typeof v === "string" && /^[A-Z_]+$/.test(v)
+          ? rulesLabel(v)
+          : v;
+  return (
+    <div>
+      <button className="dev-muted" onClick={() => setRaw(!raw)}>
+        {raw ? "Show game terms" : "Show stored field IDs"}
+      </button>
+      <pre className="dev-json">
+        {JSON.stringify(raw ? value : present(value), null, 2)}
+      </pre>
+    </div>
+  );
 }
 export function Button({
   children,

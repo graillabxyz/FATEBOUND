@@ -10,7 +10,7 @@ import {
   resourceAvailable,
   validatePlan,
 } from "./rules";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 export type Difficulty = "Training" | "Normal";
 function values(es: Effect[]): {
   damage: number;
@@ -54,7 +54,7 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
         ? {
             damage: 0,
             guard: guardValue(
-              dieById[ctx.self.loadout.dice[a.dice[0]]].faces[
+              omenById[ctx.self.loadout.dice[a.dice[0]]].faces[
                 positions[a.dice[0]]
               ],
             ),
@@ -103,7 +103,7 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
     if (reacting) return total + 0.18;
     // The second player goes first next round: their held dice expire immediately.
     if (ctx.turnInRound === 1) return total;
-    const die = dieById[ctx.self.loadout.dice[slot]],
+    const die = omenById[ctx.self.loadout.dice[slot]],
       face = die.faces[positions[slot]];
     let response = Math.min(3, guardValue(face));
     for (const ability of reactionAbilities)
@@ -153,6 +153,21 @@ export function inspectAI(
   difficulty: Difficulty = "Normal",
   limit = 20,
 ) {
+  if (ctx.phase === "OMEN_CHOICE") {
+    const chosen: Plan = {
+      controls: [],
+      assignments: [],
+      omenSlots: [0, 1, 2].slice(0, ctx.omenRollCount ?? 1),
+    };
+    return {
+      chosen,
+      evaluated: 1,
+      alternatives: [
+        { plan: chosen, score: 0, details: scorePlanDetails(ctx, chosen) },
+      ],
+    };
+  }
+
   const alternatives: {
     plan: Plan;
     score: number;

@@ -1,11 +1,12 @@
+import { OmenFaces } from "./OmenFaces";
 import { useEffect, useState } from "react";
 import type { Loadout as Build } from "../engine/types";
 import { legendById } from "../content/legends";
 import { CARDS, cardById, cardsFor } from "../content/cards";
-import { DICE, dieById } from "../content/dice";
+import { OMENS, omenById } from "../content/omens";
 import { useGame } from "./context";
 import {
-  Die,
+  Omen,
   GameplayCard,
   Icon,
   IconButton,
@@ -72,6 +73,7 @@ export default function Loadout() {
           }}
         />
       </PageHeading>
+      <SectionLabel>LEGEND</SectionLabel>
       <button className="loadout-legend" onClick={() => navigate("legends")}>
         <LegendArt id={l.id} />
         <span>
@@ -105,9 +107,7 @@ export default function Loadout() {
         />
       </div>
       <div className="active-build">
-        <SectionLabel right={<span>4 / 4 EQUIPPED</span>}>
-          CARD HAND
-        </SectionLabel>
+        <SectionLabel right={<span>4 / 4 EQUIPPED</span>}>HAND</SectionLabel>
         <div className="active-hand">
           {draft.cards.map((id, i) => (
             <GameplayCard
@@ -123,12 +123,12 @@ export default function Loadout() {
             />
           ))}
         </div>
-        <SectionLabel right={<span>3 / 3 EQUIPPED</span>}>DICE</SectionLabel>
+        <SectionLabel right={<span>3 / 3 EQUIPPED</span>}>OMENS</SectionLabel>
         <div className="loadout-dice">
           {draft.dice.map((id, i) => (
             <div key={i}>
-              <Die
-                definition={dieById[id]}
+              <Omen
+                definition={omenById[id]}
                 selected={tab === "dice" && dieSlot === i}
                 skin={profile.skin}
                 onClick={() => {
@@ -136,14 +136,19 @@ export default function Loadout() {
                   setDieSlot(i);
                 }}
               />
-              <small>{dieById[id].name}</small>
+              <small>{omenById[id].name}</small>
+              <OmenFaces omen={omenById[id]} />
+              <small>
+                d{omenById[id].size} · {omenById[id].rarity} · Equipped
+              </small>
+              <small>{omenById[id].tags.join(" · ")}</small>
             </div>
           ))}
         </div>
       </div>
       <div className="save-build">
         <span>
-          <Icon name="check" size={14} />1 Legend · 4 cards · 3 dice
+          <Icon name="check" size={14} />1 Legend · 4 Cards · 3 Omens
         </span>
         <button onClick={save} className={changed ? "gold-text" : ""}>
           <Icon name="save" size={16} />
@@ -161,7 +166,7 @@ export default function Loadout() {
           className={tab === "dice" ? "active" : ""}
           onClick={() => setTab("dice")}
         >
-          Dice
+          Omens
         </button>
       </div>
       {tab === "cards" ? (
@@ -220,11 +225,11 @@ export default function Loadout() {
       ) : (
         <>
           <p className="helper-text">
-            Choose a collectible die for slot {dieSlot + 1}. Every ordered face
+            Choose a collectible Omen for slot {dieSlot + 1}. Every ordered face
             matters.
           </p>
           <div className="dice-catalog">
-            {DICE.filter(
+            {OMENS.filter(
               (d) =>
                 l.allowedDiceSizes.includes(d.size) &&
                 (d.compatibleLegendTags.includes("all") ||
@@ -234,7 +239,7 @@ export default function Loadout() {
                 className={`die-catalog-item ${draft.dice[dieSlot] === d.id ? "selected" : ""}`}
                 key={d.id}
               >
-                <Die
+                <Omen
                   definition={d}
                   skin={profile.skin}
                   onClick={() => {
@@ -244,12 +249,18 @@ export default function Loadout() {
                   }}
                 />
                 <strong>{d.name}</strong>
+                <OmenFaces omen={d} />
+                <small>
+                  {d.tags.join(" · ")} ·{" "}
+                  {service.ownedGameplay().has(d.id) ? "Owned" : "Locked"}
+                  {draft.dice.includes(d.id) ? " · Equipped" : ""}
+                </small>
                 <span>
                   {d.rarity} · D{d.size}
                 </span>
                 <button
                   className="text-button"
-                  onClick={() => inspect({ type: "die", item: d })}
+                  onClick={() => inspect({ type: "omen", item: d })}
                 >
                   Inspect faces
                   <Icon name="right" size={12} />

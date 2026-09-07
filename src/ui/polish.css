@@ -350,7 +350,7 @@
 .gameplay-card[data-category="Finisher"] {
   --card-accent: #d59a75;
 }
-.gameplay-card[data-category="Guard"],
+.gameplay-card[data-category="Ward"],
 .gameplay-card[data-category="Counter"] {
   --card-accent: #8bbfcd;
 }

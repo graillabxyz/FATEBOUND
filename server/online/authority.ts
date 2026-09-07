@@ -26,7 +26,11 @@ export function checkedLoadout(raw: unknown, owned: Set<string>): Loadout {
 }
 export function settle(state: MatchState, now: number) {
   for (let steps = 0; steps < 40; steps++) {
-    if (["MAIN_ACTION", "REACTION_WINDOW", "MATCH_END"].includes(state.phase))
+    if (
+      ["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW", "MATCH_END"].includes(
+        state.phase,
+      )
+    )
       return state;
     advance(state, now);
   }
@@ -59,12 +63,12 @@ export function applyOnline(
 export function expireOnline(state: MatchState, now: number) {
   const next = structuredClone(state);
   if (
-    ["MAIN_ACTION", "REACTION_WINDOW"].includes(next.phase) &&
+    ["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW"].includes(next.phase) &&
     now >= next.deadline
   ) {
     timeoutPlan(
       next,
-      next.phase === "MAIN_ACTION"
+      next.phase !== "REACTION_WINDOW"
         ? next.activePlayer
         : ((1 - next.activePlayer) as 0 | 1),
     );

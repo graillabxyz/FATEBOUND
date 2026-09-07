@@ -1,3 +1,4 @@
+import { GAME } from "../content/config";
 import { validateSavedState } from "../engine/validation";
 import { completedUsage } from "./telemetry";
 import {
@@ -21,7 +22,7 @@ import type {
 import type { StorageAdapter } from "./profile";
 import { validateLoadout } from "../engine/rules";
 import { CARDS } from "../content/cards";
-import { DICE } from "../content/dice";
+import { OMENS } from "../content/omens";
 export type MatchCommand = {
   matchId: string;
   sequence: number;
@@ -70,7 +71,7 @@ export class LocalMatchService implements MatchService {
   ) {
     const owned = new Set([
       ...CARDS.map((c) => c.id),
-      ...DICE.map((d) => d.id),
+      ...OMENS.map((d) => d.id),
     ]);
     loadouts.forEach((l) => validateLoadout(l, owned));
     const s = new LocalMatchService(
@@ -88,7 +89,11 @@ export class LocalMatchService implements MatchService {
       const data = JSON.parse(
         storage.getItem(MATCH_KEY) ?? "null",
       ) as Checkpoint;
-      if (!data || data.state.version !== 2 || data.state.phase === "MATCH_END")
+      if (
+        !data ||
+        data.state.version !== GAME.version ||
+        data.state.phase === "MATCH_END"
+      )
         return null;
       validateSavedState(data.state);
       const s = new LocalMatchService(
@@ -148,12 +153,11 @@ export class LocalMatchService implements MatchService {
   }
   tick(now: number, _draft?: Plan) {
     const phase = this.state.phase;
-    const decision =
-      phase === "MAIN_ACTION"
-        ? this.state.activePlayer
-        : phase === "REACTION_WINDOW"
-          ? 1 - this.state.activePlayer
-          : -1;
+    const decision = ["OMEN_CHOICE", "MAIN_ACTION"].includes(phase)
+      ? this.state.activePlayer
+      : phase === "REACTION_WINDOW"
+        ? 1 - this.state.activePlayer
+        : -1;
     if (decision === 1) {
       lockPlan(
         this.state,

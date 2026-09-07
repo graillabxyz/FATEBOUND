@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LEGENDS } from "../content/legends";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { aggregate, average, percent } from "./data";
 import { Field, Section } from "../dev/controls";
 export function MetricsTable({
@@ -46,7 +46,7 @@ export function MetricsTable({
           <strong>{data.initiativeWins.join(" / ")}</strong>
         </div>
         <div className="dev-stat">
-          <small>Held dice / turn</small>
+          <small>Held Omens / turn</small>
           <strong>{average(data.held, data.turns)}</strong>
         </div>
         <div className="dev-stat">
@@ -71,8 +71,8 @@ export function MetricsTable({
           ; {data.independentOpeningGames} independent decisive seeds.
         </p>
       )}
-      {tab === "Dice" && (
-        <Section title="Die size correlations">
+      {tab === "Omens" && (
+        <Section title="Omen size correlations">
           {Object.entries(data.byDiceSize).map(([size, r]) => (
             <p key={size}>
               D{size}: {percent(r.wins, r.games)} win rate · {r.games} loadout
@@ -93,7 +93,7 @@ export function MetricsTable({
         </p>
       )}
       <div className="dev-tabs">
-        {["Legends", "Cards", "Dice", "Matchups"].map((t) => (
+        {["Legends", "Cards", "Omens", "Matchups"].map((t) => (
           <button
             className={tab === t ? "active" : ""}
             onClick={() => setTab(t)}
@@ -103,7 +103,7 @@ export function MetricsTable({
           </button>
         ))}
       </div>
-      {["Cards", "Dice"].includes(tab) && (
+      {["Cards", "Omens"].includes(tab) && (
         <div className="dev-grid2">
           <Field label="Rank by">
             <select value={sort} onChange={(e) => setSort(e.target.value)}>
@@ -134,11 +134,11 @@ export function MetricsTable({
                   <th>Rounds</th>
                   <th>Damage</th>
                   <th>Taken</th>
-                  <th>Guard</th>
-                  <th>Control</th>
+                  <th>Ward</th>
+                  <th>Focus</th>
                   <th>Known</th>
                   <th>Most used card</th>
-                  <th>Most equipped die</th>
+                  <th>Most equipped Omen</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,7 +157,7 @@ export function MetricsTable({
                       <td>{r ? average(r.control, r.games) : "—"}</td>
                       <td>{r ? average(r.revealed, r.games) : "—"}</td>
                       <td>{r ? (cardById[top(r.cards)]?.name ?? "—") : "—"}</td>
-                      <td>{r ? (dieById[top(r.dice)]?.name ?? "—") : "—"}</td>
+                      <td>{r ? (omenById[top(r.dice)]?.name ?? "—") : "—"}</td>
                     </tr>
                   );
                 })}
@@ -198,15 +198,15 @@ export function MetricsTable({
                   ))}
               </tbody>
             </>
-          ) : tab === "Dice" ? (
+          ) : tab === "Omens" ? (
             <>
               <thead>
                 <tr>
-                  <th>Die</th>
+                  <th>Omen</th>
                   <th>Equipped matches</th>
                   <th>Slots</th>
                   <th>Win rate</th>
-                  <th>Control adjustments</th>
+                  <th>Focus adjustments</th>
                   <th>Resolved face frequencies</th>
                 </tr>
               </thead>
@@ -220,7 +220,7 @@ export function MetricsTable({
                   )
                   .map(([id, r]) => (
                     <tr key={id}>
-                      <th>{dieById[id]?.name ?? id}</th>
+                      <th>{omenById[id]?.name ?? id}</th>
                       <td>{r.equipped}</td>
                       <td>{r.slots}</td>
                       <td>{percent(r.wins, r.equipped)}</td>
@@ -277,12 +277,12 @@ export function MetricsTable({
         Win rates include draws in the denominator. A card “used” means
         revealed/assigned, including fizzles. Success is correlation within its
         loadout and matchup, not proof of independent card strength.
-        Damage/Guard/Control columns are per match.
+        Damage/Ward/Focus columns are per match.
       </p>
       <Section title="Lethal rounds and usage totals">
         <p>
-          Damage {data.damage} · Guard {data.guard} · Control spent{" "}
-          {data.control} · unused dice {data.unused}
+          Damage {data.damage} · Ward {data.guard} · Focus spent {data.control}{" "}
+          · unused Omens {data.unused}
         </p>
         <p>
           {Object.entries(data.lethalRounds)

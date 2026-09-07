@@ -1,6 +1,7 @@
+import { requirementText, rulesLabel } from "../content/terminology";
 import { GAME } from "../content/config";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import { shiftedPosition } from "./fate";
 import type {
@@ -15,7 +16,7 @@ import type {
 export const EMPTY_PLAN: Plan = { controls: [], assignments: [] };
 export const clone = <T>(value: T): T => structuredClone(value);
 export function dieCompatible(l: Loadout, id: string) {
-  const d = dieById[id],
+  const d = omenById[id],
     legend = legendById[l.legend];
   return (
     !!d &&
@@ -33,7 +34,7 @@ export function validateLoadout(l: Loadout, owned?: Set<string>) {
   )
     throw new Error("Equip exactly four different reusable cards.");
   if (!Array.isArray(l.dice) || l.dice.length !== 3)
-    throw new Error("Equip exactly three fixed dice.");
+    throw new Error("Equip exactly three fixed Omens.");
   l.cards.forEach((id) => {
     if (
       !cardById[id]?.tags.some((t) =>
@@ -45,8 +46,8 @@ export function validateLoadout(l: Loadout, owned?: Set<string>) {
   });
   l.dice.forEach((id) => {
     if (!dieCompatible(l, id))
-      throw new Error("Die is incompatible with this Legend.");
-    if (owned && !owned.has(id)) throw new Error("Die is not owned.");
+      throw new Error("Omen is incompatible with this Legend.");
+    if (owned && !owned.has(id)) throw new Error("Omen is not owned.");
   });
 }
 export function applyControls(
@@ -59,20 +60,20 @@ export function applyControls(
   let left = control;
   for (const a of actions) {
     if (!Number.isInteger(a.slot) || a.slot < 0 || a.slot > 2)
-      throw new Error("Invalid die slot.");
-    const d = dieById[loadout.dice[a.slot]];
+      throw new Error("Invalid Omen slot.");
+    const d = omenById[loadout.dice[a.slot]];
     if (!d.faces[positions[a.slot]])
-      throw new Error("Die has no valid rolled face.");
+      throw new Error("Omen has no valid rolled face.");
     if (a.kind === "flip") {
       if (left < 2)
-        throw new Error(`CONTROL INVALID: Flip costs 2; player has ${left}.`);
+        throw new Error(`FOCUS INVALID: Flip costs 2; player has ${left}.`);
       positions[a.slot] = d.opposites[positions[a.slot]];
       left -= 2;
     } else if (
       a.kind === "shift" &&
       (a.direction === 1 || a.direction === -1)
     ) {
-      if (left < 1) throw new Error("CONTROL INVALID: Shift costs 1.");
+      if (left < 1) throw new Error("FOCUS INVALID: Shift costs 1.");
       const n = shiftedPosition(d, positions[a.slot], a.direction);
       if (n === null)
         throw new Error(
@@ -80,7 +81,7 @@ export function applyControls(
         );
       positions[a.slot] = n;
       left--;
-    } else throw new Error("Invalid Control action.");
+    } else throw new Error("Invalid Focus action.");
   }
   return { positions, control: left };
 }
@@ -89,7 +90,7 @@ export function assignedFaces(
   positions: number[],
   slots: number[],
 ): Face[] {
-  return slots.map((i) => dieById[l.dice[i]]?.faces[positions[i]]);
+  return slots.map((i) => omenById[l.dice[i]]?.faces[positions[i]]);
 }
 export function meetsRequirement(
   r: Requirement,
@@ -162,7 +163,7 @@ export function assignmentValid(
   return meetsRequirement(
     requirementFor(l, a.target),
     faces,
-    a.dice.map((i) => dieById[l.dice[i]].size),
+    a.dice.map((i) => omenById[l.dice[i]].size),
     tolerance,
   );
 }
@@ -222,7 +223,7 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
     plan.controls.length > 2
   )
     throw new Error(
-      "Declare one action at a time. Cards may be reused with fresh dice.",
+      "Declare one action at a time. Cards may be reused with fresh Omens.",
     );
   const reacting = ctx.phase === "REACTION_WINDOW";
   if (
@@ -233,13 +234,11 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
   )
     throw new Error("TIMING INVALID: this player has no decision window.");
   if (reacting && plan.controls.length)
-    throw new Error(
-      "CONTROL INVALID: Control is available only on your own turn.",
-    );
+    throw new Error("FOCUS INVALID: Focus is available only on your own turn.");
   for (const c of plan.controls)
     if (!resourceAvailable(ctx, c.slot))
       throw new Error(
-        "DIE INVALID: Control requires an available, unspent die.",
+        "OMEN INVALID: Focus requires an available, unspent Omen.",
       );
   const result = applyControls(
     ctx.self.loadout,
@@ -250,7 +249,7 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
   for (const a of plan.assignments) {
     if (a.dice.some((i) => !resourceAvailable(ctx, i)))
       throw new Error(
-        "DIE INVALID: unrolled, spent or expired dice cannot pay a cost.",
+        "OMEN INVALID: unrolled, spent or expired Omens cannot pay a cost.",
       );
     const timing = timingFor(ctx.self.loadout, a.target);
     if (timing !== "BOTH" && timing !== (reacting ? "REACTION" : "ACTION"))
@@ -279,16 +278,14 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
           a.dice,
         ).reduce((n, f) => n + (f?.value ?? 0), 0);
       throw new Error(
-        `CARD INVALID: requires ${r.count} die/dice ${r.symbol ?? (r.exact !== undefined ? `exactly ${r.exact}` : `${r.min ?? 0}–${r.max ?? "∞"}`)}; currently ${total}.`,
+        `CARD INVALID: requires ${requirementText(r)}; currently ${total}.`,
       );
     }
     const r = requirementFor(ctx.self.loadout, a.target);
     if (r.control && result.control < r.control)
-      throw new Error(
-        "CONTROL INVALID: insufficient Control for this ability.",
-      );
+      throw new Error("FOCUS INVALID: insufficient Focus for this ability.");
     if (r.condition && !conditionMatches(r.condition, ctx, plan))
-      throw new Error(`CONDITION NOT MET: ${r.condition}.`);
+      throw new Error(`CONDITION NOT MET: ${rulesLabel(r.condition)}.`);
     if (
       r.initiative !== undefined &&
       r.initiative !== (ctx.actor === ctx.initiative)
@@ -300,7 +297,7 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
     )
       throw new Error("CONDITION NOT MET: round.");
     if (r.held && !a.dice.every((i) => ctx.self.dice[i].state === "HELD"))
-      throw new Error("CONDITION NOT MET: requires held dice.");
+      throw new Error("CONDITION NOT MET: requires held Omens.");
     if (
       r.legendClass &&
       legendById[ctx.self.loadout.legend].class !== r.legendClass
@@ -312,7 +309,7 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
         (_, i) => resourceAvailable(ctx, i) && !a.dice.includes(i),
       ).length < r.unused
     )
-      throw new Error("CONDITION NOT MET: unused dice.");
+      throw new Error("CONDITION NOT MET: unused Omens.");
     result.control -= r.control ?? 0;
   }
   return result;
@@ -332,7 +329,8 @@ export function explainAssignment(
   const total = a.dice.reduce(
     (n, i) =>
       n +
-      (dieById[ctx.self.loadout.dice[i]]?.faces[ctx.self.faces[i]]?.value ?? 0),
+      (omenById[ctx.self.loadout.dice[i]]?.faces[ctx.self.faces[i]]?.value ??
+        0),
     0,
   );
   try {

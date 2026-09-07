@@ -1,9 +1,10 @@
+import { omenFace, SIGILS, rulesLabel } from "../content/terminology";
 import { useState } from "react";
 import type { LabController } from "./controller";
 import type { Seat } from "./model";
 import { fateText, parseFate } from "./model";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import { facePosition } from "../engine/fate";
 import { decisionContext } from "../engine/match";
@@ -28,15 +29,13 @@ export function FatePreview({
           </strong>
           <div>
             {l.dice.map((id, i) => {
-              const d = dieById[id],
+              const d = omenById[id],
                 p = facePosition(fate[i], d.size),
                 f = d.faces[p];
               return (
                 <span key={i}>
                   D{d.size} · face {p + 1}
-                  <b>
-                    {f.type === "number" ? f.value : (f.effectId ?? "Blank")}
-                  </b>
+                  <b>{omenFace(f).name}</b>
                 </span>
               );
             })}
@@ -69,7 +68,7 @@ export function FateFacePicker({
       </Field>
       <div className="dev-grid3">
         {loadouts[reference].dice.map((id, slot) => {
-          const d = dieById[id];
+          const d = omenById[id];
           return (
             <Field key={slot} label={`Slot ${slot + 1} · D${d.size}`}>
               <select
@@ -84,7 +83,7 @@ export function FateFacePicker({
               >
                 {d.faces.map((f, i) => (
                   <option key={i} value={i}>
-                    Face {i + 1}: {f.effectId ?? f.value}
+                    Face {i + 1}: {omenFace(f).name}
                   </option>
                 ))}
               </select>
@@ -93,8 +92,8 @@ export function FateFacePicker({
         })}
       </div>
       <p className="dev-muted">
-        Shared Fate maps these positions to the other player's die sizes.
-        Directly setting an individual die can override that relationship.
+        Shared Fate maps these positions to the other player's Omen sizes.
+        Directly setting an individual Omen can override that relationship.
       </p>
     </div>
   );
@@ -106,8 +105,8 @@ export function FateEditor({ lab, run }: { lab: LabController; run: Run }) {
     <div className="dev-stack">
       <h3>Live Fate editor</h3>
       <p className="dev-muted">
-        Editing current Fate clears both plans. Dice face overrides are separate
-        from shared positions.
+        Editing current Fate clears both plans. Omens face overrides are
+        separate from shared positions.
       </p>
       <Field label="Current shared positions (1–120)">
         <input value={current} onChange={(e) => setCurrent(e.target.value)} />
@@ -178,7 +177,7 @@ export function AssignmentEditor({
       {p.loadout.dice.map((id, i) => (
         <Field
           key={i}
-          label={`${actor === 0 ? "A" : "B"} die ${i + 1} · ${dieById[id].name}`}
+          label={`${actor === 0 ? "A" : "B"} Omen ${i + 1} · ${omenById[id].name}`}
         >
           <select
             value={
@@ -187,7 +186,7 @@ export function AssignmentEditor({
             onChange={(e) => run(() => lab.assign(actor, i, e.target.value))}
           >
             <option value="">Unassigned</option>
-            <option value="guard">Guard</option>
+            <option value="guard">Ward</option>
             <option value="legend">Legend ability</option>
             {p.loadout.cards.map((c, j) => (
               <option key={j} value={c}>
@@ -247,7 +246,7 @@ export function DieInspector({
   run: Run;
 }) {
   const p = lab.state.players[actor],
-    d = dieById[p.loadout.dice[slot]];
+    d = omenById[p.loadout.dice[slot]];
   let position = p.faces[slot];
   try {
     position = lab.positions(actor).positions[slot];
@@ -269,14 +268,12 @@ export function DieInspector({
         </div>
         <div className="dev-stat">
           <small>Face value / effect</small>
-          <strong>
-            {f.type === "number" ? f.value : (f.effectId ?? "Blank")}
-          </strong>
+          <strong>{omenFace(f).name}</strong>
         </div>
         <div className="dev-stat">
           <small>Opposite</small>
           <strong>
-            {op + 1} · {d.faces[op].effectId ?? d.faces[op].value}
+            {op + 1} · {omenFace(d.faces[op]).name}
           </strong>
         </div>
         <div className="dev-stat">
@@ -291,7 +288,7 @@ export function DieInspector({
         <br />
         Cosmetic: lab preview only · no mechanical effect
       </p>
-      <Field label="Die resource state">
+      <Field label="Omen resource state">
         <select
           value={p.dice[slot].state}
           onChange={(e) =>
@@ -310,7 +307,7 @@ export function DieInspector({
           ))}
         </select>
       </Field>
-      <Field label="Set face position">
+      <Field label="Set Omen face">
         <select
           value={position}
           onChange={(e) =>
@@ -319,8 +316,7 @@ export function DieInspector({
         >
           {d.faces.map((f, i) => (
             <option key={i} value={i}>
-              Face {i + 1} ·{" "}
-              {f.type === "number" ? f.value : (f.effectId ?? "Blank")}
+              Face {i + 1} · {omenFace(f).name}
             </option>
           ))}
         </select>
@@ -345,13 +341,40 @@ export function DieInspector({
         <Button
           onClick={() => run(() => lab.control(actor, { slot, kind: "flip" }))}
         >
-          Flip · 2 Control
+          Flip · 2 Focus
         </Button>
         <Button onClick={() => run(() => lab.resetFace(actor, slot))}>
           Reset to Fate result
         </Button>
       </div>
-      <Field label="Force symbol">
+      <Field label="Set Value">
+        <select
+          value={f.type === "number" ? f.value : ""}
+          onChange={(e) =>
+            run(() => lab.setOmenValue(actor, slot, Number(e.target.value)))
+          }
+        >
+          <option value="" disabled>
+            Select Value
+          </option>
+          {d.faces
+            .filter((f) => f.type === "number")
+            .map((f, i) => (
+              <option key={i} value={f.value}>
+                {f.value}
+              </option>
+            ))}
+        </select>
+      </Field>
+      <div className="dev-actions">
+        <Button onClick={() => run(() => lab.setOmenVoid(actor, slot))}>
+          Set Void
+        </Button>
+        <Button onClick={() => run(() => lab.setHeldOmen(actor, slot))}>
+          Set Held Omen
+        </Button>
+      </div>
+      <Field label="Set Sigil">
         <select
           defaultValue=""
           onChange={(e) =>
@@ -359,14 +382,16 @@ export function DieInspector({
           }
         >
           <option value="" disabled>
-            Select symbol
+            Select Sigil
           </option>
-          {["guard", "strike", "swap", "steal", "redirect"].map((s) => (
-            <option key={s}>{s}</option>
+          {Object.values(SIGILS).map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name}
+            </option>
           ))}
         </select>
       </Field>
-      <Field label="Assign this die">
+      <Field label="Assign this Omen">
         <select
           value={
             lab.drafts[actor].assignments.find((a) => a.dice.includes(slot))
@@ -376,7 +401,7 @@ export function DieInspector({
         >
           <option value="">Unassigned</option>
           <option value="legend">Legend</option>
-          <option value="guard">Guard</option>
+          <option value="guard">Ward</option>
           {p.loadout.cards.map((id) => (
             <option key={id} value={id}>
               {cardById[id].name}
@@ -450,7 +475,7 @@ export function CardInspector({
       <p className={validity?.valid ? "dev-ok" : "dev-warning"}>
         {validity
           ? `${validity.code}: ${validity.message}`
-          : "UNASSIGNED: Select the required dice to evaluate activation."}
+          : "UNASSIGNED: Select the required Omens to evaluate activation."}
       </p>
       <Field label="Reveal memory state">
         <select
@@ -491,18 +516,18 @@ export function CardInspector({
           Clear status
         </Button>
       </div>
-      <Field label="Die to assign">
+      <Field label="Omen to assign">
         <select value={die} onChange={(e) => setDie(+e.target.value)}>
           {p.loadout.dice.map((id, i) => (
             <option key={i} value={i}>
-              Die {i + 1} · {dieById[id].name}
+              Omen {i + 1} · {omenById[id].name}
             </option>
           ))}
         </select>
       </Field>
       <div className="dev-actions">
         <Button onClick={() => run(() => lab.assign(actor, die, c.id))}>
-          Assign die
+          Assign Omen
         </Button>
         <Button
           onClick={() =>
@@ -517,7 +542,7 @@ export function CardInspector({
         <Button
           onClick={() =>
             run(() => {
-              if (!a) throw new Error("Assign dice before activation.");
+              if (!a) throw new Error("Assign Omens before activation.");
               validatePlan(decisionContext(lab.state, actor), plan);
               lab.lock(actor, plan);
             })
@@ -527,7 +552,7 @@ export function CardInspector({
         </Button>
       </div>
       <p className="dev-muted">
-        Declaration pays dice and reveals the card. Finish the one reaction
+        Declaration pays Omens and reveals the card. Finish the one reaction
         window, then use Next Effect to inspect resolution.
       </p>
       <Json
@@ -577,20 +602,20 @@ export function LegendInspector({
       </p>
       <div className="dev-grid3">
         <NumberField
-          label="Set HP"
+          label="Set Life"
           value={p.hp}
           onChange={(v) => run(() => lab.editPlayer(actor, { hp: v }))}
         />
         <NumberField
-          label="Set Guard"
+          label="Set Ward"
           value={p.guard}
-          onChange={(v) => run(() => lab.editPlayer(actor, { guard: v }))}
+          onChange={(v) => run(() => lab.setWard(actor, v))}
         />
         <NumberField
-          label="Set Control"
+          label="Set Focus"
           max={6}
           value={p.control}
-          onChange={(v) => run(() => lab.editPlayer(actor, { control: v }))}
+          onChange={(v) => run(() => lab.setFocus(actor, v))}
         />
       </div>
       <div className="dev-actions">
@@ -612,10 +637,10 @@ export function LegendInspector({
             run(() => lab.editPlayer(actor, { guard: p.guard + 1 }))
           }
         >
-          Add Guard
+          Add Ward
         </Button>
         <Button onClick={() => run(() => lab.editPlayer(actor, { guard: 0 }))}>
-          Clear Guard
+          Clear Ward
         </Button>
       </div>
       <p className="dev-muted">
@@ -677,8 +702,9 @@ export function PhaseControls({ lab, run }: { lab: LabController; run: Run }) {
           ROUND {lab.state.round}/{lab.setup.maxRounds}
         </strong>
         <b>
-          {lab.state.phase} · Active {lab.state.activePlayer ? "B" : "A"} ·
-          Initiative {lab.state.initiative ? "B" : "A"}
+          {rulesLabel(lab.state.phase)} · Active{" "}
+          {lab.state.activePlayer ? "B" : "A"} · Initiative{" "}
+          {lab.state.initiative ? "B" : "A"}
           {lab.resolving ? " · SUSPENDED" : ""}
         </b>
       </div>
@@ -849,7 +875,7 @@ export function AIPanel({
           {diagnostics.alternatives.map((v, i) => (
             <Section
               key={i}
-              title={`${i + 1}. ${v.plan.assignments.map((a) => cardById[a.target]?.name ?? a.target).join(" + ") || "Hold"} · ${v.score.toFixed(2)}`}
+              title={`${i + 1}. ${v.plan.assignments.map((a) => cardById[a.target]?.name ?? rulesLabel(a.target)).join(" + ") || "Hold"} · ${v.score.toFixed(2)}`}
               open={i === 0}
             >
               <Json value={v.details} />
@@ -886,7 +912,10 @@ export function EffectLog({ lab }: { lab: LabController }) {
         cleanup. A composite frame follows its child effects.
       </p>
       {frame && (
-        <Section title={`Last step · ${frame.effect} · ${frame.result}`} open>
+        <Section
+          title={`Last step · ${rulesLabel(frame.effect)} · ${frame.result}`}
+          open
+        >
           <p>
             {frame.source} → {frame.target} · priority {frame.priority}
           </p>
@@ -896,9 +925,9 @@ export function EffectLog({ lab }: { lab: LabController }) {
                 <strong>{key.toUpperCase()}</strong>
                 <Json
                   value={(frame[key as "before" | "after"] ?? []).map((p) => ({
-                    hp: p.hp,
-                    guard: p.guard,
-                    control: p.control,
+                    life: p.hp,
+                    ward: p.guard,
+                    focus: p.control,
                     faces: p.faces,
                     statuses: p.statuses,
                   }))}
@@ -922,7 +951,7 @@ export function EffectLog({ lab }: { lab: LabController }) {
           <summary>
             {i + 1}. R{"round" in f ? f.round : "?"} P{f.priority} ·{" "}
             {f.actor < 0 ? "Both" : f.actor === 0 ? "A" : "B"} · {f.source} /{" "}
-            {f.effect} {f.kind === "canceled" ? "✕" : "✓"}
+            {rulesLabel(f.effect)} {f.kind === "canceled" ? "✕" : "✓"}
           </summary>
           <p>
             {f.conditions} · {f.result}

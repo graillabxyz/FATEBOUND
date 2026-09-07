@@ -1,3 +1,4 @@
+import { GAME } from "../content/config";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "../ui/components";
 import { LEGENDS } from "../content/legends";
@@ -57,7 +58,7 @@ export default function Dashboard() {
     () =>
       (response?.records ?? []).filter(
         (r) =>
-          r.version === 2 &&
+          r.version === GAME.version &&
           r.loadouts.some(
             (l, a) =>
               (legend === "all" || l.legend === legend) &&
@@ -292,9 +293,9 @@ export default function Dashboard() {
                       `${data.initiativeWins[0]} first / ${data.initiativeWins[1]} second`,
                     ],
                     [
-                      "Held dice / turn",
+                      "Held Omens / Turn",
                       (data.held / Math.max(1, data.turns)).toFixed(2),
-                      `${data.held} dice held`,
+                      `${data.held} Omens held`,
                     ],
                     [
                       "Reaction frequency",
@@ -458,7 +459,7 @@ export default function Dashboard() {
                   </h2>
                   <Button
                     onClick={() =>
-                      downloadJSON("fatebound-metrics.json", {
+                      downloadJSON("omnipath-metrics.json", {
                         source,
                         days,
                         actor,
@@ -502,7 +503,7 @@ export default function Dashboard() {
               </section>
             )}
             <footer className="metrics-footnote">
-              Mechanical version 2 · Updated{" "}
+              Mechanical version {GAME.version} · Updated{" "}
               {response
                 ? new Date(response.updatedAt).toLocaleTimeString()
                 : "—"}

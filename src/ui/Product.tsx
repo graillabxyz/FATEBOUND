@@ -1,13 +1,14 @@
+import { TutorialSteps, Glossary } from "./Help";
 import { ENABLE_DEV_TOOLS } from "../dev/gate";
 import { useState } from "react";
 import { useGame } from "./context";
 import { LEGENDS, legendById } from "../content/legends";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { COSMETICS, QUESTS } from "../content/economy";
 import { GAME } from "../content/config";
 import { level, masteryLevel, rankLabel, periodKey } from "../services/profile";
 import {
-  Die,
+  Omen,
   EmptyState,
   Icon,
   IconButton,
@@ -58,6 +59,16 @@ export function ProfilePage() {
           label="Matches"
         />
       </div>
+      <SectionLabel>FEATURED OMEN</SectionLabel>
+      <p>
+        {omenById[active.dice[0]].name} · d{omenById[active.dice[0]].size} ·
+        Mechanical collectible
+      </p>
+      <SectionLabel>FEATURED OMEN SKIN</SectionLabel>
+      <p>
+        {COSMETICS.find((c) => c.id === profile.skin)?.name ?? "Heartwood"} ·
+        Cosmetic only
+      </p>
       <label className="field-label">
         DISPLAY NAME
         <div className="inline-field">
@@ -228,13 +239,20 @@ export function SocialPage() {
   );
 }
 export function ShopPage() {
-  const { inspect } = useGame();
+  const { inspect, navigate } = useGame();
   const [tab, setTab] = useState("Featured");
   return (
     <div className="page shop-page">
       <PageHeading eyebrow="IDENTITY, NEVER ADVANTAGE" title="The emporium" />
       <div className="horizontal-tabs">
-        {["Featured", "Legends", "Dice", "Cosmetics", "Bundles"].map((t) => (
+        {[
+          "Featured",
+          "Legends",
+          "Omens",
+          "Omen Skins",
+          "Cosmetics",
+          "Bundles",
+        ].map((t) => (
           <button
             className={tab === t ? "active" : ""}
             key={t}
@@ -250,6 +268,17 @@ export function ShopPage() {
           title="Every Legend is yours"
           text="All six Legends and their gameplay content are unlocked for this foundation. Future unlocks will be earned through play."
         />
+      ) : tab === "Omens" ? (
+        <>
+          <EmptyState
+            icon="dice"
+            title="Mechanical Omens"
+            text="All gameplay Omens are unlocked in this build. Choose them in your Loadout; future unlocks will be earned through play."
+          />
+          <SecondaryButton onClick={() => navigate("loadout")}>
+            Choose your Omens
+          </SecondaryButton>
+        </>
       ) : tab === "Bundles" ? (
         <EmptyState
           icon="gift"
@@ -263,7 +292,7 @@ export function ShopPage() {
             onClick={() => inspect({ type: "cosmetic", item: COSMETICS[1] })}
           >
             <div className="obsidian-orbit">
-              <Die definition={dieById["standard-d12"]} skin="obsidian" />
+              <Omen definition={omenById["standard-d12"]} skin="obsidian" />
             </div>
             <span className="eyebrow">FEATURED · COSMETIC ONLY</span>
             <h2>Obsidian Fate</h2>
@@ -278,7 +307,7 @@ export function ShopPage() {
               (c) =>
                 !c.earned &&
                 c.price > 0 &&
-                (tab !== "Dice" || c.kind === "Dice skin"),
+                (tab !== "Omen Skins" || c.kind === "Omen Skin"),
             ).map((c) => (
               <button
                 className="shop-item"
@@ -286,8 +315,8 @@ export function ShopPage() {
                 onClick={() => inspect({ type: "cosmetic", item: c })}
               >
                 <div className="shop-item-art" style={{ color: c.color }}>
-                  {c.kind === "Dice skin" ? (
-                    <Die definition={dieById["standard-d12"]} skin={c.id} />
+                  {c.kind === "Omen Skin" ? (
+                    <Omen definition={omenById["standard-d12"]} skin={c.id} />
                   ) : (
                     <Icon name={c.icon} size={32} />
                   )}
@@ -529,37 +558,7 @@ export function TutorialContent() {
   const [name, setName] = useState(profile.name);
   return (
     <div className="tutorial-content">
-      <div className="tutorial-sigil">
-        <Icon name="dice" size={54} />
-      </div>
-      <h3>
-        Fate makes the puzzle.
-        <br />
-        You make the difference.
-      </h3>
-      <div className="tutorial-rules">
-        <p>
-          <b>01</b>
-          <span>
-            <strong>Take the initiative</strong>d20 + your Legend’s bonus opens
-            the match. Initiative alternates each round.
-          </span>
-        </p>
-        <p>
-          <b>02</b>
-          <span>
-            <strong>Four cards. Always yours.</strong>Spend dice on actions or
-            hold them for reactions. A used card becomes permanently known.
-          </span>
-        </p>
-        <p>
-          <b>03</b>
-          <span>
-            <strong>Build your probability</strong>Roll 1, then 2, then 3 dice
-            as rounds advance. Shift or Flip using 2 Control per round.
-          </span>
-        </p>
-      </div>
+      <TutorialSteps />
       <label className="field-label">
         WHAT SHALL WE CALL YOU?
         <input
@@ -578,8 +577,9 @@ export function TutorialContent() {
         Begin practice match
       </PrimaryButton>
       <p className="helper-text">
-        No main-turn timer · reactions pass after 5 seconds
+        No main-turn timer · Reactions pass after 5 seconds
       </p>
+      <Glossary />
     </div>
   );
 }
@@ -592,7 +592,7 @@ export function UpgradeContent() {
       </div>
       <h3>Your journey, illuminated.</h3>
       <p>
-        50 levels of cosmetic rewards. Legend palettes, dice finishes, card
+        50 levels of cosmetic rewards. Legend palettes, Omen finishes, card
         backs, and gems.
       </p>
       <p className="helper-text">

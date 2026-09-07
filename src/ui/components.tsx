@@ -1,3 +1,4 @@
+import { omenFace } from "../content/terminology";
 import { useEffect, useRef, useState } from "react";
 import { DIE_PROJECTIONS, DIE_SHAPES } from "./dice-geometry";
 import type { CSSProperties, ReactNode } from "react";
@@ -280,7 +281,7 @@ export function RankBadge({
     </span>
   );
 }
-export function HealthBar({
+export function LifeBar({
   hp,
   max,
   guard = 0,
@@ -289,6 +290,14 @@ export function HealthBar({
   max: number;
   guard?: number;
 }) {
+  const previousWard = useRef(guard);
+  const [wardLost, setWardLost] = useState(0);
+  useEffect(() => {
+    setWardLost(Math.max(0, previousWard.current - guard));
+    previousWard.current = guard;
+    const t = setTimeout(() => setWardLost(0), 650);
+    return () => clearTimeout(t);
+  }, [guard]);
   const previous = useRef(hp);
   const [change, setChange] = useState(0);
   useEffect(() => {
@@ -313,25 +322,30 @@ export function HealthBar({
           {change}
         </span>
       )}
+      {wardLost > 0 && (
+        <span className="ward-break" role="status">
+          −{wardLost} Ward
+        </span>
+      )}
       <div className="health-label">
         <span>
           <Icon name="heart" size={12} />
           <b>{hp}</b>
-          <span>/ {max}</span>
+          <span>/ {max} Life</span>
         </span>
         {guard > 0 && (
           <span className="guard-count">
             <Icon name="guard" size={12} />
-            {guard}
+            {guard} Ward
           </span>
         )}
       </div>
       <div
         className="health-track"
         role="progressbar"
-        aria-label="Health"
+        aria-label="Life"
         aria-valuenow={bounded}
-        aria-valuetext={`${hp} of ${max} HP`}
+        aria-valuetext={`${hp} of ${max} Life`}
         aria-valuemin={0}
         aria-valuemax={max}
       >
@@ -340,19 +354,25 @@ export function HealthBar({
     </div>
   );
 }
-export function ControlCounter({ value }: { value: number }) {
+export function FocusCounter({ value }: { value: number }) {
   return (
-    <div className="control-counter" aria-label={`${value} Control remaining`}>
+    <div
+      className="control-counter"
+      title="Spend Focus to manipulate your rolled Omens."
+      aria-label={`${value} Focus remaining`}
+    >
       <Icon name="control" size={15} />
-      <span>CONTROL</span>
+      <span>FOCUS</span>
       {[0, 1].map((i) => (
-        <i className={i < value ? "lit" : ""} key={i} />
+        <i className={i < value ? "lit" : ""} key={i}>
+          ◆
+        </i>
       ))}
       <b>{value}</b>
     </div>
   );
 }
-export function Die({
+export function Omen({
   definition,
   face,
   selected = false,
@@ -383,7 +403,7 @@ export function Die({
       onClick={onClick}
       aria-label={
         label ??
-        `${definition.name}, d${definition.size} ${DIE_SHAPES[definition.size]}${face ? `, ${face.type === "symbol" ? face.effectId : face.type === "blank" ? "blank" : face.value}` : ""}`
+        `${definition.name}, d${definition.size} ${DIE_SHAPES[definition.size]}${face ? `, ${omenFace(face).name}` : ""}`
       }
       aria-pressed={onClick ? selected : undefined}
       role={onClick ? undefined : "img"}
@@ -422,7 +442,7 @@ export function Die({
               size={small ? 17 : 25}
             />
           ) : (
-            face.displayIcon
+            omenFace(face).icon
           )
         ) : (
           definition.size
@@ -440,7 +460,7 @@ export function Die({
 }
 export const CARD_ICONS: Record<CardDef["category"], string> = {
   Attack: "attack",
-  Guard: "guard",
+  Ward: "guard",
   Counter: "wind",
   Recovery: "heart",
   Manipulation: "swap",
@@ -744,3 +764,5 @@ export function EmptyState({
     </div>
   );
 }
+
+export { Omen as Die, LifeBar as HealthBar, FocusCounter as ControlCounter };

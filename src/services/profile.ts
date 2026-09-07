@@ -2,7 +2,7 @@ import { GAME } from "../content/config";
 import { STARTERS } from "../content/loadouts";
 import { LEGENDS } from "../content/legends";
 import { CARDS } from "../content/cards";
-import { DICE } from "../content/dice";
+import { OMENS } from "../content/omens";
 import { COSMETICS, PASS_REWARDS, QUESTS } from "../content/economy";
 import { validateLoadout } from "../engine/rules";
 import type { LegendId, Loadout, MatchView } from "../engine/types";
@@ -135,7 +135,7 @@ export class LocalProfileService {
     return new Set([
       ...LEGENDS.map((l) => l.id),
       ...CARDS.map((c) => c.id),
-      ...DICE.map((d) => d.id),
+      ...OMENS.map((d) => d.id),
     ]);
   }
   saveLoadout(p: Profile, loadout: Loadout) {

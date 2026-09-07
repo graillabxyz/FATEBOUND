@@ -1,11 +1,14 @@
+import { FaceExplanation } from "./OmenFaces";
+import { omenFace, requirementText } from "../content/terminology";
+import { cardsFor } from "../content/cards";
 import { useState } from "react";
 import type { Inspect } from "./context";
 import { useGame } from "./context";
 import { STARTERS } from "../content/loadouts";
-import { dieById, dieBudget } from "../content/dice";
+import { omenById, omenBudget } from "../content/omens";
 import { legendById } from "../content/legends";
 import {
-  Die,
+  Omen,
   CARD_ICONS,
   Icon,
   LegendArt,
@@ -24,7 +27,9 @@ export default function Inspector({
   onClose: () => void;
 }) {
   const { profile, update, navigate, service, toast } = useGame();
-  const [face, setFace] = useState(0);
+  const [face, setFace] = useState(
+    target.type === "omen" ? (target.faceIndex ?? 0) : 0,
+  );
   const [rolling, setRolling] = useState(false);
   const item = target.item;
   if (target.type === "legend") {
@@ -41,7 +46,7 @@ export default function Inspector({
           <span>{l.archetype}</span>
           <span>
             <Icon name="heart" size={14} />
-            {l.hp} HP
+            {l.hp} Life
           </span>
         </div>
         <p className="rules-copy">
@@ -54,12 +59,23 @@ export default function Inspector({
         <SectionLabel right={<span>{l.active.timing}</span>}>
           {l.active.name}
         </SectionLabel>
-        <p>{l.active.text}</p>
+        <p>
+          {requirementText(l.active.requirement)} · {l.active.text}
+        </p>
+        <SectionLabel>MASTERY</SectionLabel>
+        <p>{profile.mastery[l.id] ?? 0} Mastery XP</p>
+        <SectionLabel>RECOMMENDED OMENS</SectionLabel>
         <div className="inspect-dice-row">
           {l.diceSlots.map((n, i) => (
-            <Die key={i} definition={dieById[`standard-d${n}`]} small />
+            <Omen key={i} definition={omenById[`standard-d${n}`]} small />
           ))}
         </div>
+        <SectionLabel>COMPATIBLE CARDS</SectionLabel>
+        <p>
+          {cardsFor(l.id)
+            .map((c) => c.name)
+            .join(" · ")}
+        </p>
         <div className="tag-row">
           {l.approaches.map((a) => (
             <span key={a}>{a}</span>
@@ -113,7 +129,7 @@ export default function Inspector({
           </div>
           <div>
             <span>Availability</span>
-            <b>Reusable every round</b>
+            <b>Reusable throughout the Match</b>
           </div>
         </div>
         <SecondaryButton
@@ -132,9 +148,9 @@ export default function Inspector({
       </Modal>
     );
   }
-  if (target.type === "die") {
+  if (target.type === "omen") {
     const d = target.item;
-    const budget = dieBudget(d);
+    const budget = omenBudget(d);
     return (
       <Modal
         title={d.name}
@@ -145,7 +161,7 @@ export default function Inspector({
           {DIE_SHAPES[d.size]} · {d.size} faces
         </p>
         <div className="die-inspect-display">
-          <Die
+          <Omen
             definition={d}
             face={d.faces[face]}
             skin={profile.skin}
@@ -165,14 +181,21 @@ export default function Inspector({
         <div className="face-grid">
           {d.faces.map((f, i) => (
             <button
-              className={i === face ? "selected" : ""}
+              className={`face-${omenFace(f).kind.toLowerCase()} ${i === face ? "selected" : ""}`}
+              aria-label={omenFace(f).name}
               key={i}
               onClick={() => setFace(i)}
             >
               <small>{i + 1}</small>
-              <strong>{f.displayIcon}</strong>
-              <span>{f.type === "symbol" ? f.effectId : f.type}</span>
+              <strong>{omenFace(f).icon}</strong>
+              <span>{omenFace(f).name}</span>
             </button>
+          ))}
+        </div>
+        <FaceExplanation face={d.faces[face]} />
+        <div className="tag-row">
+          {d.tags.map((t) => (
+            <span key={t}>{t}</span>
           ))}
         </div>
         <div className="detail-rows">
@@ -187,7 +210,7 @@ export default function Inspector({
             <b>{budget.mean.toFixed(2)}</b>
           </div>
           <div>
-            <span>Blank faces</span>
+            <span>Void faces</span>
             <b>{Math.round(budget.blankShare * 100)}%</b>
           </div>
           <div>
@@ -196,7 +219,7 @@ export default function Inspector({
           </div>
         </div>
         <p className="helper-text">
-          Dice skins change appearance and sound only.
+          Omen Skins change appearance and sound only.
         </p>
       </Modal>
     );
@@ -214,10 +237,10 @@ export default function Inspector({
           className="cosmetic-preview"
           style={{ "--cosmetic-color": c.color } as React.CSSProperties}
         >
-          {c.kind === "Dice skin" ? (
-            <Die
-              definition={dieById["standard-d12"]}
-              face={dieById["standard-d12"].faces[face % 12]}
+          {c.kind === "Omen Skin" ? (
+            <Omen
+              definition={omenById["standard-d12"]}
+              face={omenById["standard-d12"].faces[face % 12]}
               skin={c.id}
               rolling={rolling}
               onClick={() => {
@@ -244,14 +267,14 @@ export default function Inspector({
           <PrimaryButton
             icon="check"
             onClick={() => {
-              if (c.kind === "Dice skin") {
+              if (c.kind === "Omen Skin") {
                 update({ ...profile, skin: c.id });
                 toast(`${c.name} equipped.`);
               } else toast("This cosmetic is in your collection.");
               onClose();
             }}
           >
-            {c.kind === "Dice skin" ? "Equip dice skin" : "In your collection"}
+            {c.kind === "Omen Skin" ? "Equip Omen Skin" : "In your collection"}
           </PrimaryButton>
         ) : (
           <PrimaryButton

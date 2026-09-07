@@ -1,6 +1,6 @@
 import { GAME } from "../content/config";
 import { LEGENDS, legendById } from "../content/legends";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { level, rankLabel, seasonLevel } from "../services/profile";
 import { useGame } from "./context";
 import {
@@ -9,7 +9,7 @@ import {
   LegendArt,
   PrimaryButton,
   RankBadge,
-  Die,
+  Omen,
   SectionLabel,
 } from "./components";
 export default function Home() {
@@ -72,9 +72,9 @@ export default function Home() {
           <p className="hero-subtitle">{l.subtitle}</p>
           <div className="hero-build">
             {active.dice.map((id, i) => (
-              <Die
+              <Omen
                 key={i}
-                definition={dieById[id]}
+                definition={omenById[id]}
                 small
                 skin={profile.skin}
                 onClick={() => navigate("loadout")}
@@ -93,7 +93,7 @@ export default function Home() {
       <section className="home-play">
         <div className="rank-line">
           <RankBadge label={rankLabel(profile)} />
-          <span>4 cards · 3 dice · Your move</span>
+          <span>4 cards · 3 Omens · Your move</span>
         </div>
         <PrimaryButton
           onClick={() => (resumeAvailable ? resume() : open("play"))}
@@ -135,7 +135,7 @@ export default function Home() {
             <span>
               {profile.tutorialComplete
                 ? "Complete quests. Earn coins and XP."
-                : "Practice actions, held dice and reactions."}
+                : "Practice actions, held Omens and reactions."}
             </span>
           </span>
           <Icon name="right" size={18} />

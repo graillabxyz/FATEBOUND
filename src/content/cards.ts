@@ -1,3 +1,5 @@
+import { GAME } from "./config";
+import { requirementText } from "./terminology";
 import type {
   CardDef,
   Category,
@@ -6,6 +8,9 @@ import type {
   Requirement,
 } from "../engine/types";
 import { LEGENDS } from "./legends";
+const LEGACY_CARD_NAMES: Record<string, string> = {
+  "Feather Ward": "Feather Guard",
+};
 const dmg = (amount: number): Effect => ({ type: "DAMAGE", amount });
 const guard = (amount: number): Effect => ({ type: "GUARD", amount });
 const heal = (amount: number): Effect => ({ type: "HEAL", amount });
@@ -38,42 +43,36 @@ function add(
   preferred?: number,
 ) {
   const l = LEGENDS.find((x) => x.id === legend)!;
-  const label = requirement.symbol
-    ? requirement.symbol[0].toUpperCase() + requirement.symbol.slice(1)
-    : requirement.any
-      ? "Any face"
-      : `${requirement.count === 2 ? "2 dice · " : ""}${requirement.min === requirement.max ? requirement.min : requirement.max ? `${requirement.min}–${requirement.max}` : `${requirement.min}+`}`;
+  const label = requirementText(requirement);
   CARDS.push({
-    id: `${legend}-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    id: `${legend}-${(LEGACY_CARD_NAMES[name] ?? name).toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
     name,
     legend,
     category,
-    timing: ["Guard", "Counter", "Manipulation"].includes(category)
+    timing: ["Ward", "Counter", "Manipulation"].includes(category)
       ? "REACTION"
       : "ACTION",
     requirement,
     requirementLabel: label,
     text,
     effects,
-    priority: ["Guard", "Counter", "Manipulation"].includes(category) ? 20 : 40,
+    priority: ["Ward", "Counter", "Manipulation"].includes(category) ? 20 : 40,
     preferred,
     archetype: l.approaches[approach],
     artIndex: l.artIndex,
     tags: [`legend:${legend}`, ...l.tags, category.toLowerCase()],
-    mechanicalVersion: 2,
+    mechanicalVersion: GAME.version,
   });
 }
 // Basajaun: shelter, retaliation, then stored force.
 add("basajaun", "Crush", "Attack", req(7), "Deal 4 damage.", [dmg(4)], 2);
-add("basajaun", "Ancient Root", "Guard", req(1, 3), "Gain 4 Guard.", [
-  guard(4),
-]);
+add("basajaun", "Ancient Root", "Ward", req(1, 3), "Gain 4 Ward.", [guard(4)]);
 add(
   "basajaun",
   "Barkskin",
   "Counter",
   req(4, 6),
-  "Gain 2 Guard. If the enemy attacks, deal 2 damage.",
+  "Gain 2 Ward. If the enemy attacks, deal 2 damage.",
   [guard(2), when("enemyAttacking", dmg(2))],
   1,
 );
@@ -86,13 +85,13 @@ add(
   [dmg(7)],
   2,
 );
-add("basajaun", "Deep Roots", "Recovery", req(2, 4), "Heal 3 HP.", [heal(3)]);
+add("basajaun", "Deep Roots", "Recovery", req(2, 4), "Heal 3 Life.", [heal(3)]);
 add(
   "basajaun",
   "Oakheart",
   "Setup",
   req(4),
-  "Gain 2 Guard. Store +2 damage for next round.",
+  "Gain 2 Ward. Store +2 damage for next round.",
   [guard(2), power(2)],
   2,
 );
@@ -101,7 +100,7 @@ add(
   "Thorn Return",
   "Counter",
   req(3, 5),
-  "If the enemy attacks, gain 2 Guard and deal 3 damage.",
+  "If the enemy attacks, gain 2 Ward and deal 3 damage.",
   [when("enemyAttacking", guard(2), dmg(3))],
   1,
 );
@@ -117,9 +116,9 @@ add(
 add(
   "basajaun",
   "Sanctuary",
-  "Guard",
+  "Ward",
   { count: 1, symbol: "guard" },
-  "Gain 6 Guard and cleanse all negative statuses.",
+  "Gain 6 Ward and cleanse all negative statuses.",
   [guard(6), { type: "CLEANSE" }],
 );
 add(
@@ -131,7 +130,7 @@ add(
   [dmg(6)],
   2,
 );
-add("basajaun", "Quiet Grove", "Recovery", any, "Heal 1 HP. Gain 1 Guard.", [
+add("basajaun", "Quiet Grove", "Recovery", any, "Heal 1 Life. Gain 1 Ward.", [
   heal(1),
   guard(1),
 ]);
@@ -140,13 +139,13 @@ add(
   "Last Stand",
   "Attack",
   req(6),
-  "Deal 3 damage. If behind in HP, deal 2 more.",
+  "Deal 3 damage. If behind in Life, deal 2 more.",
   [dmg(3), when("behind", dmg(2))],
   1,
 );
 // Anansi: readable predictions and assignment disruption.
 add("anansi", "Silken Cut", "Attack", req(5), "Deal 3 damage.", [dmg(3)], 2);
-add("anansi", "Web Shelter", "Guard", req(1, 3), "Gain 3 Guard.", [guard(3)]);
+add("anansi", "Web Shelter", "Ward", req(1, 3), "Gain 3 Ward.", [guard(3)]);
 add(
   "anansi",
   "Read the Thread",
@@ -161,7 +160,7 @@ add(
   "Web Shift",
   "Manipulation",
   { count: 1, symbol: "swap" },
-  "Swap the dice on the first two enemy card assignments.",
+  "Swap the Omens on the first two enemy card assignments.",
   [{ type: "SWAP_ASSIGNMENT" }],
 );
 add(
@@ -186,7 +185,7 @@ add(
   "Borrowed Time",
   "Setup",
   req(2, 4),
-  "Gain 2 Guard. Store +1 damage for next round.",
+  "Gain 2 Ward. Store +1 damage for next round.",
   [guard(2), power(1)],
   2,
 );
@@ -195,7 +194,7 @@ add(
   "Spider’s Patience",
   "Recovery",
   req(1, 2),
-  "Heal 3 HP.",
+  "Heal 3 Life.",
   [heal(3)],
   1,
 );
@@ -204,7 +203,7 @@ add(
   "Tangled Path",
   "Manipulation",
   two(8),
-  "Swap the dice on the first two enemy card assignments.",
+  "Swap the Omens on the first two enemy card assignments.",
   [{ type: "SWAP_ASSIGNMENT" }],
 );
 add(
@@ -222,7 +221,7 @@ add(
   "Hidden Meaning",
   "Counter",
   any,
-  "Gain 1 Guard. If the enemy attacks, deal 1 damage.",
+  "Gain 1 Ward. If the enemy attacks, deal 1 damage.",
   [guard(1), when("enemyAttacking", dmg(1))],
 );
 // Tengu: authored preferred values reward precision.
@@ -236,21 +235,13 @@ add(
   0,
   5,
 );
-add(
-  "tengu",
-  "Feather Guard",
-  "Guard",
-  req(1, 3),
-  "Gain 3 Guard.",
-  [guard(3)],
-  1,
-);
+add("tengu", "Feather Ward", "Ward", req(1, 3), "Gain 3 Ward.", [guard(3)], 1);
 add(
   "tengu",
   "Perfect Riposte",
   "Counter",
   req(4, 6),
-  "Gain 2 Guard. If attacked, deal 2 damage. Exact 5: +1.",
+  "Gain 2 Ward. If attacked, deal 2 damage. Exact 5: +1.",
   [guard(2), when("enemyAttacking", dmg(2))],
   1,
   5,
@@ -280,7 +271,7 @@ add(
   "Still Mind",
   "Recovery",
   req(2, 3),
-  "Heal 2 HP and cleanse negative statuses.",
+  "Heal 2 Life and cleanse negative statuses.",
   [heal(2), { type: "CLEANSE" }],
   1,
 );
@@ -308,7 +299,7 @@ add(
   "Windstep",
   "Setup",
   any,
-  "Gain 1 Guard. Store +1 damage for next round.",
+  "Gain 1 Ward. Store +1 damage for next round.",
   [guard(1), power(1)],
   2,
 );
@@ -322,15 +313,7 @@ add(
   1,
   6,
 );
-add(
-  "tengu",
-  "Mountain Silence",
-  "Guard",
-  req(8),
-  "Gain 5 Guard.",
-  [guard(5)],
-  1,
-);
+add("tengu", "Mountain Silence", "Ward", req(8), "Gain 5 Ward.", [guard(5)], 1);
 add(
   "tengu",
   "Falling Leaf",
@@ -346,9 +329,9 @@ add("leshy", "Branch Lash", "Attack", req(5, 8), "Deal 4 damage.", [dmg(4)]);
 add(
   "leshy",
   "Moss Mantle",
-  "Guard",
+  "Ward",
   req(1, 3),
-  "Gain 3 Guard and heal 1 HP.",
+  "Gain 3 Ward and heal 1 Life.",
   [guard(3), heal(1)],
   1,
 );
@@ -357,7 +340,7 @@ add(
   "Wolf Shape",
   "Attack",
   req(7),
-  "Deal 3 damage. If behind in HP, deal 2 more.",
+  "Deal 3 damage. If behind in Life, deal 2 more.",
   [dmg(3), when("behind", dmg(2))],
   1,
 );
@@ -375,17 +358,17 @@ add(
   "New Skin",
   "Recovery",
   req(3, 5),
-  "Heal 3 HP and cleanse negative statuses.",
+  "Heal 3 Life and cleanse negative statuses.",
   [heal(3), { type: "CLEANSE" }],
   1,
 );
-add("leshy", "Elk Shape", "Guard", req(7, 9), "Gain 5 Guard.", [guard(5)], 1);
+add("leshy", "Elk Shape", "Ward", req(7, 9), "Gain 5 Ward.", [guard(5)], 1);
 add(
   "leshy",
   "Bramble Trap",
   "Counter",
   req(2, 4),
-  "If the enemy attacks, gain 2 Guard and deal 2 damage.",
+  "If the enemy attacks, gain 2 Ward and deal 2 damage.",
   [when("enemyAttacking", guard(2), dmg(2))],
   2,
 );
@@ -394,19 +377,23 @@ add(
   "Forest Echo",
   "Setup",
   any,
-  "Gain 1 Guard. Store +1 damage for next round.",
+  "Gain 1 Ward. Store +1 damage for next round.",
   [guard(1), power(1)],
 );
-add("leshy", "Deepwood", "Finisher", two(10), "Deal 6 damage and heal 1 HP.", [
-  dmg(6),
-  heal(1),
-]);
+add(
+  "leshy",
+  "Deepwood",
+  "Finisher",
+  two(10),
+  "Deal 6 damage and heal 1 Life.",
+  [dmg(6), heal(1)],
+);
 add(
   "leshy",
   "Wild Bloom",
   "Recovery",
   { count: 1, symbol: "guard" },
-  "Heal 4 HP and gain 2 Guard.",
+  "Heal 4 Life and gain 2 Ward.",
   [heal(4), guard(2)],
   1,
 );
@@ -416,7 +403,7 @@ add(
   "Night Spores",
   "Setup",
   req(6),
-  "Enemy takes 2 damage next round. Gain 1 Guard.",
+  "Enemy takes 2 damage next round. Gain 1 Ward.",
   [
     {
       type: "STATUS",
@@ -431,7 +418,7 @@ add(
 );
 // Quetzalcoatl: category chains and explicit conversion costs.
 add("quetzalcoatl", "Sun Lance", "Attack", req(6), "Deal 4 damage.", [dmg(4)]);
-add("quetzalcoatl", "Feather Aegis", "Guard", req(1, 3), "Gain 3 Guard.", [
+add("quetzalcoatl", "Feather Aegis", "Ward", req(1, 3), "Gain 3 Ward.", [
   guard(3),
 ]);
 add(
@@ -439,7 +426,7 @@ add(
   "First Light",
   "Setup",
   req(2, 5),
-  "Heal 1 HP. Store +1 damage for next round.",
+  "Heal 1 Life. Store +1 damage for next round.",
   [heal(1), power(1)],
   1,
 );
@@ -452,7 +439,7 @@ add(
   [dmg(7)],
   2,
 );
-add("quetzalcoatl", "Jade Breath", "Recovery", req(3, 5), "Heal 3 HP.", [
+add("quetzalcoatl", "Jade Breath", "Recovery", req(3, 5), "Heal 3 Life.", [
   heal(3),
 ]);
 add("quetzalcoatl", "Skyfire", "Attack", req(9), "Deal 5 damage.", [dmg(5)], 1);
@@ -461,7 +448,7 @@ add(
   "Offering",
   "Setup",
   any,
-  "Spend 2 HP. Store +3 damage for next round.",
+  "Spend 2 Life. Store +3 damage for next round.",
   [{ type: "CONVERT", from: "hp", amount: 2, effects: [power(3)] }],
   2,
 );
@@ -470,7 +457,7 @@ add(
   "Dawn Shield",
   "Counter",
   req(4),
-  "Gain 2 Guard. If the enemy attacks, deal 1 damage.",
+  "Gain 2 Ward. If the enemy attacks, deal 1 damage.",
   [guard(2), when("enemyAttacking", dmg(1))],
 );
 add(
@@ -478,7 +465,7 @@ add(
   "Radiant Coil",
   "Attack",
   { count: 1, symbol: "strike" },
-  "Deal 5 damage and heal 1 HP.",
+  "Deal 5 damage and heal 1 Life.",
   [dmg(5), heal(1)],
   1,
 );
@@ -487,7 +474,7 @@ add(
   "Open Sky",
   "Manipulation",
   req(5, 7),
-  "Reduce the first enemy damage effect by 2. Gain 1 Guard.",
+  "Reduce the first enemy damage effect by 2. Gain 1 Ward.",
   [{ type: "BLOCK_EFFECT", amount: 2 }, guard(1)],
 );
 add(
@@ -495,7 +482,7 @@ add(
   "Burning Crown",
   "Finisher",
   req(10),
-  "Spend 2 HP to deal 7 damage.",
+  "Spend 2 Life to deal 7 damage.",
   [{ type: "CONVERT", from: "hp", amount: 2, effects: [dmg(7)] }],
   2,
 );
@@ -514,24 +501,16 @@ add(
   "Hook Strike",
   "Attack",
   req(5),
-  "Deal 3 damage. If behind in HP, deal 1 more.",
+  "Deal 3 damage. If behind in Life, deal 1 more.",
   [dmg(3), when("behind", dmg(1))],
 );
-add(
-  "maui",
-  "Ocean Shelter",
-  "Guard",
-  req(1, 3),
-  "Gain 3 Guard.",
-  [guard(3)],
-  2,
-);
+add("maui", "Ocean Shelter", "Ward", req(1, 3), "Gain 3 Ward.", [guard(3)], 2);
 add(
   "maui",
   "Daring Feint",
   "Attack",
   req(4, 7),
-  "Deal 3 damage. With an unused die, deal 2 more.",
+  "Deal 3 damage. With an unused Omen, deal 2 more.",
   [dmg(3), when("unusedDie", dmg(2))],
   1,
 );
@@ -549,7 +528,7 @@ add(
   "Turnabout",
   "Counter",
   req(3, 5),
-  "Gain 2 Guard. If behind in HP, deal 3 damage.",
+  "Gain 2 Ward. If behind in Life, deal 3 damage.",
   [guard(2), when("behind", dmg(3))],
   2,
 );
@@ -558,7 +537,7 @@ add(
   "Rising Tide",
   "Recovery",
   req(2, 4),
-  "Heal 2 HP. If behind in HP, heal 1 more.",
+  "Heal 2 Life. If behind in Life, heal 1 more.",
   [heal(2), when("behind", heal(1))],
   2,
 );
@@ -567,7 +546,7 @@ add(
   "Stolen Tempo",
   "Manipulation",
   { count: 1, symbol: "steal" },
-  "Reduce the first enemy damage effect by 3. Gain 2 Guard.",
+  "Reduce the first enemy damage effect by 3. Gain 2 Ward.",
   [{ type: "BLOCK_EFFECT", amount: 3 }, guard(2)],
 );
 add("maui", "Island Pull", "Attack", req(8), "Deal 5 damage.", [dmg(5)], 1);
@@ -576,7 +555,7 @@ add(
   "Rope Trick",
   "Manipulation",
   req(6),
-  "Swap the dice on the first two enemy card assignments.",
+  "Swap the Omens on the first two enemy card assignments.",
   [{ type: "SWAP_ASSIGNMENT" }],
 );
 add(
@@ -584,7 +563,7 @@ add(
   "Bold Wager",
   "Setup",
   any,
-  "Spend 1 HP. Store +2 damage for next round.",
+  "Spend 1 Life. Store +2 damage for next round.",
   [{ type: "CONVERT", from: "hp", amount: 1, effects: [power(2)] }],
   1,
 );
@@ -593,7 +572,7 @@ add(
   "Wavebreaker",
   "Attack",
   req(5, 6),
-  "Convert up to 3 Guard into damage, then deal 2 damage.",
+  "Convert up to 3 Ward into damage, then deal 2 damage.",
   [
     {
       type: "CONVERT",
@@ -659,7 +638,7 @@ add(
   "Precision Cut",
   "Attack",
   req(5, 5),
-  "Deal 3 damage; ignore 1 Guard.",
+  "Deal 3 damage; ignore 1 Ward.",
   [{ type: "DAMAGE", amount: 3, guardPierce: 1 }],
 );
 add(
@@ -676,7 +655,7 @@ add(
   "Ritual",
   "Setup",
   { count: 2, exact: 10, min: 10, max: 10 },
-  "Two dice totaling exactly 10: heal 4 and gain 2 Guard.",
+  "Two Omens totaling exactly 10: heal 4 and gain 2 Ward.",
   [heal(4), guard(2)],
 );
 export const cardById = Object.fromEntries(

@@ -73,7 +73,7 @@ export default function Pass() {
               ? "Premium Path unlocked"
               : "A more personal journey"}
           </strong>
-          <small>Legend looks, dice skins & more. Cosmetic rewards.</small>
+          <small>Legend looks, Omen Skins & more. Cosmetic rewards.</small>
         </span>
         <Icon name="right" size={18} />
       </button>

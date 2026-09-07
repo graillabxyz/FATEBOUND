@@ -27,7 +27,7 @@ The initial target is approximately 3–5 minute competitive matches.
 
 Working title can temporarily be:
 
-FATEBOUND
+OMNIPATH
 
 This is a placeholder and should be isolated in config/constants so it can easily be renamed later.
 

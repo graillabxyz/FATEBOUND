@@ -40,7 +40,7 @@ export function registerMetricsTools(
     }
   };
   register({
-    name: "get_fatebound_metrics",
+    name: "get_omnipath_metrics",
     description:
       "Read metrics for the dashboard’s current source and time window. Does not run or save simulations.",
     inputSchema: {
@@ -60,7 +60,7 @@ export function registerMetricsTools(
     },
   });
   register({
-    name: "configure_fatebound_metrics",
+    name: "configure_omnipath_metrics",
     description:
       "Set the visible metrics source, time window, Legend and opponent; fetch the matching dataset. Does not change or fabricate stored records.",
     inputSchema: {

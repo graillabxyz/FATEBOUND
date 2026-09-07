@@ -1,6 +1,6 @@
 import { GAME } from "../content/config";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
+import { omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import { PHASES, type MatchState, type Effect } from "./types";
 import { validateLoadout } from "./rules";
@@ -22,6 +22,16 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
   integer(s.seed, 0, 0xffffffff, "seed");
   integer(s.round, 0, 99, "round");
   integer(s.turn, 0, 198, "turn");
+  integer(s.omenRollCount, 1, 3, "Omen roll count");
+  if (
+    s.config.openingOmenCounts !== null &&
+    (!Array.isArray(s.config.openingOmenCounts) ||
+      s.config.openingOmenCounts.length !== 2 ||
+      s.config.openingOmenCounts.some(
+        (n) => !Number.isInteger(n) || n < 1 || n > 3,
+      ))
+  )
+    throw new Error("Invalid opening Omen counts.");
   integer(s.activePlayer, 0, 1, "active player");
   integer(s.initiative, 0, 1, "initiative");
   integer(s.turnInRound, 0, 1, "turn order");
@@ -40,7 +50,7 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
       slots.length > 3 ||
       new Set(slots).size !== slots.length
     )
-      throw new Error("Invalid saved dice ramp.");
+      throw new Error("Invalid saved Omens ramp.");
     slots.forEach((i) => integer(i, 0, 2, "ramp slot"));
   }
   if (
@@ -60,13 +70,13 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
       p.loadout.cards.some((id) => !cardById[id]) ||
       !Array.isArray(p.loadout.dice) ||
       p.loadout.dice.length !== 3 ||
-      p.loadout.dice.some((id) => !dieById[id])
+      p.loadout.dice.some((id) => !omenById[id])
     )
       throw new Error("Invalid saved loadout.");
     if (!allowIncompatible) validateLoadout(p.loadout);
-    integer(p.hp, 0, 1000, "HP");
-    integer(p.guard, 0, 1000, "Guard");
-    integer(p.control, 0, 6, "Control");
+    integer(p.hp, 0, 1000, "Life");
+    integer(p.guard, 0, 1000, "Ward");
+    integer(p.control, 0, 6, "Focus");
     integer(p.actionsThisRound, 0, 30, "action count");
     integer(p.damageDealt, 0, 100000, "damage");
     if (
@@ -75,7 +85,7 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
       !Array.isArray(p.dice) ||
       p.dice.length !== 3
     )
-      throw new Error("Three saved die resources required.");
+      throw new Error("Three saved Omen resources required.");
     p.dice.forEach((d, i) => {
       if (
         !d ||
@@ -90,15 +100,15 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
         ].includes(d.state) ||
         typeof d.modified !== "boolean"
       )
-        throw new Error("Invalid saved die resource.");
+        throw new Error("Invalid saved Omen resource.");
       integer(d.rolledTurn, 0, 198, "roll turn");
       integer(
         d.originalFace,
         0,
-        dieById[p.loadout.dice[i]].size - 1,
+        omenById[p.loadout.dice[i]].size - 1,
         "original face",
       );
-      integer(p.faces[i], 0, dieById[p.loadout.dice[i]].size - 1, "face");
+      integer(p.faces[i], 0, omenById[p.loadout.dice[i]].size - 1, "face");
     });
     if (
       !Array.isArray(p.known) ||

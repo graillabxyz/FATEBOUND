@@ -13,11 +13,11 @@ export const LEGENDS: Legend[] = [
     subtitle: "The forest remembers.",
     lore: "An ancient keeper of the wild, gathering strength beneath the quiet canopy.",
     hp: 20,
-    passive: "Your first Guard each round gains +1.",
+    passive: "Your first Ward each round gains +1.",
     active: {
       timing: "REACTION",
-      name: "Ancient Guard",
-      text: "1–4: gain Guard equal to half the die, rounded up.",
+      name: "Ancient Ward",
+      text: "1–4: gain Ward equal to half the Omen, rounded up.",
       requirement: { count: 1, min: 1, max: 4 },
       effects: [{ type: "GUARD", scaling: "halfDieUp" }],
     },
@@ -41,7 +41,7 @@ export const LEGENDS: Legend[] = [
     subtitle: "Every thread tells a story.",
     lore: "A storyteller who finds a path through promises, secrets and possibilities.",
     hp: 18,
-    passive: "Your first manipulation each round grants 2 Guard.",
+    passive: "Your first manipulation each round grants 2 Ward.",
     active: {
       timing: "REACTION",
       name: "Web Shift",
@@ -101,7 +101,7 @@ export const LEGENDS: Legend[] = [
     active: {
       timing: "ACTION",
       name: "Change Shape",
-      text: "Gain 2 Guard and heal 1 HP.",
+      text: "Gain 2 Ward and heal 1 Life.",
       requirement: { count: 1, min: 3, max: 6 },
       effects: [
         { type: "GUARD", amount: 2 },
@@ -113,7 +113,7 @@ export const LEGENDS: Legend[] = [
     color: "#83b3ad",
     artIndex: 3,
     animationProfile: "mist",
-    approaches: ["Adaptation", "Transformation", "Forest control"],
+    approaches: ["Adaptation", "Transformation", "Forest Focus"],
   },
   {
     id: "quetzalcoatl",
@@ -132,7 +132,7 @@ export const LEGENDS: Legend[] = [
     active: {
       timing: "ACTION",
       name: "Sky Offering",
-      text: "Spend 1 HP. Store +2 damage for next round.",
+      text: "Spend 1 Life. Store +2 damage for next round.",
       requirement: { count: 1, min: 2 },
       effects: [
         {
@@ -165,11 +165,11 @@ export const LEGENDS: Legend[] = [
     subtitle: "Make the impossible yield.",
     lore: "An audacious voyager whose cunning reshapes the limits of the possible.",
     hp: 20,
-    passive: "End your turn holding exactly one die: gain 2 Guard.",
+    passive: "End your turn holding exactly one Omen: gain 2 Ward.",
     active: {
       timing: "ACTION",
       name: "Turn the Tide",
-      text: "Deal 2 damage. If behind in HP, heal 2.",
+      text: "Deal 2 damage. If behind in Life, heal 2.",
       requirement: { count: 1, min: 3 },
       effects: [
         { type: "DAMAGE", amount: 2 },

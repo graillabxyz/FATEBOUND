@@ -2,7 +2,7 @@ import { defaultSetup, defaultPlayer } from "./model";
 import type { LabSetup } from "./model";
 import { LabController } from "./controller";
 import { CARDS } from "../content/cards";
-import { DICE } from "../content/dice";
+import { OMENS } from "../content/omens";
 export type Scenario = {
   id: string;
   name: string;
@@ -41,8 +41,8 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "question",
-    "Round 6 · flipped two-die attack",
-    "Basajaun 4 HP, Anansi 2 Guard, Web Shift known, D12 flipped; Herensuge assigned.",
+    "Round 6 · flipped two-Omen attack",
+    "Basajaun 4 Life, Anansi 2 Ward, Web Shift known, D12 flipped; Herensuge assigned.",
     (s) => {
       s.round = 6;
       s.initiativeWinner = 1;
@@ -59,8 +59,8 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "lethal",
-    "Low HP lethal test",
-    "Both at 3 HP. High numbered faces.",
+    "Low Life lethal test",
+    "Both at 3 Life. High numbered faces.",
     (s) => {
       s.players.forEach((p) => (p.hp = 3));
       s.fate.fixed = [105, 105, 105];
@@ -68,8 +68,8 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "guard",
-    "Double Guard test",
-    "Round 3: use two Guard activations with separate dice.",
+    "Double Ward test",
+    "Round 3: use two Ward activations with separate Omens.",
     (s) => {
       s.round = 3;
     },
@@ -81,7 +81,7 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "two",
-    "Two-dice card test",
+    "Two-Omens card test",
     "Herensuge has exactly 12 total: D12 7 + D8 5.",
     (s) => {
       s.round = 3;
@@ -94,10 +94,10 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "blank",
-    "Flip blank to power face",
-    "Heartwood D12 starts Blank. Flip reaches its Guard symbol.",
+    "Flip Void to power face",
+    "Heartwood D12 starts Void. Flip reaches its Ward Sigil.",
     (s) => {
-      s.players[0].loadout.dice[0] = DICE.find(
+      s.players[0].loadout.dice[0] = OMENS.find(
         (d) => d.id === "basajaun-d12-0",
       )!.id;
       s.fate.fixed[0] = 0;
@@ -119,7 +119,7 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "reaction",
-    "Hold → attack → Ancient Guard",
+    "Hold → attack → Ancient Ward",
     "Basajaun begins with a held 3, ready to react to Anansi.",
     (s) => {
       s.initiativeWinner = 1;
@@ -140,7 +140,7 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "tie",
     "Round 7 tie",
-    "Mirror health and damage; empty plans yield deterministic draw.",
+    "Mirror Life and damage; empty plans yield deterministic draw.",
     (s) => {
       s.round = 7;
       s.players[1] = defaultPlayer("basajaun", false);
@@ -149,7 +149,7 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "timeout",
     "Timeout test",
-    "One-second timeout passes without spending dice.",
+    "One-second timeout passes without spending Omens.",
     (s) => {
       s.timerMs = 1000;
     },
@@ -167,13 +167,13 @@ export const SCENARIOS: Scenario[] = [
     "No cards revealed",
     "Production projection hides four cards on either side.",
   ),
-  scenario("zero", "Control 0", "Both players have no Control.", (s) => {
+  scenario("zero", "Focus 0", "Both players have no Focus.", (s) => {
     s.players.forEach((p) => (p.control = 0));
   }),
   scenario(
     "five",
-    "Control 5",
-    "Both players start with five Control for resource edge cases.",
+    "Focus 5",
+    "Both players start with five Focus for resource edge cases.",
     (s) => {
       s.players.forEach((p) => (p.control = 5));
     },
@@ -208,8 +208,8 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "heal",
-    "Healing above max HP",
-    "Basajaun starts at 20 HP with Deep Roots assigned.",
+    "Healing above max Life",
+    "Basajaun starts at 20 Life with Deep Roots assigned.",
     (s) => {
       s.players[0].loadout.cards[0] = CARDS.find(
         (c) => c.legend === "basajaun" && c.name === "Deep Roots",

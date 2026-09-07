@@ -1,3 +1,4 @@
+import { GAME } from "../src/content/config";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { LEGENDS } from "../src/content/legends";
 import { STARTERS } from "../src/content/loadouts";
@@ -35,7 +36,7 @@ for (let index = 0; index < count; index++) {
 }
 const stats = aggregate(records);
 const report = {
-  mechanicalVersion: 2,
+  mechanicalVersion: GAME.version,
   generatedAt: new Date().toISOString(),
   method:
     "Normal AI; paired swapped seats AND RNG streams; all Legend matchups including mirrors. Wilson 95% opening-initiative interval; balance estimate, not a human-play claim.",
@@ -43,7 +44,10 @@ const report = {
   dieBudgets: DICE.map(dieBudget),
 };
 mkdirSync("reports", { recursive: true });
-writeFileSync("reports/balance-v2.json", JSON.stringify(report, null, 2));
+writeFileSync(
+  `reports/balance-v${GAME.version}.json`,
+  JSON.stringify(report, null, 2),
+);
 console.log(
   JSON.stringify(
     {

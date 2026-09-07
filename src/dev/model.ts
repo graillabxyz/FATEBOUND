@@ -4,7 +4,7 @@ import { GAME } from "../content/config";
 import { STARTERS } from "../content/loadouts";
 import { clone, validateLoadout } from "../engine/rules";
 import { CARDS, cardById } from "../content/cards";
-import { DICE, dieById } from "../content/dice";
+import { OMENS, omenById } from "../content/omens";
 import { legendById } from "../content/legends";
 import { randomSource } from "../engine/fate";
 export type Seat = 0 | 1;
@@ -162,7 +162,7 @@ export function restrictionErrors(l: Loadout) {
       errors.push(`Card ${i + 1}: ${id} is incompatible.`);
   });
   l.dice.forEach((id, i) => {
-    const d = dieById[id],
+    const d = omenById[id],
       legend = legendById[l.legend];
     if (
       d &&
@@ -170,7 +170,7 @@ export function restrictionErrors(l: Loadout) {
         (!d.compatibleLegendTags.includes("all") &&
           !d.compatibleLegendTags.some((t) => legend.tags.includes(t))))
     )
-      errors.push(`Die ${i + 1}: ${id} is incompatible.`);
+      errors.push(`Omen ${i + 1}: ${id} is incompatible.`);
   });
   return [...new Set(errors)];
 }
@@ -192,9 +192,9 @@ export function validateSetup(s: LabSetup) {
       );
     if (
       p.loadout.dice.length !== 3 ||
-      p.loadout.dice.some((id) => !dieById[id])
+      p.loadout.dice.some((id) => !omenById[id])
     )
-      throw new Error("Three existing die IDs are required.");
+      throw new Error("Three existing Omen IDs are required.");
     // Duplicate targets are ambiguous to the real engine; stress-testing compatibility still uses unique cards.
     if (new Set(p.loadout.cards).size !== 4)
       throw new Error(
@@ -203,14 +203,14 @@ export function validateSetup(s: LabSetup) {
     if (!s.ignoreRestrictions) validateLoadout(p.loadout);
     int(p.initiativeBonus, 0, 20, "Initiative bonus");
     if (!Array.isArray(p.heldFaces) || p.heldFaces.length !== 3)
-      throw new Error("Three held-die overrides required.");
+      throw new Error("Three held-Omen overrides required.");
     p.heldFaces.forEach((f, i) => {
       if (f !== null)
-        int(f, 0, dieById[p.loadout.dice[i]].size - 1, "Held face");
+        int(f, 0, omenById[p.loadout.dice[i]].size - 1, "Held face");
     });
-    int(p.hp, 0, 1000, "HP");
-    int(p.guard, 0, 1000, "Guard");
-    int(p.control, 0, 6, "Control");
+    int(p.hp, 0, 1000, "Life");
+    int(p.guard, 0, 1000, "Ward");
+    int(p.control, 0, 6, "Focus");
     int(p.damageDealt, 0, 100000, "Previous damage");
     if (!["Training", "Normal"].includes(p.difficulty))
       throw new Error("Unknown AI difficulty.");
@@ -252,7 +252,7 @@ export function randomLoadout(
   }
   const l = legendById[legend];
   const dice = l.diceSlots.map(() => {
-    const options = DICE.filter(
+    const options = OMENS.filter(
       (d) =>
         l.allowedDiceSizes.includes(d.size) &&
         (d.compatibleLegendTags.includes("all") ||
