@@ -76,7 +76,7 @@ for (const a of [-1, 1])
 const antiprism: Vec[] = [];
 for (let i = 0; i < 10; i++) {
   const angle = (i * Math.PI) / 5;
-  antiprism.push([Math.cos(angle), Math.sin(angle), i % 2 ? -0.5 : 0.5]);
+  antiprism.push([Math.cos(angle), Math.sin(angle), i % 2 ? -0.75 : 0.75]);
 }
 export const DIE_SHAPES: Record<DieSize, string> = {
   4: "tetrahedron",
