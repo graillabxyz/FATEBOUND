@@ -1,3 +1,4 @@
+import { CARD_ART } from "../content/card-art";
 import "./card-geometry.css";
 import { WARD_RULE } from "../content/card-rules";
 import { AffinityLine } from "./Affinities";
@@ -491,6 +492,29 @@ export const CARD_ICONS: Record<CardDef["category"], string> = {
   Finisher: "flame",
   Prediction: "eye",
 };
+export function CardArt({
+  card,
+  className = "",
+}: {
+  card: CardDef;
+  className?: string;
+}) {
+  const art = CARD_ART[card.id];
+  return (
+    <div className={`card-art ${className}`}>
+      <img
+        src={art.src}
+        alt={art.alt}
+        loading="lazy"
+        decoding="async"
+        width={960}
+        height={640}
+        style={{ objectPosition: art.objectPosition }}
+      />
+    </div>
+  );
+}
+
 export function GameplayCard({
   card,
   onClick,
@@ -558,11 +582,7 @@ export function GameplayCard({
         <div className="card-affinity">
           <AffinityLine requirement={card.affinityRequirements} compact />
         </div>
-        <div className="card-illustration card-pool-art">
-          <span className="card-symbol">
-            <Icon name={icon} size={26} />
-          </span>
-        </div>
+        <CardArt card={card} className="card-illustration" />
         <div className="card-rules">
           <strong>{card.requirementLabel}</strong>
           <p>{card.text}</p>

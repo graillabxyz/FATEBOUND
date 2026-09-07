@@ -1,4 +1,4 @@
-# OMNIPATH authoritative combat · mechanical version 6
+# OMNIPATH authoritative combat · mechanical version 7
 
 ## Runtime and boundaries
 
@@ -85,3 +85,7 @@ Sigils do not fire an independent effect merely by being rolled: they pay eligib
 Version 6 uses one global 60-Card pool, recursive data-driven Affinity requirements and independent mechanical tags. Six Legends access 29–39 legal Cards each. Current content has six numbered Omen sizes and six signature Omens; each starter equips one signature plus two numbered Omens. All Cards explicitly have persistence none: the reusable Card stays in Hand while its ability resolves. Owner-turn Poison/Empowered expiry, upfront Life costs and pre-effect condition capture are authoritative. See RULES_AUDIT.md and ALPHA_CARD_AUDIT.md for exact behavior and campaign results.
 
 Fresh local profiles receive two Legends, sixteen Cards and six Omens. Ownership is separate from equipped Loadouts. Two-Card packs use persisted idempotent receipts, weighted rarity outcomes and duplicate Coins; all Cards can also be acquired directly with earned Coins. This remains a device-local alpha economy. Supabase catalog/save validation uses the same Affinity definitions, with migration adapters retaining legacy entitlements and stable content history.
+
+## Card art and specialization · version 7
+
+Each Card has a distinct cosmetic illustration in `src/content/card-art.ts`, shared by collection, Hand, pack, battle and inspectors. Art has no effect on match rules. Three specialist Cards now require all three listed Affinities (Wild Bloom, Unravel, Night Spores); Sanctuary, Watchful Blade and Island Pull now require two. These remain global Cards evaluated by the recursive Affinity validator, not Legend-specific pools. Costs, effects and starter Hands are unchanged. Version 7 rejects earlier command replays because loadout legality changed. Local profile migration keeps ownership and repairs incompatible equipped Hands using owned legal Cards.

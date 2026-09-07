@@ -14,7 +14,7 @@ import { omenById, omenBudget } from "../content/omens";
 import { legendById } from "../content/legends";
 import {
   Omen,
-  CARD_ICONS,
+  CardArt,
   Icon,
   LegendArt,
   Modal,
@@ -126,11 +126,7 @@ export default function Inspector({
         onClose={onClose}
       >
         <AffinityLine requirement={c.affinityRequirements} />
-        <div className="inspect-card-art card-pool-art">
-          <span className="inspect-card-symbol">
-            <Icon name={CARD_ICONS[c.category]} size={62} />
-          </span>
-        </div>
+        <CardArt card={c} className="inspect-card-art" />
         <div className="requirement-large">
           <span>ACTIVATION</span>
           <strong>{c.requirementLabel}</strong>

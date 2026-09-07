@@ -1,0 +1,465 @@
+{
+  "method": "Each specialized Card equipped on every legal Legend, against all six starter kits. Twenty games per cohort, paired reversed seats and RNG. Smoke test, not proof of balance.",
+  "games": 960,
+  "mismatches": 0,
+  "access": [
+    {
+      "legend": "basajaun",
+      "legalCards": 35
+    },
+    {
+      "legend": "anansi",
+      "legalCards": 33
+    },
+    {
+      "legend": "tengu",
+      "legalCards": 32
+    },
+    {
+      "legend": "leshy",
+      "legalCards": 28
+    },
+    {
+      "legend": "quetzalcoatl",
+      "legalCards": 35
+    },
+    {
+      "legend": "maui",
+      "legalCards": 38
+    }
+  ],
+  "rows": [
+    {
+      "card": "wild-bloom",
+      "legend": "basajaun",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "wild-bloom",
+      "legend": "basajaun",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.7
+    },
+    {
+      "card": "wild-bloom",
+      "legend": "basajaun",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.3
+    },
+    {
+      "card": "wild-bloom",
+      "legend": "basajaun",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "wild-bloom",
+      "legend": "basajaun",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "wild-bloom",
+      "legend": "basajaun",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.7
+    },
+    {
+      "card": "unravel",
+      "legend": "anansi",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.7
+    },
+    {
+      "card": "unravel",
+      "legend": "anansi",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "unravel",
+      "legend": "anansi",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "unravel",
+      "legend": "anansi",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.8
+    },
+    {
+      "card": "unravel",
+      "legend": "anansi",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "unravel",
+      "legend": "anansi",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "night-spores",
+      "legend": "leshy",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "night-spores",
+      "legend": "leshy",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "night-spores",
+      "legend": "leshy",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.7
+    },
+    {
+      "card": "night-spores",
+      "legend": "leshy",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "night-spores",
+      "legend": "leshy",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "night-spores",
+      "legend": "leshy",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.3
+    },
+    {
+      "card": "sanctuary",
+      "legend": "quetzalcoatl",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.3
+    },
+    {
+      "card": "sanctuary",
+      "legend": "quetzalcoatl",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "sanctuary",
+      "legend": "quetzalcoatl",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.3
+    },
+    {
+      "card": "sanctuary",
+      "legend": "quetzalcoatl",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "sanctuary",
+      "legend": "quetzalcoatl",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "sanctuary",
+      "legend": "quetzalcoatl",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "tengu",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "tengu",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "tengu",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 2,
+      "openingRate": 0.7777777777777778
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "tengu",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "tengu",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "tengu",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "quetzalcoatl",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "quetzalcoatl",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.8
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "quetzalcoatl",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 4,
+      "openingRate": 0.375
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "quetzalcoatl",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "quetzalcoatl",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 2,
+      "openingRate": 0.4444444444444444
+    },
+    {
+      "card": "watchful-blade",
+      "legend": "quetzalcoatl",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.2
+    },
+    {
+      "card": "island-pull",
+      "legend": "basajaun",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "island-pull",
+      "legend": "basajaun",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.8
+    },
+    {
+      "card": "island-pull",
+      "legend": "basajaun",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "island-pull",
+      "legend": "basajaun",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.6
+    },
+    {
+      "card": "island-pull",
+      "legend": "basajaun",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "island-pull",
+      "legend": "basajaun",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "island-pull",
+      "legend": "maui",
+      "opponent": "basajaun",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    },
+    {
+      "card": "island-pull",
+      "legend": "maui",
+      "opponent": "anansi",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.3
+    },
+    {
+      "card": "island-pull",
+      "legend": "maui",
+      "opponent": "tengu",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.8
+    },
+    {
+      "card": "island-pull",
+      "legend": "maui",
+      "opponent": "leshy",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.5
+    },
+    {
+      "card": "island-pull",
+      "legend": "maui",
+      "opponent": "quetzalcoatl",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.7
+    },
+    {
+      "card": "island-pull",
+      "legend": "maui",
+      "opponent": "maui",
+      "games": 20,
+      "mismatches": 0,
+      "draws": 0,
+      "openingRate": 0.4
+    }
+  ]
+}

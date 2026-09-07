@@ -114,7 +114,7 @@ describe("global alpha pool and Affinity authority", () => {
         } else expect(() => validateLoadout(build)).toThrow("Requires");
       }
     }
-    expect(pairs).toBe(209);
+    expect(pairs).toBe(201);
   });
   it("shares Root Ward across compatible Legends and keeps exact dual Affinity constraints", () => {
     expect(cardsFor("basajaun")).toContain(cardById["root-ward"]);
@@ -122,6 +122,27 @@ describe("global alpha pool and Affinity authority", () => {
     expect(cardsFor("anansi")).not.toContain(cardById["root-ward"]);
     expect(cardsFor("tengu")).toContain(cardById["precision-cut"]);
     expect(cardsFor("anansi")).not.toContain(cardById["precision-cut"]);
+  });
+  it("requires every Affinity on specialist Cards, including all three of a triad", () => {
+    const triad = cardById["wild-bloom"].affinityRequirements;
+    expect(affinityText(triad)).toBe("Wild AND Might AND Spirit");
+    expect(meetsAffinity(["wild", "might", "spirit"], triad)).toBe(true);
+    for (const pair of [
+      ["wild", "might"],
+      ["wild", "spirit"],
+      ["might", "spirit"],
+    ] as const)
+      expect(meetsAffinity(pair, triad)).toBe(false);
+    expect(cardsFor("basajaun")).toContain(cardById["wild-bloom"]);
+    expect(cardsFor("maui")).not.toContain(cardById["wild-bloom"]);
+    expect(cardsFor("quetzalcoatl")).not.toContain(cardById["wild-bloom"]);
+    expect(cardsFor("anansi")).toContain(cardById.unravel);
+    expect(cardsFor("leshy")).toContain(cardById["night-spores"]);
+    expect(affinityText(cardById.sanctuary.affinityRequirements)).toBe(
+      "Spirit AND Wisdom",
+    );
+    expect(cardsFor("basajaun")).not.toContain(cardById.sanctuary);
+    expect(cardsFor("quetzalcoatl")).toContain(cardById.sanctuary);
   });
   it("enumerates all unique four-Card Hands rather than four isolated pools", () => {
     const count = cardsFor("leshy").length,
@@ -189,7 +210,7 @@ describe("two-Legend starter collection and acquisition", () => {
       p = freshProfile(),
       l = {
         ...p.loadouts[0],
-        cards: ["sanctuary", ...p.loadouts[0].cards.slice(1)],
+        cards: ["wild-bloom", ...p.loadouts[0].cards.slice(1)],
       };
     expect(() => svc.saveLoadout(p, l)).toThrow("owned");
     expect(() => validateLoadout(STARTERS.tengu, svc.ownedGameplay(p))).toThrow(
@@ -228,6 +249,27 @@ describe("two-Legend starter collection and acquisition", () => {
     next.loadouts.forEach((l) =>
       expect(() => validateLoadout(l, svc.ownedGameplay(next))).not.toThrow(),
     );
+  });
+  it("repairs a newly incompatible saved Hand without removing acquired specialist Cards", () => {
+    const st = storage(),
+      svc = new LocalProfileService(st),
+      p = freshProfile();
+    p.ownedLegends.push("maui");
+    p.ownedCards.push("wild-bloom", ...STARTERS.maui.cards);
+    p.ownedOmens.push(...STARTERS.maui.dice);
+    p.loadouts.push({
+      ...STARTERS.maui,
+      cards: ["wild-bloom", ...STARTERS.maui.cards.slice(0, 3)],
+    });
+    st.setItem(PROFILE_KEY, JSON.stringify(p));
+    const migrated = svc.load();
+    expect(migrated.ownedCards).toContain("wild-bloom");
+    const hand = migrated.loadouts.find((l) => l.legend === "maui")!;
+    expect(hand.cards).not.toContain("wild-bloom");
+    expect(hand.cards).toHaveLength(4);
+    expect(() =>
+      validateLoadout(hand, svc.ownedGameplay(migrated)),
+    ).not.toThrow();
   });
   it("opens exactly two distinct Cards deterministically and respects rarity ownership protection", () => {
     for (let seed = 0; seed < 200; seed++) {

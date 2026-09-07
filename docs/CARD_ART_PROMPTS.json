@@ -1,0 +1,312 @@
+{
+  "generator": "Built-in image_gen",
+  "style": "Use case: stylized-concept. One finished landscape 3:2 illustration for an OMNIPATH collectible Card. Restrained premium folklore trading-card oil painting, tactile painterly detail and realistic materials, ancient global mythic world, cinematic natural light, deep rich shadows with a clearly readable illuminated subject. Clear single focal action, close composition readable at thumbnail size. Center subject in horizontal middle for wide card-art crop. Art only, no frame, no words, no numbers, no lettering, no graphic icons, no logos, no watermark. Scene: ",
+  "cards": [
+    {
+      "id": "crush",
+      "scene": "A massive stone-headed war hammer shatters basalt in a decisive downward blow.",
+      "output": "public/art/cards/crush.webp"
+    },
+    {
+      "id": "root-ward",
+      "scene": "Living roots weave into a dense curved shield before an incoming spear, protection forming in a rain-dark forest.",
+      "output": "public/art/cards/root-ward.webp"
+    },
+    {
+      "id": "barkskin",
+      "scene": "A warrior's forearm becomes layered bark armor; an attacking blade hits it and sharp splinters spring back toward the attacker.",
+      "output": "public/art/cards/barkskin.webp"
+    },
+    {
+      "id": "herensuge",
+      "scene": "An immense ancient serpentine dragon unleashes a focused fiery blast across a mountain ravine, overwhelming finishing force, no gore.",
+      "output": "public/art/cards/herensuge.webp"
+    },
+    {
+      "id": "deep-roots",
+      "scene": "Warm healing light rises from deep tree roots into a wounded traveler's cupped hands at the base of an old tree, restoration.",
+      "output": "public/art/cards/deep-roots.webp"
+    },
+    {
+      "id": "oakheart",
+      "scene": "An amber-lit living oak heart within a bark chestplate, protective roots coiling around it and a gathered pulse of strength.",
+      "output": "public/art/cards/oakheart.webp"
+    },
+    {
+      "id": "thorn-return",
+      "scene": "A thorny living shield catches a sword blow and lashes sharp brambles back toward the attack, one clear close-up defensive counter.",
+      "output": "public/art/cards/thorn-return.webp"
+    },
+    {
+      "id": "fell-the-axe",
+      "scene": "A warrior sheltered behind a translucent protective barrier brings down a heavy iron axe, controlled follow-through and bright sparks.",
+      "output": "public/art/cards/fell-the-axe.webp"
+    },
+    {
+      "id": "sanctuary",
+      "scene": "A traveler sheltered within a luminous ring of ancient standing stones, dark curse-like smoke dissolving outward, profound protection and cleansing.",
+      "output": "public/art/cards/sanctuary.webp"
+    },
+    {
+      "id": "silken-cut",
+      "scene": "A taut strand of silver silk slices cleanly through a reed stalk, a gloved hand drawing the thread, tiny precise physical attack.",
+      "output": "public/art/cards/silken-cut.webp"
+    },
+    {
+      "id": "read-the-thread",
+      "scene": "A watchful hand follows glowing threads that trace the path of an approaching blade, seeing the attack before it arrives.",
+      "output": "public/art/cards/read-the-thread.webp"
+    },
+    {
+      "id": "web-shift",
+      "scene": "A web of luminous silk bends an incoming bronze spear in a sweeping arc back toward the distant figure who threw it, redirection.",
+      "output": "public/art/cards/web-shift.webp"
+    },
+    {
+      "id": "false-promise",
+      "scene": "A beautiful hollow golden mask cracks against a protective barrier, revealing a hidden jagged dagger aimed through the fractured Ward.",
+      "output": "public/art/cards/false-promise.webp"
+    },
+    {
+      "id": "unravel",
+      "scene": "Careful fingers pull one golden thread from a tightly woven magical attack, causing the whole incoming spell to unravel into harmless loose strands.",
+      "output": "public/art/cards/unravel.webp"
+    },
+    {
+      "id": "borrowed-time",
+      "scene": "A cracked ancient hourglass suspended inside a thin protective shell, a few golden grains gathering into a future burst of strength.",
+      "output": "public/art/cards/borrowed-time.webp"
+    },
+    {
+      "id": "spider-s-patience",
+      "scene": "A small patient spider repairing dew-covered silk above a traveler's healing hands, calm restorative stillness, no threatening bite.",
+      "output": "public/art/cards/spider-s-patience.webp"
+    },
+    {
+      "id": "story-s-end",
+      "scene": "A weathered storyteller's scroll curls into a powerful shadow serpent delivering a final strike, closing a known tale, no readable writing.",
+      "output": "public/art/cards/story-s-end.webp"
+    },
+    {
+      "id": "hidden-meaning",
+      "scene": "A small woven protective charm reveals a concealed thorn as an incoming blade touches it, modest defense with a hidden returning sting.",
+      "output": "public/art/cards/hidden-meaning.webp"
+    },
+    {
+      "id": "gale-cut",
+      "scene": "A sharp crescent of wind from a sword sweeps through windblown leaves on a mountain path, clean decisive cut.",
+      "output": "public/art/cards/gale-cut.webp"
+    },
+    {
+      "id": "perfect-riposte",
+      "scene": "Two sword blades meet in a precise close-up parry, defender's blade gliding along the attack toward an immediate answering strike.",
+      "output": "public/art/cards/perfect-riposte.webp"
+    },
+    {
+      "id": "sky-sever",
+      "scene": "An immense narrow sword arc parts storm clouds above jagged mountains, a forceful sky-cleaving finishing attack.",
+      "output": "public/art/cards/sky-sever.webp"
+    },
+    {
+      "id": "first-wind",
+      "scene": "A young traveler's short blade cuts through a small fresh gust of leaves, quick simple opening strike at dawn.",
+      "output": "public/art/cards/first-wind.webp"
+    },
+    {
+      "id": "still-mind",
+      "scene": "A seated traveler beside a still mountain pool, dark mist lifting from their shoulders as a soft restorative glow reflects on water.",
+      "output": "public/art/cards/still-mind.webp"
+    },
+    {
+      "id": "raven-wing",
+      "scene": "A broad dark raven wing sweeps between a traveler and an incoming blade, feathers catching the impact and deflecting it.",
+      "output": "public/art/cards/raven-wing.webp"
+    },
+    {
+      "id": "peak-strike",
+      "scene": "A spear point descends from a high rocky ledge toward a shattered stone target, concentrated mountain-top precision and force.",
+      "output": "public/art/cards/peak-strike.webp"
+    },
+    {
+      "id": "windstep",
+      "scene": "A light-footed fighter takes a swift step wrapped in a small protective swirl of wind, strength gathering around their next poised strike.",
+      "output": "public/art/cards/windstep.webp"
+    },
+    {
+      "id": "watchful-blade",
+      "scene": "A disciplined swordsman waits motionless with blade angled toward an approaching shadow, sudden bright answering cut before the attack lands.",
+      "output": "public/art/cards/watchful-blade.webp"
+    },
+    {
+      "id": "mountain-silence",
+      "scene": "A traveler stands protected within a dense stone-like translucent barrier while a mountain storm breaks harmlessly around it.",
+      "output": "public/art/cards/mountain-silence.webp"
+    },
+    {
+      "id": "falling-leaf",
+      "scene": "A single copper autumn leaf rides the edge of a quick low sword cut, delicate economical strike in a forest clearing.",
+      "output": "public/art/cards/falling-leaf.webp"
+    },
+    {
+      "id": "branch-lash",
+      "scene": "A long living branch whips sharply across a forest path, bark and leaves trailing along a powerful focused lash.",
+      "output": "public/art/cards/branch-lash.webp"
+    },
+    {
+      "id": "moss-mantle",
+      "scene": "A mantle of lush moss wraps a traveler's shoulders into soft protective layers while small warm lights mend a scraped arm.",
+      "output": "public/art/cards/moss-mantle.webp"
+    },
+    {
+      "id": "wolf-shape",
+      "scene": "A battered forest wanderer transforms into a fierce wolf mid-leap, recovering strength for a desperate counteroffensive, no gore.",
+      "output": "public/art/cards/wolf-shape.webp"
+    },
+    {
+      "id": "lost-path",
+      "scene": "An incoming strike loses its way among twisting forest paths and misleading shadows, a protected traveler slipping safely aside.",
+      "output": "public/art/cards/lost-path.webp"
+    },
+    {
+      "id": "new-skin",
+      "scene": "Old cracked bark peels away from a forest spirit to reveal fresh healthy wood beneath, dark blight crumbling off in renewal.",
+      "output": "public/art/cards/new-skin.webp"
+    },
+    {
+      "id": "bramble-trap",
+      "scene": "A defender braces behind a quickly raised bramble shield; an enemy blade makes contact and a thorny vine lashes back. Show an immediate defensive counter, not a planted trap or creature summon.",
+      "output": "public/art/cards/bramble-trap.webp"
+    },
+    {
+      "id": "wild-bloom",
+      "scene": "Luminous wildflowers bloom across protective vines around a wounded traveler, healing light and a living shield together.",
+      "output": "public/art/cards/wild-bloom.webp"
+    },
+    {
+      "id": "crooked-bough",
+      "scene": "A twisted gnarled bough snaps forward in an unexpected crooked angle, striking a wooden practice target, unruly forest force.",
+      "output": "public/art/cards/crooked-bough.webp"
+    },
+    {
+      "id": "night-spores",
+      "scene": "Soft violet poisonous spores drift from nocturnal mushrooms toward a distant silhouette, with a small sheltering fungal cap in foreground.",
+      "output": "public/art/cards/night-spores.webp"
+    },
+    {
+      "id": "sun-lance",
+      "scene": "A brilliant lance of warm sunlight pierces through dark clouds toward a cracked stone target, focused solar attack.",
+      "output": "public/art/cards/sun-lance.webp"
+    },
+    {
+      "id": "first-light",
+      "scene": "First dawn light touches a traveler's bruised hand and gathers into a small golden spark above their poised weapon, healing and preparation.",
+      "output": "public/art/cards/first-light.webp"
+    },
+    {
+      "id": "offering",
+      "scene": "A traveler offers a small red life-like ember from their palm into an ancient stone bowl, their weapon answering with restrained powerful light; sacrifice without gore.",
+      "output": "public/art/cards/offering.webp"
+    },
+    {
+      "id": "dawn-shield",
+      "scene": "A round shield of sunrise light catches an incoming arrow and throws a narrow ray back along its path, warm defensive counter.",
+      "output": "public/art/cards/dawn-shield.webp"
+    },
+    {
+      "id": "open-sky",
+      "scene": "Clouds open into a clear blue vault that disperses an incoming dark bolt above a traveler, a thin luminous shield remains.",
+      "output": "public/art/cards/open-sky.webp"
+    },
+    {
+      "id": "burning-crown",
+      "scene": "A crown of living solar fire burns above a warrior's bowed head, a red ember drawn from their chest into an immense outward blast; costly power without gore.",
+      "output": "public/art/cards/burning-crown.webp"
+    },
+    {
+      "id": "horizon",
+      "scene": "Three successive arcs of a practiced weapon stroke meet along a glowing horizon, a rising final attack after earlier movements.",
+      "output": "public/art/cards/horizon.webp"
+    },
+    {
+      "id": "daring-feint",
+      "scene": "A fighter makes a misleading shallow blade thrust while keeping a second small weapon visibly unused in the other hand, cunning reserve and opportunity.",
+      "output": "public/art/cards/daring-feint.webp"
+    },
+    {
+      "id": "turnabout",
+      "scene": "A battered defender catches a blow on a cracked shield while pivoting into a returning strike, a reversal from a losing position.",
+      "output": "public/art/cards/turnabout.webp"
+    },
+    {
+      "id": "rising-tide",
+      "scene": "Gentle turquoise tide rises around an exhausted island traveler, luminous water mending their wounds and lifting their stance.",
+      "output": "public/art/cards/rising-tide.webp"
+    },
+    {
+      "id": "island-pull",
+      "scene": "A colossal ancient carved fishhook hauls a heavy stone island upward through the sea, explosive physical force and crashing spray.",
+      "output": "public/art/cards/island-pull.webp"
+    },
+    {
+      "id": "bold-wager",
+      "scene": "A daring hand lays a single red life ember beside weathered carved bones, golden power gathering around a waiting fist, risk traded for future strength.",
+      "output": "public/art/cards/bold-wager.webp"
+    },
+    {
+      "id": "wavebreaker",
+      "scene": "A protective wall of turquoise water shatters forward into a spear-like surge, the shield itself becoming the attack.",
+      "output": "public/art/cards/wavebreaker.webp"
+    },
+    {
+      "id": "against-the-current",
+      "scene": "A determined spear thrust drives upstream through a rushing protective water barrier, an opportunistic attack that grows stronger against defense.",
+      "output": "public/art/cards/against-the-current.webp"
+    },
+    {
+      "id": "quick-strike",
+      "scene": "A plain short bronze blade flashes in one fast economical strike against a hanging rope, simple universally useful technique.",
+      "output": "public/art/cards/quick-strike.webp"
+    },
+    {
+      "id": "web-turn",
+      "scene": "Silken strands catch an incoming luminous attack and guide it around in a tight return loop toward its caster, clear magical redirection.",
+      "output": "public/art/cards/web-turn.webp"
+    },
+    {
+      "id": "precision-cut",
+      "scene": "An expertly placed thin blade slips through a tiny seam in a heavy shield, exact controlled cut that bypasses protection.",
+      "output": "public/art/cards/precision-cut.webp"
+    },
+    {
+      "id": "counterstrike",
+      "scene": "A fighter recoils from a glancing blow then immediately answers with a compact strong punch, resilience and post-impact retaliation, no gore.",
+      "output": "public/art/cards/counterstrike.webp"
+    },
+    {
+      "id": "ritual",
+      "scene": "Two smooth Omen stones sit within an ancient ritual circle around a traveler; healing light rises and a strong protective veil forms, no writing or interface symbols.",
+      "output": "public/art/cards/ritual.webp"
+    },
+    {
+      "id": "meditate",
+      "scene": "Calm hands hold two plain faceted Omen stones above still water, attention gathering as small neutral light points, deliberate focus.",
+      "output": "public/art/cards/meditate.webp"
+    },
+    {
+      "id": "hollow-sign",
+      "scene": "A dark empty faceted Omen turns in a traveler's hand while another carved Omen rotates to its opposite side, void-inspired manipulation, no UI or floating icons.",
+      "output": "public/art/cards/hollow-sign.webp"
+    },
+    {
+      "id": "thread-the-path",
+      "scene": "A fine luminous thread tugs one physical Omen within an incoming spell down by a small precise turn, causing the structured spell to falter.",
+      "output": "public/art/cards/thread-the-path.webp"
+    }
+  ],
+  "edits": [
+    {
+      "id": "thread-the-path",
+      "instruction": "Replace central idol with a physical octahedral d8 with engraved 5 and 4. Preserve hand, thread, interrupted spell, composition and lighting. No UI overlays."
+    }
+  ]
+}
