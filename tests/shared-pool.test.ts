@@ -239,7 +239,7 @@ describe("two-Legend starter collection and acquisition", () => {
     st.setItem(PROFILE_KEY, JSON.stringify(p));
     const next = svc.load();
     expect(next.coins).toBe(999);
-    expect(next.ownedLegends).toHaveLength(6);
+    expect(next.ownedLegends).toEqual(["basajaun", "anansi"]);
     expect(next.loadouts[0].cards).toEqual([
       "crush",
       "root-ward",

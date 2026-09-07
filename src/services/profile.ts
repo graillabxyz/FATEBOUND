@@ -1,3 +1,8 @@
+import {
+  LEGEND_JOURNEY,
+  legendJourney,
+  type LegendUnlockRecord,
+} from "../content/legend-progression";
 import { migrateCardId, LEGACY_CARD_IDS } from "../content/card-migration";
 import { legendById } from "../content/legends";
 import {
@@ -43,6 +48,9 @@ export type Profile = {
   collectionVersion: 1;
   ownedCards: string[];
   ownedLegends: LegendId[];
+  legendJourneyClaims: number[];
+  legendUnlockRevision: number;
+  legendUnlocks: Partial<Record<LegendId, LegendUnlockRecord>>;
   ownedOmens: string[];
   packs: number;
   packSequence: number;
@@ -95,6 +103,12 @@ export function freshProfile(): Profile {
     collectionVersion: 1,
     ownedCards: [...STARTER_CARDS],
     ownedLegends: [...STARTER_LEGENDS],
+    legendJourneyClaims: [],
+    legendUnlockRevision: 0,
+    legendUnlocks: {
+      basajaun: { source: "starter" },
+      anansi: { source: "starter" },
+    },
     ownedOmens: [...STARTER_OMENS],
     packs: 0,
     packSequence: 0,
@@ -216,7 +230,7 @@ export class LocalProfileService {
       ].filter((id) => !!cardById[id]);
       const ownedLegends = [
         ...new Set([
-          ...(legacy ? LEGENDS.map((l) => l.id) : (p.ownedLegends ?? [])),
+          ...(Array.isArray(p.ownedLegends) ? p.ownedLegends : []),
           ...STARTER_LEGENDS,
         ]),
       ].filter((id) => !!legendById[id]);
@@ -257,6 +271,27 @@ export class LocalProfileService {
         collectionVersion: 1,
         ownedCards,
         ownedLegends,
+        legendJourneyClaims: [
+          ...new Set(
+            (Array.isArray(p.legendJourneyClaims)
+              ? p.legendJourneyClaims
+              : []
+            ).filter((m) => LEGEND_JOURNEY.milestones.some((v) => v === m)),
+          ),
+        ],
+        legendUnlockRevision:
+          Number.isSafeInteger(p.legendUnlockRevision) &&
+          p.legendUnlockRevision >= 0
+            ? p.legendUnlockRevision
+            : 0,
+        legendUnlocks: Object.fromEntries(
+          ownedLegends.map((id) => [
+            id,
+            p.legendUnlocks?.[id] ?? {
+              source: STARTER_LEGENDS.includes(id) ? "starter" : "legacy",
+            },
+          ]),
+        ),
         ownedOmens,
         loadouts,
         activeId: loadouts.some((l) => l.id === p.activeId)
@@ -309,6 +344,13 @@ export class LocalProfileService {
   claimMatch(p: Profile, view: MatchView, mode: string, now = Date.now()) {
     if (view.phase !== "MATCH_END" || view.winner === null)
       throw new Error("Only completed matches grant rewards.");
+    const saved = this.load();
+    if (saved.claimedMatches.includes(view.id))
+      return p.claimedMatches.includes(view.id) &&
+        saved.legendUnlockRevision <= p.legendUnlockRevision
+        ? p
+        : saved;
+    p = this.currentLegendProfile(p);
     if (p.claimedMatches.includes(view.id)) return p;
     const n = structuredClone(p);
     const win = view.winner === 0;
@@ -456,17 +498,54 @@ export class LocalProfileService {
     this.save(n);
     return n;
   }
-  unlockLegend(p: Profile, id: LegendId) {
-    if (!legendById[id]) throw new Error("Unknown Legend.");
-    if (p.ownedLegends.includes(id)) return p;
-    if (p.coins < LEGEND_COIN_PRICE) throw new Error("Not enough Coins.");
-    const n = structuredClone(p);
-    n.coins -= LEGEND_COIN_PRICE;
-    n.ownedLegends.push(id);
+  private currentLegendProfile(p: Profile): Profile {
+    const stored = this.load();
+    return stored.legendUnlockRevision > p.legendUnlockRevision ? stored : p;
+  }
+  private grantLegend(p: Profile, id: LegendId, record: LegendUnlockRecord) {
+    p.ownedLegends = [...new Set([...p.ownedLegends, id])];
+    p.legendUnlocks[id] = record;
     const kit = structuredClone(STARTERS[id]);
-    n.ownedCards = [...new Set([...n.ownedCards, ...kit.cards])];
-    n.ownedOmens = [...new Set([...n.ownedOmens, ...kit.dice])];
-    n.loadouts.push(kit);
+    p.ownedCards = [...new Set([...p.ownedCards, ...kit.cards])];
+    p.ownedOmens = [...new Set([...p.ownedOmens, ...kit.dice])];
+    if (!p.loadouts.some((l) => l.id === kit.id)) p.loadouts.push(kit);
+  }
+  unlockLegend(p: Profile, id: LegendId, currency: "coins" | "gems" = "coins") {
+    if (!legendById[id]) throw new Error("Unknown Legend.");
+    if (currency !== "coins" && currency !== "gems")
+      throw new Error("Invalid currency.");
+    const current = this.currentLegendProfile(p);
+    if (current.ownedLegends.includes(id)) return current;
+    if (current !== p)
+      throw new Error(
+        "Collection changed. Reopen this Legend before purchasing.",
+      );
+    const cost =
+      currency === "coins" ? LEGEND_COIN_PRICE : LEGEND_JOURNEY.gemPrice;
+    if (!Number.isFinite(p[currency]) || p[currency] < cost)
+      throw new Error(`Not enough ${currency === "coins" ? "Coins" : "Gems"}.`);
+    const n = structuredClone(p);
+    n[currency] -= cost;
+    this.grantLegend(n, id, { source: currency });
+    n.legendUnlockRevision++;
+    this.save(n);
+    return n;
+  }
+  claimLegendMilestone(p: Profile, milestone: number, id?: LegendId) {
+    const current = this.currentLegendProfile(p);
+    if (current.legendJourneyClaims.includes(milestone)) return current;
+    if (current !== p)
+      throw new Error("Collection changed. Reopen the Legend Journey.");
+    if (!legendJourney(p).available.some((m) => m === milestone))
+      throw new Error("Complete the required matches to claim this milestone.");
+    const allOwned = LEGENDS.every((l) => p.ownedLegends.includes(l.id));
+    if (!allOwned && (!id || !legendById[id] || p.ownedLegends.includes(id)))
+      throw new Error("Choose a Legend you have not unlocked yet.");
+    const n = structuredClone(p);
+    if (allOwned) n.coins += LEGEND_JOURNEY.completeCollectionCoins;
+    else this.grantLegend(n, id!, { source: "journey", milestone });
+    n.legendJourneyClaims.push(milestone);
+    n.legendUnlockRevision++;
     this.save(n);
     return n;
   }

@@ -1,0 +1,250 @@
+.legend-journey,
+.legend-unlock {
+  border: 1px solid #667c694d;
+  border-radius: 14px;
+  padding: 17px;
+  background: linear-gradient(135deg, #233b32, #15251f);
+  margin: 16px 0;
+  color: #eee9d8;
+}
+.legend-journey-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.legend-journey-heading > svg {
+  color: #c6ac73;
+  flex-shrink: 0;
+}
+.legend-journey-heading > div {
+  flex: 1;
+  min-width: 0;
+}
+.legend-journey-heading small,
+.legend-unlock > small {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #c3b488;
+}
+.legend-journey-heading h3,
+.legend-unlock h3 {
+  font-family: var(--font-display, serif);
+  font-size: 23px;
+  line-height: 1.1;
+  margin: 5px 0;
+}
+.legend-journey-heading > span {
+  font-size: 20px;
+  white-space: nowrap;
+  text-align: center;
+}
+.legend-journey-heading > span small {
+  display: block;
+  font-size: 8px;
+  margin-top: 4px;
+}
+.legend-journey-track {
+  height: 4px;
+  border-radius: 3px;
+  background: #ffffff13;
+  overflow: hidden;
+  margin: 14px 0;
+}
+.legend-journey-track > i {
+  display: block;
+  height: 100%;
+  background: #c4b07a;
+  border-radius: 3px;
+}
+.legend-journey p,
+.legend-unlock p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #bcc9be;
+  margin: 10px 0;
+}
+.legend-journey .legend-journey-note,
+.legend-unlock .legend-journey-note {
+  font-size: 10px;
+  color: #acb9ad;
+  line-height: 1.6;
+}
+.legend-milestones {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  margin: 18px 0;
+  padding: 0;
+  gap: 6px;
+}
+.legend-milestones li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 7px;
+  color: #9aa99d;
+}
+.legend-milestones li > span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #7f938354;
+}
+.legend-milestones strong {
+  font-size: 10px;
+  white-space: nowrap;
+}
+.legend-milestones small {
+  font-size: 9px;
+}
+.legend-milestones .ready {
+  color: #f5d893;
+}
+.legend-milestones .ready > span {
+  background: #d5bc7320;
+  border-color: #d5bc73;
+}
+.legend-milestones .claimed {
+  color: #a7d1b2;
+}
+.legend-journey-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: #e0c790;
+  padding: 0;
+  text-align: left;
+  font-size: 12px;
+}
+.legend-journey.is-compact {
+  padding: 14px 16px;
+}
+.legend-journey.is-compact .legend-journey-track {
+  margin-bottom: 0;
+}
+.legend-choice-prompt {
+  color: #efd596 !important;
+}
+.legend-unlock details {
+  font-size: 11px;
+  border-top: 1px solid #ffffff16;
+  border-bottom: 1px solid #ffffff16;
+  margin: 12px 0;
+  padding: 0 0 8px;
+}
+.legend-unlock summary {
+  min-height: 44px;
+  align-content: center;
+  cursor: pointer;
+  color: #ddc890;
+}
+.legend-unlock details > strong {
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.legend-unlock details > small {
+  font-size: 10px;
+  color: #afbeb0;
+}
+.legend-unlock-free {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  border-radius: 8px;
+  background: #cbbc86;
+  color: #172820;
+  border: 0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.legend-unlock-earned {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  padding: 8px 0 14px;
+  color: #d3cda9;
+}
+.legend-unlock-prices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 10px;
+}
+.legend-unlock-prices button {
+  min-height: 60px;
+  border-radius: 8px;
+  border: 1px solid #a5b89966;
+  background: #ffffff08;
+  color: #f3e3b6;
+  cursor: pointer;
+}
+.legend-unlock-prices strong {
+  display: block;
+  font-size: 14px;
+}
+.legend-unlock-prices small {
+  display: block;
+  font-size: 10px;
+  margin-top: 5px;
+  color: #c6cabb;
+}
+.legend-unlock-prices button:disabled {
+  opacity: 0.48;
+  cursor: default;
+}
+.legend-unlock button:focus-visible,
+.legend-journey button:focus-visible {
+  outline: 2px solid #efcd7b;
+  outline-offset: 3px;
+}
+.legend-collection-locked {
+  position: relative;
+}
+.legend-collection-locked .legend-art {
+  filter: saturate(0.65);
+}
+.legend-collection-locked .collection-ownership {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #cdbc8a;
+}
+.legend-owned-count {
+  font-size: 11px;
+  color: #b4c2b5;
+}
+.result-card .legend-journey {
+  margin: 12px 0;
+}
+@media (max-width: 360px) {
+  .legend-journey,
+  .legend-unlock {
+    padding: 13px;
+  }
+  .legend-journey-heading h3 {
+    font-size: 21px;
+  }
+  .legend-milestones strong {
+    font-size: 9px;
+  }
+}
+
+/* Collection entries wrap their portrait to show ownership beneath it. */
+.legend-grid > div {
+  min-width: 0;
+}
+.legend-grid .legend-card {
+  width: 100%;
+}

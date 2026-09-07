@@ -1,6 +1,7 @@
+import { LegendJourney } from "./LegendProgression";
 import { Packs } from "./Packs";
 import { CardBrowser } from "./CardBrowser";
-import { LEGEND_COIN_PRICE, OMEN_COIN_PRICE } from "../content/acquisition";
+import { OMEN_COIN_PRICE } from "../content/acquisition";
 import { EmoteCollection } from "./Emotes";
 import { TutorialSteps, Glossary } from "./Help";
 import { ENABLE_DEV_TOOLS } from "../dev/gate";
@@ -65,7 +66,7 @@ export function ProfilePage() {
       </div>
       <SectionLabel>PLAYER AVATAR</SectionLabel>
       <div className="avatar-picker">
-        {LEGENDS.map((l) => (
+        {LEGENDS.filter((l) => profile.ownedLegends.includes(l.id)).map((l) => (
           <button
             key={l.id}
             aria-label={`Use ${l.name} avatar`}
@@ -113,9 +114,12 @@ export function ProfilePage() {
           </button>
         </div>
       </label>
-      <SectionLabel right={<span>6 LEGENDS</span>}>LEGEND MASTERY</SectionLabel>
+      <LegendJourney compact />
+      <SectionLabel right={<span>{profile.ownedLegends.length} OWNED</span>}>
+        LEGEND MASTERY
+      </SectionLabel>
       <div className="mastery-list">
-        {LEGENDS.map((l) => (
+        {LEGENDS.filter((l) => profile.ownedLegends.includes(l.id)).map((l) => (
           <div key={l.id}>
             <LegendArt id={l.id} />
             <span>
@@ -294,30 +298,26 @@ export function ShopPage() {
       ) : tab === "Cards" ? (
         <CardBrowser />
       ) : tab === "Legends" ? (
-        <div className="unlock-list">
-          {LEGENDS.map((l) => (
-            <article key={l.id}>
-              <LegendArt id={l.id} />
-              <strong>{l.name}</strong>
-              <p>Legend + curated shared-pool Hand + readable Omens.</p>
-              <button
-                disabled={profile.ownedLegends.includes(l.id)}
-                onClick={() => {
-                  try {
-                    update(service.unlockLegend(profile, l.id));
-                    toast("Legend unlocked.");
-                  } catch (e) {
-                    toast((e as Error).message);
-                  }
-                }}
-              >
-                {profile.ownedLegends.includes(l.id)
-                  ? "Owned"
-                  : `${LEGEND_COIN_PRICE} Coins`}
-              </button>
-            </article>
-          ))}
-        </div>
+        <>
+          <LegendJourney />
+          <div className="unlock-list">
+            {LEGENDS.map((l) => (
+              <article key={l.id}>
+                <LegendArt id={l.id} />
+                <strong>{l.name}</strong>
+                <p>
+                  Legend + four shared Cards + one signature and two numbered
+                  Omens.
+                </p>
+                <button onClick={() => inspect({ type: "legend", item: l })}>
+                  {profile.ownedLegends.includes(l.id)
+                    ? "Owned · View Legend"
+                    : "View unlock options"}
+                </button>
+              </article>
+            ))}
+          </div>
+        </>
       ) : tab === "Omens" ? (
         <div className="unlock-list">
           {OMENS.map((d) => (
@@ -685,8 +685,8 @@ export function UpgradeContent() {
         </p>
       )}
       <p className="cultural-note">
-        Cards and Legends are earned with Coins and free progression. Premium
-        rewards are cosmetic.
+        Legends can be earned through play or unlocked early with Coins or Gems.
+        Season Path premium rewards are cosmetic.
       </p>
     </div>
   );

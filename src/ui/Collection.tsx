@@ -1,3 +1,4 @@
+import { LegendJourney } from "./LegendProgression";
 import { CardBrowser } from "./CardBrowser";
 import { OmenFaces } from "./OmenFaces";
 import { useState } from "react";
@@ -15,7 +16,7 @@ export default function Collection() {
       <PageHeading eyebrow="STORIES WORTH COLLECTING" title="The collection">
         <span className="collection-count">
           {category === "Legends"
-            ? LEGENDS.length
+            ? `${profile.ownedLegends.length}/${LEGENDS.length}`
             : category === "Cards"
               ? CARDS.length
               : category === "Omens"
@@ -37,14 +38,17 @@ export default function Collection() {
       </div>
       {category === "Legends" ? (
         <>
-          <p className="intro-copy">
-            Different origins. Different instincts.
-            <br />
-            Find the Legend that thinks like you.
-          </p>
+          <LegendJourney />
           <div className="legend-grid">
             {LEGENDS.map((l) => (
-              <div key={l.id}>
+              <div
+                key={l.id}
+                className={
+                  profile.ownedLegends.includes(l.id)
+                    ? ""
+                    : "legend-collection-locked"
+                }
+              >
                 <LegendCard
                   legend={l}
                   selected={active.legend === l.id}
@@ -53,7 +57,7 @@ export default function Collection() {
                 <small className="collection-ownership">
                   {profile.ownedLegends.includes(l.id)
                     ? "Owned"
-                    : "Locked · Unlock with Coins"}
+                    : "Locked · Play, Coins or Gems"}
                 </small>
               </div>
             ))}

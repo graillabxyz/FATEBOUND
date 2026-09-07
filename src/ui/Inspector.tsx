@@ -1,8 +1,9 @@
+import { LegendUnlockOptions } from "./LegendProgression";
 import { cardRuleDetails } from "../content/card-rules";
 import { AffinityLine } from "./Affinities";
 import { cardCompatibilityReason } from "../content/affinities";
 import { LEGENDS } from "../content/legends";
-import { CARD_COIN_PRICE, LEGEND_COIN_PRICE } from "../content/acquisition";
+import { CARD_COIN_PRICE } from "../content/acquisition";
 import { FaceExplanation } from "./OmenFaces";
 import { omenFace, requirementText } from "../content/terminology";
 import { cardsFor } from "../content/cards";
@@ -60,6 +61,7 @@ export default function Inspector({
         </p>
         <AffinityLine ids={l.affinities} />
         <p className="lore">{l.lore}</p>
+        <LegendUnlockOptions id={l.id} />
         <SectionLabel>PASSIVE</SectionLabel>
         <p className="rules-copy">{l.passive}</p>
         <SectionLabel right={<span>{l.active.timing}</span>}>
@@ -87,29 +89,21 @@ export default function Inspector({
             <span key={a}>{a}</span>
           ))}
         </div>
-        <PrimaryButton
-          onClick={() => {
-            if (!profile.ownedLegends.includes(l.id)) {
-              try {
-                update(service.unlockLegend(profile, l.id));
-                toast("Legend and example Loadout unlocked.");
-              } catch (e) {
-                toast((e as Error).message);
-              }
-              return;
-            }
-            const build =
-              profile.loadouts.find((b) => b.legend === l.id) ?? STARTERS[l.id];
-            update({ ...profile, activeId: build.id });
-            onClose();
-            navigate("loadout");
-            toast(`${l.name} selected.`);
-          }}
-        >
-          {profile.ownedLegends.includes(l.id)
-            ? `Choose ${l.name}`
-            : `Unlock Legend + Loadout · ${LEGEND_COIN_PRICE} Coins`}
-        </PrimaryButton>
+        {profile.ownedLegends.includes(l.id) && (
+          <PrimaryButton
+            onClick={() => {
+              const build =
+                profile.loadouts.find((b) => b.legend === l.id) ??
+                STARTERS[l.id];
+              update({ ...profile, activeId: build.id });
+              onClose();
+              navigate("loadout");
+              toast(`${l.name} selected.`);
+            }}
+          >
+            Choose {l.name}
+          </PrimaryButton>
+        )}
         <p className="cultural-note">
           Creative game interpretation of folklore.
         </p>

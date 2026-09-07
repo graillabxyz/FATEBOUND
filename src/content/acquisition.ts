@@ -15,7 +15,7 @@ export const CARD_COIN_PRICE: Record<CardRarity, number> = {
   rare: 180,
   mythic: 240,
 };
-export const LEGEND_COIN_PRICE = 400;
+export const LEGEND_COIN_PRICE = 800;
 export const OMEN_COIN_PRICE = 120;
 export const PROGRESSION_PACKS = {
   matchesEvery: 5,

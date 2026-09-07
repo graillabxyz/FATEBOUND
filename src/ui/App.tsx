@@ -1,3 +1,4 @@
+import { LegendJourney } from "./LegendProgression";
 import { validateLoadout } from "../engine/rules";
 import { MatchEmoteProvider, EmoteMenu, EmoteBubble } from "./Emotes";
 import { startUsage } from "../services/telemetry";
@@ -358,6 +359,13 @@ export default function App() {
                         · online rating unaffected
                       </p>
                     )}
+                    <LegendJourney
+                      compact
+                      onOpen={() => {
+                        leave();
+                        navigate("legends");
+                      }}
+                    />
                     <div className="result-actions">
                       <PrimaryButton
                         icon="attack"
