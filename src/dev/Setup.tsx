@@ -1,3 +1,4 @@
+import { cardCompatible } from "../content/affinities";
 import { omenFace } from "../content/terminology";
 import { LEGENDS, legendById } from "../content/legends";
 import { CARDS } from "../content/cards";
@@ -114,7 +115,7 @@ export default function Setup({
                 >
                   <select
                     className={
-                      CARDS.find((c) => c.id === id)?.legend !== l.id
+                      !CARDS.some((c) => c.id === id && cardCompatible(l, c))
                         ? "invalid"
                         : ""
                     }
@@ -129,7 +130,7 @@ export default function Setup({
                     }
                   >
                     {CARDS.filter(
-                      (c) => setup.ignoreRestrictions || c.legend === l.id,
+                      (c) => setup.ignoreRestrictions || cardCompatible(l, c),
                     ).map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name} · {c.timing} · {c.requirementLabel}

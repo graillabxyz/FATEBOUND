@@ -1,3 +1,8 @@
+import { cardRuleDetails } from "../content/card-rules";
+import { AffinityLine } from "./Affinities";
+import { cardCompatibilityReason } from "../content/affinities";
+import { LEGENDS } from "../content/legends";
+import { CARD_COIN_PRICE, LEGEND_COIN_PRICE } from "../content/acquisition";
 import { FaceExplanation } from "./OmenFaces";
 import { omenFace, requirementText } from "../content/terminology";
 import { cardsFor } from "../content/cards";
@@ -26,7 +31,7 @@ export default function Inspector({
   target: Inspect;
   onClose: () => void;
 }) {
-  const { profile, update, navigate, service, toast } = useGame();
+  const { profile, active, update, navigate, service, toast } = useGame();
   const [face, setFace] = useState(
     target.type === "omen" ? (target.faceIndex ?? 0) : 0,
   );
@@ -53,6 +58,7 @@ export default function Inspector({
           <Icon name="wind" size={16} /> Initiative +{l.initiativeBonus} ·{" "}
           {l.class}
         </p>
+        <AffinityLine ids={l.affinities} />
         <p className="lore">{l.lore}</p>
         <SectionLabel>PASSIVE</SectionLabel>
         <p className="rules-copy">{l.passive}</p>
@@ -83,6 +89,15 @@ export default function Inspector({
         </div>
         <PrimaryButton
           onClick={() => {
+            if (!profile.ownedLegends.includes(l.id)) {
+              try {
+                update(service.unlockLegend(profile, l.id));
+                toast("Legend and example Loadout unlocked.");
+              } catch (e) {
+                toast((e as Error).message);
+              }
+              return;
+            }
             const build =
               profile.loadouts.find((b) => b.legend === l.id) ?? STARTERS[l.id];
             update({ ...profile, activeId: build.id });
@@ -91,7 +106,9 @@ export default function Inspector({
             toast(`${l.name} selected.`);
           }}
         >
-          Choose {l.name}
+          {profile.ownedLegends.includes(l.id)
+            ? `Choose ${l.name}`
+            : `Unlock Legend + Loadout · ${LEGEND_COIN_PRICE} Coins`}
         </PrimaryButton>
         <p className="cultural-note">
           Creative game interpretation of folklore.
@@ -105,23 +122,55 @@ export default function Inspector({
     return (
       <Modal
         title={c.name}
-        eyebrow={`${legendById[c.legend].name} · ${c.timing} · ${c.category}`}
+        eyebrow={`${c.set} #${String(c.collectorNumber).padStart(3, "0")} · ${c.rarity} · ${c.timing}`}
         onClose={onClose}
       >
-        <LegendArt id={c.legend} className="inspect-card-art">
+        <AffinityLine requirement={c.affinityRequirements} />
+        <div className="inspect-card-art card-pool-art">
           <span className="inspect-card-symbol">
             <Icon name={CARD_ICONS[c.category]} size={62} />
           </span>
-        </LegendArt>
+        </div>
         <div className="requirement-large">
           <span>ACTIVATION</span>
           <strong>{c.requirementLabel}</strong>
         </div>
         <p className="card-effect-large">{c.text}</p>
+        <details className="card-function" open>
+          <summary>What happens when I play this?</summary>
+          {cardRuleDetails(c).map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </details>
+        <p className="helper-text">
+          {cardCompatibilityReason(legendById[active.legend], c)}
+        </p>
+        <p className="helper-text">
+          Compatible:{" "}
+          {LEGENDS.filter((l) =>
+            cardsFor(l.id).some((card) => card.id === c.id),
+          )
+            .map((l) => l.name)
+            .join(" · ")}
+        </p>
+        {!profile.ownedCards.includes(c.id) && (
+          <PrimaryButton
+            onClick={() => {
+              try {
+                update(service.purchaseCard(profile, c.id));
+                toast("Card added to your collection.");
+              } catch (e) {
+                toast((e as Error).message);
+              }
+            }}
+          >
+            Unlock with {CARD_COIN_PRICE[c.rarity]} Coins
+          </PrimaryButton>
+        )}
         <div className="detail-rows">
           <div>
             <span>Approach</span>
-            <b>{c.archetype}</b>
+            <b>{c.category}</b>
           </div>
           <div>
             <span>Timing</span>

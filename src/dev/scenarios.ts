@@ -24,6 +24,13 @@ function scenario(
       const s = defaultSetup();
       s.players.forEach((p) => (p.ai = false));
       s.initiativeWinner = 0;
+      if (["question", "two", "simultaneous", "redirect"].includes(id))
+        s.players[0].loadout.cards = [
+          "crush",
+          "root-ward",
+          "barkskin",
+          "herensuge",
+        ];
       edit(s);
       const c = new LabController(s);
       live?.(c);
@@ -48,7 +55,8 @@ export const SCENARIOS: Scenario[] = [
       s.initiativeWinner = 1;
       s.players[0].hp = 4;
       s.players[1].guard = 2;
-      s.players[1].known = ["anansi-web-shift"];
+      s.players[1].loadout.cards[2] = "web-shift";
+      s.players[1].known = ["web-shift"];
       s.fate.fixed = [10, 60, 40];
     },
     (c) => {
@@ -95,10 +103,10 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "blank",
     "Flip Void to power face",
-    "Heartwood D12 starts Void. Flip reaches its Ward Sigil.",
+    "Warden’s Oath starts Void. Flip reaches its Ward Sigil.",
     (s) => {
       s.players[0].loadout.dice[0] = OMENS.find(
-        (d) => d.id === "basajaun-d12-0",
+        (d) => d.id === "guardian-d6",
       )!.id;
       s.fate.fixed[0] = 0;
     },
@@ -111,11 +119,11 @@ export const SCENARIOS: Scenario[] = [
       s.players[1] = defaultPlayer("basajaun", false);
       s.players[0].hp = 2;
       s.players[1].hp = 4;
-      s.players[1].loadout.cards[0] = "basajaun-counterstrike";
+      s.players[1].loadout.cards[0] = "counterstrike";
       s.players[1].heldFaces[0] = 7;
       s.fate.fixed[0] = 80;
     },
-    (c) => c.assign(0, 0, "basajaun-crush"),
+    (c) => c.assign(0, 0, "crush"),
   ),
   scenario(
     "reaction",
@@ -131,11 +139,11 @@ export const SCENARIOS: Scenario[] = [
     "Attack → Web Turn",
     "Anansi holds an exact 6; redirect Crush back to Basajaun.",
     (s) => {
-      s.players[1].loadout.cards[0] = "anansi-web-turn";
+      s.players[1].loadout.cards[2] = "web-turn";
       s.players[1].heldFaces[0] = 5;
       s.fate.fixed[0] = 80;
     },
-    (c) => c.assign(0, 0, "basajaun-crush"),
+    (c) => c.assign(0, 0, "crush"),
   ),
   scenario(
     "tie",
@@ -212,7 +220,7 @@ export const SCENARIOS: Scenario[] = [
     "Basajaun starts at 20 Life with Deep Roots assigned.",
     (s) => {
       s.players[0].loadout.cards[0] = CARDS.find(
-        (c) => c.legend === "basajaun" && c.name === "Deep Roots",
+        (c) => c.id === "deep-roots",
       )!.id;
       s.fate.fixed = [20, 60, 40];
     },

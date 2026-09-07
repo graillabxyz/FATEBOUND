@@ -1,3 +1,4 @@
+import { CardBrowser } from "./CardBrowser";
 import { OmenFaces } from "./OmenFaces";
 import { useState } from "react";
 import { LEGENDS } from "../content/legends";
@@ -5,18 +6,10 @@ import { CARDS } from "../content/cards";
 import { OMENS } from "../content/omens";
 import { COSMETICS } from "../content/economy";
 import { useGame } from "./context";
-import {
-  Omen,
-  GameplayCard,
-  Icon,
-  LegendCard,
-  PageHeading,
-} from "./components";
+import { Omen, Icon, LegendCard, PageHeading } from "./components";
 export default function Collection() {
   const { active, profile, inspect, service } = useGame();
   const [category, setCategory] = useState("Legends");
-  const [filter, setFilter] = useState("all");
-  const [favorite, setFavorite] = useState(false);
   return (
     <div className="page collection-page">
       <PageHeading eyebrow="STORIES WORTH COLLECTING" title="The collection">
@@ -51,12 +44,18 @@ export default function Collection() {
           </p>
           <div className="legend-grid">
             {LEGENDS.map((l) => (
-              <LegendCard
-                key={l.id}
-                legend={l}
-                selected={active.legend === l.id}
-                onClick={() => inspect({ type: "legend", item: l })}
-              />
+              <div key={l.id}>
+                <LegendCard
+                  legend={l}
+                  selected={active.legend === l.id}
+                  onClick={() => inspect({ type: "legend", item: l })}
+                />
+                <small className="collection-ownership">
+                  {profile.ownedLegends.includes(l.id)
+                    ? "Owned"
+                    : "Locked · Unlock with Coins"}
+                </small>
+              </div>
             ))}
           </div>
           <p className="cultural-note">
@@ -66,51 +65,7 @@ export default function Collection() {
           </p>
         </>
       ) : category === "Cards" ? (
-        <>
-          <div className="filter-row">
-            <select
-              aria-label="Filter collection by Legend"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            >
-              <option value="all">All Legends</option>
-              <optgroup label="Region / tradition">
-                {LEGENDS.map((l) => (
-                  <option key={l.id} value={`region:${l.id}`}>
-                    {l.region}
-                  </option>
-                ))}
-              </optgroup>
-              {LEGENDS.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.name}
-                </option>
-              ))}
-            </select>
-            <button
-              className={favorite ? "active" : ""}
-              onClick={() => setFavorite(!favorite)}
-            >
-              <Icon name="star" size={15} />
-              Favorites
-            </button>
-          </div>
-          <div className="collection-cards">
-            {CARDS.filter(
-              (c) =>
-                (filter === "all" ||
-                  c.legend === filter ||
-                  filter === `region:${c.legend}`) &&
-                (!favorite || profile.favorites.includes(c.id)),
-            ).map((c) => (
-              <GameplayCard
-                key={c.id}
-                card={c}
-                onClick={() => inspect({ type: "card", item: c })}
-              />
-            ))}
-          </div>
-        </>
+        <CardBrowser />
       ) : category === "Omens" ? (
         <>
           <p className="intro-copy">
@@ -132,7 +87,9 @@ export default function Collection() {
                 <OmenFaces omen={d} />
                 <small>{d.tags.join(" · ")}</small>
                 <small>
-                  {service.ownedGameplay().has(d.id) ? "Owned" : "Locked"}
+                  {service.ownedGameplay(profile).has(d.id)
+                    ? "Owned"
+                    : "Locked"}
                   {active.dice.includes(d.id) ? " · Equipped" : ""}
                 </small>
                 <span>

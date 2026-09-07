@@ -20,3 +20,5 @@ dist-internal/
 supabase/.temp/
 supabase/functions/omnipath-api/index.ts
 server/online/generated.mjs
+
+work/

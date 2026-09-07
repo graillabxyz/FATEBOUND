@@ -1,3 +1,4 @@
+import { cardCompatible, cardCompatibilityReason } from "../content/affinities";
 import { requirementText, rulesLabel } from "../content/terminology";
 import { GAME } from "../content/config";
 import { cardById } from "../content/cards";
@@ -27,6 +28,7 @@ export function dieCompatible(l: Loadout, id: string) {
 }
 export function validateLoadout(l: Loadout, owned?: Set<string>) {
   if (!l || !legendById[l.legend]) throw new Error("Unknown Legend.");
+  if (owned && !owned.has(l.legend)) throw new Error("Legend is not owned.");
   if (
     !Array.isArray(l.cards) ||
     l.cards.length !== 4 ||
@@ -36,12 +38,11 @@ export function validateLoadout(l: Loadout, owned?: Set<string>) {
   if (!Array.isArray(l.dice) || l.dice.length !== 3)
     throw new Error("Equip exactly three fixed Omens.");
   l.cards.forEach((id) => {
-    if (
-      !cardById[id]?.tags.some((t) =>
-        legendById[l.legend].compatibleCardTags.includes(t),
-      )
-    )
-      throw new Error("Card is incompatible with this Legend.");
+    if (!cardById[id]) throw new Error("Unknown Card.");
+    if (!cardCompatible(legendById[l.legend], cardById[id]))
+      throw new Error(
+        cardCompatibilityReason(legendById[l.legend], cardById[id]),
+      );
     if (owned && !owned.has(id)) throw new Error("Card is not owned.");
   });
   l.dice.forEach((id) => {
@@ -101,6 +102,7 @@ export function meetsRequirement(
   if (faces.length !== r.count || faces.some((f) => !f)) return false;
   if (r.size && sizes.some((s) => s !== r.size)) return false;
   if (r.symbol && !faces.some((f) => f.effectId === r.symbol)) return false;
+  if (r.void) return faces.every((f) => f.type === "blank");
   if (r.any || r.symbol) return true;
   if (faces.some((f) => f.type !== "number")) return false;
   const total = faces.reduce((n, f) => n + f.value, 0);
@@ -169,6 +171,11 @@ export function assignmentValid(
 }
 export const resourceAvailable = (ctx: DecisionContext, slot: number) =>
   ["AVAILABLE", "HELD"].includes(ctx.self.dice[slot]?.state);
+function containsDamage(effects: import("./types").Effect[]): boolean {
+  return effects.some(
+    (e) => e.type === "DAMAGE" || (e.effects && containsDamage(e.effects)),
+  );
+}
 export function conditionMatches(
   condition: string,
   ctx: DecisionContext,
@@ -185,18 +192,16 @@ export function conditionMatches(
         behind: ctx.self.hp < ctx.enemy.hp,
         guarding: ctx.self.guard > 0,
         enemyAttacking:
-          (!!ctx.pending &&
-            ctx.pending.actor !== ctx.actor &&
-            ctx.pending.effects.some((e) =>
-              ["DAMAGE", "CONVERT", "MULTIPLIER"].includes(e.type),
-            )) ||
-          enemyActions.some((a) =>
-            ["Attack", "Finisher", "Counter", "Prediction"].includes(
-              cardById[a.target]?.category,
-            ),
-          ),
-        enemyGuarding:
-          ctx.enemy.guard > 0 || enemyActions.some((a) => a.target === "guard"),
+          ctx.pending && ctx.pending.actor !== ctx.actor
+            ? containsDamage(ctx.pending.effects)
+            : enemyActions.some((a) =>
+                containsDamage(
+                  a.target === "legend"
+                    ? legendById[ctx.enemy.loadout.legend].active.effects
+                    : (cardById[a.target]?.effects ?? []),
+                ),
+              ),
+        enemyGuarding: ctx.enemy.guard > 0,
         unusedDie: ctx.self.dice.some(
           (_, i) =>
             resourceAvailable(ctx, i) &&
@@ -282,6 +287,10 @@ export function validatePlan(ctx: DecisionContext, plan: Plan) {
       );
     }
     const r = requirementFor(ctx.self.loadout, a.target);
+    if (r.life && ctx.self.hp <= r.life)
+      throw new Error(
+        `LIFE INVALID: paying ${r.life} Life must leave at least 1 Life.`,
+      );
     if (r.control && result.control < r.control)
       throw new Error("FOCUS INVALID: insufficient Focus for this ability.");
     if (r.condition && !conditionMatches(r.condition, ctx, plan))

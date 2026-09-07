@@ -1,0 +1,599 @@
+[
+  {
+    "legend": "maui",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 3094,
+    "losses": 892,
+    "draws": 14,
+    "openingGames": 2240,
+    "openingWins": 1800,
+    "secondGames": 1760,
+    "secondWins": 1294,
+    "rounds": 22350,
+    "damage": 56912,
+    "ward": 45048,
+    "focus": 31506,
+    "held": 21908,
+    "expired": 6268,
+    "reactions": 14352,
+    "reactionSuccess": 13398,
+    "turns": 21712,
+    "initiativeWins": 2256,
+    "openingDraws": 4,
+    "secondDraws": 10,
+    "blankRolls": 0,
+    "totalRolls": 58896,
+    "fullHoldTurns": 1776,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 756,
+        "wins": 544
+      },
+      "maui-d10-0": {
+        "games": 1484,
+        "wins": 1256
+      },
+      "maui-d10-0 + standard-d8": {
+        "games": 1760,
+        "wins": 1294
+      }
+    },
+    "openingDamage": [
+      7814,
+      11610
+    ],
+    "mismatches": 0,
+    "cards": {
+      "island-pull": 5644,
+      "branch-lash": 4722,
+      "root-ward": 2892,
+      "bramble-trap": 792,
+      "web-turn": 5054,
+      "against-the-current": 1602,
+      "false-promise": 1030,
+      "read-the-thread": 3048,
+      "story-s-end": 4294,
+      "quick-strike": 1474,
+      "turnabout": 310,
+      "windstep": 114
+    },
+    "opponentCards": {
+      "root-ward": 5068,
+      "branch-lash": 3778,
+      "crush": 2764,
+      "daring-feint": 1890,
+      "sun-lance": 6446,
+      "barkskin": 5110,
+      "deep-roots": 2180,
+      "moss-mantle": 1014,
+      "herensuge": 4606,
+      "windstep": 736,
+      "quick-strike": 116
+    },
+    "byHand": {
+      "branch-lash / island-pull / root-ward / turnabout": {
+        "games": 1334,
+        "wins": 938,
+        "draws": 10,
+        "damage": 22182,
+        "ward": 26940,
+        "reactions": 5026
+      },
+      "false-promise / against-the-current / web-turn / bramble-trap": {
+        "games": 1334,
+        "wins": 1334,
+        "draws": 0,
+        "damage": 7072,
+        "ward": 10270,
+        "reactions": 6182
+      },
+      "windstep / story-s-end / quick-strike / read-the-thread": {
+        "games": 1332,
+        "wins": 822,
+        "draws": 4,
+        "damage": 27658,
+        "ward": 7838,
+        "reactions": 3144
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 3484,
+    "losses": 510,
+    "draws": 6,
+    "openingGames": 1978,
+    "openingWins": 1754,
+    "secondGames": 2022,
+    "secondWins": 1730,
+    "rounds": 20130,
+    "damage": 56866,
+    "ward": 32040,
+    "focus": 27698,
+    "held": 20120,
+    "expired": 8404,
+    "reactions": 11174,
+    "reactionSuccess": 9956,
+    "turns": 19772,
+    "initiativeWins": 2044,
+    "openingDraws": 4,
+    "secondDraws": 2,
+    "blankRolls": 0,
+    "totalRolls": 53338,
+    "fullHoldTurns": 1646,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 646,
+        "wins": 584
+      },
+      "maui-d10-0 + standard-d8": {
+        "games": 2022,
+        "wins": 1730
+      },
+      "maui-d10-0": {
+        "games": 1332,
+        "wins": 1170
+      }
+    },
+    "openingDamage": [
+      10220,
+      12132
+    ],
+    "mismatches": 0,
+    "cards": {
+      "island-pull": 4130,
+      "root-ward": 1582,
+      "branch-lash": 3564,
+      "turnabout": 576,
+      "web-turn": 3962,
+      "against-the-current": 1414,
+      "story-s-end": 4082,
+      "read-the-thread": 2074,
+      "quick-strike": 1126,
+      "false-promise": 1590,
+      "bramble-trap": 440,
+      "windstep": 92
+    },
+    "opponentCards": {
+      "unravel": 1150,
+      "silken-cut": 3648,
+      "read-the-thread": 2806,
+      "meditate": 1054,
+      "daring-feint": 6646,
+      "windstep": 3222,
+      "crooked-bough": 5422,
+      "hidden-meaning": 2076,
+      "first-wind": 690,
+      "thread-the-path": 738
+    },
+    "byHand": {
+      "branch-lash / island-pull / root-ward / turnabout": {
+        "games": 1334,
+        "wins": 1166,
+        "draws": 4,
+        "damage": 22904,
+        "ward": 16358,
+        "reactions": 4236
+      },
+      "false-promise / against-the-current / web-turn / bramble-trap": {
+        "games": 1334,
+        "wins": 1266,
+        "draws": 0,
+        "damage": 11354,
+        "ward": 9010,
+        "reactions": 4782
+      },
+      "windstep / story-s-end / quick-strike / read-the-thread": {
+        "games": 1332,
+        "wins": 1052,
+        "draws": 2,
+        "damage": 22608,
+        "ward": 6672,
+        "reactions": 2156
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 2932,
+    "losses": 1056,
+    "draws": 12,
+    "openingGames": 1698,
+    "openingWins": 1312,
+    "secondGames": 2302,
+    "secondWins": 1620,
+    "rounds": 19338,
+    "damage": 55130,
+    "ward": 33822,
+    "focus": 26570,
+    "held": 17264,
+    "expired": 4822,
+    "reactions": 11948,
+    "reactionSuccess": 10990,
+    "turns": 18710,
+    "initiativeWins": 1986,
+    "openingDraws": 4,
+    "secondDraws": 8,
+    "blankRolls": 0,
+    "totalRolls": 50432,
+    "fullHoldTurns": 1346,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 580,
+        "wins": 384
+      },
+      "maui-d10-0": {
+        "games": 1118,
+        "wins": 928
+      },
+      "maui-d10-0 + standard-d8": {
+        "games": 2302,
+        "wins": 1620
+      }
+    },
+    "openingDamage": [
+      8240,
+      12476
+    ],
+    "mismatches": 0,
+    "cards": {
+      "island-pull": 4314,
+      "root-ward": 918,
+      "branch-lash": 3394,
+      "web-turn": 4226,
+      "read-the-thread": 2864,
+      "story-s-end": 3102,
+      "quick-strike": 1096,
+      "against-the-current": 656,
+      "false-promise": 614,
+      "bramble-trap": 380,
+      "windstep": 36,
+      "turnabout": 38
+    },
+    "opponentCards": {
+      "perfect-riposte": 6316,
+      "precision-cut": 7374,
+      "meditate": 1276,
+      "gale-cut": 416,
+      "web-turn": 4146,
+      "quick-strike": 1538,
+      "silken-cut": 1660,
+      "counterstrike": 642,
+      "mountain-silence": 230,
+      "thread-the-path": 2
+    },
+    "byHand": {
+      "branch-lash / island-pull / root-ward / turnabout": {
+        "games": 1334,
+        "wins": 806,
+        "draws": 2,
+        "damage": 22504,
+        "ward": 17046,
+        "reactions": 3708
+      },
+      "false-promise / against-the-current / web-turn / bramble-trap": {
+        "games": 1334,
+        "wins": 1236,
+        "draws": 0,
+        "damage": 9052,
+        "ward": 10938,
+        "reactions": 5368
+      },
+      "windstep / story-s-end / quick-strike / read-the-thread": {
+        "games": 1332,
+        "wins": 890,
+        "draws": 10,
+        "damage": 23574,
+        "ward": 5838,
+        "reactions": 2872
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 3410,
+    "losses": 542,
+    "draws": 48,
+    "openingGames": 2080,
+    "openingWins": 1780,
+    "secondGames": 1920,
+    "secondWins": 1630,
+    "rounds": 20980,
+    "damage": 60092,
+    "ward": 38384,
+    "focus": 29354,
+    "held": 19062,
+    "expired": 6690,
+    "reactions": 11702,
+    "reactionSuccess": 10790,
+    "turns": 20490,
+    "initiativeWins": 2056,
+    "openingDraws": 34,
+    "secondDraws": 14,
+    "blankRolls": 0,
+    "totalRolls": 55390,
+    "fullHoldTurns": 1722,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 684,
+        "wins": 530
+      },
+      "maui-d10-0 + standard-d8": {
+        "games": 1920,
+        "wins": 1630
+      },
+      "maui-d10-0": {
+        "games": 1396,
+        "wins": 1250
+      }
+    },
+    "openingDamage": [
+      9644,
+      12002
+    ],
+    "mismatches": 0,
+    "cards": {
+      "island-pull": 4722,
+      "branch-lash": 4294,
+      "web-turn": 4656,
+      "against-the-current": 1668,
+      "false-promise": 1236,
+      "bramble-trap": 664,
+      "quick-strike": 1444,
+      "story-s-end": 3908,
+      "root-ward": 2184,
+      "read-the-thread": 2166,
+      "windstep": 54,
+      "turnabout": 46
+    },
+    "opponentCards": {
+      "crooked-bough": 6022,
+      "bramble-trap": 2962,
+      "windstep": 1358,
+      "branch-lash": 5506,
+      "thorn-return": 4610,
+      "new-skin": 640,
+      "wolf-shape": 7132,
+      "root-ward": 5326,
+      "offering": 276,
+      "night-spores": 256,
+      "bold-wager": 34
+    },
+    "byHand": {
+      "branch-lash / island-pull / root-ward / turnabout": {
+        "games": 1334,
+        "wins": 1016,
+        "draws": 10,
+        "damage": 24802,
+        "ward": 21648,
+        "reactions": 3946
+      },
+      "false-promise / against-the-current / web-turn / bramble-trap": {
+        "games": 1334,
+        "wins": 1326,
+        "draws": 0,
+        "damage": 8792,
+        "ward": 10618,
+        "reactions": 5588
+      },
+      "windstep / story-s-end / quick-strike / read-the-thread": {
+        "games": 1332,
+        "wins": 1068,
+        "draws": 38,
+        "damage": 26498,
+        "ward": 6118,
+        "reactions": 2168
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 3700,
+    "losses": 288,
+    "draws": 12,
+    "openingGames": 1952,
+    "openingWins": 1802,
+    "secondGames": 2048,
+    "secondWins": 1898,
+    "rounds": 23042,
+    "damage": 66864,
+    "ward": 40114,
+    "focus": 33318,
+    "held": 22218,
+    "expired": 8040,
+    "reactions": 12684,
+    "reactionSuccess": 10850,
+    "turns": 22750,
+    "initiativeWins": 1950,
+    "openingDraws": 10,
+    "secondDraws": 2,
+    "blankRolls": 0,
+    "totalRolls": 62298,
+    "fullHoldTurns": 1624,
+    "openingChoices": {
+      "maui-d10-0 + standard-d8": {
+        "games": 2048,
+        "wins": 1898
+      },
+      "maui-d10-0": {
+        "games": 1338,
+        "wins": 1290
+      },
+      "standard-d8": {
+        "games": 614,
+        "wins": 512
+      }
+    },
+    "openingDamage": [
+      9492,
+      11996
+    ],
+    "mismatches": 0,
+    "cards": {
+      "island-pull": 5646,
+      "branch-lash": 4602,
+      "root-ward": 1488,
+      "web-turn": 5266,
+      "quick-strike": 1662,
+      "read-the-thread": 3330,
+      "story-s-end": 4602,
+      "against-the-current": 2738,
+      "false-promise": 1766,
+      "bramble-trap": 398,
+      "windstep": 78,
+      "turnabout": 74
+    },
+    "opponentCards": {
+      "sun-lance": 6652,
+      "first-light": 1958,
+      "root-ward": 4254,
+      "quick-strike": 4822,
+      "open-sky": 4278,
+      "offering": 766,
+      "precision-cut": 6284,
+      "deep-roots": 4500,
+      "wild-bloom": 1018
+    },
+    "byHand": {
+      "branch-lash / island-pull / root-ward / turnabout": {
+        "games": 1334,
+        "wins": 1184,
+        "draws": 2,
+        "damage": 25868,
+        "ward": 21668,
+        "reactions": 3306
+      },
+      "false-promise / against-the-current / web-turn / bramble-trap": {
+        "games": 1334,
+        "wins": 1334,
+        "draws": 0,
+        "damage": 10368,
+        "ward": 11264,
+        "reactions": 6044
+      },
+      "windstep / story-s-end / quick-strike / read-the-thread": {
+        "games": 1332,
+        "wins": 1182,
+        "draws": 10,
+        "damage": 30628,
+        "ward": 7182,
+        "reactions": 3334
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 1966,
+    "losses": 1966,
+    "draws": 68,
+    "openingGames": 1912,
+    "openingWins": 956,
+    "secondGames": 2088,
+    "secondWins": 1010,
+    "rounds": 18222,
+    "damage": 50712,
+    "ward": 39144,
+    "focus": 21996,
+    "held": 19206,
+    "expired": 4422,
+    "reactions": 14274,
+    "reactionSuccess": 13574,
+    "turns": 17248,
+    "initiativeWins": 2000,
+    "openingDraws": 34,
+    "secondDraws": 34,
+    "blankRolls": 0,
+    "totalRolls": 45832,
+    "fullHoldTurns": 3054,
+    "openingChoices": {
+      "maui-d10-0 + standard-d8": {
+        "games": 2088,
+        "wins": 1010
+      },
+      "maui-d10-0": {
+        "games": 1298,
+        "wins": 744
+      },
+      "standard-d8": {
+        "games": 614,
+        "wins": 212
+      }
+    },
+    "openingDamage": [
+      6264,
+      9560
+    ],
+    "mismatches": 0,
+    "cards": {
+      "island-pull": 4380,
+      "turnabout": 1030,
+      "root-ward": 2562,
+      "branch-lash": 1998,
+      "web-turn": 4002,
+      "false-promise": 3322,
+      "story-s-end": 2932,
+      "quick-strike": 632,
+      "read-the-thread": 2832,
+      "windstep": 670,
+      "against-the-current": 740,
+      "bramble-trap": 858
+    },
+    "opponentCards": {
+      "island-pull": 4466,
+      "root-ward": 2488,
+      "branch-lash": 2034,
+      "turnabout": 1032,
+      "bramble-trap": 890,
+      "false-promise": 3310,
+      "web-turn": 3992,
+      "quick-strike": 562,
+      "read-the-thread": 2814,
+      "story-s-end": 3024,
+      "windstep": 660,
+      "against-the-current": 716
+    },
+    "byHand": {
+      "branch-lash / island-pull / root-ward / turnabout": {
+        "games": 1334,
+        "wins": 476,
+        "draws": 26,
+        "damage": 19380,
+        "ward": 22230,
+        "reactions": 6012
+      },
+      "false-promise / against-the-current / web-turn / bramble-trap": {
+        "games": 1334,
+        "wins": 1108,
+        "draws": 0,
+        "damage": 9222,
+        "ward": 9890,
+        "reactions": 5256
+      },
+      "windstep / story-s-end / quick-strike / read-the-thread": {
+        "games": 1332,
+        "wins": 382,
+        "draws": 42,
+        "damage": 22110,
+        "ward": 7024,
+        "reactions": 3006
+      }
+    },
+    "version": 6
+  }
+]

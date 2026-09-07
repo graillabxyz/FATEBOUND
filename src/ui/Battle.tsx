@@ -1,3 +1,4 @@
+import { BattleRules } from "./Help";
 import { BattlePresence, MatchIdentityIntro } from "./BattlePresence";
 import { EmoteMenu } from "./Emotes";
 import { COSMETICS } from "../content/economy";
@@ -83,6 +84,7 @@ export default function Battle({
     [error, setError] = useState(""),
     [seconds, setSeconds] = useState(12),
     [showLog, setShowLog] = useState(false);
+  const [showRules, setShowRules] = useState(false);
   const [omenMotion, setOmenMotion] = useState<{
     slot: number;
     kind: string;
@@ -365,6 +367,7 @@ export default function Battle({
       className={`battle-screen turn-battle premium-table ${reactionReady ? "table-reaction-ready" : myDecision ? "table-own-turn" : "table-opponent-turn"}`}
       data-phase={view.phase}
     >
+      {showRules && <BattleRules onClose={() => setShowRules(false)} />}
       <header className="turn-header">
         <button aria-label="Leave battle" onClick={onExit}>
           <Icon name="exit" size={18} />
@@ -373,6 +376,9 @@ export default function Battle({
           ROUND {view.round || 1}
           <small> / {presentation?.maxRounds ?? GAME.maxRounds}</small>
         </span>
+        <button aria-label="Battle rules" onClick={() => setShowRules(true)}>
+          <Icon name="book" size={18} />
+        </button>
         <button
           onClick={() => setShowLog((v) => !v)}
           aria-label="Toggle battle log"
@@ -486,7 +492,8 @@ export default function Battle({
           {pending && (
             <span>
               {legendById[view.players[pending.actor].loadout.legend].name} uses{" "}
-              {source}
+              {source} · {pending.assignment.dice.length}{" "}
+              {pending.assignment.dice.length === 1 ? "Omen" : "Omens"} spent
             </span>
           )}
           {reaction && (
@@ -761,7 +768,7 @@ export default function Battle({
                   disabled={!diagnostic?.valid}
                   onClick={() => submit(plan)}
                 >
-                  {reaction ? "React" : "Activate"}
+                  {reaction ? "React" : "Activate"} · Spend {selection.length}
                 </PrimaryButton>
               )}
               <button

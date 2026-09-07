@@ -1,0 +1,568 @@
+[
+  {
+    "legend": "basajaun",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 1988,
+    "losses": 1954,
+    "draws": 58,
+    "openingGames": 1966,
+    "openingWins": 1282,
+    "secondGames": 2034,
+    "secondWins": 706,
+    "rounds": 25142,
+    "damage": 69836,
+    "ward": 79642,
+    "focus": 34436,
+    "held": 25600,
+    "expired": 3874,
+    "reactions": 20252,
+    "reactionSuccess": 20252,
+    "turns": 24320,
+    "initiativeWins": 2582,
+    "openingDraws": 30,
+    "secondDraws": 28,
+    "blankRolls": 6824,
+    "totalRolls": 66994,
+    "fullHoldTurns": 786,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1966,
+        "wins": 1282
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2034,
+        "wins": 706
+      }
+    },
+    "openingDamage": [
+      15626,
+      14382
+    ],
+    "mismatches": 0,
+    "cards": {
+      "crush": 4408,
+      "branch-lash": 6234,
+      "root-ward": 7268,
+      "daring-feint": 3270,
+      "sun-lance": 11294,
+      "barkskin": 5318,
+      "moss-mantle": 1626,
+      "herensuge": 6616,
+      "windstep": 1000,
+      "deep-roots": 364,
+      "quick-strike": 628
+    },
+    "opponentCards": {
+      "crush": 4514,
+      "branch-lash": 6124,
+      "daring-feint": 3318,
+      "root-ward": 7284,
+      "sun-lance": 11152,
+      "barkskin": 5272,
+      "moss-mantle": 1790,
+      "quick-strike": 632,
+      "herensuge": 6588,
+      "windstep": 1102,
+      "deep-roots": 396
+    },
+    "byHand": {
+      "branch-lash / crush / root-ward / daring-feint": {
+        "games": 1334,
+        "wins": 800,
+        "draws": 18,
+        "damage": 24548,
+        "ward": 25580,
+        "reactions": 6488
+      },
+      "moss-mantle / barkskin / deep-roots / sun-lance": {
+        "games": 1334,
+        "wins": 638,
+        "draws": 16,
+        "damage": 20306,
+        "ward": 30928,
+        "reactions": 8460
+      },
+      "windstep / herensuge / quick-strike / root-ward": {
+        "games": 1332,
+        "wins": 550,
+        "draws": 24,
+        "damage": 24982,
+        "ward": 23134,
+        "reactions": 5304
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 3306,
+    "losses": 678,
+    "draws": 16,
+    "openingGames": 1510,
+    "openingWins": 1300,
+    "secondGames": 2490,
+    "secondWins": 2006,
+    "rounds": 20644,
+    "damage": 65892,
+    "ward": 54560,
+    "focus": 27962,
+    "held": 20242,
+    "expired": 4626,
+    "reactions": 14840,
+    "reactionSuccess": 14840,
+    "turns": 20524,
+    "initiativeWins": 1772,
+    "openingDraws": 4,
+    "secondDraws": 12,
+    "blankRolls": 5568,
+    "totalRolls": 56062,
+    "fullHoldTurns": 550,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1510,
+        "wins": 1300
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2490,
+        "wins": 2006
+      }
+    },
+    "openingDamage": [
+      20210,
+      14854
+    ],
+    "mismatches": 0,
+    "cards": {
+      "crush": 3468,
+      "branch-lash": 4330,
+      "daring-feint": 2418,
+      "sun-lance": 9458,
+      "moss-mantle": 1968,
+      "quick-strike": 586,
+      "herensuge": 5382,
+      "windstep": 624,
+      "root-ward": 4614,
+      "barkskin": 1484,
+      "deep-roots": 450
+    },
+    "opponentCards": {
+      "silken-cut": 5508,
+      "unravel": 542,
+      "meditate": 496,
+      "read-the-thread": 1882,
+      "daring-feint": 10216,
+      "windstep": 3240,
+      "crooked-bough": 9304,
+      "hidden-meaning": 1248,
+      "first-wind": 874,
+      "thread-the-path": 422
+    },
+    "byHand": {
+      "branch-lash / crush / root-ward / daring-feint": {
+        "games": 1334,
+        "wins": 1214,
+        "draws": 2,
+        "damage": 23108,
+        "ward": 17542,
+        "reactions": 4460
+      },
+      "moss-mantle / barkskin / deep-roots / sun-lance": {
+        "games": 1334,
+        "wins": 1120,
+        "draws": 14,
+        "damage": 21164,
+        "ward": 22392,
+        "reactions": 7028
+      },
+      "windstep / herensuge / quick-strike / root-ward": {
+        "games": 1332,
+        "wins": 972,
+        "draws": 0,
+        "damage": 21620,
+        "ward": 14626,
+        "reactions": 3352
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 2494,
+    "losses": 1506,
+    "draws": 0,
+    "openingGames": 1432,
+    "openingWins": 1034,
+    "secondGames": 2568,
+    "secondWins": 1460,
+    "rounds": 20078,
+    "damage": 67226,
+    "ward": 48488,
+    "focus": 27150,
+    "held": 17568,
+    "expired": 3874,
+    "reactions": 13302,
+    "reactionSuccess": 13302,
+    "turns": 19542,
+    "initiativeWins": 2142,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 5304,
+    "totalRolls": 53194,
+    "fullHoldTurns": 574,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1432,
+        "wins": 1034
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2568,
+        "wins": 1460
+      }
+    },
+    "openingDamage": [
+      18042,
+      14138
+    ],
+    "mismatches": 0,
+    "cards": {
+      "crush": 3500,
+      "branch-lash": 4676,
+      "root-ward": 4104,
+      "daring-feint": 2456,
+      "sun-lance": 9702,
+      "moss-mantle": 1860,
+      "herensuge": 5008,
+      "windstep": 640,
+      "quick-strike": 634,
+      "deep-roots": 146,
+      "barkskin": 858
+    },
+    "opponentCards": {
+      "perfect-riposte": 4696,
+      "precision-cut": 8734,
+      "web-turn": 3722,
+      "mountain-silence": 158,
+      "quick-strike": 3026,
+      "silken-cut": 2506,
+      "gale-cut": 888,
+      "meditate": 68,
+      "counterstrike": 116
+    },
+    "byHand": {
+      "branch-lash / crush / root-ward / daring-feint": {
+        "games": 1334,
+        "wins": 888,
+        "draws": 0,
+        "damage": 23778,
+        "ward": 15534,
+        "reactions": 4010
+      },
+      "moss-mantle / barkskin / deep-roots / sun-lance": {
+        "games": 1334,
+        "wins": 838,
+        "draws": 0,
+        "damage": 22424,
+        "ward": 19500,
+        "reactions": 6238
+      },
+      "windstep / herensuge / quick-strike / root-ward": {
+        "games": 1332,
+        "wins": 768,
+        "draws": 0,
+        "damage": 21024,
+        "ward": 13454,
+        "reactions": 3054
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 2844,
+    "losses": 1154,
+    "draws": 2,
+    "openingGames": 1898,
+    "openingWins": 1414,
+    "secondGames": 2102,
+    "secondWins": 1430,
+    "rounds": 21200,
+    "damage": 74140,
+    "ward": 61056,
+    "focus": 28964,
+    "held": 19508,
+    "expired": 2756,
+    "reactions": 15890,
+    "reactionSuccess": 15890,
+    "turns": 20736,
+    "initiativeWins": 2086,
+    "openingDraws": 2,
+    "secondDraws": 0,
+    "blankRolls": 5366,
+    "totalRolls": 56310,
+    "fullHoldTurns": 614,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1898,
+        "wins": 1414
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2102,
+        "wins": 1430
+      }
+    },
+    "openingDamage": [
+      18760,
+      16182
+    ],
+    "mismatches": 0,
+    "cards": {
+      "crush": 3912,
+      "daring-feint": 2950,
+      "root-ward": 5474,
+      "branch-lash": 5230,
+      "sun-lance": 9636,
+      "moss-mantle": 1650,
+      "deep-roots": 130,
+      "herensuge": 5286,
+      "windstep": 718,
+      "quick-strike": 1046,
+      "barkskin": 3406
+    },
+    "opponentCards": {
+      "crooked-bough": 11264,
+      "bramble-trap": 762,
+      "branch-lash": 8384,
+      "thorn-return": 3346,
+      "wolf-shape": 9066,
+      "root-ward": 6140,
+      "offering": 254,
+      "windstep": 548,
+      "new-skin": 498,
+      "bold-wager": 102,
+      "night-spores": 18
+    },
+    "byHand": {
+      "branch-lash / crush / root-ward / daring-feint": {
+        "games": 1334,
+        "wins": 948,
+        "draws": 0,
+        "damage": 24660,
+        "ward": 19760,
+        "reactions": 5006
+      },
+      "moss-mantle / barkskin / deep-roots / sun-lance": {
+        "games": 1334,
+        "wins": 942,
+        "draws": 0,
+        "damage": 23688,
+        "ward": 24238,
+        "reactions": 7010
+      },
+      "windstep / herensuge / quick-strike / root-ward": {
+        "games": 1332,
+        "wins": 954,
+        "draws": 2,
+        "damage": 25792,
+        "ward": 17058,
+        "reactions": 3874
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 3236,
+    "losses": 762,
+    "draws": 2,
+    "openingGames": 1672,
+    "openingWins": 1366,
+    "secondGames": 2328,
+    "secondWins": 1870,
+    "rounds": 25304,
+    "damage": 75444,
+    "ward": 61620,
+    "focus": 35596,
+    "held": 26422,
+    "expired": 6736,
+    "reactions": 17348,
+    "reactionSuccess": 17348,
+    "turns": 25122,
+    "initiativeWins": 1822,
+    "openingDraws": 0,
+    "secondDraws": 2,
+    "blankRolls": 7036,
+    "totalRolls": 69694,
+    "fullHoldTurns": 774,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1672,
+        "wins": 1366
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2328,
+        "wins": 1870
+      }
+    },
+    "openingDamage": [
+      18694,
+      12522
+    ],
+    "mismatches": 0,
+    "cards": {
+      "crush": 4584,
+      "branch-lash": 6742,
+      "root-ward": 3996,
+      "daring-feint": 3438,
+      "sun-lance": 11464,
+      "barkskin": 1500,
+      "herensuge": 6626,
+      "moss-mantle": 1918,
+      "windstep": 978,
+      "quick-strike": 1334,
+      "deep-roots": 274
+    },
+    "opponentCards": {
+      "sun-lance": 9894,
+      "root-ward": 5012,
+      "first-light": 830,
+      "quick-strike": 8030,
+      "open-sky": 2222,
+      "offering": 410,
+      "precision-cut": 8194,
+      "wild-bloom": 1108,
+      "deep-roots": 4326
+    },
+    "byHand": {
+      "branch-lash / crush / root-ward / daring-feint": {
+        "games": 1334,
+        "wins": 1038,
+        "draws": 2,
+        "damage": 24798,
+        "ward": 20076,
+        "reactions": 5854
+      },
+      "moss-mantle / barkskin / deep-roots / sun-lance": {
+        "games": 1334,
+        "wins": 1048,
+        "draws": 0,
+        "damage": 21636,
+        "ward": 22900,
+        "reactions": 6992
+      },
+      "windstep / herensuge / quick-strike / root-ward": {
+        "games": 1332,
+        "wins": 1150,
+        "draws": 0,
+        "damage": 29010,
+        "ward": 18644,
+        "reactions": 4502
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 854,
+    "losses": 3144,
+    "draws": 2,
+    "openingGames": 1712,
+    "openingWins": 386,
+    "secondGames": 2288,
+    "secondWins": 468,
+    "rounds": 22502,
+    "damage": 46134,
+    "ward": 80350,
+    "focus": 25818,
+    "held": 29650,
+    "expired": 6738,
+    "reactions": 21464,
+    "reactionSuccess": 21464,
+    "turns": 21498,
+    "initiativeWins": 2204,
+    "openingDraws": 0,
+    "secondDraws": 2,
+    "blankRolls": 6046,
+    "totalRolls": 58782,
+    "fullHoldTurns": 3852,
+    "openingChoices": {
+      "standard-d12 + standard-d8": {
+        "games": 2288,
+        "wins": 468
+      },
+      "standard-d12": {
+        "games": 1712,
+        "wins": 386
+      }
+    },
+    "openingDamage": [
+      11226,
+      7878
+    ],
+    "mismatches": 0,
+    "cards": {
+      "branch-lash": 3784,
+      "root-ward": 4986,
+      "daring-feint": 1874,
+      "sun-lance": 6478,
+      "barkskin": 5212,
+      "moss-mantle": 1012,
+      "deep-roots": 2222,
+      "herensuge": 4532,
+      "crush": 2810,
+      "quick-strike": 136,
+      "windstep": 864
+    },
+    "opponentCards": {
+      "island-pull": 5626,
+      "root-ward": 2988,
+      "branch-lash": 4702,
+      "against-the-current": 1460,
+      "web-turn": 5038,
+      "bramble-trap": 728,
+      "false-promise": 1080,
+      "story-s-end": 4436,
+      "read-the-thread": 3090,
+      "quick-strike": 1518,
+      "turnabout": 336,
+      "windstep": 120
+    },
+    "byHand": {
+      "branch-lash / crush / root-ward / daring-feint": {
+        "games": 1334,
+        "wins": 150,
+        "draws": 0,
+        "damage": 14592,
+        "ward": 27612,
+        "reactions": 7486
+      },
+      "moss-mantle / barkskin / deep-roots / sun-lance": {
+        "games": 1334,
+        "wins": 586,
+        "draws": 2,
+        "damage": 16992,
+        "ward": 34222,
+        "reactions": 9296
+      },
+      "windstep / herensuge / quick-strike / root-ward": {
+        "games": 1332,
+        "wins": 118,
+        "draws": 0,
+        "damage": 14550,
+        "ward": 18516,
+        "reactions": 4682
+      }
+    },
+    "version": 6
+  }
+]

@@ -1,0 +1,1979 @@
+{
+  "label": "screen-v6e",
+  "games": 7200,
+  "mismatches": 0,
+  "rows": [
+    {
+      "legend": "basajaun",
+      "opponent": "basajaun",
+      "games": 200,
+      "wins": 90,
+      "losses": 86,
+      "draws": 24,
+      "openingGames": 94,
+      "openingWins": 52,
+      "secondGames": 106,
+      "secondWins": 38,
+      "rounds": 1262,
+      "damage": 3324,
+      "ward": 3836,
+      "focus": 1978,
+      "held": 1564,
+      "expired": 460,
+      "reactions": 950,
+      "reactionSuccess": 950,
+      "turns": 1232,
+      "initiativeWins": 104,
+      "openingDraws": 8,
+      "secondDraws": 16,
+      "blankRolls": 354,
+      "totalRolls": 3402,
+      "fullHoldTurns": 6,
+      "openingChoices": {
+        "standard-d12": {
+          "games": 94,
+          "wins": 52
+        },
+        "standard-d12 + standard-d8": {
+          "games": 106,
+          "wins": 38
+        }
+      },
+      "openingDamage": [
+        1002,
+        464
+      ],
+      "mismatches": 0,
+      "cards": {
+        "crush": 890,
+        "barkskin": 674,
+        "herensuge": 446,
+        "root-ward": 140
+      },
+      "opponentCards": {
+        "crush": 964,
+        "barkskin": 682,
+        "herensuge": 390,
+        "root-ward": 132
+      },
+      "version": 6
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "anansi",
+      "games": 200,
+      "wins": 42,
+      "losses": 158,
+      "draws": 0,
+      "openingGames": 90,
+      "openingWins": 20,
+      "secondGames": 110,
+      "secondWins": 22,
+      "rounds": 982,
+      "damage": 2118,
+      "ward": 2704,
+      "focus": 1418,
+      "held": 1062,
+      "expired": 240,
+      "reactions": 798,
+      "reactionSuccess": 798,
+      "turns": 934,
+      "initiativeWins": 108,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 272,
+      "totalRolls": 2512,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d12": {
+          "games": 90,
+          "wins": 20
+        },
+        "standard-d12 + standard-d8": {
+          "games": 110,
+          "wins": 22
+        }
+      },
+      "openingDamage": [
+        918,
+        340
+      ],
+      "mismatches": 0,
+      "cards": {
+        "crush": 664,
+        "herensuge": 300,
+        "root-ward": 140,
+        "barkskin": 102
+      },
+      "opponentCards": {
+        "daring-feint": 1056,
+        "hidden-meaning": 190,
+        "web-turn": 316,
+        "silken-cut": 336
+      },
+      "version": 6
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "tengu",
+      "games": 200,
+      "wins": 130,
+      "losses": 70,
+      "draws": 0,
+      "openingGames": 54,
+      "openingWins": 32,
+      "secondGames": 146,
+      "secondWins": 98,
+      "rounds": 1058,
+      "damage": 3704,
+      "ward": 2832,
+      "focus": 1610,
+      "held": 1096,
+      "expired": 182,
+      "reactions": 888,
+      "reactionSuccess": 888,
+      "turns": 1004,
+      "initiativeWins": 80,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 254,
+      "totalRolls": 2758,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d12": {
+          "games": 54,
+          "wins": 32
+        },
+        "standard-d12 + standard-d8": {
+          "games": 146,
+          "wins": 98
+        }
+      },
+      "openingDamage": [
+        1014,
+        676
+      ],
+      "mismatches": 0,
+      "cards": {
+        "crush": 734,
+        "root-ward": 78,
+        "herensuge": 364,
+        "barkskin": 74
+      },
+      "opponentCards": {
+        "perfect-riposte": 752,
+        "quick-strike": 550,
+        "precision-cut": 484,
+        "gale-cut": 108
+      },
+      "version": 6
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "leshy",
+      "games": 200,
+      "wins": 106,
+      "losses": 94,
+      "draws": 0,
+      "openingGames": 112,
+      "openingWins": 78,
+      "secondGames": 88,
+      "secondWins": 28,
+      "rounds": 952,
+      "damage": 4138,
+      "ward": 3038,
+      "focus": 1348,
+      "held": 954,
+      "expired": 118,
+      "reactions": 796,
+      "reactionSuccess": 796,
+      "turns": 880,
+      "initiativeWins": 138,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 184,
+      "totalRolls": 2328,
+      "fullHoldTurns": 6,
+      "openingChoices": {
+        "standard-d12": {
+          "games": 112,
+          "wins": 78
+        },
+        "standard-d12 + standard-d8": {
+          "games": 88,
+          "wins": 28
+        }
+      },
+      "openingDamage": [
+        920,
+        808
+      ],
+      "mismatches": 0,
+      "cards": {
+        "crush": 704,
+        "herensuge": 286,
+        "barkskin": 476,
+        "root-ward": 170
+      },
+      "opponentCards": {
+        "wolf-shape": 720,
+        "branch-lash": 786,
+        "moss-mantle": 530,
+        "windstep": 34
+      },
+      "version": 6
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "quetzalcoatl",
+      "games": 200,
+      "wins": 160,
+      "losses": 40,
+      "draws": 0,
+      "openingGames": 90,
+      "openingWins": 84,
+      "secondGames": 110,
+      "secondWins": 76,
+      "rounds": 1052,
+      "damage": 3800,
+      "ward": 3124,
+      "focus": 1588,
+      "held": 1110,
+      "expired": 224,
+      "reactions": 806,
+      "reactionSuccess": 806,
+      "turns": 1018,
+      "initiativeWins": 118,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 266,
+      "totalRolls": 2764,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d12": {
+          "games": 90,
+          "wins": 84
+        },
+        "standard-d12 + standard-d8": {
+          "games": 110,
+          "wins": 76
+        }
+      },
+      "openingDamage": [
+        1026,
+        684
+      ],
+      "mismatches": 0,
+      "cards": {
+        "crush": 764,
+        "barkskin": 518,
+        "herensuge": 372,
+        "root-ward": 134
+      },
+      "opponentCards": {
+        "sun-lance": 1438,
+        "root-ward": 596,
+        "quick-strike": 48
+      },
+      "version": 6
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "maui",
+      "games": 200,
+      "wins": 74,
+      "losses": 126,
+      "draws": 0,
+      "openingGames": 84,
+      "openingWins": 22,
+      "secondGames": 116,
+      "secondWins": 52,
+      "rounds": 1400,
+      "damage": 1978,
+      "ward": 5250,
+      "focus": 1602,
+      "held": 2462,
+      "expired": 680,
+      "reactions": 1498,
+      "reactionSuccess": 1498,
+      "turns": 1398,
+      "initiativeWins": 86,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 372,
+      "totalRolls": 3910,
+      "fullHoldTurns": 360,
+      "openingChoices": {
+        "standard-d12 + standard-d8": {
+          "games": 116,
+          "wins": 52
+        },
+        "standard-d12": {
+          "games": 84,
+          "wins": 22
+        }
+      },
+      "openingDamage": [
+        370,
+        208
+      ],
+      "mismatches": 0,
+      "cards": {
+        "crush": 680,
+        "root-ward": 260,
+        "herensuge": 340,
+        "barkskin": 266
+      },
+      "opponentCards": {
+        "silken-cut": 714,
+        "turnabout": 168,
+        "daring-feint": 658,
+        "root-ward": 450
+      },
+      "version": 6
+    },
+    {
+      "legend": "anansi",
+      "opponent": "basajaun",
+      "games": 200,
+      "wins": 160,
+      "losses": 40,
+      "draws": 0,
+      "openingGames": 132,
+      "openingWins": 106,
+      "secondGames": 68,
+      "secondWins": 54,
+      "rounds": 994,
+      "damage": 1720,
+      "ward": 1232,
+      "focus": 1254,
+      "held": 1040,
+      "expired": 288,
+      "reactions": 700,
+      "reactionSuccess": 700,
+      "turns": 948,
+      "initiativeWins": 120,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 198,
+      "totalRolls": 2512,
+      "fullHoldTurns": 48,
+      "openingChoices": {
+        "standard-d6": {
+          "games": 132,
+          "wins": 106
+        },
+        "standard-d6 + trickster-d8": {
+          "games": 68,
+          "wins": 54
+        }
+      },
+      "openingDamage": [
+        510,
+        454
+      ],
+      "mismatches": 0,
+      "cards": {
+        "silken-cut": 354,
+        "daring-feint": 1062,
+        "web-turn": 298,
+        "hidden-meaning": 210
+      },
+      "opponentCards": {
+        "herensuge": 306,
+        "root-ward": 132,
+        "crush": 678,
+        "barkskin": 166
+      },
+      "version": 6
+    },
+    {
+      "legend": "anansi",
+      "opponent": "anansi",
+      "games": 200,
+      "wins": 102,
+      "losses": 96,
+      "draws": 2,
+      "openingGames": 96,
+      "openingWins": 54,
+      "secondGames": 104,
+      "secondWins": 48,
+      "rounds": 1034,
+      "damage": 1582,
+      "ward": 1606,
+      "focus": 1216,
+      "held": 1334,
+      "expired": 416,
+      "reactions": 868,
+      "reactionSuccess": 868,
+      "turns": 986,
+      "initiativeWins": 108,
+      "openingDraws": 0,
+      "secondDraws": 2,
+      "blankRolls": 198,
+      "totalRolls": 2662,
+      "fullHoldTurns": 18,
+      "openingChoices": {
+        "standard-d6 + trickster-d8": {
+          "games": 104,
+          "wins": 48
+        },
+        "standard-d6": {
+          "games": 96,
+          "wins": 54
+        }
+      },
+      "openingDamage": [
+        564,
+        212
+      ],
+      "mismatches": 0,
+      "cards": {
+        "daring-feint": 948,
+        "hidden-meaning": 226,
+        "silken-cut": 234,
+        "web-turn": 328
+      },
+      "opponentCards": {
+        "silken-cut": 214,
+        "daring-feint": 958,
+        "hidden-meaning": 226,
+        "web-turn": 336
+      },
+      "version": 6
+    },
+    {
+      "legend": "anansi",
+      "opponent": "tengu",
+      "games": 200,
+      "wins": 64,
+      "losses": 136,
+      "draws": 0,
+      "openingGames": 98,
+      "openingWins": 42,
+      "secondGames": 102,
+      "secondWins": 22,
+      "rounds": 906,
+      "damage": 1988,
+      "ward": 1132,
+      "focus": 1164,
+      "held": 898,
+      "expired": 236,
+      "reactions": 652,
+      "reactionSuccess": 652,
+      "turns": 838,
+      "initiativeWins": 122,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 158,
+      "totalRolls": 2216,
+      "fullHoldTurns": 36,
+      "openingChoices": {
+        "standard-d6": {
+          "games": 98,
+          "wins": 42
+        },
+        "standard-d6 + trickster-d8": {
+          "games": 102,
+          "wins": 22
+        }
+      },
+      "openingDamage": [
+        514,
+        434
+      ],
+      "mismatches": 0,
+      "cards": {
+        "silken-cut": 288,
+        "daring-feint": 960,
+        "web-turn": 296,
+        "hidden-meaning": 168
+      },
+      "opponentCards": {
+        "perfect-riposte": 788,
+        "precision-cut": 302,
+        "gale-cut": 96,
+        "quick-strike": 432
+      },
+      "version": 6
+    },
+    {
+      "legend": "anansi",
+      "opponent": "leshy",
+      "games": 200,
+      "wins": 128,
+      "losses": 72,
+      "draws": 0,
+      "openingGames": 112,
+      "openingWins": 78,
+      "secondGames": 88,
+      "secondWins": 50,
+      "rounds": 864,
+      "damage": 2212,
+      "ward": 1116,
+      "focus": 1118,
+      "held": 872,
+      "expired": 156,
+      "reactions": 676,
+      "reactionSuccess": 676,
+      "turns": 792,
+      "initiativeWins": 116,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 172,
+      "totalRolls": 2064,
+      "fullHoldTurns": 30,
+      "openingChoices": {
+        "standard-d6 + trickster-d8": {
+          "games": 88,
+          "wins": 50
+        },
+        "standard-d6": {
+          "games": 112,
+          "wins": 78
+        }
+      },
+      "openingDamage": [
+        564,
+        656
+      ],
+      "mismatches": 0,
+      "cards": {
+        "daring-feint": 872,
+        "web-turn": 310,
+        "hidden-meaning": 214,
+        "silken-cut": 284
+      },
+      "opponentCards": {
+        "branch-lash": 752,
+        "wolf-shape": 446,
+        "moss-mantle": 468,
+        "windstep": 30
+      },
+      "version": 6
+    },
+    {
+      "legend": "anansi",
+      "opponent": "quetzalcoatl",
+      "games": 200,
+      "wins": 132,
+      "losses": 68,
+      "draws": 0,
+      "openingGames": 98,
+      "openingWins": 62,
+      "secondGames": 102,
+      "secondWins": 70,
+      "rounds": 1002,
+      "damage": 1646,
+      "ward": 1204,
+      "focus": 1320,
+      "held": 1016,
+      "expired": 272,
+      "reactions": 714,
+      "reactionSuccess": 714,
+      "turns": 936,
+      "initiativeWins": 94,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 208,
+      "totalRolls": 2510,
+      "fullHoldTurns": 22,
+      "openingChoices": {
+        "standard-d6 + trickster-d8": {
+          "games": 102,
+          "wins": 70
+        },
+        "standard-d6": {
+          "games": 98,
+          "wins": 62
+        }
+      },
+      "openingDamage": [
+        588,
+        374
+      ],
+      "mismatches": 0,
+      "cards": {
+        "daring-feint": 1110,
+        "silken-cut": 354,
+        "hidden-meaning": 234,
+        "web-turn": 322
+      },
+      "opponentCards": {
+        "sun-lance": 1118,
+        "root-ward": 686,
+        "quick-strike": 50
+      },
+      "version": 6
+    },
+    {
+      "legend": "anansi",
+      "opponent": "maui",
+      "games": 200,
+      "wins": 72,
+      "losses": 128,
+      "draws": 0,
+      "openingGames": 104,
+      "openingWins": 48,
+      "secondGames": 96,
+      "secondWins": 24,
+      "rounds": 1332,
+      "damage": 1744,
+      "ward": 1938,
+      "focus": 1786,
+      "held": 1946,
+      "expired": 734,
+      "reactions": 1082,
+      "reactionSuccess": 1082,
+      "turns": 1304,
+      "initiativeWins": 120,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 284,
+      "totalRolls": 3608,
+      "fullHoldTurns": 212,
+      "openingChoices": {
+        "standard-d6": {
+          "games": 104,
+          "wins": 48
+        },
+        "standard-d6 + trickster-d8": {
+          "games": 96,
+          "wins": 24
+        }
+      },
+      "openingDamage": [
+        252,
+        136
+      ],
+      "mismatches": 0,
+      "cards": {
+        "silken-cut": 306,
+        "daring-feint": 1250,
+        "hidden-meaning": 348,
+        "web-turn": 430
+      },
+      "opponentCards": {
+        "silken-cut": 704,
+        "daring-feint": 394,
+        "root-ward": 376,
+        "turnabout": 494
+      },
+      "version": 6
+    },
+    {
+      "legend": "tengu",
+      "opponent": "basajaun",
+      "games": 200,
+      "wins": 86,
+      "losses": 114,
+      "draws": 0,
+      "openingGames": 134,
+      "openingWins": 72,
+      "secondGames": 66,
+      "secondWins": 14,
+      "rounds": 1046,
+      "damage": 3782,
+      "ward": 1716,
+      "focus": 1748,
+      "held": 1338,
+      "expired": 458,
+      "reactions": 796,
+      "reactionSuccess": 796,
+      "turns": 1000,
+      "initiativeWins": 124,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 2666,
+      "fullHoldTurns": 32,
+      "openingChoices": {
+        "standard-d6": {
+          "games": 134,
+          "wins": 72
+        },
+        "standard-d6 + standard-d8": {
+          "games": 66,
+          "wins": 14
+        }
+      },
+      "openingDamage": [
+        684,
+        266
+      ],
+      "mismatches": 0,
+      "cards": {
+        "gale-cut": 92,
+        "perfect-riposte": 726,
+        "precision-cut": 454,
+        "quick-strike": 518
+      },
+      "opponentCards": {
+        "herensuge": 358,
+        "crush": 718,
+        "barkskin": 62,
+        "root-ward": 64
+      },
+      "version": 6
+    },
+    {
+      "legend": "tengu",
+      "opponent": "anansi",
+      "games": 200,
+      "wins": 130,
+      "losses": 70,
+      "draws": 0,
+      "openingGames": 100,
+      "openingWins": 76,
+      "secondGames": 100,
+      "secondWins": 54,
+      "rounds": 910,
+      "damage": 3366,
+      "ward": 1866,
+      "focus": 1550,
+      "held": 1156,
+      "expired": 256,
+      "reactions": 876,
+      "reactionSuccess": 876,
+      "turns": 878,
+      "initiativeWins": 122,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 2334,
+      "fullHoldTurns": 14,
+      "openingChoices": {
+        "standard-d6 + standard-d8": {
+          "games": 100,
+          "wins": 54
+        },
+        "standard-d6": {
+          "games": 100,
+          "wins": 76
+        }
+      },
+      "openingDamage": [
+        604,
+        148
+      ],
+      "mismatches": 0,
+      "cards": {
+        "perfect-riposte": 776,
+        "quick-strike": 442,
+        "precision-cut": 296,
+        "gale-cut": 92
+      },
+      "opponentCards": {
+        "silken-cut": 276,
+        "daring-feint": 944,
+        "web-turn": 350,
+        "hidden-meaning": 188
+      },
+      "version": 6
+    },
+    {
+      "legend": "tengu",
+      "opponent": "tengu",
+      "games": 200,
+      "wins": 106,
+      "losses": 88,
+      "draws": 6,
+      "openingGames": 98,
+      "openingWins": 64,
+      "secondGames": 102,
+      "secondWins": 42,
+      "rounds": 896,
+      "damage": 3658,
+      "ward": 1796,
+      "focus": 1504,
+      "held": 1022,
+      "expired": 178,
+      "reactions": 826,
+      "reactionSuccess": 826,
+      "turns": 842,
+      "initiativeWins": 120,
+      "openingDraws": 2,
+      "secondDraws": 4,
+      "blankRolls": 0,
+      "totalRolls": 2228,
+      "fullHoldTurns": 16,
+      "openingChoices": {
+        "standard-d6 + standard-d8": {
+          "games": 102,
+          "wins": 42
+        },
+        "standard-d6": {
+          "games": 98,
+          "wins": 64
+        }
+      },
+      "openingDamage": [
+        632,
+        234
+      ],
+      "mismatches": 0,
+      "cards": {
+        "perfect-riposte": 730,
+        "quick-strike": 472,
+        "precision-cut": 422,
+        "gale-cut": 80
+      },
+      "opponentCards": {
+        "precision-cut": 460,
+        "perfect-riposte": 716,
+        "quick-strike": 452,
+        "gale-cut": 94
+      },
+      "version": 6
+    },
+    {
+      "legend": "tengu",
+      "opponent": "leshy",
+      "games": 200,
+      "wins": 54,
+      "losses": 146,
+      "draws": 0,
+      "openingGames": 126,
+      "openingWins": 42,
+      "secondGames": 74,
+      "secondWins": 12,
+      "rounds": 858,
+      "damage": 3842,
+      "ward": 1848,
+      "focus": 1392,
+      "held": 1078,
+      "expired": 154,
+      "reactions": 864,
+      "reactionSuccess": 864,
+      "turns": 794,
+      "initiativeWins": 104,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 2056,
+      "fullHoldTurns": 24,
+      "openingChoices": {
+        "standard-d6": {
+          "games": 126,
+          "wins": 42
+        },
+        "standard-d6 + standard-d8": {
+          "games": 74,
+          "wins": 12
+        }
+      },
+      "openingDamage": [
+        632,
+        362
+      ],
+      "mismatches": 0,
+      "cards": {
+        "gale-cut": 98,
+        "precision-cut": 226,
+        "perfect-riposte": 792,
+        "quick-strike": 448
+      },
+      "opponentCards": {
+        "wolf-shape": 222,
+        "moss-mantle": 492,
+        "branch-lash": 1186,
+        "windstep": 20
+      },
+      "version": 6
+    },
+    {
+      "legend": "tengu",
+      "opponent": "quetzalcoatl",
+      "games": 200,
+      "wins": 100,
+      "losses": 98,
+      "draws": 2,
+      "openingGames": 108,
+      "openingWins": 58,
+      "secondGames": 92,
+      "secondWins": 42,
+      "rounds": 982,
+      "damage": 3646,
+      "ward": 1986,
+      "focus": 1632,
+      "held": 1178,
+      "expired": 244,
+      "reactions": 902,
+      "reactionSuccess": 902,
+      "turns": 932,
+      "initiativeWins": 106,
+      "openingDraws": 0,
+      "secondDraws": 2,
+      "blankRolls": 0,
+      "totalRolls": 2488,
+      "fullHoldTurns": 30,
+      "openingChoices": {
+        "standard-d6 + standard-d8": {
+          "games": 92,
+          "wins": 42
+        },
+        "standard-d6": {
+          "games": 108,
+          "wins": 58
+        }
+      },
+      "openingDamage": [
+        604,
+        214
+      ],
+      "mismatches": 0,
+      "cards": {
+        "perfect-riposte": 794,
+        "precision-cut": 460,
+        "quick-strike": 522,
+        "gale-cut": 96
+      },
+      "opponentCards": {
+        "sun-lance": 1280,
+        "root-ward": 662,
+        "quick-strike": 86
+      },
+      "version": 6
+    },
+    {
+      "legend": "tengu",
+      "opponent": "maui",
+      "games": 200,
+      "wins": 144,
+      "losses": 56,
+      "draws": 0,
+      "openingGames": 116,
+      "openingWins": 82,
+      "secondGames": 84,
+      "secondWins": 62,
+      "rounds": 1400,
+      "damage": 5102,
+      "ward": 4176,
+      "focus": 2456,
+      "held": 2456,
+      "expired": 470,
+      "reactions": 1786,
+      "reactionSuccess": 1786,
+      "turns": 1398,
+      "initiativeWins": 104,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 3878,
+      "fullHoldTurns": 130,
+      "openingChoices": {
+        "standard-d6": {
+          "games": 116,
+          "wins": 82
+        },
+        "standard-d6 + standard-d8": {
+          "games": 84,
+          "wins": 62
+        }
+      },
+      "openingDamage": [
+        384,
+        110
+      ],
+      "mismatches": 0,
+      "cards": {
+        "gale-cut": 30,
+        "precision-cut": 706,
+        "perfect-riposte": 1514,
+        "quick-strike": 98
+      },
+      "opponentCards": {
+        "daring-feint": 186,
+        "root-ward": 178,
+        "silken-cut": 404,
+        "turnabout": 88
+      },
+      "version": 6
+    },
+    {
+      "legend": "leshy",
+      "opponent": "basajaun",
+      "games": 200,
+      "wins": 102,
+      "losses": 98,
+      "draws": 0,
+      "openingGames": 102,
+      "openingWins": 58,
+      "secondGames": 98,
+      "secondWins": 44,
+      "rounds": 982,
+      "damage": 3758,
+      "ward": 1238,
+      "focus": 1454,
+      "held": 800,
+      "expired": 190,
+      "reactions": 586,
+      "reactionSuccess": 586,
+      "turns": 942,
+      "initiativeWins": 112,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 228,
+      "totalRolls": 2524,
+      "fullHoldTurns": 8,
+      "openingChoices": {
+        "leshy-d8-0 + standard-d8": {
+          "games": 98,
+          "wins": 44
+        },
+        "standard-d8": {
+          "games": 102,
+          "wins": 58
+        }
+      },
+      "openingDamage": [
+        1182,
+        852
+      ],
+      "mismatches": 0,
+      "cards": {
+        "wolf-shape": 768,
+        "branch-lash": 772,
+        "moss-mantle": 532,
+        "windstep": 46
+      },
+      "opponentCards": {
+        "crush": 686,
+        "herensuge": 304,
+        "root-ward": 148,
+        "barkskin": 508
+      },
+      "version": 6
+    },
+    {
+      "legend": "leshy",
+      "opponent": "anansi",
+      "games": 200,
+      "wins": 88,
+      "losses": 112,
+      "draws": 0,
+      "openingGames": 90,
+      "openingWins": 50,
+      "secondGames": 110,
+      "secondWins": 38,
+      "rounds": 850,
+      "damage": 2912,
+      "ward": 1428,
+      "focus": 1204,
+      "held": 726,
+      "expired": 104,
+      "reactions": 620,
+      "reactionSuccess": 620,
+      "turns": 810,
+      "initiativeWins": 122,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 182,
+      "totalRolls": 2140,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "leshy-d8-0 + standard-d8": {
+          "games": 110,
+          "wins": 38
+        },
+        "standard-d8": {
+          "games": 90,
+          "wins": 50
+        }
+      },
+      "openingDamage": [
+        1018,
+        788
+      ],
+      "mismatches": 0,
+      "cards": {
+        "wolf-shape": 420,
+        "moss-mantle": 456,
+        "branch-lash": 782,
+        "windstep": 34
+      },
+      "opponentCards": {
+        "silken-cut": 354,
+        "daring-feint": 850,
+        "web-turn": 298,
+        "hidden-meaning": 206
+      },
+      "version": 6
+    },
+    {
+      "legend": "leshy",
+      "opponent": "tengu",
+      "games": 200,
+      "wins": 120,
+      "losses": 76,
+      "draws": 4,
+      "openingGames": 76,
+      "openingWins": 54,
+      "secondGames": 124,
+      "secondWins": 66,
+      "rounds": 880,
+      "damage": 3816,
+      "ward": 1158,
+      "focus": 1214,
+      "held": 630,
+      "expired": 62,
+      "reactions": 568,
+      "reactionSuccess": 568,
+      "turns": 830,
+      "initiativeWins": 108,
+      "openingDraws": 0,
+      "secondDraws": 4,
+      "blankRolls": 130,
+      "totalRolls": 2214,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d8": {
+          "games": 76,
+          "wins": 54
+        },
+        "leshy-d8-0 + standard-d8": {
+          "games": 124,
+          "wins": 66
+        }
+      },
+      "openingDamage": [
+        1128,
+        968
+      ],
+      "mismatches": 0,
+      "cards": {
+        "branch-lash": 1190,
+        "moss-mantle": 528,
+        "wolf-shape": 234,
+        "windstep": 22
+      },
+      "opponentCards": {
+        "perfect-riposte": 814,
+        "quick-strike": 426,
+        "precision-cut": 266,
+        "gale-cut": 86
+      },
+      "version": 6
+    },
+    {
+      "legend": "leshy",
+      "opponent": "leshy",
+      "games": 200,
+      "wins": 92,
+      "losses": 108,
+      "draws": 0,
+      "openingGames": 96,
+      "openingWins": 52,
+      "secondGames": 104,
+      "secondWins": 40,
+      "rounds": 774,
+      "damage": 4018,
+      "ward": 1084,
+      "focus": 1076,
+      "held": 564,
+      "expired": 38,
+      "reactions": 520,
+      "reactionSuccess": 520,
+      "turns": 710,
+      "initiativeWins": 116,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 176,
+      "totalRolls": 1834,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d8": {
+          "games": 96,
+          "wins": 52
+        },
+        "leshy-d8-0 + standard-d8": {
+          "games": 104,
+          "wins": 40
+        }
+      },
+      "openingDamage": [
+        1110,
+        1292
+      ],
+      "mismatches": 0,
+      "cards": {
+        "branch-lash": 628,
+        "wolf-shape": 522,
+        "moss-mantle": 468,
+        "windstep": 44
+      },
+      "opponentCards": {
+        "wolf-shape": 506,
+        "branch-lash": 676,
+        "moss-mantle": 448,
+        "windstep": 36
+      },
+      "version": 6
+    },
+    {
+      "legend": "leshy",
+      "opponent": "quetzalcoatl",
+      "games": 200,
+      "wins": 132,
+      "losses": 68,
+      "draws": 0,
+      "openingGames": 84,
+      "openingWins": 46,
+      "secondGames": 116,
+      "secondWins": 86,
+      "rounds": 910,
+      "damage": 3806,
+      "ward": 1232,
+      "focus": 1342,
+      "held": 712,
+      "expired": 112,
+      "reactions": 598,
+      "reactionSuccess": 598,
+      "turns": 880,
+      "initiativeWins": 76,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 224,
+      "totalRolls": 2356,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "leshy-d8-0 + standard-d8": {
+          "games": 116,
+          "wins": 86
+        },
+        "standard-d8": {
+          "games": 84,
+          "wins": 46
+        }
+      },
+      "openingDamage": [
+        1156,
+        976
+      ],
+      "mismatches": 0,
+      "cards": {
+        "wolf-shape": 390,
+        "branch-lash": 1092,
+        "moss-mantle": 566,
+        "windstep": 36
+      },
+      "opponentCards": {
+        "sun-lance": 1200,
+        "root-ward": 662,
+        "quick-strike": 64,
+        "first-light": 4
+      },
+      "version": 6
+    },
+    {
+      "legend": "leshy",
+      "opponent": "maui",
+      "games": 200,
+      "wins": 92,
+      "losses": 108,
+      "draws": 0,
+      "openingGames": 84,
+      "openingWins": 18,
+      "secondGames": 116,
+      "secondWins": 74,
+      "rounds": 1388,
+      "damage": 4768,
+      "ward": 2644,
+      "focus": 2178,
+      "held": 1506,
+      "expired": 114,
+      "reactions": 1252,
+      "reactionSuccess": 1252,
+      "turns": 1386,
+      "initiativeWins": 60,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 300,
+      "totalRolls": 3874,
+      "fullHoldTurns": 54,
+      "openingChoices": {
+        "leshy-d8-0 + standard-d8": {
+          "games": 116,
+          "wins": 74
+        },
+        "standard-d8": {
+          "games": 84,
+          "wins": 18
+        }
+      },
+      "openingDamage": [
+        490,
+        752
+      ],
+      "mismatches": 0,
+      "cards": {
+        "branch-lash": 1178,
+        "wolf-shape": 1136,
+        "moss-mantle": 1074,
+        "windstep": 54
+      },
+      "opponentCards": {
+        "daring-feint": 578,
+        "root-ward": 742,
+        "silken-cut": 418,
+        "turnabout": 50
+      },
+      "version": 6
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "basajaun",
+      "games": 200,
+      "wins": 48,
+      "losses": 152,
+      "draws": 0,
+      "openingGames": 118,
+      "openingWins": 34,
+      "secondGames": 82,
+      "secondWins": 14,
+      "rounds": 1110,
+      "damage": 2986,
+      "ward": 2414,
+      "focus": 1478,
+      "held": 1240,
+      "expired": 368,
+      "reactions": 808,
+      "reactionSuccess": 808,
+      "turns": 1066,
+      "initiativeWins": 102,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 172,
+      "totalRolls": 2880,
+      "fullHoldTurns": 6,
+      "openingChoices": {
+        "standard-d6 + standard-d8": {
+          "games": 82,
+          "wins": 14
+        },
+        "standard-d8": {
+          "games": 118,
+          "wins": 34
+        }
+      },
+      "openingDamage": [
+        880,
+        740
+      ],
+      "mismatches": 0,
+      "cards": {
+        "sun-lance": 1520,
+        "root-ward": 664,
+        "quick-strike": 46
+      },
+      "opponentCards": {
+        "crush": 830,
+        "herensuge": 354,
+        "barkskin": 584,
+        "root-ward": 172
+      },
+      "version": 6
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "anansi",
+      "games": 200,
+      "wins": 64,
+      "losses": 136,
+      "draws": 0,
+      "openingGames": 102,
+      "openingWins": 32,
+      "secondGames": 98,
+      "secondWins": 32,
+      "rounds": 1026,
+      "damage": 2496,
+      "ward": 3078,
+      "focus": 1284,
+      "held": 1286,
+      "expired": 250,
+      "reactions": 1028,
+      "reactionSuccess": 1028,
+      "turns": 1000,
+      "initiativeWins": 98,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 168,
+      "totalRolls": 2698,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d8": {
+          "games": 102,
+          "wins": 32
+        },
+        "standard-d6 + standard-d8": {
+          "games": 98,
+          "wins": 32
+        }
+      },
+      "openingDamage": [
+        848,
+        444
+      ],
+      "mismatches": 0,
+      "cards": {
+        "sun-lance": 1114,
+        "root-ward": 722,
+        "quick-strike": 62
+      },
+      "opponentCards": {
+        "daring-feint": 1160,
+        "web-turn": 296,
+        "hidden-meaning": 198,
+        "silken-cut": 372
+      },
+      "version": 6
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "tengu",
+      "games": 200,
+      "wins": 96,
+      "losses": 102,
+      "draws": 2,
+      "openingGames": 84,
+      "openingWins": 40,
+      "secondGames": 116,
+      "secondWins": 56,
+      "rounds": 936,
+      "damage": 3574,
+      "ward": 2234,
+      "focus": 1214,
+      "held": 960,
+      "expired": 160,
+      "reactions": 778,
+      "reactionSuccess": 778,
+      "turns": 886,
+      "initiativeWins": 98,
+      "openingDraws": 0,
+      "secondDraws": 2,
+      "blankRolls": 146,
+      "totalRolls": 2374,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d6 + standard-d8": {
+          "games": 116,
+          "wins": 56
+        },
+        "standard-d8": {
+          "games": 84,
+          "wins": 40
+        }
+      },
+      "openingDamage": [
+        892,
+        806
+      ],
+      "mismatches": 0,
+      "cards": {
+        "sun-lance": 1252,
+        "quick-strike": 80,
+        "root-ward": 602
+      },
+      "opponentCards": {
+        "quick-strike": 512,
+        "perfect-riposte": 772,
+        "precision-cut": 364,
+        "gale-cut": 102
+      },
+      "version": 6
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "leshy",
+      "games": 200,
+      "wins": 84,
+      "losses": 116,
+      "draws": 0,
+      "openingGames": 98,
+      "openingWins": 30,
+      "secondGames": 102,
+      "secondWins": 54,
+      "rounds": 874,
+      "damage": 3916,
+      "ward": 2212,
+      "focus": 1158,
+      "held": 884,
+      "expired": 102,
+      "reactions": 750,
+      "reactionSuccess": 750,
+      "turns": 826,
+      "initiativeWins": 78,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 130,
+      "totalRolls": 2180,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d8": {
+          "games": 98,
+          "wins": 30
+        },
+        "standard-d6 + standard-d8": {
+          "games": 102,
+          "wins": 54
+        }
+      },
+      "openingDamage": [
+        960,
+        956
+      ],
+      "mismatches": 0,
+      "cards": {
+        "sun-lance": 1198,
+        "root-ward": 630,
+        "quick-strike": 62,
+        "first-light": 2
+      },
+      "opponentCards": {
+        "wolf-shape": 370,
+        "branch-lash": 1050,
+        "moss-mantle": 544,
+        "windstep": 26
+      },
+      "version": 6
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "quetzalcoatl",
+      "games": 200,
+      "wins": 98,
+      "losses": 100,
+      "draws": 2,
+      "openingGames": 96,
+      "openingWins": 36,
+      "secondGames": 104,
+      "secondWins": 62,
+      "rounds": 1010,
+      "damage": 3472,
+      "ward": 2520,
+      "focus": 1414,
+      "held": 1090,
+      "expired": 218,
+      "reactions": 850,
+      "reactionSuccess": 850,
+      "turns": 968,
+      "initiativeWins": 78,
+      "openingDraws": 2,
+      "secondDraws": 0,
+      "blankRolls": 142,
+      "totalRolls": 2608,
+      "fullHoldTurns": 0,
+      "openingChoices": {
+        "standard-d8": {
+          "games": 96,
+          "wins": 36
+        },
+        "standard-d6 + standard-d8": {
+          "games": 104,
+          "wins": 62
+        }
+      },
+      "openingDamage": [
+        912,
+        706
+      ],
+      "mismatches": 0,
+      "cards": {
+        "sun-lance": 1394,
+        "root-ward": 708,
+        "quick-strike": 88
+      },
+      "opponentCards": {
+        "sun-lance": 1382,
+        "root-ward": 710,
+        "quick-strike": 96
+      },
+      "version": 6
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "maui",
+      "games": 200,
+      "wins": 96,
+      "losses": 104,
+      "draws": 0,
+      "openingGames": 90,
+      "openingWins": 14,
+      "secondGames": 110,
+      "secondWins": 82,
+      "rounds": 1400,
+      "damage": 2730,
+      "ward": 4998,
+      "focus": 1802,
+      "held": 2204,
+      "expired": 324,
+      "reactions": 1678,
+      "reactionSuccess": 1678,
+      "turns": 1398,
+      "initiativeWins": 42,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 254,
+      "totalRolls": 3904,
+      "fullHoldTurns": 220,
+      "openingChoices": {
+        "standard-d8": {
+          "games": 90,
+          "wins": 14
+        },
+        "standard-d6 + standard-d8": {
+          "games": 110,
+          "wins": 82
+        }
+      },
+      "openingDamage": [
+        406,
+        360
+      ],
+      "mismatches": 0,
+      "cards": {
+        "sun-lance": 1596,
+        "root-ward": 1192,
+        "first-light": 96,
+        "quick-strike": 8
+      },
+      "opponentCards": {
+        "silken-cut": 742,
+        "root-ward": 548,
+        "turnabout": 50,
+        "daring-feint": 772
+      },
+      "version": 6
+    },
+    {
+      "legend": "maui",
+      "opponent": "basajaun",
+      "games": 200,
+      "wins": 124,
+      "losses": 76,
+      "draws": 0,
+      "openingGames": 124,
+      "openingWins": 76,
+      "secondGames": 76,
+      "secondWins": 48,
+      "rounds": 1400,
+      "damage": 1384,
+      "ward": 4278,
+      "focus": 1320,
+      "held": 1954,
+      "expired": 836,
+      "reactions": 934,
+      "reactionSuccess": 934,
+      "turns": 1400,
+      "initiativeWins": 104,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 3876,
+      "fullHoldTurns": 258,
+      "openingChoices": {
+        "maui-d10-0": {
+          "games": 124,
+          "wins": 76
+        },
+        "maui-d10-0 + standard-d8": {
+          "games": 76,
+          "wins": 48
+        }
+      },
+      "openingDamage": [
+        152,
+        100
+      ],
+      "mismatches": 0,
+      "cards": {
+        "turnabout": 198,
+        "silken-cut": 706,
+        "daring-feint": 684,
+        "root-ward": 418
+      },
+      "opponentCards": {
+        "crush": 736,
+        "root-ward": 278,
+        "herensuge": 322,
+        "barkskin": 254
+      },
+      "version": 6
+    },
+    {
+      "legend": "maui",
+      "opponent": "anansi",
+      "games": 200,
+      "wins": 126,
+      "losses": 74,
+      "draws": 0,
+      "openingGames": 112,
+      "openingWins": 80,
+      "secondGames": 88,
+      "secondWins": 46,
+      "rounds": 1344,
+      "damage": 3254,
+      "ward": 4014,
+      "focus": 1244,
+      "held": 2140,
+      "expired": 662,
+      "reactions": 1372,
+      "reactionSuccess": 1372,
+      "turns": 1326,
+      "initiativeWins": 122,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 3666,
+      "fullHoldTurns": 224,
+      "openingChoices": {
+        "maui-d10-0": {
+          "games": 112,
+          "wins": 80
+        },
+        "maui-d10-0 + standard-d8": {
+          "games": 88,
+          "wins": 46
+        }
+      },
+      "openingDamage": [
+        152,
+        170
+      ],
+      "mismatches": 0,
+      "cards": {
+        "silken-cut": 756,
+        "daring-feint": 362,
+        "root-ward": 372,
+        "turnabout": 558
+      },
+      "opponentCards": {
+        "hidden-meaning": 340,
+        "web-turn": 436,
+        "daring-feint": 1266,
+        "silken-cut": 328
+      },
+      "version": 6
+    },
+    {
+      "legend": "maui",
+      "opponent": "tengu",
+      "games": 200,
+      "wins": 50,
+      "losses": 150,
+      "draws": 0,
+      "openingGames": 64,
+      "openingWins": 14,
+      "secondGames": 136,
+      "secondWins": 36,
+      "rounds": 1394,
+      "damage": 1476,
+      "ward": 3884,
+      "focus": 1334,
+      "held": 1720,
+      "expired": 772,
+      "reactions": 734,
+      "reactionSuccess": 734,
+      "turns": 1394,
+      "initiativeWins": 114,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 3918,
+      "fullHoldTurns": 216,
+      "openingChoices": {
+        "maui-d10-0": {
+          "games": 64,
+          "wins": 14
+        },
+        "maui-d10-0 + standard-d8": {
+          "games": 136,
+          "wins": 36
+        }
+      },
+      "openingDamage": [
+        244,
+        184
+      ],
+      "mismatches": 0,
+      "cards": {
+        "silken-cut": 384,
+        "root-ward": 148,
+        "daring-feint": 222,
+        "turnabout": 48
+      },
+      "opponentCards": {
+        "precision-cut": 632,
+        "perfect-riposte": 1548,
+        "gale-cut": 30,
+        "quick-strike": 100
+      },
+      "version": 6
+    },
+    {
+      "legend": "maui",
+      "opponent": "leshy",
+      "games": 200,
+      "wins": 128,
+      "losses": 72,
+      "draws": 0,
+      "openingGames": 100,
+      "openingWins": 48,
+      "secondGames": 100,
+      "secondWins": 80,
+      "rounds": 1390,
+      "damage": 3122,
+      "ward": 5864,
+      "focus": 1298,
+      "held": 1542,
+      "expired": 136,
+      "reactions": 1306,
+      "reactionSuccess": 1306,
+      "turns": 1382,
+      "initiativeWins": 68,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 3846,
+      "fullHoldTurns": 178,
+      "openingChoices": {
+        "maui-d10-0": {
+          "games": 100,
+          "wins": 48
+        },
+        "maui-d10-0 + standard-d8": {
+          "games": 100,
+          "wins": 80
+        }
+      },
+      "openingDamage": [
+        200,
+        494
+      ],
+      "mismatches": 0,
+      "cards": {
+        "daring-feint": 494,
+        "root-ward": 664,
+        "silken-cut": 444,
+        "turnabout": 64
+      },
+      "opponentCards": {
+        "branch-lash": 1256,
+        "moss-mantle": 1052,
+        "wolf-shape": 1038,
+        "windstep": 80
+      },
+      "version": 6
+    },
+    {
+      "legend": "maui",
+      "opponent": "quetzalcoatl",
+      "games": 200,
+      "wins": 120,
+      "losses": 80,
+      "draws": 0,
+      "openingGames": 96,
+      "openingWins": 34,
+      "secondGames": 104,
+      "secondWins": 86,
+      "rounds": 1398,
+      "damage": 1374,
+      "ward": 4986,
+      "focus": 1394,
+      "held": 1646,
+      "expired": 504,
+      "reactions": 1002,
+      "reactionSuccess": 1002,
+      "turns": 1398,
+      "initiativeWins": 52,
+      "openingDraws": 0,
+      "secondDraws": 0,
+      "blankRolls": 0,
+      "totalRolls": 3898,
+      "fullHoldTurns": 176,
+      "openingChoices": {
+        "maui-d10-0 + standard-d8": {
+          "games": 104,
+          "wins": 86
+        },
+        "maui-d10-0": {
+          "games": 96,
+          "wins": 34
+        }
+      },
+      "openingDamage": [
+        208,
+        164
+      ],
+      "mismatches": 0,
+      "cards": {
+        "root-ward": 528,
+        "silken-cut": 760,
+        "daring-feint": 732,
+        "turnabout": 58
+      },
+      "opponentCards": {
+        "sun-lance": 1532,
+        "first-light": 94,
+        "root-ward": 1138,
+        "quick-strike": 24
+      },
+      "version": 6
+    },
+    {
+      "legend": "maui",
+      "opponent": "maui",
+      "games": 200,
+      "wins": 82,
+      "losses": 106,
+      "draws": 12,
+      "openingGames": 96,
+      "openingWins": 52,
+      "secondGames": 104,
+      "secondWins": 30,
+      "rounds": 1400,
+      "damage": 1346,
+      "ward": 4568,
+      "focus": 700,
+      "held": 2770,
+      "expired": 1194,
+      "reactions": 1232,
+      "reactionSuccess": 1232,
+      "turns": 1400,
+      "initiativeWins": 120,
+      "openingDraws": 6,
+      "secondDraws": 6,
+      "blankRolls": 0,
+      "totalRolls": 3904,
+      "fullHoldTurns": 808,
+      "openingChoices": {
+        "maui-d10-0 + standard-d8": {
+          "games": 104,
+          "wins": 30
+        },
+        "maui-d10-0": {
+          "games": 96,
+          "wins": 52
+        }
+      },
+      "openingDamage": [
+        0,
+        60
+      ],
+      "mismatches": 0,
+      "cards": {
+        "root-ward": 278,
+        "turnabout": 336,
+        "silken-cut": 504,
+        "daring-feint": 348
+      },
+      "opponentCards": {
+        "silken-cut": 566,
+        "daring-feint": 320,
+        "root-ward": 290,
+        "turnabout": 256
+      },
+      "version": 6
+    }
+  ]
+}

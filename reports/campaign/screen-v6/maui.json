@@ -1,0 +1,203 @@
+[
+  {
+    "legend": "maui",
+    "opponent": "basajaun",
+    "games": 200,
+    "wins": 156,
+    "losses": 42,
+    "draws": 2,
+    "openingGames": 124,
+    "openingWins": 116,
+    "secondGames": 76,
+    "secondWins": 40,
+    "rounds": 774,
+    "damage": 3888,
+    "ward": 862,
+    "focus": 756,
+    "held": 270,
+    "expired": 42,
+    "reactions": 224,
+    "reactionSuccess": 224,
+    "turns": 744,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 334,
+      "daring-feint": 1106,
+      "root-ward": 218,
+      "turnabout": 2
+    },
+    "opponentCards": {
+      "herensuge": 504,
+      "root-ward": 234,
+      "barkskin": 38,
+      "crush": 168
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "anansi",
+    "games": 200,
+    "wins": 158,
+    "losses": 42,
+    "draws": 0,
+    "openingGames": 112,
+    "openingWins": 102,
+    "secondGames": 88,
+    "secondWins": 56,
+    "rounds": 628,
+    "damage": 3464,
+    "ward": 558,
+    "focus": 472,
+    "held": 148,
+    "expired": 2,
+    "reactions": 146,
+    "reactionSuccess": 146,
+    "turns": 600,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 292,
+      "daring-feint": 794,
+      "root-ward": 146
+    },
+    "opponentCards": {
+      "daring-feint": 642,
+      "silken-cut": 222,
+      "hidden-meaning": 292
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "tengu",
+    "games": 200,
+    "wins": 170,
+    "losses": 30,
+    "draws": 0,
+    "openingGames": 64,
+    "openingWins": 62,
+    "secondGames": 136,
+    "secondWins": 108,
+    "rounds": 572,
+    "damage": 3524,
+    "ward": 620,
+    "focus": 508,
+    "held": 160,
+    "expired": 0,
+    "reactions": 160,
+    "reactionSuccess": 160,
+    "turns": 548,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 270,
+      "daring-feint": 746,
+      "root-ward": 154
+    },
+    "opponentCards": {
+      "gale-cut": 480,
+      "quick-strike": 134,
+      "perfect-riposte": 74
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "leshy",
+    "games": 200,
+    "wins": 44,
+    "losses": 156,
+    "draws": 0,
+    "openingGames": 100,
+    "openingWins": 32,
+    "secondGames": 100,
+    "secondWins": 12,
+    "rounds": 784,
+    "damage": 3922,
+    "ward": 798,
+    "focus": 640,
+    "held": 212,
+    "expired": 0,
+    "reactions": 210,
+    "reactionSuccess": 210,
+    "turns": 696,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 208,
+      "daring-feint": 1064,
+      "root-ward": 210
+    },
+    "opponentCards": {
+      "wolf-shape": 466,
+      "branch-lash": 794,
+      "moss-mantle": 514,
+      "windstep": 10
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "quetzalcoatl",
+    "games": 200,
+    "wins": 154,
+    "losses": 46,
+    "draws": 0,
+    "openingGames": 96,
+    "openingWins": 82,
+    "secondGames": 104,
+    "secondWins": 72,
+    "rounds": 778,
+    "damage": 3618,
+    "ward": 976,
+    "focus": 724,
+    "held": 292,
+    "expired": 34,
+    "reactions": 258,
+    "reactionSuccess": 258,
+    "turns": 746,
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 1110,
+      "silken-cut": 368,
+      "root-ward": 248
+    },
+    "opponentCards": {
+      "sun-lance": 996,
+      "root-ward": 528
+    },
+    "version": 6
+  },
+  {
+    "legend": "maui",
+    "opponent": "maui",
+    "games": 200,
+    "wins": 86,
+    "losses": 112,
+    "draws": 2,
+    "openingGames": 96,
+    "openingWins": 54,
+    "secondGames": 104,
+    "secondWins": 32,
+    "rounds": 672,
+    "damage": 3646,
+    "ward": 794,
+    "focus": 632,
+    "held": 218,
+    "expired": 4,
+    "reactions": 212,
+    "reactionSuccess": 212,
+    "turns": 602,
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 868,
+      "silken-cut": 322,
+      "root-ward": 210
+    },
+    "opponentCards": {
+      "silken-cut": 302,
+      "daring-feint": 902,
+      "root-ward": 214,
+      "turnabout": 2
+    },
+    "version": 6
+  }
+]

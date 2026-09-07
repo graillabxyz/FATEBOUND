@@ -1,3 +1,17 @@
+export type AffinityId =
+  | "might"
+  | "guile"
+  | "wisdom"
+  | "wild"
+  | "spirit"
+  | "shadow"
+  | "order"
+  | "chaos";
+export type AffinityRequirement =
+  | { affinity: AffinityId }
+  | { allOf: AffinityRequirement[] }
+  | { anyOf: AffinityRequirement[] };
+export type CardRarity = "common" | "uncommon" | "rare" | "mythic";
 export type OmenSize = 4 | 6 | 8 | 10 | 12 | 20;
 export type LegendId =
   "basajaun" | "anansi" | "tengu" | "leshy" | "quetzalcoatl" | "maui";
@@ -80,8 +94,11 @@ export type Effect = {
   direction?: -1 | 1;
   guardPierce?: number;
   scaling?: "halfDieUp";
+  omenTarget?: "unspent";
 };
 export type Requirement = {
+  life?: number;
+  void?: boolean;
   count: number;
   exact?: number;
   parity?: "odd" | "even";
@@ -102,10 +119,20 @@ export type Requirement = {
 };
 export type Timing = "ACTION" | "REACTION" | "PASSIVE";
 export type CardDef = {
+  persistence: "none";
   timing: Timing;
   id: string;
   name: string;
-  legend: LegendId;
+  set: string;
+  collectorNumber: number;
+  rarity: CardRarity;
+  affinityRequirements: AffinityRequirement | null;
+  balanceMetadata: {
+    intent: string;
+    complexity: number;
+    repeatability: string;
+    reviewNotes: string;
+  };
   category: Category;
   archetype: string;
   requirement: Requirement;
@@ -129,7 +156,7 @@ export type Legend = {
   initiativeBonus: number;
   class: string;
   allowedDiceSizes: DieSize[];
-  compatibleCardTags: string[];
+  affinities: AffinityId[];
   passiveRule?: {
     trigger:
       | "firstGuard"
@@ -139,9 +166,11 @@ export type Legend = {
       | "categoryChange"
       | "holdOne";
     amount: number;
+    value?: number;
   };
   passive: string;
   active: {
+    category: Category;
     timing: Timing;
     name: string;
     text: string;
@@ -228,6 +257,8 @@ export type Status = {
   id: "power" | "ward" | "poison" | "stun";
   amount: number;
   expiresRound: number;
+  expiresOwnerTurn?: number;
+  tickOwnerTurn?: number;
 };
 export type PlayerState = {
   playerTurnCount: number;

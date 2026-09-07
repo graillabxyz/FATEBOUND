@@ -3,6 +3,14 @@ import type { Face, Requirement, SymbolId } from "../engine/types";
 /** Canonical game vocabulary. Wire-format IDs are translated here, never shown as rules text. */
 export const GLOSSARY = [
   [
+    "Affinity",
+    "A Legend characteristic that decides which shared-pool Cards it may equip. AND requires every listed Affinity; OR requires at least one.",
+  ],
+  [
+    "Unbound",
+    "A Card with no Affinity requirement. Every Legend can equip it.",
+  ],
+  [
     "Legend",
     "Your main character. Always public and in play for the entire Match.",
   ],
@@ -12,7 +20,7 @@ export const GLOSSARY = [
   ],
   [
     "Card",
-    "A reusable ability. Its identity becomes permanently known when first played.",
+    "A reusable ability that resolves immediately and stays in your Hand. Its identity is permanently revealed when first played; it does not become a battlefield object.",
   ],
   [
     "Omen",
@@ -36,7 +44,7 @@ export const GLOSSARY = [
   ],
   [
     "Ward",
-    "Temporary protection that absorbs damage before Life. Clears at the start of your next Turn.",
+    "Each point absorbs 1 damage before Life, then is consumed. Leftover Ward clears at the start of your next turn.",
   ],
   [
     "Initiative",
@@ -149,6 +157,8 @@ export function omenFace(face: Face) {
         };
 }
 export function requirementText(r: Requirement): string {
+  if (r.void)
+    return `Void${r.unused ? ` · ${r.unused} other unused Omen` : ""}`;
   const base = r.symbol
     ? SIGILS[r.symbol].name
     : r.any
@@ -163,6 +173,8 @@ export function requirementText(r: Requirement): string {
     r.initiative !== undefined &&
       (r.initiative ? "with Initiative" : "without Initiative"),
     r.control && `${r.control} Focus`,
+    r.life && `${r.life} Life`,
+    r.condition === "enemyAttacking" && "Against an attack",
   ]
     .filter(Boolean)
     .join(" · ");

@@ -1,3 +1,4 @@
+import { cardCompatible } from "../content/affinities";
 import type { Difficulty } from "../engine/ai";
 import type { Loadout, MatchState, Plan, Status } from "../engine/types";
 import { GAME } from "../content/config";
@@ -162,7 +163,7 @@ export function restrictionErrors(l: Loadout) {
     errors.push((e as Error).message);
   }
   l.cards.forEach((id, i) => {
-    if (cardById[id]?.legend !== l.legend)
+    if (!cardById[id] || !cardCompatible(legendById[l.legend], cardById[id]))
       errors.push(`Card ${i + 1}: ${id} is incompatible.`);
   });
   l.dice.forEach((id, i) => {
@@ -253,7 +254,9 @@ export function randomLoadout(
   seed: number,
 ): Loadout {
   const next = randomSource(seed);
-  const pool = CARDS.filter((c) => c.legend === legend).map((c) => c.id);
+  const pool = CARDS.filter((c) => cardCompatible(legendById[legend], c)).map(
+    (c) => c.id,
+  );
   for (let i = pool.length - 1; i > 0; i--) {
     const j = next() % (i + 1);
     [pool[i], pool[j]] = [pool[j], pool[i]];

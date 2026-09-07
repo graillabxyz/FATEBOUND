@@ -1,3 +1,4 @@
+import { validateLoadout } from "../engine/rules";
 import { MatchEmoteProvider, EmoteMenu, EmoteBubble } from "./Emotes";
 import { startUsage } from "../services/telemetry";
 import {
@@ -132,6 +133,12 @@ export default function App() {
     practice = false,
     opponent?: string,
   ) => {
+    try {
+      validateLoadout(active, profileService.ownedGameplay(profile));
+    } catch (e) {
+      toast((e as Error).message);
+      return;
+    }
     const rival = (opponent ?? opponentId) as LegendId;
     const seed = crypto.getRandomValues(new Uint32Array(1))[0];
     const service = LocalMatchService.start(

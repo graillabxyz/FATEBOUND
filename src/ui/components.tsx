@@ -1,3 +1,5 @@
+import { WARD_RULE } from "../content/card-rules";
+import { AffinityLine } from "./Affinities";
 import { omenFace } from "../content/terminology";
 import { useEffect, useRef, useState } from "react";
 import { DIE_PROJECTIONS, DIE_SHAPES } from "./dice-geometry";
@@ -353,7 +355,8 @@ export function LifeBar({
       {(guard > 0 || wardLost > 0) && (
         <span className={`guard-count ${wardLost ? "ward-breaking" : ""}`}>
           <Icon name="guard" size={12} />
-          {guard} Ward{wardLost > 0 && <em key={guard}>−{wardLost}</em>}
+          <span title={WARD_RULE}>{guard} Ward</span>
+          {wardLost > 0 && <em key={guard}>−{wardLost}</em>}
         </span>
       )}
       {change !== 0 && (
@@ -517,6 +520,7 @@ export function GameplayCard({
       className={`gameplay-card ${compact ? "compact" : ""} ${selected ? "selected" : ""} ${disabled ? "unavailable" : ""}`}
       data-card-target={card.id}
       data-category={card.category}
+      data-rarity={card.rarity}
     >
       <button
         className="card-select"
@@ -550,11 +554,14 @@ export function GameplayCard({
           <span>{card.name}</span>
           <Icon name={icon} size={12} />
         </div>
-        <LegendArt id={card.legend} className="card-illustration">
+        <div className="card-affinity">
+          <AffinityLine requirement={card.affinityRequirements} compact />
+        </div>
+        <div className="card-illustration card-pool-art">
           <span className="card-symbol">
             <Icon name={icon} size={26} />
           </span>
-        </LegendArt>
+        </div>
         <div className="card-rules">
           <strong>{card.requirementLabel}</strong>
           <p>{card.text}</p>
@@ -627,6 +634,7 @@ export function LegendCard({
       <span className="legend-card-copy">
         <small>{legend.archetype.split(" / ")[0]}</small>
         <strong>{legend.name}</strong>
+        <AffinityLine ids={legend.affinities} compact />
         <span>{legend.region.split(" · ")[0]}</span>
       </span>
       <span className="legend-hp">

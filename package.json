@@ -23,7 +23,8 @@
     "db:generate": "node tooling/sites/node_modules/drizzle-kit/bin.cjs generate --config drizzle.config.ts",
     "build:vercel": "node scripts/build-vercel-api.mjs && node scripts/check-vercel-api.mjs && npm run build && vite build --config vite.metrics.config.ts",
     "build:edge": "node scripts/build-edge.mjs",
-    "seed:catalog": "node --import tsx scripts/seed-catalog.ts"
+    "seed:catalog": "node --import tsx scripts/seed-catalog.ts",
+    "audit:cards": "node --import tsx scripts/audit-card-pool.ts"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",

@@ -1,0 +1,601 @@
+[
+  {
+    "legend": "tengu",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 1530,
+    "losses": 2470,
+    "draws": 0,
+    "openingGames": 2644,
+    "openingWins": 1126,
+    "secondGames": 1356,
+    "secondWins": 404,
+    "rounds": 20188,
+    "damage": 55022,
+    "ward": 31262,
+    "focus": 34338,
+    "held": 24508,
+    "expired": 6278,
+    "reactions": 16282,
+    "reactionSuccess": 16282,
+    "turns": 19160,
+    "initiativeWins": 2078,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 0,
+    "totalRolls": 50836,
+    "fullHoldTurns": 720,
+    "openingChoices": {
+      "standard-d6": {
+        "games": 866,
+        "wins": 244
+      },
+      "standard-d8 + tengu-d6-0": {
+        "games": 412,
+        "wins": 318
+      },
+      "standard-d8": {
+        "games": 1778,
+        "wins": 882
+      },
+      "standard-d6 + standard-d8": {
+        "games": 944,
+        "wins": 86
+      }
+    },
+    "openingDamage": [
+      11448,
+      12260
+    ],
+    "mismatches": 0,
+    "cards": {
+      "gale-cut": 876,
+      "perfect-riposte": 4658,
+      "precision-cut": 8912,
+      "web-turn": 3686,
+      "quick-strike": 3194,
+      "silken-cut": 2686,
+      "mountain-silence": 134,
+      "counterstrike": 96,
+      "meditate": 64,
+      "thread-the-path": 2
+    },
+    "opponentCards": {
+      "branch-lash": 4646,
+      "daring-feint": 2524,
+      "crush": 3526,
+      "root-ward": 4072,
+      "sun-lance": 9688,
+      "moss-mantle": 2064,
+      "barkskin": 940,
+      "herensuge": 5034,
+      "windstep": 610,
+      "deep-roots": 202,
+      "quick-strike": 668
+    },
+    "byHand": {
+      "gale-cut / perfect-riposte / precision-cut / meditate": {
+        "games": 1334,
+        "wins": 312,
+        "draws": 0,
+        "damage": 22718,
+        "ward": 13988,
+        "reactions": 6454
+      },
+      "web-turn / thread-the-path / precision-cut / mountain-silence": {
+        "games": 1334,
+        "wins": 1054,
+        "draws": 0,
+        "damage": 11030,
+        "ward": 7208,
+        "reactions": 6728
+      },
+      "quick-strike / silken-cut / meditate / counterstrike": {
+        "games": 1332,
+        "wins": 164,
+        "draws": 0,
+        "damage": 21274,
+        "ward": 10066,
+        "reactions": 3100
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 3152,
+    "losses": 840,
+    "draws": 8,
+    "openingGames": 2072,
+    "openingWins": 1742,
+    "secondGames": 1928,
+    "secondWins": 1410,
+    "rounds": 18554,
+    "damage": 58958,
+    "ward": 21276,
+    "focus": 32284,
+    "held": 21624,
+    "expired": 6870,
+    "reactions": 13904,
+    "reactionSuccess": 13904,
+    "turns": 18002,
+    "initiativeWins": 2258,
+    "openingDraws": 6,
+    "secondDraws": 2,
+    "blankRolls": 0,
+    "totalRolls": 47934,
+    "fullHoldTurns": 584,
+    "openingChoices": {
+      "standard-d6 + standard-d8": {
+        "games": 1300,
+        "wins": 942
+      },
+      "standard-d8": {
+        "games": 1372,
+        "wins": 1138
+      },
+      "standard-d6": {
+        "games": 700,
+        "wins": 604
+      },
+      "standard-d8 + tengu-d6-0": {
+        "games": 628,
+        "wins": 468
+      }
+    },
+    "openingDamage": [
+      13394,
+      11552
+    ],
+    "mismatches": 0,
+    "cards": {
+      "perfect-riposte": 3988,
+      "precision-cut": 8058,
+      "gale-cut": 1444,
+      "web-turn": 3220,
+      "quick-strike": 2068,
+      "silken-cut": 1858,
+      "counterstrike": 1120,
+      "meditate": 58
+    },
+    "opponentCards": {
+      "silken-cut": 5644,
+      "read-the-thread": 1774,
+      "unravel": 506,
+      "daring-feint": 8598,
+      "windstep": 2534,
+      "crooked-bough": 8074,
+      "thread-the-path": 364,
+      "first-wind": 1180,
+      "meditate": 462,
+      "hidden-meaning": 736
+    },
+    "byHand": {
+      "gale-cut / perfect-riposte / precision-cut / meditate": {
+        "games": 1334,
+        "wins": 1086,
+        "draws": 0,
+        "damage": 23096,
+        "ward": 11664,
+        "reactions": 5506
+      },
+      "web-turn / thread-the-path / precision-cut / mountain-silence": {
+        "games": 1334,
+        "wins": 1044,
+        "draws": 8,
+        "damage": 13102,
+        "ward": 6822,
+        "reactions": 6086
+      },
+      "quick-strike / silken-cut / meditate / counterstrike": {
+        "games": 1332,
+        "wins": 1022,
+        "draws": 0,
+        "damage": 22760,
+        "ward": 2790,
+        "reactions": 2312
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 1920,
+    "losses": 2030,
+    "draws": 50,
+    "openingGames": 1864,
+    "openingWins": 1088,
+    "secondGames": 2136,
+    "secondWins": 832,
+    "rounds": 17398,
+    "damage": 57202,
+    "ward": 16664,
+    "focus": 29224,
+    "held": 18504,
+    "expired": 5886,
+    "reactions": 11548,
+    "reactionSuccess": 11548,
+    "turns": 16258,
+    "initiativeWins": 2364,
+    "openingDraws": 22,
+    "secondDraws": 28,
+    "blankRolls": 0,
+    "totalRolls": 42910,
+    "fullHoldTurns": 518,
+    "openingChoices": {
+      "standard-d6 + standard-d8": {
+        "games": 1416,
+        "wins": 432
+      },
+      "standard-d8": {
+        "games": 1274,
+        "wins": 798
+      },
+      "standard-d6": {
+        "games": 590,
+        "wins": 290
+      },
+      "standard-d8 + tengu-d6-0": {
+        "games": 720,
+        "wins": 400
+      }
+    },
+    "openingDamage": [
+      12882,
+      12542
+    ],
+    "mismatches": 0,
+    "cards": {
+      "perfect-riposte": 3082,
+      "precision-cut": 8534,
+      "web-turn": 2996,
+      "silken-cut": 2122,
+      "quick-strike": 2210,
+      "counterstrike": 990,
+      "gale-cut": 994,
+      "meditate": 22
+    },
+    "opponentCards": {
+      "precision-cut": 8370,
+      "perfect-riposte": 3366,
+      "gale-cut": 970,
+      "web-turn": 3020,
+      "silken-cut": 2034,
+      "quick-strike": 2220,
+      "counterstrike": 1126,
+      "meditate": 42
+    },
+    "byHand": {
+      "gale-cut / perfect-riposte / precision-cut / meditate": {
+        "games": 1334,
+        "wins": 568,
+        "draws": 8,
+        "damage": 21874,
+        "ward": 9576,
+        "reactions": 4556
+      },
+      "web-turn / thread-the-path / precision-cut / mountain-silence": {
+        "games": 1334,
+        "wins": 852,
+        "draws": 0,
+        "damage": 12756,
+        "ward": 5660,
+        "reactions": 5410
+      },
+      "quick-strike / silken-cut / meditate / counterstrike": {
+        "games": 1332,
+        "wins": 500,
+        "draws": 42,
+        "damage": 22572,
+        "ward": 1428,
+        "reactions": 1582
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 2086,
+    "losses": 1850,
+    "draws": 64,
+    "openingGames": 2428,
+    "openingWins": 1344,
+    "secondGames": 1572,
+    "secondWins": 742,
+    "rounds": 19768,
+    "damage": 59624,
+    "ward": 27094,
+    "focus": 34018,
+    "held": 22718,
+    "expired": 6080,
+    "reactions": 15304,
+    "reactionSuccess": 15304,
+    "turns": 18938,
+    "initiativeWins": 2144,
+    "openingDraws": 34,
+    "secondDraws": 30,
+    "blankRolls": 0,
+    "totalRolls": 50386,
+    "fullHoldTurns": 632,
+    "openingChoices": {
+      "standard-d6": {
+        "games": 782,
+        "wins": 352
+      },
+      "standard-d8": {
+        "games": 1646,
+        "wins": 992
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1094,
+        "wins": 400
+      },
+      "standard-d8 + tengu-d6-0": {
+        "games": 478,
+        "wins": 342
+      }
+    },
+    "openingDamage": [
+      13382,
+      11400
+    ],
+    "mismatches": 0,
+    "cards": {
+      "gale-cut": 1346,
+      "perfect-riposte": 4190,
+      "precision-cut": 8642,
+      "web-turn": 3536,
+      "counterstrike": 502,
+      "quick-strike": 2956,
+      "silken-cut": 2600,
+      "mountain-silence": 226,
+      "meditate": 22
+    },
+    "opponentCards": {
+      "crooked-bough": 10380,
+      "windstep": 354,
+      "branch-lash": 7362,
+      "new-skin": 506,
+      "thorn-return": 2516,
+      "wolf-shape": 9016,
+      "root-ward": 5520,
+      "bramble-trap": 558,
+      "offering": 276,
+      "bold-wager": 68,
+      "night-spores": 10
+    },
+    "byHand": {
+      "gale-cut / perfect-riposte / precision-cut / meditate": {
+        "games": 1334,
+        "wins": 594,
+        "draws": 22,
+        "damage": 23796,
+        "ward": 12916,
+        "reactions": 6072
+      },
+      "web-turn / thread-the-path / precision-cut / mountain-silence": {
+        "games": 1334,
+        "wins": 986,
+        "draws": 0,
+        "damage": 12600,
+        "ward": 7274,
+        "reactions": 6540
+      },
+      "quick-strike / silken-cut / meditate / counterstrike": {
+        "games": 1332,
+        "wins": 506,
+        "draws": 42,
+        "damage": 23228,
+        "ward": 6904,
+        "reactions": 2692
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 2572,
+    "losses": 1412,
+    "draws": 16,
+    "openingGames": 2312,
+    "openingWins": 1552,
+    "secondGames": 1688,
+    "secondWins": 1020,
+    "rounds": 23818,
+    "damage": 64090,
+    "ward": 26560,
+    "focus": 42320,
+    "held": 30674,
+    "expired": 11258,
+    "reactions": 16892,
+    "reactionSuccess": 16892,
+    "turns": 23288,
+    "initiativeWins": 2214,
+    "openingDraws": 10,
+    "secondDraws": 6,
+    "blankRolls": 0,
+    "totalRolls": 63552,
+    "fullHoldTurns": 650,
+    "openingChoices": {
+      "standard-d6 + standard-d8": {
+        "games": 1120,
+        "wins": 536
+      },
+      "standard-d8": {
+        "games": 1550,
+        "wins": 1148
+      },
+      "standard-d6": {
+        "games": 762,
+        "wins": 404
+      },
+      "standard-d8 + tengu-d6-0": {
+        "games": 568,
+        "wins": 484
+      }
+    },
+    "openingDamage": [
+      12744,
+      8672
+    ],
+    "mismatches": 0,
+    "cards": {
+      "perfect-riposte": 4474,
+      "precision-cut": 12678,
+      "web-turn": 4370,
+      "quick-strike": 3964,
+      "silken-cut": 2926,
+      "counterstrike": 1388,
+      "gale-cut": 1142,
+      "meditate": 80
+    },
+    "opponentCards": {
+      "sun-lance": 8808,
+      "root-ward": 3852,
+      "quick-strike": 7876,
+      "open-sky": 2002,
+      "precision-cut": 8174,
+      "wild-bloom": 1070,
+      "deep-roots": 4016,
+      "first-light": 604,
+      "offering": 370
+    },
+    "byHand": {
+      "gale-cut / perfect-riposte / precision-cut / meditate": {
+        "games": 1334,
+        "wins": 688,
+        "draws": 2,
+        "damage": 24844,
+        "ward": 13482,
+        "reactions": 6318
+      },
+      "web-turn / thread-the-path / precision-cut / mountain-silence": {
+        "games": 1334,
+        "wins": 1154,
+        "draws": 2,
+        "damage": 12606,
+        "ward": 6824,
+        "reactions": 7030
+      },
+      "quick-strike / silken-cut / meditate / counterstrike": {
+        "games": 1332,
+        "wins": 730,
+        "draws": 12,
+        "damage": 26640,
+        "ward": 6254,
+        "reactions": 3544
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 1116,
+    "losses": 2878,
+    "draws": 6,
+    "openingGames": 2268,
+    "openingWins": 694,
+    "secondGames": 1732,
+    "secondWins": 422,
+    "rounds": 19574,
+    "damage": 48410,
+    "ward": 32788,
+    "focus": 32614,
+    "held": 25600,
+    "expired": 5426,
+    "reactions": 18482,
+    "reactionSuccess": 18482,
+    "turns": 18410,
+    "initiativeWins": 2002,
+    "openingDraws": 4,
+    "secondDraws": 2,
+    "blankRolls": 0,
+    "totalRolls": 48962,
+    "fullHoldTurns": 1056,
+    "openingChoices": {
+      "standard-d6": {
+        "games": 738,
+        "wins": 198
+      },
+      "standard-d8": {
+        "games": 1530,
+        "wins": 496
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1148,
+        "wins": 114
+      },
+      "standard-d8 + tengu-d6-0": {
+        "games": 584,
+        "wins": 308
+      }
+    },
+    "openingDamage": [
+      10252,
+      6240
+    ],
+    "mismatches": 0,
+    "cards": {
+      "gale-cut": 382,
+      "precision-cut": 7422,
+      "perfect-riposte": 6566,
+      "web-turn": 4330,
+      "quick-strike": 1444,
+      "silken-cut": 1622,
+      "counterstrike": 560,
+      "meditate": 1294,
+      "mountain-silence": 192
+    },
+    "opponentCards": {
+      "island-pull": 4186,
+      "branch-lash": 3638,
+      "root-ward": 878,
+      "web-turn": 4198,
+      "read-the-thread": 2926,
+      "story-s-end": 3056,
+      "windstep": 48,
+      "quick-strike": 1256,
+      "false-promise": 670,
+      "against-the-current": 610,
+      "bramble-trap": 370,
+      "turnabout": 28
+    },
+    "byHand": {
+      "gale-cut / perfect-riposte / precision-cut / meditate": {
+        "games": 1334,
+        "wins": 306,
+        "draws": 2,
+        "damage": 24088,
+        "ward": 16654,
+        "reactions": 7776
+      },
+      "web-turn / thread-the-path / precision-cut / mountain-silence": {
+        "games": 1334,
+        "wins": 752,
+        "draws": 2,
+        "damage": 7782,
+        "ward": 7974,
+        "reactions": 7384
+      },
+      "quick-strike / silken-cut / meditate / counterstrike": {
+        "games": 1332,
+        "wins": 58,
+        "draws": 2,
+        "damage": 16540,
+        "ward": 8160,
+        "reactions": 3322
+      }
+    },
+    "version": 6
+  }
+]

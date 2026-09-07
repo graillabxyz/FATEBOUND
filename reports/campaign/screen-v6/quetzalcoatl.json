@@ -1,0 +1,195 @@
+[
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "basajaun",
+    "games": 200,
+    "wins": 72,
+    "losses": 128,
+    "draws": 0,
+    "openingGames": 118,
+    "openingWins": 50,
+    "secondGames": 82,
+    "secondWins": 22,
+    "rounds": 936,
+    "damage": 3260,
+    "ward": 1860,
+    "focus": 1196,
+    "held": 926,
+    "expired": 266,
+    "reactions": 624,
+    "reactionSuccess": 624,
+    "turns": 894,
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 1286,
+      "root-ward": 496
+    },
+    "opponentCards": {
+      "crush": 438,
+      "herensuge": 516,
+      "root-ward": 338,
+      "barkskin": 86
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "anansi",
+    "games": 200,
+    "wins": 102,
+    "losses": 98,
+    "draws": 0,
+    "openingGames": 102,
+    "openingWins": 62,
+    "secondGames": 98,
+    "secondWins": 40,
+    "rounds": 738,
+    "damage": 3078,
+    "ward": 1592,
+    "focus": 974,
+    "held": 652,
+    "expired": 96,
+    "reactions": 536,
+    "reactionSuccess": 536,
+    "turns": 694,
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 948,
+      "root-ward": 466
+    },
+    "opponentCards": {
+      "daring-feint": 888,
+      "hidden-meaning": 330,
+      "silken-cut": 238
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "tengu",
+    "games": 200,
+    "wins": 164,
+    "losses": 36,
+    "draws": 0,
+    "openingGames": 84,
+    "openingWins": 66,
+    "secondGames": 116,
+    "secondWins": 98,
+    "rounds": 736,
+    "damage": 3508,
+    "ward": 1664,
+    "focus": 982,
+    "held": 636,
+    "expired": 62,
+    "reactions": 564,
+    "reactionSuccess": 564,
+    "turns": 728,
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 984,
+      "root-ward": 444
+    },
+    "opponentCards": {
+      "gale-cut": 688,
+      "quick-strike": 216,
+      "perfect-riposte": 148
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "leshy",
+    "games": 200,
+    "wins": 8,
+    "losses": 192,
+    "draws": 0,
+    "openingGames": 98,
+    "openingWins": 2,
+    "secondGames": 102,
+    "secondWins": 6,
+    "rounds": 822,
+    "damage": 3126,
+    "ward": 2070,
+    "focus": 1012,
+    "held": 814,
+    "expired": 76,
+    "reactions": 704,
+    "reactionSuccess": 704,
+    "turns": 726,
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 1062,
+      "root-ward": 560
+    },
+    "opponentCards": {
+      "wolf-shape": 202,
+      "branch-lash": 1274,
+      "moss-mantle": 432,
+      "windstep": 10
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "quetzalcoatl",
+    "games": 200,
+    "wins": 94,
+    "losses": 106,
+    "draws": 0,
+    "openingGames": 96,
+    "openingWins": 36,
+    "secondGames": 104,
+    "secondWins": 58,
+    "rounds": 988,
+    "damage": 3380,
+    "ward": 2386,
+    "focus": 1366,
+    "held": 1054,
+    "expired": 218,
+    "reactions": 804,
+    "reactionSuccess": 804,
+    "turns": 942,
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 1374,
+      "root-ward": 672
+    },
+    "opponentCards": {
+      "sun-lance": 1392,
+      "root-ward": 648
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "maui",
+    "games": 200,
+    "wins": 40,
+    "losses": 160,
+    "draws": 0,
+    "openingGames": 90,
+    "openingWins": 32,
+    "secondGames": 110,
+    "secondWins": 8,
+    "rounds": 804,
+    "damage": 3036,
+    "ward": 2102,
+    "focus": 1044,
+    "held": 798,
+    "expired": 54,
+    "reactions": 716,
+    "reactionSuccess": 716,
+    "turns": 702,
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 984,
+      "root-ward": 576
+    },
+    "opponentCards": {
+      "daring-feint": 1150,
+      "silken-cut": 366,
+      "root-ward": 282
+    },
+    "version": 6
+  }
+]

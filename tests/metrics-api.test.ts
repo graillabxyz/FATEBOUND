@@ -200,7 +200,7 @@ describe("durable private telemetry API", () => {
       0,
     );
     record.source = "lab";
-    record.loadouts[0].cards[3] = STARTERS.anansi.cards[3];
+    record.loadouts[0].cards[3] = "web-turn";
     record.stats = [];
     Object.assign(record.loadouts[0], { privateNote: "not telemetry" });
     expect(

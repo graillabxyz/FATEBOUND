@@ -158,8 +158,132 @@ fixed(
   ],
   ["giant"],
 );
+// Retired prototype layouts remain addressable for old internal fixtures; they are
+// excluded from collection, acquisition and the current hosted catalog.
+const retiredOmens = OMENS.splice(SIZES.length);
+export const SIGNATURE_OMEN_IDS = [
+  "guardian-d6",
+  "trickster-d8",
+  "tengu-d6-0",
+  "leshy-d8-0",
+  "quetzalcoatl-d10-0",
+  "maui-d10-0",
+];
+fixed(
+  "guardian-d6",
+  "Warden’s Oath",
+  6,
+  [
+    { ...blank },
+    numeric(2),
+    numeric(3),
+    numeric(4),
+    { ...blank },
+    symbol("guard", 3),
+  ],
+  ["signature", "Ward", "Defense"],
+);
+fixed(
+  "trickster-d8",
+  "Spider’s Gambit",
+  8,
+  [
+    numeric(1),
+    numeric(2),
+    { ...blank },
+    numeric(4),
+    numeric(5),
+    symbol("swap", 3),
+    { ...blank },
+    numeric(8),
+  ],
+  ["signature", "Guile", "Redirect"],
+);
+fixed(
+  "tengu-d6-0",
+  "Mountain Precision",
+  6,
+  [
+    numeric(1),
+    numeric(2),
+    numeric(3),
+    numeric(5),
+    numeric(5),
+    symbol("redirect", 3),
+  ],
+  ["signature", "Precision", "Reaction"],
+);
+fixed(
+  "leshy-d8-0",
+  "Shifting Bark",
+  8,
+  [
+    { ...blank },
+    numeric(2),
+    numeric(3),
+    numeric(4),
+    numeric(5),
+    numeric(6),
+    { ...blank },
+    numeric(8),
+  ],
+  ["signature", "Void", "Adaptation"],
+);
+fixed(
+  "quetzalcoatl-d10-0",
+  "Dawn Coil",
+  10,
+  [
+    { ...blank },
+    numeric(2),
+    numeric(3),
+    numeric(4),
+    numeric(5),
+    numeric(6),
+    numeric(7),
+    numeric(8),
+    { ...blank },
+    symbol("guard", 3),
+  ],
+  ["signature", "Ward", "Restoration"],
+);
+fixed(
+  "maui-d10-0",
+  "Voyager’s Knot",
+  10,
+  [
+    numeric(1),
+    numeric(2),
+    numeric(3),
+    numeric(4),
+    numeric(5),
+    numeric(6),
+    numeric(7),
+    numeric(8),
+    numeric(4),
+    numeric(5),
+  ],
+  ["signature", "MidValue", "Tempo"],
+);
+const signatureDescriptions: Record<string, string> = {
+  "guardian-d6":
+    "Two Voids and a Ward Sigil replace three Values. A compact defensive Omen.",
+  "trickster-d8":
+    "Two Voids and a Shift Sigil trade numerical coverage for a held redirect opportunity.",
+  "tengu-d6-0":
+    "Two faces show 5. A Redirect Sigil replaces 6; Value 4 is absent. Precision with a clear tradeoff.",
+  "leshy-d8-0":
+    "Voids replace 1 and 7. Pairs with Void conversion and flexible low or middle Values.",
+  "quetzalcoatl-d10-0":
+    "Two Voids and a Ward Sigil replace 1, 9 and 10. Middle Values support restoration and setup.",
+  "maui-d10-0":
+    "Values 4 and 5 each appear twice, replacing 9 and 10. Reliable middle Values; no Sigils or Voids.",
+};
+for (const omen of OMENS)
+  if (signatureDescriptions[omen.id])
+    omen.description = signatureDescriptions[omen.id];
 export const omenById = Object.fromEntries(
-  OMENS.map((d) => [d.id, d]),
+  [...retiredOmens, ...OMENS].map((d) => [d.id, d]),
 ) as Record<string, OmenDefinition>;
 export function omenBudget(d: OmenDefinition) {
   const mean = d.faces.reduce((s, f) => s + f.balanceWeight, 0) / d.size;

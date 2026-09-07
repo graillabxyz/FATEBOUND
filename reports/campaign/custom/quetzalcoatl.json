@@ -1,0 +1,623 @@
+[
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 660,
+    "losses": 3338,
+    "draws": 2,
+    "openingGames": 2254,
+    "openingWins": 390,
+    "secondGames": 1746,
+    "secondWins": 270,
+    "rounds": 25366,
+    "damage": 40004,
+    "ward": 73572,
+    "focus": 37644,
+    "held": 33970,
+    "expired": 7518,
+    "reactions": 24002,
+    "reactionSuccess": 24002,
+    "turns": 24656,
+    "initiativeWins": 1866,
+    "openingDraws": 2,
+    "secondDraws": 0,
+    "blankRolls": 4368,
+    "totalRolls": 67714,
+    "fullHoldTurns": 888,
+    "openingChoices": {
+      "quetzalcoatl-d10-0 + standard-d8": {
+        "games": 574,
+        "wins": 78
+      },
+      "standard-d6": {
+        "games": 742,
+        "wins": 0
+      },
+      "standard-d8": {
+        "games": 1512,
+        "wins": 390
+      },
+      "quetzalcoatl-d10-0 + standard-d6": {
+        "games": 374,
+        "wins": 160
+      },
+      "standard-d6 + standard-d8": {
+        "games": 798,
+        "wins": 32
+      }
+    },
+    "openingDamage": [
+      9562,
+      9148
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 9854,
+      "root-ward": 5218,
+      "open-sky": 2282,
+      "quick-strike": 8110,
+      "offering": 418,
+      "precision-cut": 8276,
+      "deep-roots": 4356,
+      "wild-bloom": 1058,
+      "first-light": 730
+    },
+    "opponentCards": {
+      "crush": 4584,
+      "daring-feint": 3568,
+      "root-ward": 4142,
+      "branch-lash": 6644,
+      "sun-lance": 11580,
+      "barkskin": 1588,
+      "deep-roots": 310,
+      "moss-mantle": 1876,
+      "herensuge": 6658,
+      "windstep": 956,
+      "quick-strike": 1290
+    },
+    "byHand": {
+      "sun-lance / first-light / root-ward / meditate": {
+        "games": 1334,
+        "wins": 232,
+        "draws": 2,
+        "damage": 21524,
+        "ward": 18576,
+        "reactions": 6200
+      },
+      "offering / burning-crown / quick-strike / open-sky": {
+        "games": 1334,
+        "wins": 0,
+        "draws": 0,
+        "damage": 5950,
+        "ward": 29312,
+        "reactions": 10624
+      },
+      "ritual / deep-roots / wild-bloom / precision-cut": {
+        "games": 1332,
+        "wins": 428,
+        "draws": 0,
+        "damage": 12530,
+        "ward": 25684,
+        "reactions": 7178
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 2328,
+    "losses": 1646,
+    "draws": 26,
+    "openingGames": 1888,
+    "openingWins": 1072,
+    "secondGames": 2112,
+    "secondWins": 1256,
+    "rounds": 25014,
+    "damage": 47898,
+    "ward": 65476,
+    "focus": 37930,
+    "held": 34030,
+    "expired": 8696,
+    "reactions": 22912,
+    "reactionSuccess": 22912,
+    "turns": 24898,
+    "initiativeWins": 1922,
+    "openingDraws": 20,
+    "secondDraws": 6,
+    "blankRolls": 4290,
+    "totalRolls": 68806,
+    "fullHoldTurns": 910,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1208,
+        "wins": 994
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1380,
+        "wins": 694
+      },
+      "quetzalcoatl-d10-0 + standard-d8": {
+        "games": 732,
+        "wins": 562
+      },
+      "standard-d6": {
+        "games": 680,
+        "wins": 78
+      }
+    },
+    "openingDamage": [
+      10982,
+      9716
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 8566,
+      "root-ward": 4246,
+      "quick-strike": 8416,
+      "deep-roots": 3956,
+      "precision-cut": 8512,
+      "wild-bloom": 950,
+      "first-light": 718,
+      "open-sky": 4018,
+      "offering": 488
+    },
+    "opponentCards": {
+      "silken-cut": 7990,
+      "meditate": 702,
+      "unravel": 850,
+      "read-the-thread": 3052,
+      "daring-feint": 12788,
+      "windstep": 4070,
+      "crooked-bough": 11748,
+      "thread-the-path": 606,
+      "first-wind": 1644,
+      "hidden-meaning": 952
+    },
+    "byHand": {
+      "sun-lance / first-light / root-ward / meditate": {
+        "games": 1334,
+        "wins": 1076,
+        "draws": 0,
+        "damage": 22154,
+        "ward": 16878,
+        "reactions": 5604
+      },
+      "offering / burning-crown / quick-strike / open-sky": {
+        "games": 1334,
+        "wins": 208,
+        "draws": 26,
+        "damage": 9902,
+        "ward": 25004,
+        "reactions": 10516
+      },
+      "ritual / deep-roots / wild-bloom / precision-cut": {
+        "games": 1332,
+        "wins": 1044,
+        "draws": 0,
+        "damage": 15842,
+        "ward": 23594,
+        "reactions": 6792
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 1352,
+    "losses": 2620,
+    "draws": 28,
+    "openingGames": 1692,
+    "openingWins": 606,
+    "secondGames": 2308,
+    "secondWins": 746,
+    "rounds": 23894,
+    "damage": 47858,
+    "ward": 61878,
+    "focus": 36102,
+    "held": 30096,
+    "expired": 8006,
+    "reactions": 20290,
+    "reactionSuccess": 20290,
+    "turns": 23128,
+    "initiativeWins": 2152,
+    "openingDraws": 12,
+    "secondDraws": 16,
+    "blankRolls": 4058,
+    "totalRolls": 63692,
+    "fullHoldTurns": 746,
+    "openingChoices": {
+      "quetzalcoatl-d10-0 + standard-d8": {
+        "games": 768,
+        "wins": 404
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1106,
+        "wins": 142
+      },
+      "standard-d8": {
+        "games": 1144,
+        "wins": 606
+      },
+      "standard-d6": {
+        "games": 548,
+        "wins": 0
+      },
+      "quetzalcoatl-d10-0 + standard-d6": {
+        "games": 434,
+        "wins": 200
+      }
+    },
+    "openingDamage": [
+      10292,
+      9502
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 8770,
+      "root-ward": 3916,
+      "quick-strike": 7880,
+      "precision-cut": 8264,
+      "wild-bloom": 1128,
+      "deep-roots": 3972,
+      "first-light": 612,
+      "open-sky": 2096,
+      "offering": 360
+    },
+    "opponentCards": {
+      "perfect-riposte": 4494,
+      "gale-cut": 1084,
+      "precision-cut": 12796,
+      "meditate": 96,
+      "web-turn": 4356,
+      "quick-strike": 4024,
+      "silken-cut": 2980,
+      "counterstrike": 1424
+    },
+    "byHand": {
+      "sun-lance / first-light / root-ward / meditate": {
+        "games": 1334,
+        "wins": 722,
+        "draws": 20,
+        "damage": 22558,
+        "ward": 14360,
+        "reactions": 4808
+      },
+      "offering / burning-crown / quick-strike / open-sky": {
+        "games": 1334,
+        "wins": 6,
+        "draws": 8,
+        "damage": 9468,
+        "ward": 25996,
+        "reactions": 9518
+      },
+      "ritual / deep-roots / wild-bloom / precision-cut": {
+        "games": 1332,
+        "wins": 624,
+        "draws": 0,
+        "damage": 15832,
+        "ward": 21522,
+        "reactions": 5964
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 1592,
+    "losses": 2340,
+    "draws": 68,
+    "openingGames": 2054,
+    "openingWins": 772,
+    "secondGames": 1946,
+    "secondWins": 820,
+    "rounds": 24364,
+    "damage": 45994,
+    "ward": 70648,
+    "focus": 37162,
+    "held": 31748,
+    "expired": 6964,
+    "reactions": 22510,
+    "reactionSuccess": 22510,
+    "turns": 23974,
+    "initiativeWins": 1866,
+    "openingDraws": 36,
+    "secondDraws": 32,
+    "blankRolls": 4244,
+    "totalRolls": 65868,
+    "fullHoldTurns": 756,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1370,
+        "wins": 754
+      },
+      "standard-d6": {
+        "games": 684,
+        "wins": 18
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1082,
+        "wins": 406
+      },
+      "quetzalcoatl-d10-0 + standard-d8": {
+        "games": 638,
+        "wins": 394
+      },
+      "quetzalcoatl-d10-0 + standard-d6": {
+        "games": 226,
+        "wins": 20
+      }
+    },
+    "openingDamage": [
+      11042,
+      9684
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 9144,
+      "root-ward": 4480,
+      "quick-strike": 8248,
+      "open-sky": 1304,
+      "offering": 502,
+      "precision-cut": 8302,
+      "deep-roots": 4014,
+      "first-light": 696,
+      "wild-bloom": 968
+    },
+    "opponentCards": {
+      "crooked-bough": 13844,
+      "bramble-trap": 626,
+      "windstep": 570,
+      "branch-lash": 10534,
+      "thorn-return": 3194,
+      "new-skin": 596,
+      "wolf-shape": 10886,
+      "root-ward": 5480,
+      "offering": 336,
+      "bold-wager": 38,
+      "night-spores": 8
+    },
+    "byHand": {
+      "sun-lance / first-light / root-ward / meditate": {
+        "games": 1334,
+        "wins": 786,
+        "draws": 24,
+        "damage": 24102,
+        "ward": 16176,
+        "reactions": 5392
+      },
+      "offering / burning-crown / quick-strike / open-sky": {
+        "games": 1334,
+        "wins": 48,
+        "draws": 42,
+        "damage": 7092,
+        "ward": 30540,
+        "reactions": 10396
+      },
+      "ritual / deep-roots / wild-bloom / precision-cut": {
+        "games": 1332,
+        "wins": 758,
+        "draws": 2,
+        "damage": 14800,
+        "ward": 23932,
+        "reactions": 6722
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 1986,
+    "losses": 1856,
+    "draws": 158,
+    "openingGames": 1950,
+    "openingWins": 844,
+    "secondGames": 2050,
+    "secondWins": 1142,
+    "rounds": 26612,
+    "damage": 45512,
+    "ward": 61468,
+    "focus": 41330,
+    "held": 36694,
+    "expired": 12110,
+    "reactions": 21076,
+    "reactionSuccess": 21076,
+    "turns": 26402,
+    "initiativeWins": 1676,
+    "openingDraws": 82,
+    "secondDraws": 76,
+    "blankRolls": 4604,
+    "totalRolls": 73256,
+    "fullHoldTurns": 820,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1278,
+        "wins": 758
+      },
+      "standard-d6": {
+        "games": 672,
+        "wins": 86
+      },
+      "quetzalcoatl-d10-0 + standard-d6": {
+        "games": 240,
+        "wins": 132
+      },
+      "quetzalcoatl-d10-0 + standard-d8": {
+        "games": 664,
+        "wins": 510
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1146,
+        "wins": 500
+      }
+    },
+    "openingDamage": [
+      10468,
+      7528
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 11474,
+      "root-ward": 4694,
+      "open-sky": 2918,
+      "quick-strike": 8722,
+      "offering": 476,
+      "deep-roots": 3284,
+      "precision-cut": 9256,
+      "wild-bloom": 604,
+      "first-light": 950
+    },
+    "opponentCards": {
+      "sun-lance": 11552,
+      "root-ward": 4750,
+      "quick-strike": 8632,
+      "open-sky": 2946,
+      "precision-cut": 9098,
+      "deep-roots": 3218,
+      "wild-bloom": 574,
+      "first-light": 946,
+      "offering": 476
+    },
+    "byHand": {
+      "sun-lance / first-light / root-ward / meditate": {
+        "games": 1334,
+        "wins": 946,
+        "draws": 2,
+        "damage": 25590,
+        "ward": 17546,
+        "reactions": 5866
+      },
+      "offering / burning-crown / quick-strike / open-sky": {
+        "games": 1334,
+        "wins": 150,
+        "draws": 150,
+        "damage": 5132,
+        "ward": 22384,
+        "reactions": 8916
+      },
+      "ritual / deep-roots / wild-bloom / precision-cut": {
+        "games": 1332,
+        "wins": 890,
+        "draws": 6,
+        "damage": 14790,
+        "ward": 21538,
+        "reactions": 6294
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 298,
+    "losses": 3702,
+    "draws": 0,
+    "openingGames": 1938,
+    "openingWins": 138,
+    "secondGames": 2062,
+    "secondWins": 160,
+    "rounds": 23118,
+    "damage": 33394,
+    "ward": 69132,
+    "focus": 32096,
+    "held": 31274,
+    "expired": 5730,
+    "reactions": 23806,
+    "reactionSuccess": 23806,
+    "turns": 22160,
+    "initiativeWins": 2040,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 3862,
+    "totalRolls": 60542,
+    "fullHoldTurns": 2308,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1328,
+        "wins": 138
+      },
+      "standard-d6 + standard-d8": {
+        "games": 1264,
+        "wins": 64
+      },
+      "standard-d6": {
+        "games": 610,
+        "wins": 0
+      },
+      "quetzalcoatl-d10-0 + standard-d8": {
+        "games": 674,
+        "wins": 52
+      },
+      "quetzalcoatl-d10-0 + standard-d6": {
+        "games": 124,
+        "wins": 44
+      }
+    },
+    "openingDamage": [
+      7870,
+      6790
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 6572,
+      "first-light": 1940,
+      "root-ward": 4218,
+      "quick-strike": 5044,
+      "open-sky": 4054,
+      "precision-cut": 6200,
+      "deep-roots": 4644,
+      "wild-bloom": 1102,
+      "offering": 786
+    },
+    "opponentCards": {
+      "island-pull": 5516,
+      "branch-lash": 4646,
+      "root-ward": 1482,
+      "web-turn": 5428,
+      "against-the-current": 2746,
+      "false-promise": 1790,
+      "story-s-end": 4564,
+      "read-the-thread": 3444,
+      "quick-strike": 1754,
+      "bramble-trap": 436,
+      "turnabout": 72,
+      "windstep": 80
+    },
+    "byHand": {
+      "sun-lance / first-light / root-ward / meditate": {
+        "games": 1334,
+        "wins": 162,
+        "draws": 0,
+        "damage": 17070,
+        "ward": 18712,
+        "reactions": 6180
+      },
+      "offering / burning-crown / quick-strike / open-sky": {
+        "games": 1334,
+        "wins": 0,
+        "draws": 0,
+        "damage": 7032,
+        "ward": 22856,
+        "reactions": 9758
+      },
+      "ritual / deep-roots / wild-bloom / precision-cut": {
+        "games": 1332,
+        "wins": 136,
+        "draws": 0,
+        "damage": 9292,
+        "ward": 27564,
+        "reactions": 7868
+      }
+    },
+    "version": 6
+  }
+]

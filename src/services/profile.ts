@@ -1,3 +1,13 @@
+import { migrateCardId, LEGACY_CARD_IDS } from "../content/card-migration";
+import { legendById } from "../content/legends";
+import {
+  PACK_CONFIG,
+  CARD_COIN_PRICE,
+  LEGEND_COIN_PRICE,
+  OMEN_COIN_PRICE,
+  PROGRESSION_PACKS,
+} from "../content/acquisition";
+import { rollPack, type PackReceipt } from "./packs";
 import {
   DEFAULT_EMOTES,
   EMOTE_CONFIG,
@@ -6,9 +16,14 @@ import {
   emoteById,
 } from "../content/emotes";
 import { GAME } from "../content/config";
-import { STARTERS } from "../content/loadouts";
+import {
+  STARTERS,
+  STARTER_CARDS,
+  STARTER_LEGENDS,
+  STARTER_OMENS,
+} from "../content/loadouts";
 import { LEGENDS } from "../content/legends";
-import { CARDS } from "../content/cards";
+import { cardById, cardsFor } from "../content/cards";
 import { OMENS } from "../content/omens";
 import { COSMETICS, PASS_REWARDS, QUESTS } from "../content/economy";
 import { validateLoadout } from "../engine/rules";
@@ -25,6 +40,14 @@ export type Settings = {
   muted: boolean;
 };
 export type Profile = {
+  collectionVersion: 1;
+  ownedCards: string[];
+  ownedLegends: LegendId[];
+  ownedOmens: string[];
+  packs: number;
+  packSequence: number;
+  pendingPack: PackReceipt | null;
+
   ownedEmotes: string[];
   equippedEmotes: (string | null)[];
   avatar: LegendId;
@@ -69,6 +92,14 @@ export interface StorageAdapter {
 }
 export function freshProfile(): Profile {
   return {
+    collectionVersion: 1,
+    ownedCards: [...STARTER_CARDS],
+    ownedLegends: [...STARTER_LEGENDS],
+    ownedOmens: [...STARTER_OMENS],
+    packs: 0,
+    packSequence: 0,
+    pendingPack: null,
+
     ownedEmotes: [...DEFAULT_EMOTES],
     equippedEmotes: [...DEFAULT_EMOTES],
     avatar: "basajaun",
@@ -94,7 +125,7 @@ export function freshProfile(): Profile {
     bestStreak: 0,
     rankPoints: 0,
     highestRankPoints: 0,
-    loadouts: structuredClone(Object.values(STARTERS)),
+    loadouts: structuredClone(STARTER_LEGENDS.map((id) => STARTERS[id])),
     activeId: STARTERS.basajaun.id,
     favorites: [],
     cosmetics: ["carved"],
@@ -137,9 +168,8 @@ export class LocalProfileService {
         this.storage.getItem(PROFILE_KEY) ?? "null",
       ) as Profile;
       if (!p || p.version !== 1) return freshProfile();
-      p.loadouts.forEach((l) => validateLoadout(l));
       if (
-        !p.loadouts.some((l) => l.id === p.activeId) ||
+        !Array.isArray(p.loadouts) ||
         !Number.isFinite(p.coins) ||
         !Number.isFinite(p.xp)
       )
@@ -175,9 +205,76 @@ export class LocalProfileService {
         ? p.equippedEmotes
         : DEFAULT_EMOTES;
       const seen = new Set<string>();
+      const legacy = p.collectionVersion !== 1;
+      const ownedCards = [
+        ...new Set(
+          [
+            ...(legacy ? Object.values(LEGACY_CARD_IDS) : (p.ownedCards ?? [])),
+            ...STARTER_CARDS,
+          ].map(migrateCardId),
+        ),
+      ].filter((id) => !!cardById[id]);
+      const ownedLegends = [
+        ...new Set([
+          ...(legacy ? LEGENDS.map((l) => l.id) : (p.ownedLegends ?? [])),
+          ...STARTER_LEGENDS,
+        ]),
+      ].filter((id) => !!legendById[id]);
+      const ownedOmens = [
+        ...new Set([
+          ...(legacy ? OMENS.map((d) => d.id) : (p.ownedOmens ?? [])),
+          ...STARTER_OMENS,
+        ]),
+      ].filter((id) => OMENS.some((d) => d.id === id));
+      const loadouts = (p.loadouts ?? freshProfile().loadouts)
+        .filter((l) => ownedLegends.includes(l.legend))
+        .map((l) => {
+          const legal = cardsFor(l.legend).filter((c) =>
+            ownedCards.includes(c.id),
+          );
+          const ids = [...new Set((l.cards ?? []).map(migrateCardId))].filter(
+            (id) => legal.some((c) => c.id === id),
+          );
+          for (const c of legal)
+            if (ids.length < 4 && !ids.includes(c.id)) ids.push(c.id);
+          const draft = { ...l, cards: ids.slice(0, 4) };
+          try {
+            validateLoadout(
+              draft,
+              new Set([...ownedCards, ...ownedLegends, ...ownedOmens]),
+            );
+            return draft;
+          } catch {
+            return structuredClone(STARTERS[l.legend]);
+          }
+        });
+      for (const id of ownedLegends)
+        if (!loadouts.some((l) => l.legend === id))
+          loadouts.push(structuredClone(STARTERS[id]));
       return {
         ...freshProfile(),
         ...p,
+        collectionVersion: 1,
+        ownedCards,
+        ownedLegends,
+        ownedOmens,
+        loadouts,
+        activeId: loadouts.some((l) => l.id === p.activeId)
+          ? p.activeId
+          : loadouts[0].id,
+        favorites: (p.favorites ?? [])
+          .map(migrateCardId)
+          .filter((id) => !!cardById[id]),
+        packs: Number.isInteger(p.packs) && p.packs >= 0 ? p.packs : 0,
+        packSequence:
+          Number.isInteger(p.packSequence) && p.packSequence >= 0
+            ? p.packSequence
+            : 0,
+        pendingPack:
+          p.pendingPack?.cards?.length === 2 &&
+          p.pendingPack.cards.every((id) => !!cardById[id])
+            ? p.pendingPack
+            : null,
         ownedEmotes: owned,
         equippedEmotes: Array.from({ length: EMOTE_CONFIG.slots }, (_, i) => {
           const id = equipped[i];
@@ -196,15 +293,11 @@ export class LocalProfileService {
   save(p: Profile) {
     this.storage.setItem(PROFILE_KEY, JSON.stringify(p));
   }
-  ownedGameplay() {
-    return new Set([
-      ...LEGENDS.map((l) => l.id),
-      ...CARDS.map((c) => c.id),
-      ...OMENS.map((d) => d.id),
-    ]);
+  ownedGameplay(p: Profile = this.load()) {
+    return new Set([...p.ownedLegends, ...p.ownedCards, ...p.ownedOmens]);
   }
   saveLoadout(p: Profile, loadout: Loadout) {
-    validateLoadout(loadout, this.ownedGameplay());
+    validateLoadout(loadout, this.ownedGameplay(p));
     const next = structuredClone(p);
     const i = next.loadouts.findIndex((l) => l.id === loadout.id);
     if (i < 0) next.loadouts.push(loadout);
@@ -225,6 +318,15 @@ export class LocalProfileService {
     n.seasonXp += GAME.rewards.season;
     n.mastery[view.players[0].loadout.legend] += GAME.rewards.mastery;
     n.matches++;
+    if (n.matches % PROGRESSION_PACKS.matchesEvery === 0) n.packs++;
+    if (win && p.wins === 0) n.packs += PROGRESSION_PACKS.firstWin;
+    const played = view.players[0].loadout.legend;
+    if (
+      Math.floor(n.mastery[played] / PROGRESSION_PACKS.masteryEvery) >
+      Math.floor(p.mastery[played] / PROGRESSION_PACKS.masteryEvery)
+    )
+      n.packs++;
+
     if (win) n.wins++;
     n.streak = win ? n.streak + 1 : 0;
     n.bestStreak = Math.max(n.bestStreak, n.streak);
@@ -298,6 +400,7 @@ export class LocalProfileService {
     n.claimedPass.push(id);
     if (reward.type === "coins") n.coins += reward.amount;
     else if (reward.type === "gems") n.gems += reward.amount;
+    else if (reward.type === "pack") n.packs += reward.amount;
     else if (reward.type === "emote" && reward.id)
       this.grantEmote(n, reward.id);
     else {
@@ -338,6 +441,78 @@ export class LocalProfileService {
     )
       return p;
     const n = { ...p, dailyReplaced: [...p.dailyReplaced, key] };
+    this.save(n);
+    return n;
+  }
+  purchaseCard(p: Profile, id: string) {
+    const card = cardById[id];
+    if (!card) throw new Error("Unknown Card.");
+    if (p.ownedCards.includes(id)) return p;
+    const cost = CARD_COIN_PRICE[card.rarity];
+    if (p.coins < cost) throw new Error("Not enough Coins.");
+    const n = structuredClone(p);
+    n.coins -= cost;
+    n.ownedCards.push(id);
+    this.save(n);
+    return n;
+  }
+  unlockLegend(p: Profile, id: LegendId) {
+    if (!legendById[id]) throw new Error("Unknown Legend.");
+    if (p.ownedLegends.includes(id)) return p;
+    if (p.coins < LEGEND_COIN_PRICE) throw new Error("Not enough Coins.");
+    const n = structuredClone(p);
+    n.coins -= LEGEND_COIN_PRICE;
+    n.ownedLegends.push(id);
+    const kit = structuredClone(STARTERS[id]);
+    n.ownedCards = [...new Set([...n.ownedCards, ...kit.cards])];
+    n.ownedOmens = [...new Set([...n.ownedOmens, ...kit.dice])];
+    n.loadouts.push(kit);
+    this.save(n);
+    return n;
+  }
+  purchaseOmen(p: Profile, id: string) {
+    if (!OMENS.some((d) => d.id === id)) throw new Error("Unknown Omen.");
+    if (p.ownedOmens.includes(id)) return p;
+    if (p.coins < OMEN_COIN_PRICE) throw new Error("Not enough Coins.");
+    const n = structuredClone(p);
+    n.coins -= OMEN_COIN_PRICE;
+    n.ownedOmens.push(id);
+    this.save(n);
+    return n;
+  }
+  openPack(p: Profile, seed: number) {
+    // Reading current persisted receipt makes double clicks/reloads idempotent.
+    const current = this.load();
+    if (current.pendingPack) return current;
+    if (p.packSequence !== current.packSequence)
+      throw new Error("Collection changed. Reopen the pack screen.");
+    if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff)
+      throw new Error("Invalid pack seed.");
+    const n = structuredClone(current);
+    if (n.packs > 0) n.packs--;
+    else {
+      if (n.coins < PACK_CONFIG.price) throw new Error("Not enough Coins.");
+      n.coins -= PACK_CONFIG.price;
+    }
+    const receipt = rollPack(seed, n.ownedCards, `pack-${++n.packSequence}`);
+    n.ownedCards = [...new Set([...n.ownedCards, ...receipt.cards])];
+    n.coins += receipt.coins;
+    n.pendingPack = receipt;
+    this.save(n);
+    return n;
+  }
+  revealPack(_p: Profile, id: string) {
+    const n = structuredClone(this.load());
+    if (n.pendingPack?.id !== id) throw new Error("Pack receipt changed.");
+    n.pendingPack.revealed = Math.min(2, n.pendingPack.revealed + 1);
+    this.save(n);
+    return n;
+  }
+  finishPack(_p: Profile, id: string) {
+    const n = structuredClone(this.load());
+    if (n.pendingPack?.id !== id || n.pendingPack.revealed !== 2)
+      throw new Error("Reveal both Cards first.");
+    n.pendingPack = null;
     this.save(n);
     return n;
   }

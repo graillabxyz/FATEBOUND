@@ -9,7 +9,10 @@ import {
   meetsRequirement,
   resourceAvailable,
   validatePlan,
+  assignmentValid,
+  conditionMatches,
 } from "./rules";
+import { shiftedPosition } from "./fate";
 import { omenById } from "../content/omens";
 export type Difficulty = "Training" | "Normal";
 function values(es: Effect[]): {
@@ -30,7 +33,9 @@ function values(es: Effect[]): {
     if (e.effects) {
       const v = values(e.effects);
       for (const k of Object.keys(result) as (keyof typeof result)[])
-        result[k] += v[k] * (e.type === "CONDITIONAL" ? 0.6 : 1);
+        result[k] +=
+          v[k] *
+          (e.type === "CONDITIONAL" ? 0.6 : e.type === "MULTIPLIER" ? n : 1);
     }
   }
   return result;
@@ -47,8 +52,45 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
   let expectedDamage = 0,
     expectedDefense = 0,
     expectedHealing = 0,
-    predictionValue = 0;
+    predictionValue = 0,
+    setupValue = 0;
   for (const a of plan.assignments) {
+    const spent = new Set(a.dice);
+    const scoreCtx = {
+      ...ctx,
+      resolving: true,
+      self: {
+        ...ctx.self,
+        faces: positions,
+        actionsThisRound: ctx.self.actionsThisRound + 1,
+        dice: ctx.self.dice.map((d, i) =>
+          spent.has(i) ? { ...d, state: "SPENT" as const } : d,
+        ),
+      },
+    };
+    const concrete = (es: Effect[]): Effect[] =>
+      es.flatMap((e) => {
+        if (e.type === "CONDITIONAL")
+          return conditionMatches(e.condition ?? "", scoreCtx, plan)
+            ? concrete(e.effects ?? [])
+            : [];
+        if (e.type === "CONVERT" && e.from === "guard")
+          return [
+            {
+              type: "MULTIPLIER" as const,
+              amount: Math.min(ctx.self.guard, e.amount ?? 0),
+              effects: concrete(e.effects ?? []),
+            },
+          ];
+        return [
+          { ...e, ...(e.effects ? { effects: concrete(e.effects) } : {}) },
+        ];
+      });
+    const actualEffects = concrete(
+      a.target === "legend"
+        ? legendById[ctx.self.loadout.legend].active.effects
+        : (cardById[a.target]?.effects ?? []),
+    );
     const v =
       a.target === "guard"
         ? {
@@ -61,11 +103,117 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
             heal: 0,
             disrupt: 0,
           }
-        : values(
-            a.target === "legend"
-              ? legendById[ctx.self.loadout.legend].active.effects
-              : cardById[a.target].effects,
-          );
+        : values(actualEffects);
+    const passive = legendById[ctx.self.loadout.legend].passiveRule;
+    const flattenEffects = (es: Effect[]): Effect[] =>
+      es.flatMap((e) => [e, ...flattenEffects(e.effects ?? [])]);
+    const flat = flattenEffects(actualEffects);
+    const counter = flat
+      .filter((e) => e.type === "COUNTERSTRIKE")
+      .reduce((n, e) => n + (e.amount ?? 0), 0);
+    if (reacting && incoming <= ctx.self.guard + v.guard)
+      v.damage = Math.max(0, v.damage - counter);
+    if (
+      passive?.trigger === "firstGuard" &&
+      v.guard > 0 &&
+      !ctx.self.passiveUsed.includes("firstGuard")
+    )
+      v.guard += passive.amount;
+    if (
+      passive?.trigger === "firstManipulation" &&
+      (a.target === "legend"
+        ? legendById[ctx.self.loadout.legend].active.category
+        : cardById[a.target]?.category) === "Manipulation" &&
+      !ctx.self.passiveUsed.includes("firstManipulation")
+    )
+      v.guard += passive.amount;
+    const total = a.dice.reduce(
+      (n, i) =>
+        n + omenById[ctx.self.loadout.dice[i]].faces[positions[i]].value,
+      0,
+    );
+    if (v.damage > 0) {
+      if (passive?.trigger === "preferred" && total === (passive.value ?? 5))
+        v.damage += passive.amount;
+      if (
+        passive?.trigger === "categoryChange" &&
+        ctx.self.lastCategory &&
+        ctx.self.lastCategory !== cardById[a.target]?.category
+      )
+        v.damage += passive.amount;
+      v.damage += ctx.self.statuses
+        .filter(
+          (s) =>
+            s.id === "power" &&
+            (s.expiresOwnerTurn !== undefined || s.expiresRound <= ctx.round),
+        )
+        .reduce((n, s) => n + s.amount, 0);
+    }
+    if (
+      reacting &&
+      flat.some((e) => e.type === "CANCEL" || e.type === "REDIRECT")
+    )
+      v.disrupt =
+        incoming + Math.min(values(ctx.pending?.effects ?? []).heal, 3);
+    const pierce = flat.reduce((n, e) => Math.max(n, e.guardPierce ?? 0), 0);
+    if (reacting && flat.some((e) => e.type === "REDIRECT"))
+      v.damage += incoming;
+    v.damage = Math.min(
+      ctx.enemy.hp,
+      Math.max(0, v.damage - Math.max(0, ctx.enemy.guard - pierce)),
+    );
+    if (pierce && ctx.enemy.dice.some((d) => d.state === "HELD"))
+      setupValue += 0.15;
+    const cost =
+      (a.target === "legend"
+        ? legendById[ctx.self.loadout.legend].active.requirement
+        : cardById[a.target]?.requirement
+      )?.life ?? 0;
+    setupValue -= cost * (ctx.self.hp < 7 ? 2 : 1);
+    const effects = actualEffects;
+    const flatten = (es: Effect[]): Effect[] =>
+      es.flatMap((e) => [e, ...flatten(e.effects ?? [])]);
+    for (const effect of flatten(effects)) {
+      if (effect.type === "GAIN_CONTROL")
+        setupValue += Math.min(effect.amount ?? 0, 6 - ctx.self.control) * 0.65;
+      if (effect.type === "STATUS")
+        setupValue +=
+          (effect.amount ?? 0) * (effect.status === "poison" ? 1.3 : 1.1);
+      if (
+        reacting &&
+        ctx.pending &&
+        ["SHIFT_DIE", "FLIP_DIE"].includes(effect.type) &&
+        effect.target === "enemy"
+      ) {
+        const enemy = ctx.enemy,
+          slots = ctx.pending.assignment.dice,
+          slot = slots[0],
+          die = omenById[enemy.loadout.dice[slot]],
+          positions = [...enemy.faces];
+        const changed =
+          effect.type === "FLIP_DIE"
+            ? die.opposites[positions[slot]]
+            : shiftedPosition(die, positions[slot], effect.direction ?? -1);
+        if (changed !== null) {
+          positions[slot] = changed;
+          const requirement =
+            ctx.pending.assignment.target === "legend"
+              ? legendById[enemy.loadout.legend].active.requirement
+              : cardById[ctx.pending.assignment.target]?.requirement;
+          if (
+            requirement &&
+            !meetsRequirement(
+              requirement,
+              slots.map(
+                (i) => omenById[enemy.loadout.dice[i]].faces[positions[i]],
+              ),
+              slots.map((i) => omenById[enemy.loadout.dice[i]].size),
+            )
+          )
+            v.disrupt = Math.max(v.disrupt, incoming || 2.5);
+        }
+      }
+    }
     expectedDamage += v.damage;
     expectedDefense += v.guard;
     expectedHealing += Math.min(
@@ -74,16 +222,22 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
     );
     predictionValue += reacting ? v.disrupt : 0;
   }
-  const controlSpent = plan.controls.reduce(
-      (n, c) => n + (c.kind === "flip" ? 2 : 1),
-      0,
-    ),
+  const controlSpent =
+      plan.controls.reduce((n, c) => n + (c.kind === "flip" ? 2 : 1), 0) +
+      plan.assignments.reduce(
+        (n, a) =>
+          n +
+          (a.target === "legend"
+            ? (legendById[ctx.self.loadout.legend].active.requirement.control ??
+              0)
+            : (cardById[a.target]?.requirement.control ?? 0)),
+        0,
+      ),
     cardRevealCost =
       plan.assignments.filter(
         (a) => cardById[a.target] && !ctx.self.known.includes(a.target),
       ).length * 0.12;
-  const lethalPotential =
-    expectedDamage >= ctx.enemy.hp + ctx.enemy.guard ? 8 : 0;
+  const lethalPotential = expectedDamage >= ctx.enemy.hp ? 8 : 0;
   const blocked = reacting
     ? Math.min(expectedDefense, Math.max(0, incoming - ctx.self.guard))
     : 0;
@@ -101,27 +255,46 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
   const resourceValue = ctx.self.dice.reduce((total, _, slot) => {
     if (!resourceAvailable(ctx, slot) || used.has(slot)) return total;
     if (reacting) return total + 0.18;
-    // The second player goes first next round: their held dice expire immediately.
-    if (ctx.turnInRound === 1) return total;
+    // Fixed A → B order gives either player a following opponent-turn reaction.
     const die = omenById[ctx.self.loadout.dice[slot]],
       face = die.faces[positions[slot]];
     let response = Math.min(3, guardValue(face));
     for (const ability of reactionAbilities)
       if (meetsRequirement(ability.requirement, [face], [die.size])) {
         const v = values(ability.effects);
+        const passive = legendById[ctx.self.loadout.legend].passiveRule;
+        if (
+          v.damage > 0 &&
+          passive?.trigger === "preferred" &&
+          face.type === "number" &&
+          face.value === (passive.value ?? 5)
+        )
+          v.damage += passive.amount;
         response = Math.max(
           response,
-          Math.min(3, v.guard) + v.damage * 0.7 + v.disrupt * 0.6,
+          Math.min(3, v.guard) +
+            v.damage * 1.1 +
+            v.disrupt *
+              (ability.effects.some((e) => e.type === "REDIRECT") ? 1.3 : 0.8),
         );
       }
-    return total + response * 0.85;
+    return total + response * 1.15;
   }, 0);
+  const holdRule = legendById[ctx.self.loadout.legend].passiveRule;
+  if (
+    !reacting &&
+    holdRule?.trigger === "holdOne" &&
+    ctx.self.dice.filter((_, i) => resourceAvailable(ctx, i) && !used.has(i))
+      .length === 1
+  )
+    setupValue += holdRule.amount * 0.8;
   // Holding has a concrete opportunity value. Guard on an empty incoming action has low value.
   let overall =
-    expectedDamage * (reacting ? 1.2 : 1.65) +
+    expectedDamage * (reacting ? 1.2 : 1.5) +
     expectedHealing * 0.8 +
     (reacting ? blocked * 1.4 : expectedDefense * 0.35) +
     predictionValue * 1.3 +
+    setupValue +
     lethalPotential +
     resourceValue -
     controlSpent * 0.3 -
@@ -138,6 +311,7 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
     defense: blocked,
     recovery: expectedHealing,
     predictionValue,
+    setupValue,
     lethalPotential,
     opponentThreat: incoming,
     opponentLethalRisk,
@@ -193,7 +367,24 @@ export function inspectAI(
         for (const b of singles.filter((c) => c.kind === "shift"))
           controls.push([a, b]);
   }
-  const targets = ["guard", "legend", ...ctx.self.loadout.cards];
+  const targets = ["guard", "legend", ...ctx.self.loadout.cards].filter(
+    (target) => {
+      if (target === "guard") return true;
+      const ability =
+        target === "legend"
+          ? legendById[ctx.self.loadout.legend].active
+          : cardById[target];
+      return (
+        ability.timing ===
+        (ctx.phase === "REACTION_WINDOW" ? "REACTION" : "ACTION")
+      );
+    },
+  );
+  const passive = legendById[ctx.self.loadout.legend].passiveRule;
+  const tolerance =
+    passive?.trigger === "adapt" && !ctx.self.passiveUsed.includes("adapt")
+      ? passive.amount
+      : 0;
   const add = (plan: Plan) => {
     try {
       validatePlan(ctx, plan);
@@ -225,7 +416,15 @@ export function inspectAI(
     for (const target of targets)
       for (let mask = 1; mask < 1 << slots.length; mask++) {
         const dice = slots.filter((_, i) => mask & (1 << i));
-        add({ controls: cs, assignments: [{ target, dice }] });
+        if (
+          assignmentValid(
+            ctx.self.loadout,
+            positions,
+            { target, dice },
+            tolerance,
+          )
+        )
+          add({ controls: cs, assignments: [{ target, dice }] });
       }
   }
   alternatives.sort(

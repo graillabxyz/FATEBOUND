@@ -95,6 +95,41 @@ export function* resolutionSteps(
   const action = state.pending,
     reaction = state.reaction;
   let reactionEffective = false;
+  const conditionResults = new Map<Declaration, Map<string, boolean>>();
+  const captureConditions = (d: Declaration) => {
+    if (conditionResults.has(d)) return;
+    const p = state.players[d.actor],
+      enemy = state.players[1 - d.actor];
+    const ctx = {
+      round: state.round,
+      fate: state.fate,
+      self: p,
+      enemy,
+      actor: d.actor,
+      initiative: state.initiative,
+      pending: action,
+      resolving: true,
+      heldDice: d.heldDice,
+    };
+    const results = new Map<string, boolean>();
+    const visit = (es: Effect[]) => {
+      for (const e of es) {
+        if (e.condition)
+          results.set(
+            e.condition,
+            conditionMatches(
+              e.condition,
+              ctx,
+              p.plan ?? EMPTY_PLAN,
+              enemy.plan,
+            ),
+          );
+        if (e.effects) visit(e.effects);
+      }
+    };
+    visit(d === reaction ? [...d.effects, ...action.effects] : d.effects);
+    conditionResults.set(d, results);
+  };
   const counters: { decl: Declaration; effect: Effect }[] = [];
   const frame = (
     d: Declaration,
@@ -123,10 +158,10 @@ export function* resolutionSteps(
     depth = 0,
   ): Generator<EffectFrame> {
     if (depth > 8) throw new Error("Effect recursion limit exceeded.");
+    captureConditions(d);
     for (const e of es) {
-      const before = clone(state.players),
-        p = state.players[d.actor],
-        other = state.players[1 - d.actor];
+      const before = inspect ? clone(state.players) : [],
+        p = state.players[d.actor];
       const hostile = [
         "DAMAGE",
         "SHIFT_DIE",
@@ -161,7 +196,6 @@ export function* resolutionSteps(
         );
       switch (e.type) {
         case "DAMAGE": {
-          const card = cardById[d.assignment.target];
           if (
             !p.passiveUsed.includes(
               `damage:${state.turn}:${p.actionsThisRound}:${d.assignment.target}`,
@@ -169,7 +203,7 @@ export function* resolutionSteps(
           ) {
             if (
               passive?.trigger === "preferred" &&
-              card?.preferred ===
+              (passive.value ?? 5) ===
                 assignedFaces(p.loadout, p.faces, d.assignment.dice).reduce(
                   (v, f) => v + f.value,
                   0,
@@ -184,7 +218,10 @@ export function* resolutionSteps(
               n += passive.amount;
             if (n > 0) {
               const powers = p.statuses.filter(
-                (s) => s.id === "power" && s.expiresRound <= state.round,
+                (s) =>
+                  s.id === "power" &&
+                  (s.expiresOwnerTurn !== undefined ||
+                    s.expiresRound <= state.round),
               );
               n += powers.reduce((v, s) => v + s.amount, 0);
               p.statuses = p.statuses.filter((s) => !powers.includes(s));
@@ -279,6 +316,12 @@ export function* resolutionSteps(
               id: e.status,
               amount: n,
               expiresRound: state.round + (e.duration ?? 1),
+              ...(e.status === "power"
+                ? { expiresOwnerTurn: t.playerTurnCount + 1 }
+                : {}),
+              ...(e.status === "poison"
+                ? { tickOwnerTurn: t.playerTurnCount + 1 }
+                : {}),
             });
           break;
         case "STUN_CARD":
@@ -297,7 +340,7 @@ export function* resolutionSteps(
         case "SHIFT_DIE":
         case "FLIP_DIE": {
           const slot =
-            action.actor === target
+            action.actor === target && e.omenTarget !== "unspent"
               ? action.assignment.dice[0]
               : t.dice.findIndex((d) =>
                   ["AVAILABLE", "HELD"].includes(d.state),
@@ -326,23 +369,7 @@ export function* resolutionSteps(
           );
           break;
         case "CONDITIONAL": {
-          const ctx = {
-            round: state.round,
-            fate: state.fate,
-            self: p,
-            enemy: { ...other, plan: other.plan },
-            actor: d.actor,
-            initiative: state.initiative,
-            pending: action,
-            resolving: true,
-            heldDice: d.heldDice,
-          };
-          const yes = conditionMatches(
-            e.condition ?? "",
-            ctx,
-            p.plan ?? EMPTY_PLAN,
-            other.plan,
-          );
+          const yes = conditionResults.get(d)?.get(e.condition ?? "") ?? false;
           result = yes ? "Condition met" : "Condition not met";
           if (yes)
             yield* run(e.effects ?? [], d, priority, multiplier, depth + 1);

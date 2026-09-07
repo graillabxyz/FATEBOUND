@@ -22,6 +22,7 @@ import "./ui/styles.css";
 import "./ui/polish.css";
 import "./ui/battle-table.css";
 import "./ui/emotes.css";
+import "./ui/shared-pool.css";
 if (Capacitor.isNativePlatform())
   void ScreenOrientation.lock({ orientation: "portrait" }).catch(() => {});
 ReactDOM.createRoot(document.getElementById("root")!).render(

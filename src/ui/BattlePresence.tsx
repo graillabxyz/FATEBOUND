@@ -1,3 +1,5 @@
+import { statusExplanation } from "../content/card-rules";
+import { AffinityLine } from "./Affinities";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { legendById } from "../content/legends";
 import { rulesLabel } from "../content/terminology";
@@ -83,14 +85,14 @@ export function BattlePresence({
           <span className="legend-class">
             {legend.class} {initiative && <b>· INITIATIVE</b>}
           </span>
+          <div className="participant-affinities">
+            <AffinityLine ids={legend.affinities} compact />
+          </div>
           <div className="participant-statuses">
             {held > 0 && <span className="held-status">{held} HELD</span>}
             {player.statuses.map((s, i) => (
-              <span
-                key={`${s.id}-${i}`}
-                title={`${rulesLabel(s.id)} ${s.amount}`}
-              >
-                {rulesLabel(s.id)} {s.amount}
+              <span key={`${s.id}-${i}`} title={statusExplanation(s)}>
+                {s.id === "power" ? "Empowered" : rulesLabel(s.id)} {s.amount}
               </span>
             ))}
           </div>

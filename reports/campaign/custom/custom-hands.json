@@ -1,0 +1,302 @@
+{
+  "basajaun": [
+    {
+      "id": "custom-basajaun-0",
+      "name": "Custom 1",
+      "legend": "basajaun",
+      "cards": [
+        "branch-lash",
+        "crush",
+        "root-ward",
+        "daring-feint"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    {
+      "id": "custom-basajaun-1",
+      "name": "Custom 2",
+      "legend": "basajaun",
+      "cards": [
+        "moss-mantle",
+        "barkskin",
+        "deep-roots",
+        "sun-lance"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    {
+      "id": "custom-basajaun-2",
+      "name": "Custom 3",
+      "legend": "basajaun",
+      "cards": [
+        "windstep",
+        "herensuge",
+        "quick-strike",
+        "root-ward"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    }
+  ],
+  "anansi": [
+    {
+      "id": "custom-anansi-0",
+      "name": "Custom 1",
+      "legend": "anansi",
+      "cards": [
+        "unravel",
+        "read-the-thread",
+        "silken-cut",
+        "meditate"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    {
+      "id": "custom-anansi-1",
+      "name": "Custom 2",
+      "legend": "anansi",
+      "cards": [
+        "hollow-sign",
+        "windstep",
+        "daring-feint",
+        "web-shift"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    {
+      "id": "custom-anansi-2",
+      "name": "Custom 3",
+      "legend": "anansi",
+      "cards": [
+        "thread-the-path",
+        "crooked-bough",
+        "first-wind",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    }
+  ],
+  "tengu": [
+    {
+      "id": "custom-tengu-0",
+      "name": "Custom 1",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "meditate"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-tengu-1",
+      "name": "Custom 2",
+      "legend": "tengu",
+      "cards": [
+        "web-turn",
+        "thread-the-path",
+        "precision-cut",
+        "mountain-silence"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-tengu-2",
+      "name": "Custom 3",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "silken-cut",
+        "meditate",
+        "counterstrike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    }
+  ],
+  "leshy": [
+    {
+      "id": "custom-leshy-0",
+      "name": "Custom 1",
+      "legend": "leshy",
+      "cards": [
+        "hollow-sign",
+        "crooked-bough",
+        "windstep",
+        "bramble-trap"
+      ],
+      "dice": [
+        "leshy-d8-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-leshy-1",
+      "name": "Custom 2",
+      "legend": "leshy",
+      "cards": [
+        "night-spores",
+        "new-skin",
+        "branch-lash",
+        "thorn-return"
+      ],
+      "dice": [
+        "leshy-d8-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-leshy-2",
+      "name": "Custom 3",
+      "legend": "leshy",
+      "cards": [
+        "offering",
+        "bold-wager",
+        "wolf-shape",
+        "root-ward"
+      ],
+      "dice": [
+        "leshy-d8-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    }
+  ],
+  "quetzalcoatl": [
+    {
+      "id": "custom-quetzalcoatl-0",
+      "name": "Custom 1",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "first-light",
+        "root-ward",
+        "meditate"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-quetzalcoatl-1",
+      "name": "Custom 2",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "offering",
+        "burning-crown",
+        "quick-strike",
+        "open-sky"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-quetzalcoatl-2",
+      "name": "Custom 3",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "ritual",
+        "deep-roots",
+        "wild-bloom",
+        "precision-cut"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    }
+  ],
+  "maui": [
+    {
+      "id": "custom-maui-0",
+      "name": "Custom 1",
+      "legend": "maui",
+      "cards": [
+        "branch-lash",
+        "island-pull",
+        "root-ward",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-maui-1",
+      "name": "Custom 2",
+      "legend": "maui",
+      "cards": [
+        "false-promise",
+        "against-the-current",
+        "web-turn",
+        "bramble-trap"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    {
+      "id": "custom-maui-2",
+      "name": "Custom 3",
+      "legend": "maui",
+      "cards": [
+        "windstep",
+        "story-s-end",
+        "quick-strike",
+        "read-the-thread"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    }
+  ]
+}

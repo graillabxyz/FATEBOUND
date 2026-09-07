@@ -1,8 +1,11 @@
+import { STARTERS } from "../content/loadouts";
+import { AffinityLine } from "./Affinities";
+import { CardBrowser } from "./CardBrowser";
 import { OmenFaces } from "./OmenFaces";
 import { useEffect, useState } from "react";
 import type { Loadout as Build } from "../engine/types";
 import { legendById } from "../content/legends";
-import { CARDS, cardById, cardsFor } from "../content/cards";
+import { cardById, cardsFor } from "../content/cards";
 import { OMENS, omenById } from "../content/omens";
 import { useGame } from "./context";
 import {
@@ -25,14 +28,11 @@ export default function Loadout() {
   const [tab, setTab] = useState("cards");
   const [slot, setSlot] = useState(0);
   const [dieSlot, setDieSlot] = useState(0);
-  const [filter, setFilter] = useState("All");
-  const [favorite, setFavorite] = useState(false);
   const [rename, setRename] = useState(false);
   const [name, setName] = useState(active.name);
   useEffect(() => {
     setDraft(structuredClone(active));
     setName(active.name);
-    setFilter("All");
   }, [active.id]);
   const l = legendById[draft.legend];
   const changed = JSON.stringify(draft) !== JSON.stringify(active);
@@ -79,7 +79,7 @@ export default function Loadout() {
         <span>
           <small>{l.region}</small>
           <strong>{l.name}</strong>
-          <span>{l.archetype}</span>
+          <AffinityLine ids={l.affinities} />
         </span>
         <Icon name="swap" size={18} />
       </button>
@@ -106,6 +106,18 @@ export default function Loadout() {
           }}
         />
       </div>
+      <SecondaryButton
+        onClick={() => {
+          setDraft({
+            ...structuredClone(STARTERS[draft.legend]),
+            id: draft.id,
+            name: draft.name,
+          });
+          toast("Starter kit loaded into your draft. Save to equip it.");
+        }}
+      >
+        Use starter kit · 1 signature + 2 numbered Omens
+      </SecondaryButton>
       <div className="active-build">
         <SectionLabel right={<span>4 / 4 EQUIPPED</span>}>HAND</SectionLabel>
         <div className="active-hand">
@@ -170,58 +182,11 @@ export default function Loadout() {
         </button>
       </div>
       {tab === "cards" ? (
-        <>
-          <div className="filter-row">
-            <select
-              aria-label="Filter cards by category or approach"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            >
-              <option>All</option>
-              <optgroup label="Build approach">
-                {l.approaches.map((a) => (
-                  <option key={a} value={`approach:${a}`}>
-                    {a}
-                  </option>
-                ))}
-              </optgroup>
-              {[...new Set(cardsFor(draft.legend).map((c) => c.category))].map(
-                (x) => (
-                  <option key={x}>{x}</option>
-                ),
-              )}
-            </select>
-            <button
-              className={favorite ? "active" : ""}
-              onClick={() => setFavorite(!favorite)}
-            >
-              <Icon name="star" size={15} />
-              Favorites
-            </button>
-            <span>Owned · Compatible</span>
-          </div>
-          <p className="helper-text">
-            Choose a card to replace slot {slot + 1}. Tap the lens to inspect.
-          </p>
-          <div className="collection-cards">
-            {CARDS.filter(
-              (c) =>
-                c.legend === draft.legend &&
-                (filter === "All" ||
-                  c.category === filter ||
-                  filter === `approach:${c.archetype}`) &&
-                (!favorite || profile.favorites.includes(c.id)),
-            ).map((c) => (
-              <GameplayCard
-                key={c.id}
-                card={c}
-                selected={draft.cards.includes(c.id)}
-                onClick={() => equip(c.id)}
-                onInspect={() => inspect({ type: "card", item: c })}
-              />
-            ))}
-          </div>
-        </>
+        <CardBrowser
+          legend={draft.legend}
+          onEquip={equip}
+          equipped={draft.cards}
+        />
       ) : (
         <>
           <p className="helper-text">
@@ -243,6 +208,10 @@ export default function Loadout() {
                   definition={d}
                   skin={profile.skin}
                   onClick={() => {
+                    if (!profile.ownedOmens.includes(d.id)) {
+                      toast("Unlock this Omen with Coins in the Shop.");
+                      return;
+                    }
                     const dice = [...draft.dice];
                     dice[dieSlot] = d.id;
                     setDraft({ ...draft, dice });
@@ -252,7 +221,9 @@ export default function Loadout() {
                 <OmenFaces omen={d} />
                 <small>
                   {d.tags.join(" · ")} ·{" "}
-                  {service.ownedGameplay().has(d.id) ? "Owned" : "Locked"}
+                  {service.ownedGameplay(profile).has(d.id)
+                    ? "Owned"
+                    : "Locked"}
                   {draft.dice.includes(d.id) ? " · Equipped" : ""}
                 </small>
                 <span>

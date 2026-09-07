@@ -120,6 +120,10 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
         throw new Error("Invalid saved status.");
       integer(st.amount, 0, 1000, "status value");
       integer(st.expiresRound, 0, 199, "status expiry");
+      if (st.expiresOwnerTurn !== undefined)
+        integer(st.expiresOwnerTurn, 0, 199, "owner-turn expiry");
+      if (st.tickOwnerTurn !== undefined)
+        integer(st.tickOwnerTurn, 0, 199, "Poison trigger turn");
     });
   });
   const effects = (es: Effect[], depth = 0) => {

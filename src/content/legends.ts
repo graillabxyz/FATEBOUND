@@ -2,7 +2,7 @@ import type { Legend } from "../engine/types";
 export const LEGENDS: Legend[] = [
   {
     id: "basajaun",
-    compatibleCardTags: ["legend:basajaun"],
+    affinities: ["wild", "might", "spirit"],
     initiativeBonus: 0,
     class: "Guardian",
     allowedDiceSizes: [4, 6, 8, 10, 12, 20],
@@ -12,9 +12,10 @@ export const LEGENDS: Legend[] = [
     archetype: "Guardian / Nature",
     subtitle: "The forest remembers.",
     lore: "An ancient keeper of the wild, gathering strength beneath the quiet canopy.",
-    hp: 20,
+    hp: 21,
     passive: "Your first Ward each round gains +1.",
     active: {
+      category: "Ward",
       timing: "REACTION",
       name: "Ancient Ward",
       text: "1–4: gain Ward equal to half the Omen, rounded up.",
@@ -30,7 +31,7 @@ export const LEGENDS: Legend[] = [
   },
   {
     id: "anansi",
-    compatibleCardTags: ["legend:anansi"],
+    affinities: ["guile", "wisdom", "chaos"],
     initiativeBonus: 3,
     class: "Trickster",
     allowedDiceSizes: [4, 6, 8, 10, 12, 20],
@@ -43,6 +44,7 @@ export const LEGENDS: Legend[] = [
     hp: 18,
     passive: "Your first manipulation each round grants 2 Ward.",
     active: {
+      category: "Manipulation",
       timing: "REACTION",
       name: "Web Shift",
       text: "SWAP: redirect the enemy action back to its user.",
@@ -58,19 +60,21 @@ export const LEGENDS: Legend[] = [
   },
   {
     id: "tengu",
-    compatibleCardTags: ["legend:tengu"],
+    affinities: ["might", "wisdom", "order"],
     initiativeBonus: 4,
     class: "Duelist",
     allowedDiceSizes: [4, 6, 8, 10, 12, 20],
-    passiveRule: { trigger: "preferred", amount: 1 },
+    passiveRule: { trigger: "preferred", amount: 1, value: 5 },
     name: "Tengu",
     region: "Japan · Mountain folklore",
     archetype: "Precision / Counter",
     subtitle: "Stillness before the strike.",
     lore: "A watchful mountain warrior who reads the smallest shift in the wind.",
-    hp: 18,
-    passive: "Matching a card’s preferred value adds 1 damage.",
+    hp: 20,
+    passive:
+      "Spend a total Value of exactly 5: your damage ability deals +1 damage.",
     active: {
+      category: "Attack",
       timing: "ACTION",
       name: "Wind Cut",
       text: "Exactly 5: deal 3 damage.",
@@ -86,7 +90,7 @@ export const LEGENDS: Legend[] = [
   },
   {
     id: "leshy",
-    compatibleCardTags: ["legend:leshy"],
+    affinities: ["wild", "chaos", "shadow"],
     initiativeBonus: 1,
     class: "Shapeshifter",
     allowedDiceSizes: [4, 6, 8, 10, 12, 20],
@@ -96,9 +100,10 @@ export const LEGENDS: Legend[] = [
     archetype: "Adaptive / Transform",
     subtitle: "Nothing stays as it seems.",
     lore: "A shifting presence at the edge of the path, wearing the shapes of the forest.",
-    hp: 21,
+    hp: 20,
     passive: "Once per round, a number requirement may miss by 1.",
     active: {
+      category: "Recovery",
       timing: "ACTION",
       name: "Change Shape",
       text: "Gain 2 Ward and heal 1 Life.",
@@ -117,7 +122,7 @@ export const LEGENDS: Legend[] = [
   },
   {
     id: "quetzalcoatl",
-    compatibleCardTags: ["legend:quetzalcoatl"],
+    affinities: ["spirit", "might", "wisdom"],
     initiativeBonus: 2,
     class: "Mystic",
     allowedDiceSizes: [4, 6, 8, 10, 12, 20],
@@ -127,23 +132,15 @@ export const LEGENDS: Legend[] = [
     archetype: "Momentum / Chain",
     subtitle: "Rise with the first light.",
     lore: "A feathered presence between earth and sky, carrying the promise of renewal.",
-    hp: 19,
+    hp: 20,
     passive: "Changing action category within a round adds 1 damage.",
     active: {
+      category: "Setup",
       timing: "ACTION",
       name: "Sky Offering",
-      text: "Spend 1 Life. Store +2 damage for next round.",
-      requirement: { count: 1, min: 2 },
-      effects: [
-        {
-          type: "CONVERT",
-          from: "hp",
-          amount: 1,
-          effects: [
-            { type: "STATUS", status: "power", amount: 2, duration: 1 },
-          ],
-        },
-      ],
+      text: "Spend 1 Life. Empower your next damage effect by 2. Expires at the end of your next turn.",
+      requirement: { count: 1, min: 2, life: 1 },
+      effects: [{ type: "STATUS", status: "power", amount: 2, duration: 1 }],
     },
     diceSlots: [12, 10, 6],
     tags: ["celestial", "chain"],
@@ -154,7 +151,7 @@ export const LEGENDS: Legend[] = [
   },
   {
     id: "maui",
-    compatibleCardTags: ["legend:maui"],
+    affinities: ["guile", "might", "wild"],
     initiativeBonus: 2,
     class: "Hero / Trickster",
     allowedDiceSizes: [4, 6, 8, 10, 12, 20],
@@ -167,6 +164,7 @@ export const LEGENDS: Legend[] = [
     hp: 20,
     passive: "End your turn holding exactly one Omen: gain 2 Ward.",
     active: {
+      category: "Attack",
       timing: "ACTION",
       name: "Turn the Tide",
       text: "Deal 2 damage. If behind in Life, heal 2.",

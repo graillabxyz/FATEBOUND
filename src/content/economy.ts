@@ -207,3 +207,10 @@ for (const [level, track, id, label] of [
   [40, "free", "first-light-emote", "First Light · seasonal emote"],
 ] as const)
   PASS_REWARDS[level - 1][track] = { type: "emote", id, amount: 1, label };
+
+for (const level of [2, 6, 10, 16, 22, 30, 45])
+  PASS_REWARDS[level - 1].free = {
+    type: "pack",
+    amount: 1,
+    label: "2-Card pack",
+  };

@@ -1,7 +1,8 @@
+import { cardCompatible } from "../content/affinities";
 import { omenFace } from "../content/terminology";
 import { useState } from "react";
 import { CARDS } from "../content/cards";
-import { LEGENDS } from "../content/legends";
+import { LEGENDS, legendById } from "../content/legends";
 import { OMENS, omenBudget } from "../content/omens";
 import { STARTERS } from "../content/loadouts";
 import { facePosition, sharedFate } from "../engine/fate";
@@ -21,7 +22,8 @@ export function ContentBrowser() {
     [compare, setCompare] = useState(["basajaun", "anansi"]);
   const filtered = CARDS.filter(
     (c) =>
-      (legend === "all" || c.legend === legend) &&
+      (legend === "all" ||
+        cardCompatible(legendById[legend as keyof typeof legendById], c)) &&
       (category === "all" || c.category === category) &&
       (effect === "all" || allEffects(c.effects).includes(effect)) &&
       (requirement === "all" ||
@@ -182,7 +184,12 @@ export function ContentBrowser() {
                     <Json value={STARTERS[l.id]} />
                   </Section>
                   <Section title="Card pool">
-                    {CARDS.filter((c) => c.legend === id).map((c) => (
+                    {CARDS.filter((c) =>
+                      cardCompatible(
+                        legendById[id as keyof typeof legendById],
+                        c,
+                      ),
+                    ).map((c) => (
                       <p key={c.id}>
                         {c.name} · {c.requirementLabel}
                       </p>

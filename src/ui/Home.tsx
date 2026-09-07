@@ -91,6 +91,15 @@ export default function Home() {
         </div>
       </section>
       <section className="home-play">
+        {profile.matches === 0 && (
+          <p className="starter-intro">
+            <strong>Your collection starts here</strong>
+            <br />
+            {profile.ownedLegends.length} Legends · {profile.ownedCards.length}{" "}
+            shared Cards · {profile.ownedOmens.length} Omens. Build your Hand
+            around your Legend’s Affinities.
+          </p>
+        )}
         <div className="rank-line">
           <RankBadge label={rankLabel(profile)} />
           <span>4 cards · 3 Omens · Your move</span>

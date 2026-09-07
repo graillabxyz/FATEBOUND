@@ -1,3 +1,6 @@
+import CampaignPanel from "./CampaignPanel";
+import CardPoolPanel from "./CardPoolPanel";
+import { cardCompatible } from "../content/affinities";
 import { useEffect, useRef, useState } from "react";
 import type { Loadout, LegendId } from "../engine/types";
 import { LEGENDS, legendById } from "../content/legends";
@@ -88,6 +91,8 @@ export default function SimulationPanel({
   return (
     <div className="dev-stack">
       <h2>Run a matchup</h2>
+      <CampaignPanel />
+      <CardPoolPanel />
       <fieldset disabled={running || saving} className="simulation-config">
         <div className="dev-grid2">
           {loadouts.map((l, a) => (
@@ -129,7 +134,9 @@ export default function SimulationPanel({
                         })
                       }
                     >
-                      {CARDS.filter((c) => c.legend === l.legend).map((c) => (
+                      {CARDS.filter((c) =>
+                        cardCompatible(legendById[l.legend], c),
+                      ).map((c) => (
                         <option
                           key={c.id}
                           value={c.id}

@@ -1,0 +1,392 @@
+[
+  {
+    "legend": "basajaun",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 1850,
+    "losses": 1864,
+    "draws": 286,
+    "openingGames": 1966,
+    "openingWins": 1092,
+    "secondGames": 2034,
+    "secondWins": 758,
+    "rounds": 27200,
+    "damage": 55224,
+    "ward": 98248,
+    "focus": 39498,
+    "held": 35638,
+    "expired": 6412,
+    "reactions": 26188,
+    "reactionSuccess": 26188,
+    "turns": 26902,
+    "initiativeWins": 2222,
+    "openingDraws": 140,
+    "secondDraws": 146,
+    "blankRolls": 7664,
+    "totalRolls": 74740,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1966,
+        "wins": 1092
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2034,
+        "wins": 758
+      }
+    },
+    "openingDamage": [
+      21304,
+      10984
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 37946,
+      "root-ward": 18086,
+      "moss-mantle": 594,
+      "quick-strike": 978
+    },
+    "opponentCards": {
+      "sun-lance": 37842,
+      "root-ward": 18338,
+      "quick-strike": 1064,
+      "moss-mantle": 570
+    },
+    "byHand": {
+      "sun-lance / root-ward / moss-mantle / quick-strike": {
+        "games": 4000,
+        "wins": 1850,
+        "draws": 286,
+        "damage": 55224,
+        "ward": 98248,
+        "reactions": 26188
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 1826,
+    "losses": 2172,
+    "draws": 2,
+    "openingGames": 1510,
+    "openingWins": 740,
+    "secondGames": 2490,
+    "secondWins": 1086,
+    "rounds": 23858,
+    "damage": 54192,
+    "ward": 75874,
+    "focus": 29848,
+    "held": 33036,
+    "expired": 6438,
+    "reactions": 25454,
+    "reactionSuccess": 25454,
+    "turns": 23386,
+    "initiativeWins": 2144,
+    "openingDraws": 2,
+    "secondDraws": 0,
+    "blankRolls": 6496,
+    "totalRolls": 64648,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1510,
+        "wins": 740
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2490,
+        "wins": 1086
+      }
+    },
+    "openingDamage": [
+      19808,
+      7842
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 27088,
+      "moss-mantle": 17384,
+      "quick-strike": 1106,
+      "root-ward": 1024
+    },
+    "opponentCards": {
+      "daring-feint": 27676,
+      "hidden-meaning": 5490,
+      "web-turn": 8102,
+      "silken-cut": 8282
+    },
+    "byHand": {
+      "sun-lance / root-ward / moss-mantle / quick-strike": {
+        "games": 4000,
+        "wins": 1826,
+        "draws": 2,
+        "damage": 54192,
+        "ward": 75874,
+        "reactions": 25454
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 2794,
+    "losses": 1206,
+    "draws": 0,
+    "openingGames": 1432,
+    "openingWins": 1092,
+    "secondGames": 2568,
+    "secondWins": 1702,
+    "rounds": 21878,
+    "damage": 75178,
+    "ward": 58274,
+    "focus": 30056,
+    "held": 23802,
+    "expired": 4058,
+    "reactions": 19302,
+    "reactionSuccess": 19302,
+    "turns": 21246,
+    "initiativeWins": 1958,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 5854,
+    "totalRolls": 58306,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1432,
+        "wins": 1092
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2568,
+        "wins": 1702
+      }
+    },
+    "openingDamage": [
+      21804,
+      12082
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 29496,
+      "moss-mantle": 13202,
+      "quick-strike": 2750,
+      "root-ward": 1074
+    },
+    "opponentCards": {
+      "perfect-riposte": 19260,
+      "quick-strike": 11726,
+      "precision-cut": 10114,
+      "gale-cut": 1486
+    },
+    "byHand": {
+      "sun-lance / root-ward / moss-mantle / quick-strike": {
+        "games": 4000,
+        "wins": 2794,
+        "draws": 0,
+        "damage": 75178,
+        "ward": 58274,
+        "reactions": 19302
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 1664,
+    "losses": 2336,
+    "draws": 0,
+    "openingGames": 1898,
+    "openingWins": 920,
+    "secondGames": 2102,
+    "secondWins": 744,
+    "rounds": 20774,
+    "damage": 81560,
+    "ward": 71900,
+    "focus": 27470,
+    "held": 22836,
+    "expired": 2664,
+    "reactions": 19608,
+    "reactionSuccess": 19608,
+    "turns": 19504,
+    "initiativeWins": 2278,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 4992,
+    "totalRolls": 52614,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1898,
+        "wins": 920
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2102,
+        "wins": 744
+      }
+    },
+    "openingDamage": [
+      21328,
+      17404
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 27370,
+      "root-ward": 13862,
+      "quick-strike": 1560,
+      "moss-mantle": 280
+    },
+    "opponentCards": {
+      "wolf-shape": 13290,
+      "branch-lash": 20920,
+      "moss-mantle": 13580,
+      "windstep": 872
+    },
+    "byHand": {
+      "sun-lance / root-ward / moss-mantle / quick-strike": {
+        "games": 4000,
+        "wins": 1664,
+        "draws": 0,
+        "damage": 81560,
+        "ward": 71900,
+        "reactions": 19608
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 2812,
+    "losses": 1160,
+    "draws": 28,
+    "openingGames": 1672,
+    "openingWins": 1116,
+    "secondGames": 2328,
+    "secondWins": 1696,
+    "rounds": 22984,
+    "damage": 74148,
+    "ward": 76346,
+    "focus": 32052,
+    "held": 26332,
+    "expired": 4468,
+    "reactions": 20804,
+    "reactionSuccess": 20804,
+    "turns": 22448,
+    "initiativeWins": 1732,
+    "openingDraws": 12,
+    "secondDraws": 16,
+    "blankRolls": 6134,
+    "totalRolls": 61672,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d12": {
+        "games": 1672,
+        "wins": 1116
+      },
+      "standard-d12 + standard-d8": {
+        "games": 2328,
+        "wins": 1696
+      }
+    },
+    "openingDamage": [
+      21968,
+      12420
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 31590,
+      "moss-mantle": 1416,
+      "quick-strike": 2066,
+      "root-ward": 13354
+    },
+    "opponentCards": {
+      "sun-lance": 31562,
+      "root-ward": 15478,
+      "quick-strike": 2166,
+      "first-light": 2418
+    },
+    "byHand": {
+      "sun-lance / root-ward / moss-mantle / quick-strike": {
+        "games": 4000,
+        "wins": 2812,
+        "draws": 28,
+        "damage": 74148,
+        "ward": 76346,
+        "reactions": 20804
+      }
+    },
+    "version": 6
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 2326,
+    "losses": 1584,
+    "draws": 90,
+    "openingGames": 1712,
+    "openingWins": 930,
+    "secondGames": 2288,
+    "secondWins": 1396,
+    "rounds": 28000,
+    "damage": 35618,
+    "ward": 104442,
+    "focus": 32034,
+    "held": 50544,
+    "expired": 13142,
+    "reactions": 32002,
+    "reactionSuccess": 32002,
+    "turns": 28000,
+    "initiativeWins": 1760,
+    "openingDraws": 28,
+    "secondDraws": 62,
+    "blankRolls": 8246,
+    "totalRolls": 78288,
+    "fullHoldTurns": 7058,
+    "openingChoices": {
+      "standard-d12 + standard-d8": {
+        "games": 2288,
+        "wins": 1396
+      },
+      "standard-d12": {
+        "games": 1712,
+        "wins": 930
+      }
+    },
+    "openingDamage": [
+      7520,
+      4668
+    ],
+    "mismatches": 0,
+    "cards": {
+      "sun-lance": 26210,
+      "moss-mantle": 17668,
+      "root-ward": 3042,
+      "quick-strike": 256
+    },
+    "opponentCards": {
+      "silken-cut": 14456,
+      "turnabout": 5490,
+      "root-ward": 9184,
+      "daring-feint": 10660
+    },
+    "byHand": {
+      "sun-lance / root-ward / moss-mantle / quick-strike": {
+        "games": 4000,
+        "wins": 2326,
+        "draws": 90,
+        "damage": 35618,
+        "ward": 104442,
+        "reactions": 32002
+      }
+    },
+    "version": 6
+  }
+]

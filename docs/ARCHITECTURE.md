@@ -1,4 +1,4 @@
-# OMNIPATH authoritative combat · mechanical version 4
+# OMNIPATH authoritative combat · mechanical version 6
 
 ## Runtime and boundaries
 
@@ -58,7 +58,7 @@ Battle renders the authoritative turn/phase, initiative contest/marker, ACTION/R
 
 Mechanical version 4 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Versions 1–3 replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
 
-Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local profile, Loadout and snapshot container keys remain compatible; embedded mechanical versions are validated. Version 4 telemetry uses a separate outbox.
+Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local profile, Loadout and snapshot container keys remain compatible; embedded mechanical versions are validated. Version 6 telemetry uses a separate outbox.
 
 ## AI, simulations and metrics
 
@@ -79,3 +79,9 @@ Run `npm test`, `npm run typecheck`, `npm run build` and paired `npm run simulat
 `src/content/terminology.ts` owns the glossary, Sigil definitions, face presentation and activation labels. `src/content/omens.ts` owns fixed collectible Omens; the old module re-exports those exact objects. `OmenDefinition`, `OmenSize`, `OmenResource`, `FocusAction` and `Hand` are canonical types. `src/engine/vocabulary.ts` exposes Life, Ward, Focus, Hand and Omen views over authoritative state. Existing wire fields (`hp`, `guard`, `control`, `dice`, `cards`), primitive IDs, SQL kinds and native identifiers remain compatible. They are not a second rules system. New visible labels use the canonical adapters. Card display-name changes preserve their previous IDs through an explicit mapping.
 
 Sigils do not fire an independent effect merely by being rolled: they pay eligible ability requirements. Ward Sigils also have an explicit per-face universal Ward conversion. Tooltips read this data rather than promising unimplemented powers. Omen Skins are appearance only. Debug Set Value / Set Sigil / Set Void select an existing authored face and reject missing faces; they never edit collectible definitions.
+
+## Shared alpha pool and rules audit
+
+Version 6 uses one global 60-Card pool, recursive data-driven Affinity requirements and independent mechanical tags. Six Legends access 29–39 legal Cards each. Current content has six numbered Omen sizes and six signature Omens; each starter equips one signature plus two numbered Omens. All Cards explicitly have persistence none: the reusable Card stays in Hand while its ability resolves. Owner-turn Poison/Empowered expiry, upfront Life costs and pre-effect condition capture are authoritative. See RULES_AUDIT.md and ALPHA_CARD_AUDIT.md for exact behavior and campaign results.
+
+Fresh local profiles receive two Legends, sixteen Cards and six Omens. Ownership is separate from equipped Loadouts. Two-Card packs use persisted idempotent receipts, weighted rarity outcomes and duplicate Coins; all Cards can also be acquired directly with earned Coins. This remains a device-local alpha economy. Supabase catalog/save validation uses the same Affinity definitions, with migration adapters retaining legacy entitlements and stable content history.

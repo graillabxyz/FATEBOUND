@@ -1,0 +1,201 @@
+[
+  {
+    "legend": "tengu",
+    "opponent": "basajaun",
+    "games": 200,
+    "wins": 54,
+    "losses": 146,
+    "draws": 0,
+    "openingGames": 134,
+    "openingWins": 46,
+    "secondGames": 66,
+    "secondWins": 8,
+    "rounds": 628,
+    "damage": 3284,
+    "ward": 170,
+    "focus": 960,
+    "held": 200,
+    "expired": 62,
+    "reactions": 78,
+    "reactionSuccess": 78,
+    "turns": 570,
+    "mismatches": 0,
+    "cards": {
+      "gale-cut": 660,
+      "quick-strike": 148,
+      "perfect-riposte": 68
+    },
+    "opponentCards": {
+      "herensuge": 406,
+      "crush": 194,
+      "root-ward": 118,
+      "barkskin": 12
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "anansi",
+    "games": 200,
+    "wins": 74,
+    "losses": 126,
+    "draws": 0,
+    "openingGames": 100,
+    "openingWins": 52,
+    "secondGames": 100,
+    "secondWins": 22,
+    "rounds": 582,
+    "damage": 3086,
+    "ward": 124,
+    "focus": 826,
+    "held": 144,
+    "expired": 26,
+    "reactions": 62,
+    "reactionSuccess": 62,
+    "turns": 514,
+    "mismatches": 0,
+    "cards": {
+      "perfect-riposte": 62,
+      "gale-cut": 544,
+      "quick-strike": 150
+    },
+    "opponentCards": {
+      "silken-cut": 214,
+      "daring-feint": 652,
+      "hidden-meaning": 236
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "tengu",
+    "games": 200,
+    "wins": 80,
+    "losses": 120,
+    "draws": 0,
+    "openingGames": 98,
+    "openingWins": 54,
+    "secondGames": 102,
+    "secondWins": 26,
+    "rounds": 564,
+    "damage": 3178,
+    "ward": 140,
+    "focus": 808,
+    "held": 148,
+    "expired": 30,
+    "reactions": 70,
+    "reactionSuccess": 70,
+    "turns": 488,
+    "mismatches": 0,
+    "cards": {
+      "quick-strike": 126,
+      "perfect-riposte": 60,
+      "gale-cut": 432
+    },
+    "opponentCards": {
+      "gale-cut": 548,
+      "quick-strike": 102,
+      "perfect-riposte": 34
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "leshy",
+    "games": 200,
+    "wins": 2,
+    "losses": 198,
+    "draws": 0,
+    "openingGames": 126,
+    "openingWins": 2,
+    "secondGames": 74,
+    "secondWins": 0,
+    "rounds": 616,
+    "damage": 2964,
+    "ward": 270,
+    "focus": 928,
+    "held": 260,
+    "expired": 62,
+    "reactions": 118,
+    "reactionSuccess": 118,
+    "turns": 542,
+    "mismatches": 0,
+    "cards": {
+      "gale-cut": 488,
+      "quick-strike": 154,
+      "perfect-riposte": 98
+    },
+    "opponentCards": {
+      "branch-lash": 858,
+      "moss-mantle": 276,
+      "wolf-shape": 152,
+      "windstep": 2
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "quetzalcoatl",
+    "games": 200,
+    "wins": 74,
+    "losses": 126,
+    "draws": 0,
+    "openingGames": 108,
+    "openingWins": 50,
+    "secondGames": 92,
+    "secondWins": 24,
+    "rounds": 728,
+    "damage": 3230,
+    "ward": 234,
+    "focus": 1104,
+    "held": 258,
+    "expired": 94,
+    "reactions": 102,
+    "reactionSuccess": 102,
+    "turns": 656,
+    "mismatches": 0,
+    "cards": {
+      "perfect-riposte": 82,
+      "gale-cut": 832,
+      "quick-strike": 206
+    },
+    "opponentCards": {
+      "sun-lance": 912,
+      "root-ward": 440
+    },
+    "version": 6
+  },
+  {
+    "legend": "tengu",
+    "opponent": "maui",
+    "games": 200,
+    "wins": 24,
+    "losses": 176,
+    "draws": 0,
+    "openingGames": 116,
+    "openingWins": 20,
+    "secondGames": 84,
+    "secondWins": 4,
+    "rounds": 572,
+    "damage": 2936,
+    "ward": 194,
+    "focus": 860,
+    "held": 172,
+    "expired": 24,
+    "reactions": 90,
+    "reactionSuccess": 90,
+    "turns": 492,
+    "mismatches": 0,
+    "cards": {
+      "gale-cut": 532,
+      "perfect-riposte": 76,
+      "quick-strike": 134
+    },
+    "opponentCards": {
+      "daring-feint": 732,
+      "silken-cut": 286,
+      "root-ward": 152
+    },
+    "version": 6
+  }
+]

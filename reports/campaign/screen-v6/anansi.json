@@ -1,0 +1,201 @@
+[
+  {
+    "legend": "anansi",
+    "opponent": "basajaun",
+    "games": 200,
+    "wins": 96,
+    "losses": 104,
+    "draws": 0,
+    "openingGames": 132,
+    "openingWins": 70,
+    "secondGames": 68,
+    "secondWins": 26,
+    "rounds": 676,
+    "damage": 3100,
+    "ward": 272,
+    "focus": 894,
+    "held": 426,
+    "expired": 60,
+    "reactions": 336,
+    "reactionSuccess": 336,
+    "turns": 634,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 246,
+      "daring-feint": 810,
+      "hidden-meaning": 272
+    },
+    "opponentCards": {
+      "herensuge": 458,
+      "root-ward": 164,
+      "crush": 178,
+      "barkskin": 22
+    },
+    "version": 6
+  },
+  {
+    "legend": "anansi",
+    "opponent": "anansi",
+    "games": 200,
+    "wins": 110,
+    "losses": 82,
+    "draws": 8,
+    "openingGames": 96,
+    "openingWins": 60,
+    "secondGames": 104,
+    "secondWins": 50,
+    "rounds": 606,
+    "damage": 2948,
+    "ward": 218,
+    "focus": 856,
+    "held": 330,
+    "expired": 8,
+    "reactions": 304,
+    "reactionSuccess": 304,
+    "turns": 558,
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 692,
+      "hidden-meaning": 218,
+      "silken-cut": 218
+    },
+    "opponentCards": {
+      "silken-cut": 206,
+      "daring-feint": 650,
+      "hidden-meaning": 276
+    },
+    "version": 6
+  },
+  {
+    "legend": "anansi",
+    "opponent": "tengu",
+    "games": 200,
+    "wins": 124,
+    "losses": 74,
+    "draws": 2,
+    "openingGames": 98,
+    "openingWins": 80,
+    "secondGames": 102,
+    "secondWins": 44,
+    "rounds": 596,
+    "damage": 3074,
+    "ward": 252,
+    "focus": 764,
+    "held": 342,
+    "expired": 6,
+    "reactions": 322,
+    "reactionSuccess": 322,
+    "turns": 538,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 196,
+      "daring-feint": 636,
+      "hidden-meaning": 252
+    },
+    "opponentCards": {
+      "perfect-riposte": 76,
+      "gale-cut": 542,
+      "quick-strike": 138
+    },
+    "version": 6
+  },
+  {
+    "legend": "anansi",
+    "opponent": "leshy",
+    "games": 200,
+    "wins": 22,
+    "losses": 178,
+    "draws": 0,
+    "openingGames": 112,
+    "openingWins": 18,
+    "secondGames": 88,
+    "secondWins": 4,
+    "rounds": 630,
+    "damage": 2870,
+    "ward": 268,
+    "focus": 778,
+    "held": 388,
+    "expired": 10,
+    "reactions": 354,
+    "reactionSuccess": 354,
+    "turns": 542,
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 678,
+      "silken-cut": 242,
+      "hidden-meaning": 268
+    },
+    "opponentCards": {
+      "branch-lash": 996,
+      "wolf-shape": 72,
+      "moss-mantle": 256,
+      "windstep": 6
+    },
+    "version": 6
+  },
+  {
+    "legend": "anansi",
+    "opponent": "quetzalcoatl",
+    "games": 200,
+    "wins": 62,
+    "losses": 138,
+    "draws": 0,
+    "openingGames": 98,
+    "openingWins": 38,
+    "secondGames": 102,
+    "secondWins": 24,
+    "rounds": 746,
+    "damage": 2992,
+    "ward": 392,
+    "focus": 988,
+    "held": 518,
+    "expired": 40,
+    "reactions": 456,
+    "reactionSuccess": 456,
+    "turns": 656,
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 850,
+      "hidden-meaning": 392,
+      "silken-cut": 264
+    },
+    "opponentCards": {
+      "sun-lance": 1002,
+      "root-ward": 414
+    },
+    "version": 6
+  },
+  {
+    "legend": "anansi",
+    "opponent": "maui",
+    "games": 200,
+    "wins": 30,
+    "losses": 170,
+    "draws": 0,
+    "openingGames": 104,
+    "openingWins": 26,
+    "secondGames": 96,
+    "secondWins": 4,
+    "rounds": 604,
+    "damage": 2890,
+    "ward": 290,
+    "focus": 778,
+    "held": 354,
+    "expired": 0,
+    "reactions": 342,
+    "reactionSuccess": 342,
+    "turns": 512,
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 244,
+      "daring-feint": 616,
+      "hidden-meaning": 290
+    },
+    "opponentCards": {
+      "daring-feint": 804,
+      "root-ward": 148,
+      "silken-cut": 282
+    },
+    "version": 6
+  }
+]

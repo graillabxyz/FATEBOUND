@@ -367,14 +367,29 @@ export function rollOmens(s: MatchState, selectedSlots?: number[]) {
   );
   // Start statuses apply after the new roll, before the main decision.
   const poison = p.statuses
-    .filter((x) => x.id === "poison")
+    .filter(
+      (x) =>
+        x.id === "poison" &&
+        (x.tickOwnerTurn === undefined || x.tickOwnerTurn <= p.playerTurnCount),
+    )
     .reduce((n, x) => n + x.amount, 0);
   if (poison) {
     const dmg = Math.min(p.hp, Math.max(0, poison));
     p.hp -= dmg;
     s.players[other(s.activePlayer)].damageDealt += dmg;
     s.stats.at(-1)!.damage[other(s.activePlayer)] += dmg;
-    log(s, other(s.activePlayer), "poison", `${dmg} poison damage`, dmg);
+    log(
+      s,
+      other(s.activePlayer),
+      "poison",
+      `${dmg} Life lost to Poison; status consumed`,
+      dmg,
+    );
+    p.statuses = p.statuses.filter(
+      (x) =>
+        x.id !== "poison" ||
+        (x.tickOwnerTurn !== undefined && x.tickOwnerTurn > p.playerTurnCount),
+    );
   }
   if (
     !s.openingFullLife &&
@@ -459,6 +474,21 @@ export function lockPlan(s: MatchState, actor: number, plan: Plan) {
     : (legendById[p.loadout.legend].passiveRule?.amount ?? 0);
   if (tolerance) p.passiveUsed.push("adapt");
   const heldDice = a.dice.filter((i) => p.dice[i].state === "HELD").length;
+  const lifeCost =
+    (a.target === "legend"
+      ? legendById[p.loadout.legend].active.requirement
+      : cardById[a.target]?.requirement
+    )?.life ?? 0;
+  if (lifeCost) {
+    p.hp -= lifeCost;
+    log(
+      s,
+      actor,
+      "life-cost",
+      `Paid ${lifeCost} Life; cost is not refunded`,
+      lifeCost,
+    );
+  }
   a.dice.forEach((i) => (p.dice[i].state = "SPENT"));
   p.plan = clone(plan);
   p.actionsThisRound++;
@@ -472,7 +502,9 @@ export function lockPlan(s: MatchState, actor: number, plan: Plan) {
     effects: effectsFor(s, actor, a),
     category:
       cardById[a.target]?.category ??
-      ((a.target === "guard" ? "Ward" : "Setup") as "Ward" | "Setup"),
+      (a.target === "guard"
+        ? "Ward"
+        : legendById[p.loadout.legend].active.category),
     canceled: false,
     redirected: false,
     prevention: 0,
@@ -539,6 +571,11 @@ export function pass(s: MatchState, actor: number) {
         rule.amount,
       );
     }
+    p.statuses = p.statuses.filter(
+      (x) =>
+        x.expiresOwnerTurn === undefined ||
+        x.expiresOwnerTurn > p.playerTurnCount,
+    );
     finishTurnMetrics(s);
     s.phase = "TURN_END";
   }
@@ -606,7 +643,12 @@ export function cleanup(s: MatchState, maxRounds = s.config.maxRounds) {
   if (s.phase !== "ROUND_END")
     throw new Error("Cleanup is a round-end operation.");
   s.players.forEach((p) => {
-    p.statuses = p.statuses.filter((x) => x.expiresRound > s.round);
+    p.statuses = p.statuses.filter(
+      (x) =>
+        x.tickOwnerTurn !== undefined ||
+        x.expiresOwnerTurn !== undefined ||
+        x.expiresRound > s.round,
+    );
   });
   decideWinner(s, s.round >= maxRounds);
   if (s.winner !== null) s.phase = "MATCH_END";

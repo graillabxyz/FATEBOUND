@@ -10,6 +10,12 @@ import { STARTERS } from "../src/content/loadouts";
 import { validateRecord } from "../server/validation";
 function lab() {
   const setup = defaultSetup();
+  setup.players[0].loadout.cards = [
+    "crush",
+    "root-ward",
+    "barkskin",
+    "herensuge",
+  ];
   setup.initiativeWinner = 0;
   setup.players.forEach((p) => (p.ai = false));
   setup.fate.fixed = [80, 60, 40];
@@ -17,7 +23,7 @@ function lab() {
 }
 function resolving() {
   const c = lab();
-  c.assign(0, 0, "basajaun-crush");
+  c.assign(0, 0, "crush");
   c.lock(0);
   c.next();
   c.lock(1, EMPTY_PLAN);
@@ -31,6 +37,12 @@ describe("v2 production Battle Lab", () => {
   it("configures all six Legends and reproducible random compatible builds", () => {
     for (const l of LEGENDS) {
       const s = defaultSetup();
+      s.players[0].loadout.cards = [
+        "crush",
+        "root-ward",
+        "barkskin",
+        "herensuge",
+      ];
       s.players[0] = defaultPlayer(l.id, false);
       expect(() => new LabController(s)).not.toThrow();
       expect(randomLoadout(l.id, 4)).toEqual(randomLoadout(l.id, 4));
@@ -86,7 +98,7 @@ describe("v2 production Battle Lab", () => {
   });
   it("can stress incompatible loadouts but still validates real action costs", () => {
     const s = defaultSetup();
-    s.players[0].loadout.cards[0] = "anansi-web-turn";
+    s.players[0].loadout.cards[0] = "web-turn";
     expect(() => new LabController(s)).toThrow("incompatible");
     s.ignoreRestrictions = true;
     s.initiativeWinner = 0;
@@ -95,7 +107,7 @@ describe("v2 production Battle Lab", () => {
     expect(() =>
       c.lock(0, {
         controls: [],
-        assignments: [{ target: "anansi-web-turn", dice: [0] }],
+        assignments: [{ target: "web-turn", dice: [0] }],
       }),
     ).toThrow("TIMING");
   });

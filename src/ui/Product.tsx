@@ -1,10 +1,13 @@
+import { Packs } from "./Packs";
+import { CardBrowser } from "./CardBrowser";
+import { LEGEND_COIN_PRICE, OMEN_COIN_PRICE } from "../content/acquisition";
 import { EmoteCollection } from "./Emotes";
 import { TutorialSteps, Glossary } from "./Help";
 import { ENABLE_DEV_TOOLS } from "../dev/gate";
 import { useState } from "react";
 import { useGame } from "./context";
 import { LEGENDS, legendById } from "../content/legends";
-import { omenById } from "../content/omens";
+import { OMENS, omenById } from "../content/omens";
 import { COSMETICS, QUESTS } from "../content/economy";
 import { GAME } from "../content/config";
 import { level, masteryLevel, rankLabel, periodKey } from "../services/profile";
@@ -260,14 +263,16 @@ export function SocialPage() {
   );
 }
 export function ShopPage() {
-  const { inspect, navigate } = useGame();
+  const { inspect, profile, service, update, toast } = useGame();
   const [tab, setTab] = useState("Featured");
   return (
     <div className="page shop-page">
-      <PageHeading eyebrow="IDENTITY, NEVER ADVANTAGE" title="The emporium" />
+      <PageHeading eyebrow="EXPAND YOUR COLLECTION" title="The emporium" />
       <div className="horizontal-tabs">
         {[
           "Featured",
+          "Cards",
+          "Packs",
           "Legends",
           "Omens",
           "Omen Skins",
@@ -284,23 +289,59 @@ export function ShopPage() {
           </button>
         ))}
       </div>
-      {tab === "Legends" ? (
-        <EmptyState
-          icon="legends"
-          title="Every Legend is yours"
-          text="All six Legends and their gameplay content are unlocked for this foundation. Future unlocks will be earned through play."
-        />
+      {tab === "Packs" ? (
+        <Packs />
+      ) : tab === "Cards" ? (
+        <CardBrowser />
+      ) : tab === "Legends" ? (
+        <div className="unlock-list">
+          {LEGENDS.map((l) => (
+            <article key={l.id}>
+              <LegendArt id={l.id} />
+              <strong>{l.name}</strong>
+              <p>Legend + curated shared-pool Hand + readable Omens.</p>
+              <button
+                disabled={profile.ownedLegends.includes(l.id)}
+                onClick={() => {
+                  try {
+                    update(service.unlockLegend(profile, l.id));
+                    toast("Legend unlocked.");
+                  } catch (e) {
+                    toast((e as Error).message);
+                  }
+                }}
+              >
+                {profile.ownedLegends.includes(l.id)
+                  ? "Owned"
+                  : `${LEGEND_COIN_PRICE} Coins`}
+              </button>
+            </article>
+          ))}
+        </div>
       ) : tab === "Omens" ? (
-        <>
-          <EmptyState
-            icon="dice"
-            title="Mechanical Omens"
-            text="All gameplay Omens are unlocked in this build. Choose them in your Loadout; future unlocks will be earned through play."
-          />
-          <SecondaryButton onClick={() => navigate("loadout")}>
-            Choose your Omens
-          </SecondaryButton>
-        </>
+        <div className="unlock-list">
+          {OMENS.map((d) => (
+            <article key={d.id}>
+              <Omen definition={d} />
+              <strong>{d.name}</strong>
+              <button
+                disabled={profile.ownedOmens.includes(d.id)}
+                onClick={() => {
+                  try {
+                    update(service.purchaseOmen(profile, d.id));
+                    toast("Omen unlocked.");
+                  } catch (e) {
+                    toast((e as Error).message);
+                  }
+                }}
+              >
+                {profile.ownedOmens.includes(d.id)
+                  ? "Owned"
+                  : `${OMEN_COIN_PRICE} Coins`}
+              </button>
+            </article>
+          ))}
+        </div>
       ) : tab === "Emotes" ? (
         <EmoteCollection shop />
       ) : tab === "Bundles" ? (
@@ -644,7 +685,8 @@ export function UpgradeContent() {
         </p>
       )}
       <p className="cultural-note">
-        All mechanical gameplay content remains available without premium.
+        Cards and Legends are earned with Coins and free progression. Premium
+        rewards are cosmetic.
       </p>
     </div>
   );

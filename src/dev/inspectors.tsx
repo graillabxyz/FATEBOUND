@@ -1,3 +1,4 @@
+import { affinityText } from "../content/affinities";
 import { omenFace, SIGILS, rulesLabel } from "../content/terminology";
 import { useState } from "react";
 import type { LabController } from "./controller";
@@ -448,7 +449,7 @@ export function CardInspector({
         {c.id} · {c.timing} · priority {c.priority}
       </code>
       <p>
-        {c.tags.join(" / ")} · {legendById[c.legend].name}
+        {c.tags.join(" / ")} · {affinityText(c.affinityRequirements)}
       </p>
       <div className="dev-grid2">
         <div className="dev-stat">

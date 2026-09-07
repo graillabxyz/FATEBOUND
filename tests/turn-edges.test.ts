@@ -19,9 +19,23 @@ import { LabController } from "../src/dev/controller";
 import { aggregate } from "../src/metrics/data";
 import { simulateGame } from "../src/dev/simulation";
 const ready = () => {
-  const s = createMatch(33, [STARTERS.basajaun, STARTERS.anansi], undefined, {
-    initiativeWinner: 0,
-  });
+  const s = createMatch(
+    33,
+    [
+      {
+        ...STARTERS.basajaun,
+        cards: ["crush", "root-ward", "barkskin", "herensuge"],
+      },
+      {
+        ...STARTERS.anansi,
+        dice: ["standard-d8", "standard-d6", "standard-d4"],
+      },
+    ],
+    undefined,
+    {
+      initiativeWinner: 0,
+    },
+  );
   while (s.phase !== "MAIN_ACTION") advance(s);
   return s;
 };
@@ -41,7 +55,7 @@ describe("turn edge cases and data integrity", () => {
     s.players[0].faces[0] = 7;
     lockPlan(s, 0, {
       controls: [],
-      assignments: [{ target: "basajaun-crush", dice: [0] }],
+      assignments: [{ target: "crush", dice: [0] }],
     });
     expect(conditionMatches("enemyAttacking", decisionContext(s, 0))).toBe(
       false,
@@ -68,7 +82,7 @@ describe("turn edge cases and data integrity", () => {
     const s = createMatch(1, [STARTERS.basajaun, STARTERS.anansi], undefined, {
       initiativeWinner: 0,
     });
-    s.players[0].statuses = [{ id: "poison", amount: 20, expiresRound: 1 }];
+    s.players[0].statuses = [{ id: "poison", amount: 21, expiresRound: 1 }];
     while (s.phase !== "MATCH_END") advance(s);
     expect(s.stats[0].rolls[0]).toBe(1);
     expect(s.players[0].hp).toBe(0);
@@ -90,7 +104,7 @@ describe("turn edge cases and data integrity", () => {
   });
   it("exact, initiative, round, class and held requirements use the authority context", () => {
     const s = ready(),
-      c = cardById["basajaun-crush"],
+      c = cardById["crush"],
       r = clone(c.requirement);
     try {
       c.requirement = {
@@ -161,7 +175,7 @@ describe("turn edge cases and data integrity", () => {
     state.players[1].faces[0] = 5;
     lockPlan(state, 1, {
       controls: [],
-      assignments: [{ target: "anansi-silken-cut", dice: [0] }],
+      assignments: [{ target: "silken-cut", dice: [0] }],
     });
     advance(state, 1000);
     const svc = new LocalMatchService(state, "Normal", "Training", true);
@@ -192,13 +206,19 @@ describe("turn edge cases and data integrity", () => {
   });
   it("preserves a configured two-die scenario draft and its Control preview through snapshot", () => {
     const s = defaultSetup();
+    s.players[0].loadout.cards = [
+      "crush",
+      "root-ward",
+      "barkskin",
+      "herensuge",
+    ];
     s.round = 6;
     s.initiativeWinner = 1;
     s.players.forEach((p) => (p.ai = false));
     const c = new LabController(s);
     c.control(0, { slot: 0, kind: "flip" });
-    c.assign(0, 0, "basajaun-herensuge");
-    c.assign(0, 1, "basajaun-herensuge");
+    c.assign(0, 0, "herensuge");
+    c.assign(0, 1, "herensuge");
     const r = LabController.restore(c.snapshot());
     expect(r.drafts).toEqual(c.drafts);
     expect(r.positions(0)).toEqual(c.positions(0));

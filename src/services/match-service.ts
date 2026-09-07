@@ -21,6 +21,7 @@ import type {
 } from "../engine/types";
 import type { StorageAdapter } from "./profile";
 import { validateLoadout } from "../engine/rules";
+import { LEGENDS } from "../content/legends";
 import { CARDS } from "../content/cards";
 import { OMENS } from "../content/omens";
 export type MatchCommand = {
@@ -70,6 +71,7 @@ export class LocalMatchService implements MatchService {
     storage?: StorageAdapter,
   ) {
     const owned = new Set([
+      ...LEGENDS.map((l) => l.id),
       ...CARDS.map((c) => c.id),
       ...OMENS.map((d) => d.id),
     ]);

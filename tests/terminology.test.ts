@@ -39,7 +39,7 @@ describe("OMNIPATH vocabulary and compatibility", () => {
     expect(DICE).toBe(OMENS);
     for (const l of Object.values(STARTERS))
       expect(() => validateLoadout(l)).not.toThrow();
-    expect(cardById["tengu-feather-guard"].name).toBe("Feather Ward");
+    expect(cardById["root-ward"].name).toBe("Root Ward");
     expect(omenById["guardian-d6"].name).toBe("Warden’s Oath");
     expect(loadoutPieces(STARTERS.basajaun).hand).toHaveLength(4);
   });
@@ -52,7 +52,7 @@ describe("OMNIPATH vocabulary and compatibility", () => {
     expect(copy).not.toMatch(
       /\b(Fatebound|dice|die|guard|control|HP|blank|symbol)\b/i,
     );
-    expect(GLOSSARY).toHaveLength(14);
+    expect(GLOSSARY).toHaveLength(16);
     for (const omen of OMENS)
       for (const face of omen.faces) {
         const f = omenFace(face);

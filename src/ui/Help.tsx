@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { GLOSSARY } from "../content/terminology";
-import { Omen } from "./components";
+import { Omen, Modal } from "./components";
 import { omenById } from "../content/omens";
 import { FaceExplanation } from "./OmenFaces";
 export const TUTORIAL_STEPS = [
   ["Legend", "This is your Legend. Reduce the enemy Legend to 0 Life to win."],
   [
     "Hand",
-    "These four Cards are your Hand. Chosen before battle, yours for the entire Match.",
+    "Choose four Cards from one shared pool. Your Legend’s Affinities determine compatibility. They stay reusable all Match.",
   ],
   [
     "Omens",
@@ -23,7 +23,7 @@ export const TUTORIAL_STEPS = [
   ],
   [
     "Act",
-    "Spend Values or Sigils to activate Cards and Legend abilities. Higher Values are not always better.",
+    "A requirement of two Values totaling 11+ spends BOTH Omens. They cannot be used again before your next roll. The Card stays reusable in your Hand.",
   ],
   [
     "Focus",
@@ -39,7 +39,7 @@ export const TUTORIAL_STEPS = [
   ],
   [
     "Ward",
-    "Gain Ward to absorb damage before Life. Held Omens and Ward expire at your next Turn start.",
+    "5 Ward blocks 5 damage, then is gone. An 8-damage attack removes 5 Ward and 3 Life. Leftover Ward expires at your next turn start.",
   ],
 ] as const;
 export function TutorialSteps() {
@@ -73,7 +73,10 @@ export function TutorialSteps() {
         <button disabled={step === 0} onClick={() => setStep(step - 1)}>
           Back
         </button>
-        <button disabled={step === 9} onClick={() => setStep(step + 1)}>
+        <button
+          disabled={step === TUTORIAL_STEPS.length - 1}
+          onClick={() => setStep(step + 1)}
+        >
           Next
         </button>
       </div>
@@ -91,5 +94,53 @@ export function Glossary() {
         </details>
       ))}
     </div>
+  );
+}
+
+export function BattleRules({ onClose }: { onClose: () => void }) {
+  return (
+    <Modal
+      title="What happens on the table?"
+      eyebrow="BATTLE RULES"
+      onClose={onClose}
+    >
+      <div className="battle-rules-copy">
+        <h3>Roll → spend or hold → React</h3>
+        <p>
+          The opening player rolls 1 Omen, the second rolls 2. From your second
+          turn onward, roll all 3.
+        </p>
+        <p>
+          <strong>Two Values totaling 11+</strong> means selecting two Omens,
+          such as 5 + 6, and spending both. They cannot be reused until your
+          next roll.
+        </p>
+        <h3>Cards resolve, then remain in your Hand</h3>
+        <p>
+          Your declared Card becomes public. The opponent gets one Reaction
+          window. Resolve the abilities; paid Omens remain Spent. No trap or
+          creature is placed on the table.
+        </p>
+        <p>
+          Cards stay reusable and known for the rest of the match. Only explicit
+          statuses, shown beside a Legend, persist.
+        </p>
+        <h3>Ward absorbs damage point for point</h3>
+        <p>
+          With 5 Ward, an 8-damage attack consumes all 5 Ward and removes 3
+          Life. Remaining Ward expires at the start of that Legend’s next turn.
+        </p>
+        <h3>Held Omens are your response</h3>
+        <p>
+          End your turn to hold unused results. Spend them on a Reaction or
+          universal Ward during the opponent’s turn. They expire immediately
+          before your next roll.
+        </p>
+        <p>
+          Tap a Card’s inspect button for its cost, timing and exact effect.
+          Battle timers continue while reading.
+        </p>
+      </div>
+    </Modal>
   );
 }
