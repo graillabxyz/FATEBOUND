@@ -3,7 +3,7 @@ import { Icon } from "../ui/components";
 import { LEGENDS } from "../content/legends";
 import { aggregate, percent } from "./data";
 import type { MetricsResponse } from "./client";
-import { loadMetrics } from "./client";
+import { loadMetrics, MetricsSignInRequiredError } from "./client";
 import { registerMetricsTools } from "./webmcp";
 import { MetricsTable } from "./MetricsTable";
 import SimulationPanel from "./SimulationPanel";
@@ -20,6 +20,7 @@ export default function Dashboard() {
     [opponent, setOpponent] = useState("all");
   const [response, setResponse] = useState<MetricsResponse | null>(null),
     [error, setError] = useState(""),
+    [needsSignIn, setNeedsSignIn] = useState(false),
     [loading, setLoading] = useState(true);
   const requestId = useRef(0);
   const refresh = useCallback(async () => {
@@ -29,9 +30,13 @@ export default function Dashboard() {
       if (id === requestId.current) {
         setResponse(r);
         setError("");
+        setNeedsSignIn(false);
       }
     } catch (e) {
-      if (id === requestId.current) setError((e as Error).message);
+      if (id === requestId.current) {
+        setError((e as Error).message);
+        setNeedsSignIn(e instanceof MetricsSignInRequiredError);
+      }
     } finally {
       if (id === requestId.current) setLoading(false);
     }
@@ -136,11 +141,13 @@ export default function Dashboard() {
           </div>
           <span className={`metrics-live ${error ? "offline" : ""}`}>
             <i />
-            {error
-              ? "Service offline"
-              : loading
-                ? "Connecting"
-                : "Updates every 10s"}
+            {needsSignIn
+              ? "Sign-in required"
+              : error
+                ? "Service offline"
+                : loading
+                  ? "Connecting"
+                  : "Updates every 10s"}
           </span>
         </header>
         {page === "Simulation" ? (
@@ -214,6 +221,14 @@ export default function Dashboard() {
             {error && (
               <p role="alert" className="dev-error">
                 {error} Simulation remains available offline.
+                {needsSignIn && (
+                  <>
+                    {" "}
+                    <a href="/signin-with-chatgpt" target="_top">
+                      Sign in with ChatGPT
+                    </a>
+                  </>
+                )}
               </p>
             )}
             <div className="metrics-kpis">

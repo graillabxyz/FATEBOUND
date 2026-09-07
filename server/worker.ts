@@ -92,7 +92,9 @@ export default {
         !url.pathname.split("/").at(-1)?.includes(".")
       )
         return env.ASSETS.fetch(
-          new Request(new URL("/index.html", url), request),
+          // Asset hosts canonicalize /index.html with a redirect to /. Fetch
+          // the root document directly so SPA routes retain their pathname.
+          new Request(new URL("/", url), request),
         );
       return result;
     }

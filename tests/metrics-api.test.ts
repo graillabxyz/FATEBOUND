@@ -57,6 +57,30 @@ const request = (
     body: body ? JSON.stringify(body) : undefined,
   });
 describe("durable private telemetry API", () => {
+  it("serves SPA routes without the asset host redirecting them to home", async () => {
+    const { DB } = database();
+    const paths: string[] = [];
+    const response = await worker.fetch(request("/metrics"), {
+      DB,
+      ASSETS: {
+        async fetch(req) {
+          const path = new URL(req.url).pathname;
+          paths.push(path);
+          if (path === "/index.html")
+            return Response.redirect("https://private.example/", 308);
+          return new Response(
+            path === "/" ? "<html>Dashboard</html>" : "Not found",
+            {
+              status: path === "/" ? 200 : 404,
+            },
+          );
+        },
+      },
+    });
+    expect(response.status).toBe(200);
+    expect(response.headers.get("location")).toBeNull();
+    expect(paths).toEqual(["/metrics", "/"]);
+  });
   it("requires identity in hosted mode and rejects cross-origin writes", async () => {
     const { DB } = database();
     expect((await worker.fetch(request("/api/metrics"), { DB })).status).toBe(

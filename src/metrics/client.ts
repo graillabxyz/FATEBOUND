@@ -1,4 +1,9 @@
 import type { MatchRecord } from "./data";
+export class MetricsSignInRequiredError extends Error {
+  constructor() {
+    super("Sign in to the private dashboard.");
+  }
+}
 export type MetricsResponse = {
   records: MatchRecord[];
   total: number;
@@ -16,12 +21,9 @@ export async function loadMetrics(
   const response = await fetch(
     `/api/metrics?source=${encodeURIComponent(source)}&days=${days}&legend=${encodeURIComponent(legend)}&opponent=${encodeURIComponent(opponent)}`,
   );
+  if (response.status === 401) throw new MetricsSignInRequiredError();
   if (!response.ok)
-    throw new Error(
-      response.status === 401
-        ? "Sign in to the private dashboard."
-        : `Metrics service unavailable (${response.status}).`,
-    );
+    throw new Error(`Metrics service unavailable (${response.status}).`);
   if (!response.headers.get("content-type")?.includes("application/json"))
     throw new Error(
       "Metrics database is not connected to this preview. Run the metrics service or use the private hosted dashboard.",

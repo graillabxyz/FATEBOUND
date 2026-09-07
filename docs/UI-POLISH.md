@@ -13,9 +13,11 @@ The player app retains one portrait phone layout. The desktop/mobile internal me
 
 ## Verification
 
-66 tests pass, including seven geometry checks covering correct face/vertex counts, closed edges, Euler characteristic and bounded projections. TypeScript, formatting, production build and developer-feature exclusion checks pass. The release web assets synchronize into the iOS and Android projects. No engine, AI or balance definitions were changed.
+67 tests pass, including seven geometry checks covering correct face/vertex counts, closed edges, Euler characteristic and bounded projections. TypeScript, formatting, production build and developer-feature exclusion checks pass. The release web assets synchronize into the iOS and Android projects. No engine, AI or balance definitions were changed.
 
 Browser review uses the actual local application at 393 × 852 and 360 × 780. The action dock remains visible on small phones. Selection, Flip, two-die assignment, inspector opening, reveal memory, round progression and match completion are exercised through the normal player interface. Native assets are synchronized; native platform compilation and physical-device rendering remain separate release checks.
+
+Hosted SPA paths preserve `/metrics` and `/game` when the asset service canonicalizes index documents. The private dashboard offers an explicit ChatGPT sign-in link when the API requires identity; authentication checks remain enforced.
 
 ## Maintenance
 
