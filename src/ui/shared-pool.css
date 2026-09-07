@@ -315,7 +315,7 @@
   line-height: 1.55;
   color: #bbc8b4;
 }
-.loadout-page .equipped-hand .card-rules p {
+.loadout-page .active-hand .card-rules p {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -351,4 +351,26 @@
 .premium-table .modal {
   max-height: 82dvh;
   overflow: auto;
+}
+
+.loadout-page .active-hand .card-affinity {
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  flex: 0 0 36px;
+  display: flex;
+  align-items: center;
+}
+.loadout-page .active-hand .card-affinity .affinity-line {
+  font-size: 8px;
+  line-height: 10px;
+}
+.loadout-page .active-hand .card-affinity .affinity-line > span:first-child {
+  display: none;
+}
+.loadout-page .active-hand .card-affinity .affinity-line > span:last-child {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
