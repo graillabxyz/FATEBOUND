@@ -2,6 +2,7 @@ import { defineConfig } from "./tooling/sites/node_modules/vite/dist/node/index.
 import { sites } from "./tooling/sites/node_modules/@openai/sites-vite-plugin/dist/index.js";
 export default defineConfig({
   plugins: [sites()],
+  publicDir: false,
   build: {
     ssr: "server/worker.ts",
     outDir: "dist/server",
