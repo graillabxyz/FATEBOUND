@@ -1,0 +1,2163 @@
+Build the initial production-quality foundation for a MOBILE-ONLY competitive freemium strategy game based on folklore, Legends, reusable cards, customizable dice, shared Fate, hidden information, prediction, bluffing, and deterministic tactical decision-making.
+
+The game should feel like a very small TCG in terms of collecting, customization, matchups, mastery, ranked play, cosmetics, and identity, but it must be dramatically easier to understand than a traditional TCG.
+
+The core philosophy is:
+
+RNG should create the puzzle.
+
+RNG should NOT decide who wins.
+
+Intelligence, prediction, build construction, tactical planning, resource management, opponent knowledge, bluffing, and adaptation should determine the winner.
+
+The game should be designed from the beginning as a portrait-oriented mobile game for iOS and Android.
+
+Do not design a desktop-first interface and shrink it later.
+
+The entire UX should feel native to a phone.
+
+Use large touch targets, thumb-friendly controls, strong visual hierarchy, fast transitions, short matches, minimal text, and readable cards.
+
+The initial target is approximately 3–5 minute competitive matches.
+
+==================================================
+
+1. CORE GAME IDENTITY
+   ==================================================
+
+Working title can temporarily be:
+
+FATEBOUND
+
+This is a placeholder and should be isolated in config/constants so it can easily be renamed later.
+
+The fantasy setting is based on folklore and mythological beings from different regions of the world.
+
+Avoid building a generic Tolkien/D&D fantasy world.
+
+Instead, the game should feel like a stylized meeting point between different global folklore traditions.
+
+The first release prototype should contain only SIX Legends.
+
+Each should represent a different region/cultural tradition and have a clearly different mechanical identity.
+
+Initial Legends:
+
+1. BASAJAUN
+   Region: Basque Country / Pyrenees
+   Identity: Ancient forest guardian
+   Playstyle: Guardian / Nature / endurance / protection / stored strength
+   Visual tone: massive, ancient, mossy, wooded, protective, mysterious
+
+2. ANANSI
+   Region: West Africa
+   Identity: Trickster / storyteller / spider
+   Playstyle: deception / reassignment / manipulation / prediction
+   Visual tone: elegant, clever, symbolic web motifs, mysterious rather than cartoonish
+
+3. TENGU
+   Region: Japan
+   Identity: Mountain warrior / spirit
+   Playstyle: speed / counterplay / precision / stance manipulation
+   Visual tone: mountain wind, red accents, feathers, restrained martial energy
+
+4. LESHY
+   Region: Slavic folklore
+   Identity: Forest spirit / shapeshifter
+   Playstyle: transformation / adaptation / board-state manipulation
+   Visual tone: ancient woodland, bark, animal forms, fog, deep forest
+
+5. QUETZALCOATL
+   Region: Mesoamerica
+   Identity: Feathered serpent / celestial power
+   Playstyle: momentum / sacrifice / energy conversion / powerful chained turns
+   Visual tone: feathered serpent motifs, jade, sky, sun, ritual geometry
+
+6. MĀUI
+   Region: Polynesian mythology
+   Identity: Hero / trickster / shapeshifter
+   Playstyle: bold tactical gambits / risk conversion / stealing tempo / turning disadvantage into advantage
+   Visual tone: ocean, carved motifs, rope, hooks, sun, wave movement
+
+Treat these characters respectfully.
+
+The game should be inspired by folklore, not present itself as an authoritative historical or religious source.
+
+Keep lore text concise and clearly labeled as game interpretation where appropriate.
+
+==================================================
+2. LOADOUT STRUCTURE
+====================
+
+There are NO traditional decks.
+
+There is NO draw pile.
+
+There is NO discard pile.
+
+There is NO opening hand RNG.
+
+There is NO random card draw.
+
+Each player builds a fixed combat loadout consisting of:
+
+1 Legend
+4 reusable Cards
+3 Dice
+
+Total gameplay pieces selected before battle:
+
+8 pieces.
+
+The Legend is always public.
+
+The 4 cards are private at the start of the match.
+
+The 3 equipped dice are public.
+
+The player has access to all 4 cards during the entire match.
+
+Cards are reusable.
+
+Cards should not normally be destroyed permanently.
+
+==================================================
+3. INFORMATION MODEL
+====================
+
+PUBLIC INFORMATION:
+
+Legend
+Legend HP
+Legend passive ability
+Equipped dice
+Visible dice faces after Fate resolves
+Control resource
+Status effects
+Previously revealed cards
+Previous actions
+Current round
+Opponent rank presentation
+Opponent cosmetics
+
+PRIVATE INFORMATION:
+
+The identity of cards that have never been revealed
+Current secret card assignment before reveal
+Current tactical intent
+
+When a hidden card is played for the first time, it becomes permanently KNOWN to the opponent for the rest of that match.
+
+After resolution, the card returns to the player's hand mechanically, but the opponent can now see that the player owns that card.
+
+Opponent hand display should therefore evolve like:
+
+? / ? / ? / ?
+
+then:
+
+Known Card / ? / ? / ?
+
+then:
+
+Known Card / Known Card / ? / ?
+
+etc.
+
+Do not force players to memorize revealed cards manually.
+
+The UI should remember and display known opponent cards.
+
+==================================================
+4. CORE DICE PHILOSOPHY
+=======================
+
+Dice are a core collectible gameplay system.
+
+Supported die sizes should be architected from the beginning for:
+
+d4
+d6
+d8
+d10
+d12
+d20
+
+The first six Legends may initially use only a subset such as:
+
+d6
+d8
+d10
+d12
+
+but the system must support all six standard sizes.
+
+Dice are NOT simply random resource generators.
+
+Every die consists of ORDERED FACES.
+
+A standard d6 might conceptually contain:
+
+1
+2
+3
+4
+5
+6
+
+A custom d6 might contain:
+
+Blank
+2
+3
+4
+Guard
+Strike
+
+Or:
+
+Swap
+2
+Blank
+Steal
+5
+Redirect
+
+Custom dice trade raw numerical consistency for unique utility.
+
+Powerful faces must be balanced by weaker faces, blanks, lower values, narrower applications, or some other measurable cost.
+
+Create a data-driven face-budget model so future dice can be numerically evaluated.
+
+Do not hard-code individual dice logic into UI components.
+
+Each die should be defined through structured data.
+
+Example conceptual schema:
+
+id
+name
+size
+faceCount
+faces[]
+tags[]
+compatibleLegendTags[]
+rarity
+mechanicalVersion
+cosmeticSkinId
+description
+
+Each face should support something like:
+
+type: number | symbol | blank
+value
+effectId
+displayIcon
+balanceWeight
+
+Mechanical dice and cosmetic dice skins must be separate systems.
+
+A player must NEVER gain gameplay power from buying a cosmetic die skin.
+
+==================================================
+5. SHARED FATE SYSTEM
+=====================
+
+This system is critical.
+
+Do NOT allow one player to simply roll better than the other.
+
+Instead, both players receive the SAME underlying random Fate positions.
+
+Example:
+
+Fate generates:
+
+Face Position 2
+Face Position 5
+Face Position 3
+
+Player A's first equipped die lands on its own face 2.
+Player B's first equipped die lands on its own face 2.
+
+Player A's second die lands on its own face 5.
+Player B's second die lands on its own face 5.
+
+And so on.
+
+Therefore both players are exposed to the same random event.
+
+Their different equipped dice interpret that Fate differently.
+
+This is the central competitive fairness principle.
+
+Randomness determines the situation.
+
+The player's build and decisions determine the result.
+
+Use a server-authoritative or otherwise deterministic match seed architecture so both clients can reproduce the same Fate state reliably.
+
+The game should eventually support replay verification.
+
+==================================================
+6. CONTROL RESOURCE
+===================
+
+Each round, each player receives a small amount of CONTROL.
+
+Prototype with:
+
+2 Control per round.
+
+Control resets every round.
+
+Control does not bank unless a special future card explicitly allows it.
+
+Control should allow deterministic dice manipulation.
+
+Initial universal actions:
+
+1 Control:
+SHIFT a numbered die one step higher or lower where valid.
+
+2 Control:
+FLIP a die to its designed opposite face.
+
+Each die definition should know which face is opposite which other face.
+
+For example on a d6:
+
+1 ↔ 6
+2 ↔ 5
+3 ↔ 4
+
+Custom dice follow the same positional principle.
+
+If face 1 is Blank and face 6 is Strike, flipping Blank creates Strike.
+
+This makes bad-looking faces tactically meaningful because they may have strong opposites.
+
+Avoid making reroll the default manipulation mechanic.
+
+Rerolls reintroduce gambling.
+
+Manipulation should primarily be deterministic.
+
+Future abilities may allow rerolls as special mechanics.
+
+==================================================
+7. ROUND STRUCTURE
+==================
+
+Build the battle loop around this sequence:
+
+PHASE 1:
+FATE
+
+Generate three shared Fate face positions.
+
+Animate Fate visually.
+
+PHASE 2:
+ROLL
+
+Both players' equipped dice animate and resolve to the relevant faces.
+
+The same Fate positions apply to both players.
+
+PHASE 3:
+CONTROL
+
+Players inspect their dice and optionally spend Control to manipulate them.
+
+PHASE 4:
+ASSIGN
+
+Players secretly assign their dice to actions.
+
+A die may be assigned to:
+
+A card
+Legend ability
+Universal Guard
+Potential future contextual action
+
+Players may use fewer than all three dice.
+
+Some cards may require two dice.
+
+PHASE 5:
+LOCK
+
+Player confirms their assignments.
+
+Show a clear locked state.
+
+PHASE 6:
+REVEAL
+
+Both players' selected cards and assignments are revealed simultaneously.
+
+PHASE 7:
+RESOLVE
+
+Resolve effects according to a deterministic priority system.
+
+PHASE 8:
+CLEANUP
+
+Apply status expiry.
+Return reusable cards to hand.
+Update known-card state.
+Reset Control.
+Advance round.
+
+Then begin next Fate.
+
+==================================================
+8. CARD SYSTEM
+==============
+
+The player brings exactly 4 cards.
+
+Cards remain usable throughout the match.
+
+No draw.
+No discard.
+No shuffle.
+
+Cards should have extremely concise text.
+
+Target maximum:
+
+approximately 15–25 words of mechanical rules text.
+
+A player should understand a card in seconds.
+
+Cards can require:
+
+specific number
+minimum number
+number range
+symbol
+multiple dice
+total value
+specific die type
+specific face property
+Control cost
+current game-state condition
+
+Examples:
+
+CRUSH
+7+
+Deal 4 damage.
+
+ANCIENT ROOT
+1–3
+Gain 4 Guard.
+
+WEB SHIFT
+Swap
+Move two enemy assignments.
+
+HERENSUGE
+Two dice, total 12+
+Deal 6 damage.
+
+Cards can be:
+
+Offensive
+Defensive
+Manipulation
+Counter
+Recovery
+Setup
+Transformation
+Tempo
+Prediction
+Status
+Finisher
+
+Do NOT create unnecessary traditional TCG categories unless mechanically useful.
+
+Keep the system very small.
+
+Cards should be data driven.
+
+==================================================
+9. LEGENDS
+==========
+
+Each Legend should have:
+
+Name
+Region
+Short lore
+HP
+Passive ability
+Optional active ability
+Allowed dice-slot configuration
+Compatible card tags
+Visual identity
+Animation profile
+Mastery progression
+
+Prototype HP around:
+
+18–22 HP
+
+Test 20 HP as baseline.
+
+Each Legend should have a distinct gameplay philosophy.
+
+Suggested prototype identities:
+
+BASAJAUN
+20 HP
+Guardian / Nature
+Dice:
+d12 / d8 / d6
+Passive:
+First Guard gained each round gets +1.
+
+ANANSI
+18 HP
+Trickster
+Dice:
+d8 / d8 / d8
+Passive:
+First assignment manipulation each round receives a small advantage.
+
+TENGU
+18 HP
+Precision / Counter
+Dice:
+d10 / d8 / d6
+Passive:
+Gain a bonus when exactly matching a card's preferred value or range.
+
+LESHY
+21 HP
+Adaptive / Transform
+Dice:
+d10 / d8 / d8
+Passive:
+Once per round can alter how one card interprets a number band.
+
+QUETZALCOATL
+19 HP
+Momentum / Chain
+Dice:
+d12 / d10 / d6
+Passive:
+Rewards using different types of actions consecutively.
+
+MĀUI
+20 HP
+Gambit / Tempo
+Dice:
+d10 / d10 / d6
+Passive:
+Can gain benefits from intentionally leaving one die unused or converting defense into initiative.
+
+These exact abilities can be refined during implementation.
+
+Do not overcomplicate the first six Legends.
+
+==================================================
+10. STARTER CARD CONTENT
+========================
+
+Create enough content for every Legend to have meaningful build choices.
+
+For prototype:
+
+12 compatible cards per Legend.
+
+That gives:
+
+72 total gameplay cards.
+
+Players only equip 4.
+
+Not every card has to be completely exclusive to a single Legend.
+
+Some cards can share regional, archetype, or universal tags.
+
+Keep early balance intentionally readable.
+
+Avoid extremely complex interactions.
+
+Each Legend should support at least three broad approaches.
+
+Example Basajaun:
+
+Defensive Guardian
+Counterattack
+Heavy Strength
+
+Example Anansi:
+
+Assignment manipulation
+Prediction
+Tempo disruption
+
+Example Tengu:
+
+Precision attacks
+Counter stance
+Speed
+
+Example Leshy:
+
+Adaptation
+Transformation
+Control
+
+Example Quetzalcoatl:
+
+Chaining
+Momentum
+Big conversion turns
+
+Example Māui:
+
+Tempo stealing
+Calculated gambits
+Turning weak positions into strong turns
+
+==================================================
+11. WIN CONDITION
+=================
+
+Primary win condition:
+
+Reduce opposing Legend to 0 HP.
+
+Prototype match length:
+
+maximum 7 rounds.
+
+If both remain alive after round 7:
+
+higher HP wins.
+
+If HP is tied, use deterministic secondary scoring.
+
+Possible secondary metric:
+
+total effective damage dealt.
+
+Do not use another random tiebreaker.
+
+Target average match duration:
+
+3–5 minutes.
+
+==================================================
+12. BATTLEFIELD UI
+==================
+
+Mobile portrait only.
+
+The battlefield must be readable with one hand.
+
+Suggested screen hierarchy:
+
+TOP:
+
+Opponent profile strip
+Opponent avatar
+Rank badge
+Legend name
+Legend HP
+Status effects
+
+Immediately beneath:
+
+Opponent Legend card/portrait
+
+Opponent known-hand row:
+4 small card backs / revealed known cards
+
+Opponent dice row:
+3 visible dice
+
+CENTER:
+
+Round indicator
+
+Fate display
+
+Current phase text
+
+Shared animation / combat space
+
+Potential status stack
+
+BOTTOM-MIDDLE:
+
+Player Legend
+
+Player HP
+
+Player 4-card private hand
+
+BOTTOM:
+
+Player three dice
+
+Control resource
+
+Confirm / Lock button
+
+The player hand should be thumb accessible.
+
+Dice should feel physical and draggable.
+
+Allow:
+
+tap die → tap destination
+
+and
+
+drag die → destination
+
+Support both interaction styles.
+
+The final match UI should not require tiny precision dragging.
+
+==================================================
+13. CARD VISUAL LAYOUT
+======================
+
+Cards must remain readable on a phone.
+
+Each card should contain:
+
+Top:
+Card name
+
+Small secondary line:
+Archetype / folklore tag
+
+Center:
+Large illustration
+
+Lower section:
+Activation requirement prominently displayed
+
+Effect text
+
+Bottom:
+Small lore/flavor line if space allows
+
+The activation requirement must be visually stronger than the flavor text.
+
+Example:
+
+CRUSH
+
+[illustration]
+
+7+
+
+Deal 4 damage.
+
+Cards should not resemble miniature legal documents.
+
+Use large typography.
+
+Avoid MTG-like paragraph density.
+
+==================================================
+14. LEGEND VISUAL LAYOUT
+========================
+
+Legend card is visually larger and more prestigious.
+
+Include:
+
+Legend illustration
+Name
+Region
+Archetype
+HP
+Passive
+Dice slots
+
+Legend art should dominate.
+
+The player should identify an opponent's Legend instantly.
+
+==================================================
+15. DICE UI
+===========
+
+Dice are one of the game's central collectible/status systems.
+
+They must feel tactile.
+
+Dice should:
+
+roll with short physics-style animation
+bounce lightly
+settle clearly
+display symbols cleanly
+support distinct material skins
+have satisfying audio
+react to Control manipulation
+animate when assigned
+animate again during resolution
+
+Control SHIFT:
+
+die rotates one face step.
+
+Control FLIP:
+
+die rotates dramatically to opposite face.
+
+Never make dice effects too long.
+
+Gameplay pacing matters more than spectacle.
+
+Target most dice animations:
+
+approximately 250–700ms.
+
+Rare cosmetic skins may add subtle effects without delaying gameplay.
+
+==================================================
+16. BATTLE ANIMATIONS
+=====================
+
+Keep combat visually strong but fast.
+
+Cards:
+
+rise from hand
+flip/reveal
+move slightly toward center
+trigger effect
+return
+
+Attack:
+short movement / impact / particle effect
+HP updates immediately
+
+Guard:
+shield / bark / web / wind etc depending on theme
+
+Manipulation:
+show clear directional relationship between affected dice
+
+Damage:
+small camera response
+floating damage number
+HP bar update
+
+Do not make mobile combat effects overwhelming.
+
+Clarity first.
+
+==================================================
+17. HOME SCREEN
+===============
+
+Create a polished mobile home screen.
+
+Primary hierarchy:
+
+Large central PLAY button.
+
+Top:
+Player avatar
+Username
+Level
+Currencies
+
+Main:
+Current selected Legend
+Current rank
+Season information
+
+Bottom navigation:
+
+HOME
+LOADOUT
+LEGENDS
+PASS
+SOCIAL
+
+Optional overflow/menu:
+
+Profile
+Collection
+Settings
+Inbox
+Help
+
+Keep persistent navigation in the same physical location throughout the app.
+
+Do not shift navigation between screens.
+
+==================================================
+18. PLAY MENU
+=============
+
+Tap PLAY.
+
+Show modes:
+
+RANKED
+CASUAL
+TRAINING
+
+Initially implement:
+
+Ranked
+Casual
+AI Training
+
+Future slots may include:
+
+Events
+Friend Challenge
+Draft-like special modes
+
+But do not implement unnecessary modes yet.
+
+==================================================
+19. LOADOUT UI
+==============
+
+The loadout screen is a critical feature.
+
+Display:
+
+Selected Legend large at top.
+
+CARD HAND
+
+4 active card slots.
+
+DICE
+
+3 active dice slots.
+
+Below:
+
+available cards and dice.
+
+Filtering:
+
+Legend-compatible
+Archetype
+Region
+Effect category
+Owned
+Favorites
+
+The entire active build should remain visible without complicated menus.
+
+A player should immediately understand:
+
+1 Legend
+4 cards
+3 dice
+
+Add:
+
+save loadout
+duplicate loadout
+rename loadout
+
+Allow several saved loadouts per Legend.
+
+==================================================
+20. COLLECTION
+==============
+
+Collection categories:
+
+LEGENDS
+CARDS
+DICE
+COSMETICS
+
+Cosmetics category can include:
+
+Legend Skins
+Card Backs
+Card Frames
+Dice Skins
+Dice Trails
+Battlefield Themes
+Avatars
+Titles
+Emotes
+Victory Effects
+
+Provide locked previews.
+
+Players should be able to inspect cosmetics they do not own.
+
+==================================================
+21. FREEMIUM PHILOSOPHY
+=======================
+
+Do NOT make the game pay-to-win.
+
+Purchased cosmetics must not increase gameplay power.
+
+Players should be able to become competitively viable without spending money.
+
+Gameplay unlock progression should be reasonable.
+
+Monetization should focus strongly on:
+
+Legend skins
+Dice skins
+Card backs
+Frames
+Profiles
+Titles
+Emotes
+Battlefield themes
+Victory effects
+Battle Pass
+Bundles
+
+Players can unlock gameplay content through normal progression.
+
+Avoid selling random loot boxes in the initial architecture.
+
+If random rewards are ever introduced later, keep them cosmetic and legally configurable by region.
+
+==================================================
+22. CURRENCIES
+==============
+
+Prototype with only two currencies.
+
+COINS
+
+Earned through gameplay.
+
+Used for:
+gameplay unlocks
+basic cosmetics
+certain progression items
+
+GEMS
+
+Premium currency.
+
+Used for:
+premium cosmetics
+Battle Pass
+featured shop items
+
+Do NOT introduce five currencies.
+
+Keep the economy understandable.
+
+==================================================
+23. ACCOUNT LEVEL
+=================
+
+Players have a general account level.
+
+Earn XP from matches.
+
+Account level unlocks:
+
+Coins
+basic cosmetics
+profile features
+new Legends
+cards
+dice options
+
+Do not make account level equal competitive skill.
+
+Rank remains separate.
+
+==================================================
+24. LEGEND MASTERY
+==================
+
+Each Legend has independent mastery.
+
+Example:
+
+Basajaun Mastery Level 1–50.
+
+Earn mastery XP by playing Basajaun.
+
+Rewards:
+
+Legend-specific card back
+avatar
+title
+skin recolor
+emote
+dice skin
+animated frame
+high-level prestige cosmetic
+
+Important:
+
+Some of the best status cosmetics should only be earned.
+
+They should NOT be purchasable.
+
+Example:
+
+BASAJAUN MASTER
+
+Win 100 ranked matches with Basajaun.
+
+Reward:
+
+exclusive title + forest mastery frame.
+
+This creates genuine prestige.
+
+==================================================
+25. RANKED SYSTEM
+=================
+
+Create initial ranked scaffolding.
+
+Possible ranks:
+
+Stone
+Bronze
+Silver
+Gold
+Platinum
+Diamond
+Mythic
+
+Use subdivisions where useful.
+
+Example:
+
+Gold III
+Gold II
+Gold I
+
+Mythic can show leaderboard position.
+
+Example:
+
+MYTHIC #347
+
+Rank should be visible in:
+
+Profile
+Home screen
+Match introduction
+Match results
+Leaderboard
+
+Add seasonal resets.
+
+Rank rewards should primarily be cosmetic.
+
+Top-ranked players should receive exclusive prestige cosmetics.
+
+==================================================
+26. MATCH INTRO
+===============
+
+Before battle:
+
+brief versus screen.
+
+Show:
+
+Player name
+Legend
+Legend skin
+Rank
+Selected title
+Dice cosmetics
+
+VERSUS
+
+Opponent
+
+Keep intro approximately 2–3 seconds.
+
+Allow tap to skip after first fraction of animation where possible.
+
+==================================================
+27. MATCH RESULT
+================
+
+After match:
+
+VICTORY or DEFEAT
+
+Then show:
+
+Rank change
+Account XP
+Legend mastery XP
+Coins earned
+Battle Pass XP
+Quest progress
+
+Keep this screen satisfying but fast.
+
+Include:
+
+PLAY AGAIN
+
+and:
+
+HOME
+
+==================================================
+28. BATTLE PASS
+===============
+
+Build a seasonal Battle Pass framework from the beginning.
+
+Call it temporarily:
+
+SEASON PATH
+
+Structure:
+
+Free Track
+Premium Track
+
+Approximately:
+
+40–60 levels per season.
+
+Each level requires season XP.
+
+Earn season XP from:
+
+playing matches
+daily quests
+weekly quests
+season challenges
+
+Free rewards:
+
+Coins
+basic cosmetics
+some cards
+dice gameplay unlocks
+avatars
+small amounts of premium currency
+
+Premium rewards:
+
+Legend skins
+premium dice skins
+animated card backs
+emotes
+frames
+battlefield themes
+premium currency
+victory effects
+
+Never place competitively necessary gameplay power exclusively behind the premium track.
+
+Battle Pass UI:
+
+Horizontal or vertical progression path designed specifically for portrait mobile.
+
+Prefer a vertical scroll path because portrait is the primary orientation.
+
+Top:
+
+Season title
+Season art
+Time remaining
+Current level
+XP progress
+
+Below:
+
+scrolling reward ladder.
+
+Every level clearly shows:
+
+Free reward
+Premium reward
+
+Current level should be visually centered.
+
+Include:
+
+CLAIM
+CLAIM ALL
+UPGRADE PASS
+
+==================================================
+29. QUESTS
+==========
+
+Create:
+
+3 Daily Quests
+3 Weekly Quests
+Season Challenges
+
+Examples:
+
+Play 3 matches.
+Win 2 matches.
+Use Guard 8 times.
+Play 3 matches as Basajaun.
+Reveal 10 cards.
+Use Control 15 times.
+Win without revealing all four cards.
+
+Avoid quests that force players to intentionally play badly.
+
+Include reroll/replace functionality for one daily quest.
+
+==================================================
+30. SHOP
+========
+
+Mobile shop tabs:
+
+FEATURED
+LEGENDS
+DICE
+COSMETICS
+BUNDLES
+
+Avoid overwhelming storefront design.
+
+Show strong visual previews.
+
+Featured cosmetic example:
+
+OBSIDIAN FATE D12
+
+Preview:
+3D rotating die
+roll animation
+special sound
+subtle particle effect
+
+Clearly label cosmetic-only items.
+
+==================================================
+31. SOCIAL
+==========
+
+Community is a core pillar.
+
+Initial social architecture should support:
+
+Friends list
+Add friend
+Recent opponents
+Friend status
+Direct challenge
+Profile viewing
+Leaderboard
+
+Future-ready hooks:
+
+Guilds / Circles
+Spectating
+Replay sharing
+Clan systems
+Community tournaments
+
+Do not implement full guilds yet unless trivial.
+
+Build data models so they can be added later.
+
+==================================================
+32. PLAYER PROFILE
+==================
+
+Profile should showcase status.
+
+Include:
+
+Avatar
+Username
+Title
+Current rank
+Highest rank
+Favorite Legend
+Legend mastery
+Total wins
+Win streak
+Selected achievements
+Selected badges
+Featured dice set
+Featured cosmetic
+Season history
+
+Allow players to choose several display badges.
+
+Profile is one of the game's core show-off spaces.
+
+==================================================
+33. COSMETIC STATUS SYSTEM
+==========================
+
+Cosmetics should be divided conceptually into:
+
+PURCHASABLE PRESTIGE
+
+Rare skins
+premium dice
+animated card backs
+battlefields
+
+and:
+
+EARNED PRESTIGE
+
+Top 500 frames
+Mastery cosmetics
+Win streak titles
+Rank cosmetics
+Season badges
+Tournament cosmetics
+
+Earned prestige must visibly feel different from purchased cosmetics.
+
+This is important.
+
+Players should recognize:
+
+"That person achieved something."
+
+==================================================
+34. EMOTES
+==========
+
+Add a simple non-toxic emote system.
+
+During battle allow a small set such as:
+
+Hello
+Good Move
+Wow
+Thinking
+Well Played
+GG
+
+Cosmetic emote packs can later contain themed animated expressions.
+
+Include mute opponent functionality.
+
+Do not include unrestricted battle chat initially.
+
+==================================================
+35. TUTORIAL
+============
+
+The tutorial must teach through play.
+
+Do not begin with long text panels.
+
+Tutorial sequence:
+
+1. Meet Legend.
+2. Fate rolls.
+3. Assign die to card.
+4. Reveal.
+5. Deal damage.
+6. Learn Guard.
+7. Learn Control.
+8. Learn hidden cards.
+9. Learn opponent revealed-card memory.
+10. Finish match.
+
+Target tutorial completion:
+
+under 5 minutes.
+
+After tutorial:
+
+give player one starter Legend and starter loadout.
+
+Then allow selecting between several starter Legends soon afterward.
+
+==================================================
+36. INITIAL ONBOARDING
+======================
+
+Suggested first-session flow:
+
+Splash
+Account creation / guest
+Short cinematic/logo
+Choose display name
+Tutorial
+Choose first Legend
+Starter loadout explanation
+First AI match
+Reward screen
+Home
+
+Do not force store or Battle Pass messaging during the first few minutes.
+
+Teach the game first.
+
+==================================================
+37. ART DIRECTION
+=================
+
+Aim for:
+
+premium painterly fantasy
+folklore-inspired
+atmospheric
+stylized but mature
+clean silhouettes
+strong material rendering
+subtle magic
+not overly fractal
+not visually noisy
+not generic mobile anime
+not cartoon gacha
+
+Cards should feel collectible.
+
+The world UI itself should remain restrained enough that folklore art remains the focus.
+
+==================================================
+38. AUDIO
+=========
+
+Create audio architecture for:
+
+Dice roll
+Dice settle
+Face symbol
+Control shift
+Control flip
+Card reveal
+Attack
+Guard
+Status
+Damage
+Victory
+Defeat
+Match found
+Menu interaction
+
+Use different die-material sounds later:
+
+wood
+stone
+bone
+metal
+glass
+obsidian
+
+Cosmetic sound must not interfere with clarity or become louder than gameplay-critical sound.
+
+==================================================
+39. NETWORK ARCHITECTURE
+========================
+
+The game must be architected for authoritative multiplayer.
+
+Do not trust clients with:
+
+Fate generation
+HP
+rank changes
+currency
+match results
+ownership
+reward claims
+
+The client submits intended actions.
+
+Server validates:
+
+owned loadout
+valid assignments
+Control usage
+card conditions
+effect priority
+damage
+round state
+
+Design matchmaking abstraction for:
+
+Casual
+Ranked
+Friend Challenge
+
+Include reconnection support.
+
+A short mobile connection interruption should not immediately destroy a match.
+
+==================================================
+40. MATCH TIMER
+===============
+
+Matches should move quickly.
+
+Prototype:
+
+Control + Assignment decision window:
+
+approximately 12 seconds.
+
+Allow tweaking through config.
+
+When timer expires:
+
+use currently locked choices.
+
+If none are locked:
+
+automatically choose safe default behavior such as unassigned dice converting to Guard where legal.
+
+Do not randomly select offensive cards for an inactive player.
+
+==================================================
+41. GAME STATE MACHINE
+======================
+
+Create an explicit match state machine.
+
+Example:
+
+WAITING
+INTRO
+ROUND_START
+FATE
+ROLLING
+CONTROL
+ASSIGNMENT
+LOCKED
+REVEAL
+RESOLUTION
+CLEANUP
+ROUND_END
+MATCH_END
+
+Do not allow UI components to independently infer match state.
+
+The authoritative match state should drive the interface.
+
+==================================================
+42. EFFECT ENGINE
+=================
+
+Build a generic effect engine early.
+
+Avoid implementing cards as enormous switch statements.
+
+Effects should support primitives such as:
+
+DAMAGE
+HEAL
+GUARD
+SHIFT_DIE
+FLIP_DIE
+SWAP_ASSIGNMENT
+BLOCK_EFFECT
+STUN_CARD
+MODIFY_REQUIREMENT
+GAIN_CONTROL
+LOSE_CONTROL
+STATUS
+CONDITIONAL
+MULTIPLIER
+CONVERT
+COPY
+CLEANSE
+
+Future cards should be composable from these primitives.
+
+==================================================
+43. DATA-DRIVEN CONTENT
+=======================
+
+Legends, cards, dice, cosmetics, quests, ranks, Battle Pass rewards, and shop items should be config/data-driven wherever practical.
+
+Do not scatter game values across UI code.
+
+We need to balance the game frequently.
+
+Important values should exist in central structured definitions.
+
+==================================================
+44. ANALYTICS EVENTS
+====================
+
+Create a clean analytics event layer even if provider integration is stubbed initially.
+
+Track conceptually:
+
+tutorial_started
+tutorial_completed
+match_started
+match_completed
+match_abandoned
+legend_selected
+loadout_changed
+card_used
+control_used
+dice_face_result
+shop_viewed
+cosmetic_previewed
+purchase_started
+purchase_completed
+battle_pass_viewed
+battle_pass_upgraded
+quest_completed
+rank_changed
+
+Do not include unnecessary personal data.
+
+==================================================
+45. NOTIFICATIONS
+=================
+
+Build placeholder support for mobile push notifications.
+
+Potential notifications:
+
+Daily quest refresh
+Weekly quest refresh
+Season ending
+Friend challenge
+New cosmetic/event
+Battle Pass reward available
+
+Do not spam players.
+
+All categories should later be independently configurable.
+
+==================================================
+46. SETTINGS
+============
+
+Settings should include:
+
+Music volume
+SFX volume
+Haptics
+Battery saver
+Reduced motion
+Notifications
+Language
+Privacy
+Account
+Support
+
+Reduced motion must meaningfully reduce:
+
+dice bounce
+camera movement
+particles
+card flourish
+
+==================================================
+47. ACCESSIBILITY
+=================
+
+Do not rely purely on color.
+
+Dice symbols must have distinct shapes.
+
+Statuses must use icon + optional text.
+
+Use strong contrast.
+
+Support readable text scaling where feasible.
+
+Important buttons require generous touch targets.
+
+==================================================
+48. TECHNICAL IMPLEMENTATION
+============================
+
+Choose a sensible modern cross-platform mobile architecture suitable for iOS and Android.
+
+Prefer a shared codebase.
+
+Structure the project cleanly around:
+
+app shell
+navigation
+game state
+match engine
+network layer
+content definitions
+profile
+economy
+social
+shop
+battle pass
+collection
+analytics
+audio
+animation
+shared UI components
+
+Keep game rules separated from rendering/UI.
+
+The match engine should be testable without running the visual client.
+
+Do not prematurely overengineer backend infrastructure, but create clean interfaces so a real backend can replace local mocks.
+
+For the initial implementation, use mocked/local data where server services do not yet exist.
+
+Clearly mark mocked services.
+
+==================================================
+49. INITIAL IMPLEMENTATION PRIORITY
+===================================
+
+Implement in this order:
+
+PHASE 1
+
+Mobile app shell
+Navigation
+Home
+Basic profile
+Loadout screen
+Legend collection
+Card collection
+Dice collection
+
+PHASE 2
+
+Complete local battle engine
+Shared Fate
+Control
+Secret assignment
+Reveal
+Effect resolution
+Win condition
+Six Legends
+Initial cards
+Initial dice
+
+PHASE 3
+
+AI opponent capable of basic tactical play
+Tutorial
+Match result
+Progression
+
+PHASE 4
+
+Ranked UI
+Battle Pass UI
+Quests
+Shop
+Cosmetics
+Mastery
+Social shell
+
+PHASE 5
+
+Network abstraction and multiplayer readiness
+
+Do not block the playable local prototype on live backend infrastructure.
+
+==================================================
+50. AI OPPONENT
+===============
+
+The initial AI should not simply choose random actions.
+
+Create tactical scoring.
+
+AI should evaluate:
+
+expected damage
+expected defense
+revealed opponent cards
+likely hidden-card archetypes
+Control efficiency
+HP state
+round number
+possible lethal
+possible opponent lethal
+
+Implement multiple difficulty levels later.
+
+For now create:
+
+Training
+Normal
+
+==================================================
+51. TEST LOADOUTS
+=================
+
+Create one default loadout for each of the six Legends.
+
+Each default build should include:
+
+4 cards
+3 dice
+
+Ensure every starter loadout demonstrates its Legend's intended identity.
+
+Create a debug screen where developers can:
+
+choose both Legends
+choose loadouts
+set HP
+set round
+force Fate positions
+force dice faces
+add/remove Control
+reveal cards
+advance phases manually
+
+This debug battle laboratory is essential.
+
+==================================================
+52. BALANCE TOOLS
+=================
+
+Provide structured output/logging for:
+
+damage per round
+Guard per round
+Control spent
+card usage frequency
+face frequency
+match length
+win rate by Legend
+win rate by loadout
+first-player advantage
+cards revealed per match
+unused dice frequency
+
+Build simulation hooks so automated AI-vs-AI matches can eventually run thousands of games.
+
+==================================================
+53. VISUAL MATCH FEEL
+=====================
+
+The game should feel:
+
+calm while thinking
+fast during reveal
+satisfying during resolution
+
+The emotional rhythm should be:
+
+Fate rolls.
+
+Pause.
+
+Player evaluates.
+
+Cards and dice lock.
+
+Tension.
+
+Reveal.
+
+Fast consequence.
+
+Reset.
+
+Repeat.
+
+Avoid constant visual noise.
+
+==================================================
+54. FIRST BUILD DEFINITION OF DONE
+==================================
+
+The first meaningful build should allow:
+
+Launch app.
+
+Enter Home.
+
+Open Loadout.
+
+Choose one of six Legends.
+
+Choose 4 cards.
+
+Choose 3 compatible dice.
+
+Save loadout.
+
+Enter Training.
+
+Fight an AI opponent.
+
+Experience shared Fate.
+
+Manipulate dice with Control.
+
+Secretly assign dice.
+
+Reveal cards.
+
+Have opponent cards become permanently known after first reveal.
+
+Deal damage.
+
+Guard.
+
+Use different Legend strategies.
+
+Reach match conclusion.
+
+Receive a match-result screen.
+
+Gain mocked XP, Coins, Mastery XP, and Season XP.
+
+Return Home.
+
+Open Battle Pass.
+
+Open Collection.
+
+Preview cosmetics.
+
+Open Profile.
+
+See rank/mastery/status presentation.
+
+The first build does NOT need real-money purchases or final server infrastructure.
+
+It DOES need to feel like the foundation of the final product rather than a throwaway prototype.
+
+==================================================
+55. IMPORTANT DESIGN RULES
+==========================
+
+Preserve these rules unless there is a very strong technical reason not to:
+
+NO traditional decks.
+
+NO random draws.
+
+NO random opening hand.
+
+NO paid gameplay power.
+
+NO unequal dice RNG between players.
+
+NO massive rules text.
+
+NO long turns.
+
+NO desktop-first UI.
+
+NO unnecessary currencies.
+
+NO excessive card types.
+
+NO permanent card destruction as a common mechanic.
+
+NO uncontrolled complexity.
+
+The game's depth should come from:
+
+loadout construction
+Fate interpretation
+dice composition
+Control use
+hidden cards
+revealed-card memory
+prediction
+bluffing
+assignment
+timing
+matchup knowledge
+
+NOT from memorizing thousands of rules.
+
+==================================================
+56. DESIGN SYSTEM
+=================
+
+Build reusable components for:
+
+LegendCard
+GameplayCard
+CardBack
+Die
+DieSlot
+FateIndicator
+ControlCounter
+HealthBar
+RankBadge
+CurrencyCounter
+RewardTile
+BattlePassNode
+QuestTile
+PlayerProfileStrip
+KnownHandSlot
+MatchPhaseBanner
+PrimaryButton
+SecondaryButton
+Modal
+BottomNavigation
+CollectionGrid
+LoadoutSlot
+
+Use consistent spacing throughout the application.
+
+Bottom navigation must remain fixed.
+
+Primary controls should not shift unexpectedly between screens.
+
+==================================================
+57. DEVELOPMENT OUTPUT
+======================
+
+Begin by inspecting the current repository.
+
+If this is a new repository, establish the app cleanly.
+
+Before implementing major systems, create concise architecture documentation inside the repository describing:
+
+game loop
+match state machine
+content schema
+dice/Fate system
+effect system
+economy separation
+network authority model
+
+Then implement the actual app.
+
+Do not stop after writing a plan.
+
+Start building.
+
+Use placeholder artwork only where needed, but create visually intentional placeholder assets/components rather than raw grey boxes.
+
+At each major implementation point, keep the code runnable.
+
+Prioritize a complete vertical slice over dozens of disconnected screens.
+
+The most important result is:
+
+A clean, attractive, genuinely playable mobile battle between two of the Legends using the actual Fate + dice + hidden reusable-card system.
+
+Once that works correctly, extend the exact same architecture to the remaining four Legends and surrounding progression/freemium systems.

@@ -1,0 +1,50 @@
+{
+  "name": "fatebound",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build && node scripts/check-release.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "simulate": "node --import tsx scripts/simulate.ts",
+    "native:sync": "npm run build && cap sync",
+    "native:ios": "cap open ios",
+    "native:android": "cap open android",
+    "format": "prettier --write src tests scripts docs *.ts *.json *.html",
+    "format:check": "prettier --check src tests scripts",
+    "dev:lab": "vite --host 127.0.0.1 --mode internal --port 5174",
+    "metrics:server": "node --import tsx scripts/metrics-server.ts",
+    "build:internal": "tsc -b && vite build --mode internal --outDir dist-internal",
+    "build:site": "tsc -b && node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && vite build --mode internal --outDir dist/client && node tooling/sites/node_modules/vite/bin/vite.js build --config vite.site.config.ts",
+    "db:generate": "node tooling/sites/node_modules/drizzle-kit/bin.cjs generate --config drizzle.config.ts"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/haptics": "^7.0.2",
+    "@capacitor/ios": "^7.4.3",
+    "@capacitor/screen-orientation": "^7.0.2",
+    "@fontsource/cormorant-garamond": "^5.2.8",
+    "@fontsource/inter": "^5.2.6",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^4.7.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.20.5",
+    "typescript": "~5.9.2",
+    "vite": "^6.1.0",
+    "vitest": "^3.2.4"
+  }
+}

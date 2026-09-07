@@ -1,0 +1,353 @@
+{
+  "mechanicalVersion": 1,
+  "generatedAt": "2026-09-07T05:36:42.930Z",
+  "method": "Normal AI, default loadouts, paired seeds with seats reversed. Includes mirror matches. Heuristic play, not a proof of human balance.",
+  "games": 1200,
+  "averageRounds": 4.34,
+  "seatWins": [
+    423,
+    423
+  ],
+  "draws": 354,
+  "seatMismatches": 0,
+  "controlPerPlayerRound": 1.0510752688172043,
+  "unusedDicePerPlayerRound": 0.16033026113671275,
+  "cardsRevealedPerPlayerMatch": 3.1025,
+  "byLegend": {
+    "basajaun": {
+      "games": 406,
+      "wins": 162,
+      "draws": 120,
+      "damage": 8094,
+      "guard": 5122,
+      "rounds": 1614,
+      "winRate": 0.39901477832512317,
+      "damagePerRound": 5.014869888475836,
+      "guardPerRound": 3.1734820322180917
+    },
+    "anansi": {
+      "games": 406,
+      "wins": 130,
+      "draws": 124,
+      "damage": 7398,
+      "guard": 6330,
+      "rounds": 1964,
+      "winRate": 0.32019704433497537,
+      "damagePerRound": 3.7668024439918533,
+      "guardPerRound": 3.2230142566191446
+    },
+    "tengu": {
+      "games": 400,
+      "wins": 124,
+      "draws": 124,
+      "damage": 7112,
+      "guard": 3912,
+      "rounds": 1472,
+      "winRate": 0.31,
+      "damagePerRound": 4.831521739130435,
+      "guardPerRound": 2.657608695652174
+    },
+    "leshy": {
+      "games": 396,
+      "wins": 158,
+      "draws": 112,
+      "damage": 7722,
+      "guard": 7250,
+      "rounds": 2218,
+      "winRate": 0.398989898989899,
+      "damagePerRound": 3.4815148782687104,
+      "guardPerRound": 3.2687105500450855
+    },
+    "quetzalcoatl": {
+      "games": 396,
+      "wins": 164,
+      "draws": 116,
+      "damage": 7410,
+      "guard": 1624,
+      "rounds": 1172,
+      "winRate": 0.41414141414141414,
+      "damagePerRound": 6.322525597269625,
+      "guardPerRound": 1.3856655290102389
+    },
+    "maui": {
+      "games": 396,
+      "wins": 108,
+      "draws": 112,
+      "damage": 7380,
+      "guard": 6062,
+      "rounds": 1976,
+      "winRate": 0.2727272727272727,
+      "damagePerRound": 3.7348178137651824,
+      "guardPerRound": 3.067813765182186
+    }
+  },
+  "byLoadout": {
+    "starter-basajaun": {
+      "games": 406,
+      "wins": 162
+    },
+    "starter-anansi": {
+      "games": 406,
+      "wins": 130
+    },
+    "starter-tengu": {
+      "games": 400,
+      "wins": 124
+    },
+    "starter-leshy": {
+      "games": 396,
+      "wins": 158
+    },
+    "starter-quetzalcoatl": {
+      "games": 396,
+      "wins": 164
+    },
+    "starter-maui": {
+      "games": 396,
+      "wins": 108
+    }
+  },
+  "perRound": {
+    "1": {
+      "count": 1200,
+      "damage": 15882,
+      "guard": 4564,
+      "control": 2698
+    },
+    "2": {
+      "count": 1200,
+      "damage": 14220,
+      "guard": 4970,
+      "control": 2774
+    },
+    "3": {
+      "count": 994,
+      "damage": 8198,
+      "guard": 5522,
+      "control": 2204
+    },
+    "4": {
+      "count": 668,
+      "damage": 3812,
+      "guard": 4804,
+      "control": 1226
+    },
+    "5": {
+      "count": 474,
+      "damage": 1524,
+      "guard": 4120,
+      "control": 938
+    },
+    "6": {
+      "count": 366,
+      "damage": 990,
+      "guard": 3346,
+      "control": 628
+    },
+    "7": {
+      "count": 306,
+      "damage": 490,
+      "guard": 2974,
+      "control": 480
+    }
+  },
+  "cardUsage": {
+    "basajaun-herensuge": 1238,
+    "basajaun-ancient-root": 608,
+    "basajaun-barkskin": 822,
+    "basajaun-crush": 900,
+    "anansi-web-shelter": 1732,
+    "anansi-silken-cut": 1606,
+    "anansi-read-the-thread": 1860,
+    "anansi-web-shift": 414,
+    "tengu-gale-cut": 930,
+    "tengu-sky-sever": 876,
+    "leshy-branch-lash": 2142,
+    "leshy-wolf-shape": 1914,
+    "leshy-moss-mantle": 2162,
+    "quetzalcoatl-sun-lance": 870,
+    "quetzalcoatl-solar-ascent": 1038,
+    "maui-daring-feint": 1698,
+    "maui-hook-strike": 1258,
+    "maui-turnabout": 332,
+    "tengu-feather-guard": 444,
+    "tengu-perfect-riposte": 574,
+    "quetzalcoatl-feather-aegis": 360,
+    "maui-ocean-shelter": 554,
+    "quetzalcoatl-first-light": 38
+  },
+  "faceFrequency": {
+    "standard-d12:5": 252,
+    "standard-d8:7": 1778,
+    "standard-d6:2": 1060,
+    "standard-d12:11": 426,
+    "standard-d8:3": 1742,
+    "standard-d6:0": 708,
+    "standard-d12:9": 448,
+    "standard-d8:2": 1150,
+    "standard-d6:3": 1100,
+    "standard-d12:6": 294,
+    "standard-d8:5": 1424,
+    "standard-d6:5": 1216,
+    "anansi-d8-0:1": 190,
+    "standard-d8:4": 1462,
+    "standard-d12:4": 94,
+    "anansi-d8-0:4": 354,
+    "standard-d8:1": 1182,
+    "standard-d6:4": 1312,
+    "anansi-d8-0:7": 414,
+    "standard-d12:3": 84,
+    "anansi-d8-0:2": 184,
+    "standard-d8:0": 1022,
+    "standard-d12:1": 22,
+    "standard-d8:6": 1690,
+    "standard-d10:4": 972,
+    "standard-d6:1": 838,
+    "standard-d10:6": 1056,
+    "standard-d10:9": 1234,
+    "standard-d10:5": 800,
+    "standard-d10:3": 986,
+    "standard-d10:1": 506,
+    "standard-d10:8": 1172,
+    "standard-d10:7": 802,
+    "standard-d12:2": 44,
+    "anansi-d8-0:3": 270,
+    "anansi-d8-0:5": 228,
+    "standard-d10:2": 726,
+    "standard-d10:0": 560,
+    "anansi-d8-0:6": 298,
+    "anansi-d8-0:0": 26,
+    "standard-d12:8": 378,
+    "standard-d12:10": 468,
+    "standard-d12:7": 266,
+    "standard-d12:0": 10
+  },
+  "dieBudgets": [
+    {
+      "id": "standard-d4",
+      "mean": 1.25,
+      "variance": 0.3125,
+      "blankShare": 0,
+      "oppositeGain": 1.5
+    },
+    {
+      "id": "standard-d6",
+      "mean": 1.75,
+      "variance": 0.7291666666666666,
+      "blankShare": 0,
+      "oppositeGain": 2.5
+    },
+    {
+      "id": "standard-d8",
+      "mean": 2.25,
+      "variance": 1.3125,
+      "blankShare": 0,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "standard-d10",
+      "mean": 2.75,
+      "variance": 2.0625,
+      "blankShare": 0,
+      "oppositeGain": 4.5
+    },
+    {
+      "id": "standard-d12",
+      "mean": 3.25,
+      "variance": 2.9791666666666665,
+      "blankShare": 0,
+      "oppositeGain": 5.5
+    },
+    {
+      "id": "standard-d20",
+      "mean": 5.25,
+      "variance": 8.3125,
+      "blankShare": 0,
+      "oppositeGain": 9.5
+    },
+    {
+      "id": "basajaun-d12-0",
+      "mean": 2.75,
+      "variance": 2.9791666666666665,
+      "blankShare": 0.08333333333333333,
+      "oppositeGain": 4.5
+    },
+    {
+      "id": "basajaun-d8-1",
+      "mean": 1.875,
+      "variance": 1.484375,
+      "blankShare": 0.125,
+      "oppositeGain": 3
+    },
+    {
+      "id": "anansi-d8-0",
+      "mean": 1.875,
+      "variance": 1.484375,
+      "blankShare": 0.125,
+      "oppositeGain": 3
+    },
+    {
+      "id": "anansi-d8-1",
+      "mean": 1.875,
+      "variance": 1.484375,
+      "blankShare": 0.125,
+      "oppositeGain": 3
+    },
+    {
+      "id": "tengu-d10-0",
+      "mean": 2.3,
+      "variance": 2.1100000000000003,
+      "blankShare": 0.1,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "tengu-d8-1",
+      "mean": 1.875,
+      "variance": 1.484375,
+      "blankShare": 0.125,
+      "oppositeGain": 3
+    },
+    {
+      "id": "leshy-d10-0",
+      "mean": 2.3,
+      "variance": 2.1100000000000003,
+      "blankShare": 0.1,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "leshy-d8-1",
+      "mean": 1.875,
+      "variance": 1.484375,
+      "blankShare": 0.125,
+      "oppositeGain": 3
+    },
+    {
+      "id": "quetzalcoatl-d12-0",
+      "mean": 2.75,
+      "variance": 2.9791666666666665,
+      "blankShare": 0.08333333333333333,
+      "oppositeGain": 4.5
+    },
+    {
+      "id": "quetzalcoatl-d10-1",
+      "mean": 2.3,
+      "variance": 2.1100000000000003,
+      "blankShare": 0.1,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "maui-d10-0",
+      "mean": 2.3,
+      "variance": 2.1100000000000003,
+      "blankShare": 0.1,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "maui-d10-1",
+      "mean": 2.3,
+      "variance": 2.1100000000000003,
+      "blankShare": 0.1,
+      "oppositeGain": 3.5
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+export const GAME = {
+  title: "FATEBOUND",
+  subtitle: "Fate is shared. Victory is earned.",
+  version: 1,
+  maxRounds: 7,
+  controlPerRound: 2,
+  decisionMs: 12_000,
+  fateResolution: 120,
+  masteryMax: 50,
+  introMs: 1800,
+  phaseMs: {
+    FATE: 650,
+    ROLLING: 500,
+    LOCKED: 500,
+    REVEAL: 1100,
+    RESOLUTION: 1100,
+    CLEANUP: 450,
+    ROUND_START: 250,
+    ROUND_END: 300,
+  },
+  rewards: { xp: 90, coins: 35, mastery: 40, season: 75 },
+  season: {
+    id: "first-light",
+    name: "The First Light",
+    label: "SEASON 01",
+    endsAt: "2026-11-01T00:00:00Z",
+    levels: 50,
+    xpPerLevel: 150,
+  },
+} as const;
+export const RANKS = [
+  "Stone",
+  "Bronze",
+  "Silver",
+  "Gold",
+  "Platinum",
+  "Diamond",
+  "Mythic",
+];
+export const EMOTES = [
+  "Hello",
+  "Good move",
+  "Wow",
+  "Thinking",
+  "Well played",
+  "GG",
+];

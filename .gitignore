@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.DS_Store
+*.tsbuildinfo
+coverage/
+test-results/
+android/.gradle/
+android/local.properties
+ios/App/Pods/
+
+dist-internal/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env.local
+.env.*.local
