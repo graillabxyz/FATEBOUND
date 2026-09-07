@@ -1,13 +1,16 @@
 export type DieSize = 4 | 6 | 8 | 10 | 12 | 20;
 export type LegendId =
   "basajaun" | "anansi" | "tengu" | "leshy" | "quetzalcoatl" | "maui";
-export type SymbolId = "guard" | "strike" | "swap" | "steal" | "redirect";
+export type SymbolId =
+  "guard" | "strike" | "swap" | "steal" | "redirect" | "smash";
 export type Face = {
   type: "number" | "symbol" | "blank";
   value: number;
   effectId?: SymbolId;
   displayIcon: string;
   balanceWeight: number;
+  guardValue?: number;
+  tags?: string[];
 };
 export type DieDef = {
   id: string;
@@ -39,7 +42,11 @@ export type Predicate =
   | "unusedDie"
   | "threeActions"
   | "lowHP"
-  | "knownEnemy";
+  | "knownEnemy"
+  | "hasInitiative"
+  | "noInitiative"
+  | "heldDie"
+  | "firstAction";
 export type Primitive =
   | "DAMAGE"
   | "HEAL"
@@ -57,7 +64,10 @@ export type Primitive =
   | "MULTIPLIER"
   | "CONVERT"
   | "COPY"
-  | "CLEANSE";
+  | "CLEANSE"
+  | "REDIRECT"
+  | "COUNTERSTRIKE"
+  | "CANCEL";
 export type Effect = {
   type: Primitive;
   amount?: number;
@@ -68,9 +78,20 @@ export type Effect = {
   duration?: number;
   from?: "guard" | "hp";
   direction?: -1 | 1;
+  guardPierce?: number;
+  scaling?: "halfDieUp";
 };
 export type Requirement = {
   count: number;
+  exact?: number;
+  parity?: "odd" | "even";
+  relationship?: "equal" | "different";
+  held?: boolean;
+  initiative?: boolean;
+  minRound?: number;
+  maxRound?: number;
+  legendClass?: string;
+  unused?: number;
   min?: number;
   max?: number;
   symbol?: SymbolId;
@@ -79,7 +100,9 @@ export type Requirement = {
   control?: number;
   condition?: Predicate;
 };
+export type Timing = "ACTION" | "REACTION" | "PASSIVE";
 export type CardDef = {
+  timing: Timing;
   id: string;
   name: string;
   legend: LegendId;
@@ -103,8 +126,23 @@ export type Legend = {
   subtitle: string;
   lore: string;
   hp: number;
+  initiativeBonus: number;
+  class: string;
+  allowedDiceSizes: DieSize[];
+  compatibleCardTags: string[];
+  passiveRule?: {
+    trigger:
+      | "firstGuard"
+      | "firstManipulation"
+      | "preferred"
+      | "adapt"
+      | "categoryChange"
+      | "holdOne";
+    amount: number;
+  };
   passive: string;
   active: {
+    timing: Timing;
     name: string;
     text: string;
     requirement: Requirement;
@@ -132,20 +170,53 @@ export type ControlAction = {
 export type Assignment = { target: string; dice: number[] };
 export type Plan = { controls: ControlAction[]; assignments: Assignment[] };
 export const PHASES = [
-  "WAITING",
-  "INTRO",
+  "MATCH_INTRO",
+  "INITIATIVE_ROLL",
   "ROUND_START",
-  "FATE",
-  "ROLLING",
-  "CONTROL",
-  "ASSIGNMENT",
-  "LOCKED",
-  "REVEAL",
+  "TURN_START",
+  "DICE_ROLL",
+  "MAIN_ACTION",
+  "ACTION_DECLARED",
+  "REACTION_WINDOW",
+  "REACTION_DECLARED",
   "RESOLUTION",
-  "CLEANUP",
+  "TURN_END",
+  "SECOND_TURN",
   "ROUND_END",
   "MATCH_END",
 ] as const;
+export type DieResource = {
+  state:
+    | "UNROLLED"
+    | "ROLLING"
+    | "AVAILABLE"
+    | "HELD"
+    | "ASSIGNED"
+    | "SPENT"
+    | "EXPIRED";
+  rolledTurn: number;
+  modified: boolean;
+  originalFace: number;
+};
+export type Declaration = {
+  actor: 0 | 1;
+  assignment: Assignment;
+  effects: Effect[];
+  category: Category;
+  canceled: boolean;
+  redirected: boolean;
+  prevention: number;
+  damageTaken: number;
+  heldDice?: number;
+};
+export type MatchConfig = {
+  maxRounds: number;
+  ramp: number[][];
+  initiativeRolls?: [number, number];
+  initiativeWinner?: 0 | 1;
+  initiativeBonuses?: [number, number];
+  rngSeats: [number, number];
+};
 export type Phase = (typeof PHASES)[number];
 export type Status = {
   cardId?: string;
@@ -159,6 +230,10 @@ export type PlayerState = {
   guard: number;
   control: number;
   faces: number[];
+  dice: DieResource[];
+  actionsThisRound: number;
+  passiveUsed: string[];
+  lastCategory: string | null;
   known: string[];
   statuses: Status[];
   damageDealt: number;
@@ -173,6 +248,13 @@ export type RoundStats = {
   cards: string[][];
   unused: number[];
   faces: string[][];
+  held: number[];
+  expired: number[];
+  rolls: number[];
+  reactions: number[];
+  reactionWindows: number[];
+  reactionSuccess: number[];
+  turns: number[];
 };
 export type MatchEvent = {
   round: number;
@@ -181,11 +263,31 @@ export type MatchEvent = {
   text: string;
   amount?: number;
 };
-export type ReplayTurn = { round: number; plans: [Plan, Plan] };
+export type ReplayTurn = {
+  round: number;
+  turn: number;
+  actor: 0 | 1;
+  kind: "plan" | "pass";
+  plan?: Plan;
+};
 export type MatchState = {
   id: string;
   version: number;
   seed: number;
+  config: MatchConfig;
+  openingInitiative: {
+    rolls: [number, number];
+    bonuses: [number, number];
+    totals: [number, number];
+    winner: 0 | 1;
+  } | null;
+  initiative: 0 | 1;
+  activePlayer: 0 | 1;
+  turn: number;
+  turnInRound: 0 | 1;
+  pending: Declaration | null;
+  reaction: Declaration | null;
+  roundFate: number[] | null;
   round: number;
   phase: Phase;
   fate: number[];
@@ -201,10 +303,21 @@ export type PublicPlayer = Omit<PlayerState, "loadout" | "plan"> & {
   loadout: Omit<Loadout, "cards"> & { cards: (string | null)[] };
   plan: Plan | null;
 };
-export type MatchView = Omit<MatchState, "seed" | "players" | "replay"> & {
+export type MatchView = Omit<
+  MatchState,
+  "seed" | "players" | "replay" | "config" | "roundFate"
+> & {
   players: [PublicPlayer, PublicPlayer];
 };
 export type DecisionContext = {
+  actor?: number;
+  resolving?: boolean;
+  heldDice?: number;
+  phase?: Phase;
+  activePlayer?: number;
+  turnInRound?: number;
+  initiative?: number;
+  pending?: Declaration | null;
   round: number;
   fate: number[];
   self: PlayerState;
@@ -215,4 +328,5 @@ export type Replay = {
   version: number;
   loadouts: [Loadout, Loadout];
   turns: ReplayTurn[];
+  config: MatchConfig;
 };

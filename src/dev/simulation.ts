@@ -1,11 +1,8 @@
 import {
-  beginRound,
-  cleanup,
+  advance,
   createMatch,
   decisionContext,
   lockPlan,
-  reveal,
-  resolve,
 } from "../engine/match";
 import { choosePlan, type Difficulty } from "../engine/ai";
 import type { Loadout } from "../engine/types";
@@ -26,20 +23,23 @@ export function simulateGame(
   if (reversed) loadouts.reverse();
   const seed =
     (config.seed + (config.paired ? Math.floor(index / 2) : index)) >>> 0;
-  const s = createMatch(seed, loadouts, `sim-${config.seed}-${index}`);
-  while (s.winner === null) {
-    beginRound(s);
-    s.phase = "ASSIGNMENT";
-    const plans = [
-      choosePlan(decisionContext(s, 0), config.difficulty),
-      choosePlan(decisionContext(s, 1), config.difficulty),
-    ];
-    lockPlan(s, 0, plans[0]);
-    lockPlan(s, 1, plans[1]);
-    reveal(s);
-    resolve(s);
-    cleanup(s);
+  const s = createMatch(seed, loadouts, `sim-${config.seed}-${index}`, {
+    rngSeats: reversed ? [1, 0] : [0, 1],
+  });
+  let steps = 0;
+  while (s.phase !== "MATCH_END" && steps++ < 3000) {
+    if (["MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
+      const actor =
+        s.phase === "MAIN_ACTION" ? s.activePlayer : 1 - s.activePlayer;
+      lockPlan(
+        s,
+        actor,
+        choosePlan(decisionContext(s, actor), config.difficulty),
+      );
+    } else advance(s);
   }
+  if (s.phase !== "MATCH_END")
+    throw new Error("Simulation exceeded deterministic transition limit.");
   const record = recordMatch(s, "simulation", config.difficulty, null, [
     "ai",
     "ai",

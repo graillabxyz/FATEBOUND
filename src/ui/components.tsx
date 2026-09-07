@@ -475,7 +475,7 @@ export function GameplayCard({
       <button
         className="card-select"
         onClick={onClick}
-        aria-label={`${card.name}. ${card.requirementLabel}. ${card.text}`}
+        aria-label={`${card.name}. ${card.timing}. ${card.requirementLabel}. ${card.text}`}
         aria-pressed={selected}
       >
         <div className="card-top">

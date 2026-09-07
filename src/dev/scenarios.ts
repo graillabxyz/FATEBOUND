@@ -23,6 +23,7 @@ function scenario(
     build: () => {
       const s = defaultSetup();
       s.players.forEach((p) => (p.ai = false));
+      s.initiativeWinner = 0;
       edit(s);
       const c = new LabController(s);
       live?.(c);
@@ -44,9 +45,10 @@ export const SCENARIOS: Scenario[] = [
     "Basajaun 4 HP, Anansi 2 Guard, Web Shift known, D12 flipped; Herensuge assigned.",
     (s) => {
       s.round = 6;
+      s.initiativeWinner = 1;
       s.players[0].hp = 4;
       s.players[1].guard = 2;
-      s.players[1].known = [s.players[1].loadout.cards[0]];
+      s.players[1].known = ["anansi-web-shift"];
       s.fate.fixed = [10, 60, 40];
     },
     (c) => {
@@ -67,12 +69,13 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "guard",
     "Double Guard test",
-    "Two dice assigned to universal Guard on both sides.",
-    () => {},
+    "Round 3: use two Guard activations with separate dice.",
+    (s) => {
+      s.round = 3;
+    },
     (c) => {
       for (const a of [0, 1] as const) {
         c.assign(a, 0, "guard");
-        c.assign(a, 1, "guard");
       }
     },
   ),
@@ -81,6 +84,7 @@ export const SCENARIOS: Scenario[] = [
     "Two-dice card test",
     "Herensuge has exactly 12 total: D12 7 + D8 5.",
     (s) => {
+      s.round = 3;
       s.fate.fixed = [60, 60, 40];
     },
     (c) => {
@@ -101,17 +105,37 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "simultaneous",
-    "Simultaneous lethal",
-    "Mirror Basajaun, 4 HP each, Crush on both sides.",
+    "Attack → lethal Counterstrike",
+    "Both can reach zero in one exchange; retaliation resolves after damage.",
     (s) => {
       s.players[1] = defaultPlayer("basajaun", false);
-      s.players.forEach((p) => (p.hp = 4));
-      s.fate.fixed = [80, 60, 40];
+      s.players[0].hp = 2;
+      s.players[1].hp = 4;
+      s.players[1].loadout.cards[0] = "basajaun-counterstrike";
+      s.players[1].heldFaces[0] = 7;
+      s.fate.fixed[0] = 80;
     },
-    (c) => {
-      for (const a of [0, 1] as const)
-        c.assign(a, 0, c.state.players[a].loadout.cards[0]);
+    (c) => c.assign(0, 0, "basajaun-crush"),
+  ),
+  scenario(
+    "reaction",
+    "Hold → attack → Ancient Guard",
+    "Basajaun begins with a held 3, ready to react to Anansi.",
+    (s) => {
+      s.initiativeWinner = 1;
+      s.players[0].heldFaces[0] = 2;
     },
+  ),
+  scenario(
+    "redirect",
+    "Attack → Web Turn",
+    "Anansi holds an exact 6; redirect Crush back to Basajaun.",
+    (s) => {
+      s.players[1].loadout.cards[0] = "anansi-web-turn";
+      s.players[1].heldFaces[0] = 5;
+      s.fate.fixed[0] = 80;
+    },
+    (c) => c.assign(0, 0, "basajaun-crush"),
   ),
   scenario(
     "tie",
@@ -125,7 +149,7 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "timeout",
     "Timeout test",
-    "One-second production safe-Guard fallback.",
+    "One-second timeout passes without spending dice.",
     (s) => {
       s.timerMs = 1000;
     },
@@ -196,8 +220,8 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "swap",
-    "Competing assignment swaps",
-    "Anansi vs Leshy manipulation starters; inspect same-priority frames.",
+    "Single reaction window",
+    "Anansi vs Leshy: one reaction only, deterministic prevention then action.",
     (s) => {
       s.players[0] = defaultPlayer("anansi", false);
       s.players[1] = defaultPlayer("leshy", false);

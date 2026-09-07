@@ -1,7 +1,7 @@
+import { validateSavedState } from "../engine/validation";
 import {
   advance,
   beginRound,
-  cleanup,
   createMatch,
   decisionContext,
   decideWinner,
@@ -12,13 +12,7 @@ import {
 } from "../engine/match";
 import { resolutionSteps, type EffectFrame } from "../engine/effects";
 import { choosePlan, inspectAI } from "../engine/ai";
-import {
-  applyControls,
-  clone,
-  EMPTY_PLAN,
-  safePlan,
-  validatePlan,
-} from "../engine/rules";
+import { applyControls, clone, EMPTY_PLAN, safePlan } from "../engine/rules";
 import { facePosition } from "../engine/fate";
 import type {
   ControlAction,
@@ -48,7 +42,7 @@ import type {
   ViewMode,
 } from "./model";
 const freshDrafts = (): [Plan, Plan] => [clone(EMPTY_PLAN), clone(EMPTY_PLAN)];
-const planningPhases = ["CONTROL", "ASSIGNMENT", "LOCKED"];
+const planningPhases = ["MAIN_ACTION", "REACTION_WINDOW"];
 export class LabController {
   setup: LabSetup;
   state: MatchState;
@@ -84,13 +78,26 @@ export class LabController {
         typeof STARTERS.basajaun,
       ],
       `lab-${setup.seed}`,
+      {
+        maxRounds: setup.maxRounds,
+        initiativeBonuses: setup.players.map((p) => p.initiativeBonus) as [
+          number,
+          number,
+        ],
+        initiativeRolls: setup.initiativeRolls ?? undefined,
+        initiativeWinner: setup.initiativeWinner ?? undefined,
+      },
     );
     this.state.players.forEach(
       (p, i) => (p.loadout = clone(setup.players[i].loadout)),
     );
     this.state.round = setup.round - 1;
     beginRound(this.state, 0, this.fateForRound(setup.round));
-    this.state.phase = "CONTROL";
+    while (
+      this.state.phase !== "MAIN_ACTION" &&
+      this.state.phase !== "MATCH_END"
+    )
+      advance(this.state, 0);
     this.state.players.forEach((p, i) =>
       Object.assign(
         p,
@@ -104,6 +111,19 @@ export class LabController {
         }),
       ),
     );
+    this.state.players.forEach((p, a) => {
+      setup.players[a].heldFaces.forEach((face, slot) => {
+        if (face !== null) {
+          p.faces[slot] = face;
+          p.dice[slot] = {
+            state: "HELD",
+            rolledTurn: Math.max(0, this.state.turn - 1),
+            modified: false,
+            originalFace: face,
+          };
+        }
+      });
+    });
     this.initial = clone(this.state);
     this.roundStart = clone(this.state);
     this.log("START", { setup: this.setup });
@@ -131,14 +151,12 @@ export class LabController {
         "A priority batch is suspended. Finish resolution or return to the previous safe phase before editing state.",
       );
   }
-  private planning(actor: Seat) {
+  private planning(_actor: Seat) {
     this.editable();
     if (!planningPhases.includes(this.state.phase))
       throw new Error(
-        "Assignments and Control are editable in CONTROL / ASSIGNMENT. Reset round to rewind safely.",
+        "Edit dice and assignments during MAIN_ACTION or REACTION_WINDOW.",
       );
-    if (this.state.players[actor].locked)
-      throw new Error("Player is locked. Unlock before editing this plan.");
   }
   fateForRound(round: number): number[] | undefined {
     if (this.nextFate) {
@@ -168,6 +186,17 @@ export class LabController {
       ) as MatchView["players"];
     if (mode === "B") {
       v.players.reverse();
+      v.activePlayer = v.activePlayer === 0 ? 1 : 0;
+      v.initiative = v.initiative === 0 ? 1 : 0;
+      if (v.pending) v.pending.actor = v.pending.actor === 0 ? 1 : 0;
+      if (v.reaction) v.reaction.actor = v.reaction.actor === 0 ? 1 : 0;
+      if (v.openingInitiative) {
+        v.openingInitiative.rolls.reverse();
+        v.openingInitiative.bonuses.reverse();
+        v.openingInitiative.totals.reverse();
+        v.openingInitiative.winner = v.openingInitiative.winner === 0 ? 1 : 0;
+      }
+
       v.events = v.events.map((e) => ({
         ...e,
         actor: e.actor < 0 ? e.actor : 1 - e.actor,
@@ -180,6 +209,13 @@ export class LabController {
         cards: [...r.cards].reverse(),
         unused: [...r.unused].reverse(),
         faces: [...r.faces].reverse(),
+        held: [...r.held].reverse(),
+        expired: [...r.expired].reverse(),
+        rolls: [...r.rolls].reverse(),
+        reactions: [...r.reactions].reverse(),
+        reactionWindows: [...r.reactionWindows].reverse(),
+        reactionSuccess: [...r.reactionSuccess].reverse(),
+        turns: [...r.turns].reverse(),
       }));
       if (typeof v.winner === "number") v.winner = v.winner === 0 ? 1 : 0;
     }
@@ -253,21 +289,14 @@ export class LabController {
   }
   lock(actor: Seat, plan = this.drafts[actor]) {
     lockPlan(this.state, actor, plan);
-    this.drafts[actor] = clone(plan);
-    this.log("LOCK", { actor, plan });
+    this.drafts[actor] = clone(EMPTY_PLAN);
+    this.remainingMs = this.setup.timerMs;
+    this.log("DECLARE", { actor, plan });
     this.changed();
   }
   unlock(actor: Seat) {
-    this.editable();
-    if (!planningPhases.includes(this.state.phase))
-      throw new Error(
-        "Cannot unlock a revealed plan. Return to the previous safe phase.",
-      );
-    const p = this.state.players[actor];
-    if (p.plan) this.drafts[actor] = clone(p.plan);
-    p.plan = null;
-    p.locked = false;
-    this.state.phase = "ASSIGNMENT";
+    this.planning(actor);
+    this.drafts[actor] = clone(EMPTY_PLAN);
     this.changed();
   }
   timeout(actor: Seat) {
@@ -312,51 +341,54 @@ export class LabController {
     const phase = this.state.phase;
     if (phase === "MATCH_END")
       throw new Error("Match ended. Restart or restore a snapshot.");
-    if (phase === "ASSIGNMENT") {
-      // Validate both drafts before locking either, so a bad second plan does not partially seal the first.
-      const plans = this.state.players.map(
-        (p, i) =>
-          p.plan ??
-          (this.setup.players[i].ai
-            ? choosePlan(
-                decisionContext(this.state, i),
-                this.setup.players[i].difficulty,
-              )
-            : this.drafts[i]),
-      ) as [Plan, Plan];
-      plans.forEach((p, i) => {
-        if (!this.state.players[i].locked)
-          validatePlan(decisionContext(this.state, i), p);
-      });
-      plans.forEach((p, i) => {
-        if (!this.state.players[i].locked) this.lock(i as Seat, p);
-      });
-    } else if (phase === "REVEAL") {
+    if (planningPhases.includes(phase)) {
+      const actor = (
+        phase === "MAIN_ACTION"
+          ? this.state.activePlayer
+          : 1 - this.state.activePlayer
+      ) as Seat;
+      this.lock(
+        actor,
+        this.setup.players[actor].ai
+          ? choosePlan(
+              decisionContext(this.state, actor),
+              this.setup.players[actor].difficulty,
+            )
+          : this.drafts[actor],
+      );
+    } else if (phase === "RESOLUTION") {
       this.startResolution();
       if (!this.options.step) while (this.resolving) this.nextEffect();
-    } else if (phase === "RESOLUTION")
-      cleanup(this.state, this.setup.maxRounds);
-    else if (
-      (phase === "ROUND_END" && this.state.winner === null) ||
-      phase === "ROUND_START"
-    ) {
-      const forced = this.fateForRound(this.state.round + 1);
-      beginRound(this.state, 0, forced);
-      this.roundStart = clone(this.state);
-      this.drafts = freshDrafts();
-      this.remainingMs = this.setup.timerMs;
-      this.stopped = false;
-    } else advance(this.state, 0);
-    this.log("PHASE", {
-      from: phase,
-      to: this.state.phase,
-      fate: this.state.fate,
-    });
+    } else {
+      if (phase === "ROUND_END" && this.state.round < this.setup.maxRounds) {
+        const fate = this.fateForRound(this.state.round + 1);
+        advance(this.state, 0);
+        this.state.roundFate = fate ?? null;
+      } else advance(this.state, 0);
+      if (
+        this.state.phase === "MAIN_ACTION" ||
+        this.state.phase === "REACTION_WINDOW"
+      ) {
+        this.remainingMs =
+          this.state.phase === "REACTION_WINDOW"
+            ? this.setup.timerMs === 0
+              ? 0
+              : GAME.reactionMs
+            : this.setup.timerMs;
+        this.drafts = freshDrafts();
+        if (
+          this.state.phase === "MAIN_ACTION" &&
+          this.state.players[this.state.activePlayer].actionsThisRound === 0
+        )
+          this.roundStart = clone(this.state);
+      }
+    }
+    this.log("PHASE", { from: phase, to: this.state.phase });
     this.changed();
   }
   startResolution() {
-    if (this.state.phase !== "REVEAL")
-      throw new Error("Both plans must be revealed before resolution.");
+    if (this.state.phase !== "RESOLUTION")
+      throw new Error("Finish the reaction window before resolution.");
     const baseline = clone(this.state);
     this.state.phase = "RESOLUTION";
     this.pendingResolution = {
@@ -369,8 +401,9 @@ export class LabController {
   }
   nextEffect() {
     if (!this.resolving) {
-      if (this.state.phase === "REVEAL") this.startResolution();
-      else throw new Error("Reveal plans before stepping effects.");
+      if (this.state.phase === "RESOLUTION") this.startResolution();
+      else
+        throw new Error("Finish the reaction window before stepping effects.");
     }
     const p = this.pendingResolution!;
     const next = p.iterator.next();
@@ -391,14 +424,14 @@ export class LabController {
     this.changed();
   }
   resolveCurrent() {
-    if (this.state.phase === "REVEAL") this.startResolution();
+    if (this.state.phase === "RESOLUTION") this.startResolution();
     if (this.resolving) {
       while (this.resolving) this.nextEffect();
     } else this.next();
   }
   resetRound() {
     this.state = clone(this.roundStart);
-    this.state.phase = "CONTROL";
+    this.state.phase = "MAIN_ACTION";
     this.pendingResolution = null;
     this.drafts = freshDrafts();
     this.remainingMs = this.setup.timerMs;
@@ -434,13 +467,10 @@ export class LabController {
       return;
     }
     this.editable();
-    if (
-      !["FATE", "ROLLING", "CONTROL", "ASSIGNMENT", "LOCKED"].includes(
-        this.state.phase,
-      )
-    )
-      throw new Error("Rewind to planning before changing current Fate.");
+    if (!planningPhases.includes(this.state.phase))
+      throw new Error("Rewind to a decision window before changing Fate.");
     this.state.fate = clone(tokens);
+    this.state.roundFate = clone(tokens);
     this.state.players.forEach((p) => {
       p.faces = p.loadout.dice.map((id, i) =>
         facePosition(tokens[i], dieById[id].size),
@@ -449,7 +479,7 @@ export class LabController {
       p.locked = false;
     });
     this.drafts = freshDrafts();
-    this.state.phase = "FATE";
+
     this.log("FORCE_FATE", tokens);
     this.changed();
   }
@@ -473,11 +503,7 @@ export class LabController {
   }
   resetFace(actor: Seat, slot: number) {
     const p = this.state.players[actor];
-    this.setFace(
-      actor,
-      slot,
-      facePosition(this.state.fate[slot], dieById[p.loadout.dice[slot]].size),
-    );
+    this.setFace(actor, slot, p.dice[slot].originalFace);
   }
   forceSymbol(actor: Seat, slot: number, symbol: string) {
     const p = this.state.players[actor],
@@ -567,25 +593,44 @@ export class LabController {
     this.log("FORCE_END", { winner });
     this.changed();
   }
+  setResource(
+    actor: Seat,
+    slot: number,
+    state: "AVAILABLE" | "HELD" | "SPENT" | "UNROLLED" | "EXPIRED",
+  ) {
+    this.editable();
+    int(slot, 0, 2, "Die slot");
+    this.state.players[actor].dice[slot].state = state;
+    this.log("FORCE_RESOURCE", { actor, slot, state });
+    this.changed();
+  }
   tick(now: number) {
     const delta = this.lastTick
       ? Math.max(0, Math.min(2000, now - this.lastTick))
       : 0;
     this.lastTick = now;
     if (this.paused || this.stopped || this.state.phase === "MATCH_END") return;
-    if (planningPhases.includes(this.state.phase)) {
+    const phase = this.state.phase;
+    if (planningPhases.includes(phase)) {
+      const actor = (
+        phase === "MAIN_ACTION"
+          ? this.state.activePlayer
+          : 1 - this.state.activePlayer
+      ) as Seat;
       if (this.setup.timerMs > 0 && !this.options.pauseTimer) {
         this.remainingMs = Math.max(0, this.remainingMs - delta);
-        if (this.remainingMs === 0) {
-          for (const a of [0, 1] as const)
-            if (!this.state.players[a].locked) this.timeout(a);
+        if (!this.remainingMs) {
+          this.timeout(actor);
+          return;
         }
       }
-      if (this.options.auto && !this.options.pauseBeforeAI) {
-        for (const a of [0, 1] as const)
-          if (this.setup.players[a].ai && !this.state.players[a].locked)
-            this.acceptAI(a);
-      }
+      if (
+        this.options.auto &&
+        !this.options.pauseBeforeAI &&
+        this.setup.players[actor].ai
+      )
+        this.acceptAI(actor);
+      return;
     }
     const delay =
       this.options.animation === "instant"
@@ -600,11 +645,6 @@ export class LabController {
       this.options.animation !== "step" &&
       now - this.lastAdvance >= delay
     ) {
-      if (
-        this.state.phase === "ASSIGNMENT" &&
-        !this.state.players.every((p) => p.locked)
-      )
-        return;
       if (this.resolving && this.options.step) return;
       this.lastAdvance = now;
       try {
@@ -740,6 +780,7 @@ export class LabController {
   }
 }
 function validateState(state: MatchState, setup: LabSetup) {
+  validateSavedState(state, setup.ignoreRestrictions);
   if (
     !state ||
     state.version !== GAME.version ||
@@ -752,17 +793,18 @@ function validateState(state: MatchState, setup: LabSetup) {
   int(state.revision, 0, 1e9, "Revision");
   if (
     ![
-      "WAITING",
-      "INTRO",
+      "MATCH_INTRO",
+      "INITIATIVE_ROLL",
       "ROUND_START",
-      "FATE",
-      "ROLLING",
-      "CONTROL",
-      "ASSIGNMENT",
-      "LOCKED",
-      "REVEAL",
+      "TURN_START",
+      "DICE_ROLL",
+      "MAIN_ACTION",
+      "ACTION_DECLARED",
+      "REACTION_WINDOW",
+      "REACTION_DECLARED",
       "RESOLUTION",
-      "CLEANUP",
+      "TURN_END",
+      "SECOND_TURN",
       "ROUND_END",
       "MATCH_END",
     ].includes(state.phase)
@@ -788,7 +830,7 @@ function validateState(state: MatchState, setup: LabSetup) {
     !Array.isArray(state.stats) ||
     state.stats.length > 100 ||
     !Array.isArray(state.replay) ||
-    state.replay.length > 100
+    state.replay.length > 3000
   )
     throw new Error("Invalid or excessive match history.");
   if (![0, 1, "draw", null].includes(state.winner))
@@ -859,7 +901,7 @@ export function validateSnapshot(raw: LabSnapshot) {
   if (raw.resolution) {
     validateState(raw.resolution.baseline, raw.setup);
     int(raw.resolution.steps, 0, 1000, "Resolution cursor");
-    if (raw.resolution.baseline.phase !== "REVEAL")
+    if (raw.resolution.baseline.phase !== "RESOLUTION")
       throw new Error("Invalid resolution baseline.");
   }
   if (

@@ -15,9 +15,11 @@ export const STARTERS: Record<LegendId, Loadout> = Object.fromEntries(
         "Against the Tide",
       ][l.artIndex],
       legend: l.id,
-      cards: (l.id === "maui"
-        ? [0, 1, 2, 4].map((i) => cardsFor(l.id)[i])
-        : cardsFor(l.id).slice(0, 4)
+      cards: (l.id === "anansi"
+        ? [0, 2, 3, 7].map((i) => cardsFor(l.id)[i])
+        : l.id === "maui"
+          ? [0, 1, 2, 4].map((i) => cardsFor(l.id)[i])
+          : cardsFor(l.id).slice(0, 4)
       ).map((c) => c.id),
       dice: l.diceSlots.map((n, i) =>
         l.id === "anansi" && i === 0 ? "anansi-d8-0" : `standard-d${n}`,

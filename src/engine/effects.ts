@@ -1,56 +1,23 @@
 import type {
   Assignment,
+  Declaration,
   Effect,
   MatchState,
-  Plan,
   PlayerState,
   Primitive,
 } from "./types";
 import { cardById } from "../content/cards";
-import { dieById } from "../content/dice";
 import { legendById } from "../content/legends";
+import { dieById } from "../content/dice";
 import {
   assignedFaces,
   assignmentValid,
-  conditionMatches,
-  guardValue,
   clone,
+  conditionMatches,
+  EMPTY_PLAN,
+  guardValue,
 } from "./rules";
 import { shiftedPosition } from "./fate";
-export type EffectContext = {
-  state: MatchState;
-  actor: number;
-  assignment: Assignment;
-  plan: Plan;
-  snapshot: [PlayerState, PlayerState];
-  pending: { actor: number; amount: number }[];
-  healing: number[];
-  guardGained: number[];
-  blocks: number[];
-  firstGuard: boolean[];
-  firstManip: boolean[];
-  adapted: boolean[];
-  requirementTolerance: number[];
-  powerUsed: boolean[];
-  lastCategory: (string | null)[];
-  multiplier: number;
-  bonus: number;
-  bonusUsed: boolean;
-  depth: number;
-  priority: number;
-  inspect: boolean;
-};
-const event = (c: EffectContext, type: string, text: string, amount?: number) =>
-  c.state.events.push({
-    round: c.state.round,
-    actor: c.actor,
-    type,
-    text,
-    amount,
-  });
-const self = (c: EffectContext) => c.state.players[c.actor];
-const enemy = (c: EffectContext) => c.state.players[1 - c.actor];
-const amount = (e: Effect, c: EffectContext) => (e.amount ?? 0) * c.multiplier;
 export type EffectFrame = {
   kind: "effect" | "canceled" | "commit";
   actor: number;
@@ -65,452 +32,420 @@ export type EffectFrame = {
   pending?: { actor: number; amount: number }[];
   healing?: number[];
 };
-type Handler = (e: Effect, c: EffectContext) => void | Generator<EffectFrame>;
-const handlers: Record<Primitive, Handler> = {
-  DAMAGE: (e, c) => {
-    let value = amount(e, c);
-    if (!c.bonusUsed && value > 0) {
-      value += c.bonus;
-      c.bonusUsed = true;
-    }
-    if (!c.powerUsed[c.actor] && value > 0) {
-      value += self(c)
-        .statuses.filter(
-          (s) => s.id === "power" && s.expiresRound === c.state.round,
-        )
-        .reduce((n, s) => n + s.amount, 0);
-      c.powerUsed[c.actor] = true;
-    }
-    c.pending.push({ actor: c.actor, amount: value });
-  },
-  HEAL: (e, c) => {
-    c.healing[c.actor] += amount(e, c);
-  },
-  GUARD: (e, c) => {
-    let n = amount(e, c);
-    if (
-      n > 0 &&
-      !c.firstGuard[c.actor] &&
-      self(c).loadout.legend === "basajaun"
-    )
-      n++;
-    c.firstGuard[c.actor] = true;
-    self(c).guard += n;
-    c.guardGained[c.actor] += n;
-    event(c, "guard", `+${n} Guard`, n);
-  },
-  STATUS: (e, c) => {
-    if (!e.status) return;
-    const p = e.target === "enemy" ? enemy(c) : self(c);
-    p.statuses.push({
-      id: e.status,
-      amount: amount(e, c),
-      expiresRound: c.state.round + (e.duration ?? 1),
-    });
-    event(c, "status", `${e.status} ${amount(e, c)}`);
-  },
-  GAIN_CONTROL: (e, c) => {
-    self(c).control = Math.min(6, self(c).control + amount(e, c));
-  },
-  LOSE_CONTROL: (e, c) => {
-    enemy(c).control = Math.max(0, enemy(c).control - amount(e, c));
-  },
-  SWAP_ASSIGNMENT: (_e, c) => {
-    const assignments =
-      enemy(c).plan?.assignments.filter((a) => cardById[a.target]) ?? [];
-    if (assignments.length >= 2) {
-      [assignments[0].dice, assignments[1].dice] = [
-        assignments[1].dice,
-        assignments[0].dice,
-      ];
-      event(c, "swap", "Enemy card dice were exchanged.");
-    } else event(c, "swap", "No pair of enemy cards to exchange.");
-  },
-  BLOCK_EFFECT: (e, c) => {
-    c.blocks[1 - c.actor] += amount(e, c);
-    event(
-      c,
-      "block",
-      `Disrupt: −${amount(e, c)} from the next enemy damage effect.`,
-    );
-  },
-  STUN_CARD: (e, c) => {
-    enemy(c).statuses.push({
-      id: "stun",
-      amount: Math.max(1, amount(e, c)),
-      expiresRound: c.state.round,
-    });
-  },
-  MODIFY_REQUIREMENT: (e, c) => {
-    c.requirementTolerance[e.target === "enemy" ? 1 - c.actor : c.actor] +=
-      Math.max(0, amount(e, c));
-  },
-  SHIFT_DIE: (e, c) => {
-    const p = e.target === "self" ? self(c) : enemy(c);
-    const slot = p.faces.findIndex(
-      (f, i) =>
-        shiftedPosition(dieById[p.loadout.dice[i]], f, e.direction ?? 1) !==
-        null,
-    );
-    if (slot >= 0)
-      p.faces[slot] = shiftedPosition(
-        dieById[p.loadout.dice[slot]],
-        p.faces[slot],
-        e.direction ?? 1,
-      )!;
-  },
-  FLIP_DIE: (e, c) => {
-    const p = e.target === "self" ? self(c) : enemy(c);
-    p.faces[0] = dieById[p.loadout.dice[0]].opposites[p.faces[0]];
-  },
-  CLEANSE: (_e, c) => {
-    self(c).statuses = self(c).statuses.filter(
-      (s) => !["poison", "stun"].includes(s.id),
-    );
-    event(c, "cleanse", "Negative statuses cleared.");
-  },
-  CONDITIONAL: function* (e, c) {
-    const s = { ...c.snapshot[c.actor], guard: self(c).guard };
-    const opponent = c.snapshot[1 - c.actor];
-    if (
-      conditionMatches(
-        e.condition ?? "",
-        { round: c.state.round, fate: c.state.fate, self: s, enemy: opponent },
-        c.plan,
-        enemy(c).plan,
-      )
-    )
-      yield* effectSteps(e.effects ?? [], c);
-  },
-  MULTIPLIER: function* (e, c) {
-    const prev = c.multiplier;
-    c.multiplier *= e.amount ?? 1;
-    yield* effectSteps(e.effects ?? [], c);
-    c.multiplier = prev;
-  },
-  CONVERT: function* (e, c) {
-    const p = self(c);
-    const requested = amount(e, c);
-    if (e.from === "hp") {
-      if (c.snapshot[c.actor].hp + c.healing[c.actor] <= requested) return;
-      c.healing[c.actor] -= requested;
-      yield* effectSteps(e.effects ?? [], c);
-    } else {
-      const n = Math.min(p.guard, requested);
-      p.guard -= n;
-      const prev = c.multiplier;
-      c.multiplier = n;
-      yield* effectSteps(e.effects ?? [], c);
-      c.multiplier = prev;
-    }
-  },
-  COPY: function* (_e, c) {
-    const a = enemy(c).plan?.assignments.find((a) => cardById[a.target]);
-    const effects = a
-      ? cardById[a.target].effects.filter(
-          (e) =>
-            !["COPY", "CONDITIONAL", "MULTIPLIER", "CONVERT"].includes(e.type),
-        )
-      : [];
-    yield* effectSteps(effects, c);
-  },
-};
-function frame(
-  c: EffectContext,
-  effect: string,
-  before: PlayerState[] | undefined,
-  kind: EffectFrame["kind"] = "effect",
-  result = "Applied",
-  target = "self",
-  conditions = "",
-): EffectFrame {
-  return {
-    kind,
-    actor: c.actor,
-    source: c.assignment.target,
-    target,
-    priority: c.priority,
-    effect,
-    conditions,
-    result,
-    before,
-    after: c.inspect ? clone(c.state.players) : undefined,
-    pending: c.inspect ? clone(c.pending) : undefined,
-    healing: c.inspect ? [...c.healing] : undefined,
-  };
-}
-export function* effectSteps(
-  effects: Effect[],
-  c: EffectContext,
-): Generator<EffectFrame> {
-  if (c.depth >= 8) throw new Error("Effect recursion limit reached.");
-  c.depth++;
-  for (const e of effects) {
-    const before = c.inspect ? clone(c.state.players) : undefined;
-    const result = handlers[e.type](e, c);
-    if (result) yield* result;
-    yield frame(
-      c,
-      e.type,
-      before,
-      "effect",
-      e.type === "DAMAGE" || e.type === "HEAL"
-        ? "Queued until priority commit"
-        : e.type === "CONDITIONAL"
-          ? "Condition evaluated; child steps appear only when true"
-          : "Applied",
-      e.target ??
-        ([
-          "DAMAGE",
-          "BLOCK_EFFECT",
-          "SWAP_ASSIGNMENT",
-          "LOSE_CONTROL",
-          "STUN_CARD",
-        ].includes(e.type)
-          ? "enemy"
-          : "self"),
-      e.condition ?? "",
-    );
-  }
-  c.depth--;
-}
-export function runEffects(effects: Effect[], c: EffectContext) {
-  for (const _step of effectSteps(effects, c)) {
-    /* Drain the production iterator. */
-  }
-}
-export const supportedPrimitives = Object.keys(handlers);
+export const supportedPrimitives: Primitive[] = [
+  "DAMAGE",
+  "HEAL",
+  "GUARD",
+  "SHIFT_DIE",
+  "FLIP_DIE",
+  "SWAP_ASSIGNMENT",
+  "BLOCK_EFFECT",
+  "STUN_CARD",
+  "MODIFY_REQUIREMENT",
+  "GAIN_CONTROL",
+  "LOSE_CONTROL",
+  "STATUS",
+  "CONDITIONAL",
+  "MULTIPLIER",
+  "CONVERT",
+  "COPY",
+  "CLEANSE",
+  "REDIRECT",
+  "COUNTERSTRIKE",
+  "CANCEL",
+];
 export function effectPriority(a: Assignment) {
   return a.target === "guard"
     ? 20
     : a.target === "legend"
       ? 30
-      : cardById[a.target].priority;
+      : (cardById[a.target]?.priority ?? 40);
 }
+export function effectsFor(
+  state: MatchState,
+  actor: number,
+  a: Assignment,
+): Effect[] {
+  const p = state.players[actor];
+  return a.target === "guard"
+    ? [
+        {
+          type: "GUARD",
+          amount: guardValue(assignedFaces(p.loadout, p.faces, a.dice)[0]),
+        },
+      ]
+    : a.target === "legend"
+      ? clone(legendById[p.loadout.legend].active.effects)
+      : clone(cardById[a.target].effects);
+}
+const log = (
+  s: MatchState,
+  actor: number,
+  type: string,
+  text: string,
+  amount?: number,
+) => s.events.push({ round: s.round, actor, type, text, amount });
 export function* resolutionSteps(
   state: MatchState,
   inspect = false,
 ): Generator<EffectFrame, { damage: number[]; guard: number[] }> {
-  const c: EffectContext = {
-    state,
-    actor: 0,
-    assignment: { target: "guard", dice: [] },
-    plan: { controls: [], assignments: [] },
-    snapshot: clone(state.players),
-    pending: [],
-    healing: [0, 0],
-    guardGained: [0, 0],
-    blocks: [0, 0],
-    firstGuard: [false, false],
-    firstManip: [false, false],
-    adapted: [false, false],
-    requirementTolerance: [0, 0],
-    powerUsed: [false, false],
-    lastCategory: [null, null],
-    multiplier: 1,
-    bonus: 0,
-    bonusUsed: false,
-    depth: 0,
-    priority: 0,
-    inspect,
-  };
-  const startDamage = state.players.map((p) => p.damageDealt);
-  // Passive Guard joins the defense bucket; no seating-dependent resolution.
-  for (const level of [10, 20, 30, 40, 50]) {
-    c.priority = level;
-    c.snapshot = clone(state.players);
-    const toleranceAtStart = [...c.requirementTolerance];
-    c.pending = [];
-    c.healing = [0, 0];
-    for (let actor = 0; actor < 2; actor++) {
-      c.actor = actor;
-      const p = state.players[actor];
-      const source = c.snapshot[actor];
-      c.plan = source.plan!;
-      if (
-        level === 20 &&
-        p.loadout.legend === "maui" &&
-        new Set(c.plan.assignments.flatMap((a) => a.dice)).size === 2
-      ) {
-        c.assignment = { target: "passive:maui", dice: [] };
-        yield* effectSteps([{ type: "GUARD", amount: 2 }], c);
-      }
-      for (const a of c.plan.assignments
-        .filter((a) => effectPriority(a) === level)
-        .sort(
-          (a, b) =>
-            p.loadout.cards.indexOf(a.target) -
-            p.loadout.cards.indexOf(b.target),
-        )) {
-        c.assignment = a;
-        let valid = assignmentValid(
-          source.loadout,
-          source.faces,
-          a,
-          toleranceAtStart[actor],
+  if (!state.pending) throw new Error("No declared action to resolve.");
+  const startDamage = state.players.map((p) => p.damageDealt),
+    startGuard = state.stats.at(-1)?.guard.slice() ?? [0, 0];
+  const action = state.pending,
+    reaction = state.reaction;
+  let reactionEffective = false;
+  const counters: { decl: Declaration; effect: Effect }[] = [];
+  const frame = (
+    d: Declaration,
+    effect: string,
+    priority: number,
+    before: PlayerState[],
+    result: string,
+    kind: EffectFrame["kind"] = "effect",
+  ): EffectFrame => ({
+    kind,
+    actor: d.actor,
+    source: d.assignment.target,
+    target: d.redirected ? "self" : "declared target",
+    priority,
+    effect,
+    conditions: "Paid costs are never refunded; one reaction window.",
+    result,
+    before: inspect ? before : undefined,
+    after: inspect ? clone(state.players) : undefined,
+  });
+  function* run(
+    es: Effect[],
+    d: Declaration,
+    priority: number,
+    multiplier = 1,
+    depth = 0,
+  ): Generator<EffectFrame> {
+    if (depth > 8) throw new Error("Effect recursion limit exceeded.");
+    for (const e of es) {
+      const before = clone(state.players),
+        p = state.players[d.actor],
+        other = state.players[1 - d.actor];
+      const hostile = [
+        "DAMAGE",
+        "SHIFT_DIE",
+        "FLIP_DIE",
+        "SWAP_ASSIGNMENT",
+        "REDIRECT",
+        "BLOCK_EFFECT",
+        "STUN_CARD",
+        "LOSE_CONTROL",
+        "CANCEL",
+      ].includes(e.type);
+      let target =
+        e.target === "self"
+          ? d.actor
+          : e.target === "enemy"
+            ? 1 - d.actor
+            : hostile
+              ? 1 - d.actor
+              : d.actor;
+      if (d.redirected) target = 1 - target;
+      const t = state.players[target],
+        stats = state.stats.at(-1)!;
+      const passive = legendById[p.loadout.legend].passiveRule;
+      let n = Math.max(0, (e.amount ?? 0) * multiplier),
+        result = "Applied";
+      if (e.scaling === "halfDieUp")
+        n = Math.ceil(
+          assignedFaces(p.loadout, p.faces, d.assignment.dice).reduce(
+            (v, f) => v + f.value,
+            0,
+          ) / 2,
         );
-        if (
-          !valid &&
-          p.loadout.legend === "leshy" &&
-          !c.adapted[actor] &&
-          assignmentValid(source.loadout, source.faces, a, 1)
-        ) {
-          valid = true;
-          c.adapted[actor] = true;
-          event(c, "adapt", "Leshy adapts the number band.");
-        }
-        const stunned = source.statuses.find(
-          (s) =>
-            s.id === "stun" &&
-            s.amount > 0 &&
-            (!s.cardId || s.cardId === a.target),
-        );
-        if (stunned && cardById[a.target]) {
-          stunned.amount--;
-          const actual = p.statuses.find(
-            (s) =>
-              s.id === "stun" &&
-              s.amount > 0 &&
-              (!s.cardId || s.cardId === a.target),
-          );
-          if (actual) actual.amount--;
-          event(c, "fizzle", `${cardById[a.target].name} was stunned.`);
-          yield frame(
-            c,
-            "STUN",
-            c.inspect ? clone(c.snapshot) : undefined,
-            "canceled",
-            "STUNNED",
-            "self",
-          );
-          continue;
-        }
-        if (!valid) {
-          event(
-            c,
-            "fizzle",
-            `${cardById[a.target]?.name ?? "Action"} no longer meets its requirement.`,
-          );
-          yield frame(
-            c,
-            "REQUIREMENT",
-            c.inspect ? clone(c.snapshot) : undefined,
-            "canceled",
-            "Requirement failed after manipulation",
-            "self",
-          );
-          continue;
-        }
-        const card = cardById[a.target];
-        const category =
-          card?.category ?? (a.target === "guard" ? "Guard" : "Setup");
-        if (
-          category === "Manipulation" &&
-          p.loadout.legend === "anansi" &&
-          !c.firstManip[actor]
-        ) {
-          yield* effectSteps([{ type: "GUARD", amount: 2 }], c);
-          c.firstManip[actor] = true;
-        }
-        c.bonus = 0;
-        c.bonusUsed = false;
-        if (
-          p.loadout.legend === "tengu" &&
-          card?.preferred ===
-            assignedFaces(source.loadout, source.faces, a.dice).reduce(
-              (s, f) => s + f.value,
-              0,
+      switch (e.type) {
+        case "DAMAGE": {
+          const card = cardById[d.assignment.target];
+          if (
+            !p.passiveUsed.includes(
+              `damage:${state.turn}:${p.actionsThisRound}:${d.assignment.target}`,
             )
-        )
-          c.bonus++;
-        if (
-          p.loadout.legend === "quetzalcoatl" &&
-          c.lastCategory[actor] &&
-          c.lastCategory[actor] !== category
-        )
-          c.bonus++;
-        c.lastCategory[actor] = category;
-        event(
-          c,
-          "card",
-          card?.name ??
-            (a.target === "guard"
-              ? "Universal Guard"
-              : legendById[p.loadout.legend].active.name),
-        );
-        const effects =
-          a.target === "guard"
-            ? [
-                {
-                  type: "GUARD" as const,
-                  amount: guardValue(
-                    assignedFaces(source.loadout, source.faces, a.dice)[0],
-                  ),
-                },
-              ]
-            : a.target === "legend"
-              ? legendById[p.loadout.legend].active.effects
-              : card.effects;
-        yield* effectSteps(effects, c);
+          ) {
+            if (
+              passive?.trigger === "preferred" &&
+              card?.preferred ===
+                assignedFaces(p.loadout, p.faces, d.assignment.dice).reduce(
+                  (v, f) => v + f.value,
+                  0,
+                )
+            )
+              n += passive.amount;
+            if (
+              passive?.trigger === "categoryChange" &&
+              p.lastCategory &&
+              p.lastCategory !== d.category
+            )
+              n += passive.amount;
+            if (n > 0) {
+              const powers = p.statuses.filter(
+                (s) => s.id === "power" && s.expiresRound <= state.round,
+              );
+              n += powers.reduce((v, s) => v + s.amount, 0);
+              p.statuses = p.statuses.filter((s) => !powers.includes(s));
+            }
+            p.passiveUsed.push(
+              `damage:${state.turn}:${p.actionsThisRound}:${d.assignment.target}`,
+            );
+          }
+          const prevented = Math.min(n, d.prevention);
+          n -= prevented;
+          if (d === action && prevented > 0) reactionEffective = true;
+          d.prevention -= prevented;
+          const ward = t.statuses
+            .filter((s) => s.id === "ward")
+            .reduce((v, s) => v + s.amount, 0);
+          n = Math.max(0, n - ward);
+          const blocked = Math.min(
+            t.guard,
+            Math.max(0, n - (e.guardPierce ?? 0)),
+          );
+          t.guard -= blocked;
+          if (d === action && reaction && blocked > 0) reactionEffective = true;
+          const damage = Math.min(t.hp, Math.max(0, n - blocked));
+          t.hp -= damage;
+          if (target !== d.actor) {
+            p.damageDealt += damage;
+            stats.damage[d.actor] += damage;
+          }
+          if (d === action && target === 1 - action.actor)
+            action.damageTaken += damage;
+          result = `${damage} damage; ${blocked} Guard absorbed; ${prevented} prevented`;
+          log(state, d.actor, "damage", result, damage);
+          break;
+        }
+        case "HEAL": {
+          const heal = Math.min(
+            n,
+            Math.max(0, legendById[t.loadout.legend].hp - t.hp),
+          );
+          t.hp += heal;
+          if (d === reaction && heal > 0) reactionEffective = true;
+          result = `Healed ${heal}`;
+          log(state, d.actor, "heal", result, heal);
+          break;
+        }
+        case "GUARD": {
+          if (
+            passive?.trigger === "firstGuard" &&
+            !p.passiveUsed.includes("firstGuard")
+          ) {
+            n += passive.amount;
+            p.passiveUsed.push("firstGuard");
+          }
+          t.guard += n;
+          stats.guard[target] += n;
+          result = `+${n} Guard`;
+          log(state, d.actor, "guard", result, n);
+          break;
+        }
+        case "BLOCK_EFFECT":
+          action.prevention += n;
+          result = `Prevent next ${n} damage from declared action`;
+          break;
+        case "REDIRECT":
+        case "SWAP_ASSIGNMENT":
+          action.redirected = true;
+          reactionEffective = true;
+          result = "Declared enemy effects redirect to their source";
+          break;
+        case "CANCEL":
+          action.canceled = true;
+          reactionEffective = true;
+          result = "Declared action canceled";
+          break;
+        case "COUNTERSTRIKE":
+          counters.push({ decl: d, effect: { ...e, type: "DAMAGE" } });
+          result = "Armed: retaliate after receiving actual attack damage";
+          break;
+        case "GAIN_CONTROL":
+          t.control = Math.min(6, t.control + n);
+          break;
+        case "LOSE_CONTROL":
+          t.control = Math.max(0, t.control - n);
+          break;
+        case "STATUS":
+          if (e.status)
+            t.statuses.push({
+              id: e.status,
+              amount: n,
+              expiresRound: state.round + (e.duration ?? 1),
+            });
+          break;
+        case "STUN_CARD":
+          t.statuses.push({
+            id: "stun",
+            amount: Math.max(1, n),
+            expiresRound: state.round,
+          });
+          if (action.actor === target) action.canceled = true;
+          break;
+        case "MODIFY_REQUIREMENT":
+          action.canceled = true;
+          reactionEffective = true;
+          result = "Requirement disrupted; declared action canceled";
+          break;
+        case "SHIFT_DIE":
+        case "FLIP_DIE": {
+          const slot =
+            action.actor === target
+              ? action.assignment.dice[0]
+              : t.dice.findIndex((d) =>
+                  ["AVAILABLE", "HELD"].includes(d.state),
+                );
+          if (slot === undefined || slot < 0) {
+            result = "No eligible die";
+            break;
+          }
+          const die = dieById[t.loadout.dice[slot]],
+            face =
+              e.type === "FLIP_DIE"
+                ? die.opposites[t.faces[slot]]
+                : shiftedPosition(die, t.faces[slot], e.direction ?? -1);
+          if (face === null) {
+            result = "No legal numerical shift";
+            break;
+          }
+          t.faces[slot] = face;
+          t.dice[slot].modified = true;
+          result = `Die ${slot + 1} changed; requirement will be checked again`;
+          break;
+        }
+        case "CLEANSE":
+          t.statuses = t.statuses.filter(
+            (s) => !["poison", "stun"].includes(s.id),
+          );
+          break;
+        case "CONDITIONAL": {
+          const ctx = {
+            round: state.round,
+            fate: state.fate,
+            self: p,
+            enemy: { ...other, plan: other.plan },
+            actor: d.actor,
+            initiative: state.initiative,
+            pending: action,
+            resolving: true,
+            heldDice: d.heldDice,
+          };
+          const yes = conditionMatches(
+            e.condition ?? "",
+            ctx,
+            p.plan ?? EMPTY_PLAN,
+            other.plan,
+          );
+          result = yes ? "Condition met" : "Condition not met";
+          if (yes)
+            yield* run(e.effects ?? [], d, priority, multiplier, depth + 1);
+          break;
+        }
+        case "MULTIPLIER":
+          yield* run(e.effects ?? [], d, priority, multiplier * n, depth + 1);
+          break;
+        case "CONVERT":
+          if (e.from === "hp") {
+            if (p.hp > n) {
+              p.hp -= n;
+              yield* run(e.effects ?? [], d, priority, multiplier, depth + 1);
+            } else result = "Insufficient HP to pay conversion";
+          } else {
+            const spent = Math.min(p.guard, n);
+            p.guard -= spent;
+            yield* run(e.effects ?? [], d, priority, spent, depth + 1);
+          }
+          break;
+        case "COPY":
+          if (d !== action)
+            yield* run(
+              action.effects.filter(
+                (e) => !["COPY", "COUNTERSTRIKE", "CONVERT"].includes(e.type),
+              ),
+              d,
+              priority,
+              multiplier,
+              depth + 1,
+            );
+          else result = "No opposing declared action to copy";
+          break;
+        default:
+          throw new Error(`Unknown production effect: ${e.type}`);
       }
+      yield frame(d, e.type, priority, before, result);
     }
-    const beforeCommit = inspect ? clone(state.players) : undefined;
-    const damageTaken = [0, 0];
-    for (const hit of c.pending) {
-      const target = 1 - hit.actor;
-      let n = Math.max(0, hit.amount);
-      if (c.blocks[hit.actor] > 0) {
-        n = Math.max(0, n - c.blocks[hit.actor]);
-        c.blocks[hit.actor] = 0;
-      }
-      const absorbed = Math.min(state.players[target].guard, n);
-      state.players[target].guard -= absorbed;
-      n -= absorbed;
-      damageTaken[target] += n;
-      state.events.push({
-        round: state.round,
-        actor: hit.actor,
-        type: "damage",
-        text: n
-          ? `${n} damage${absorbed ? ` · ${absorbed} blocked` : ""}`
-          : `${absorbed} damage blocked`,
-        amount: n,
-      });
-    }
-    for (let i = 0; i < 2; i++) {
-      const p = state.players[i];
-      const max = legendById[p.loadout.legend].hp;
-      const healedHP = Math.max(
-        0,
-        Math.min(max, c.snapshot[i].hp + c.healing[i]),
-      );
-      const effective = Math.min(healedHP, damageTaken[i]);
-      p.hp = Math.max(0, healedHP - damageTaken[i]);
-      state.players[1 - i].damageDealt += effective;
-    }
-    yield {
-      kind: "commit",
-      actor: -1,
-      source: "priority-batch",
-      target: "both",
-      priority: level,
-      effect: "COMMIT",
-      conditions: "Simultaneous health boundary",
-      result: "Damage and healing committed together",
-      before: beforeCommit,
-      after: inspect ? clone(state.players) : undefined,
-    };
-    if (state.players.some((p) => p.hp <= 0)) break;
   }
+  if (reaction) {
+    const p = state.players[reaction.actor],
+      rule = legendById[p.loadout.legend].passiveRule;
+    if (
+      rule?.trigger === "firstManipulation" &&
+      reaction.category === "Manipulation" &&
+      !p.passiveUsed.includes("firstManipulation")
+    ) {
+      p.passiveUsed.push("firstManipulation");
+      yield* run([{ type: "GUARD", amount: rule.amount }], reaction, 10);
+    }
+    yield* run(reaction.effects, reaction, 20);
+  }
+  const before = clone(state.players),
+    p = state.players[action.actor];
+  const valid = assignmentValid(
+    p.loadout,
+    p.faces,
+    action.assignment,
+    (action as Declaration & { tolerance?: number }).tolerance ?? 0,
+  );
+  yield frame(
+    action,
+    "TARGET_VALIDATION",
+    30,
+    before,
+    action.canceled
+      ? "Canceled by reaction"
+      : valid
+        ? "Target and paid dice still valid"
+        : "Requirement no longer met",
+    !valid || action.canceled ? "canceled" : "effect",
+  );
+  if (valid && !action.canceled) yield* run(action.effects, action, 40);
+  else
+    log(
+      state,
+      action.actor,
+      "fizzle",
+      "Declared action canceled; costs remain spent.",
+    );
+  if (action.damageTaken > 0)
+    for (const c of counters) yield* run([c.effect], c.decl, 50);
+  for (const d of [action, reaction])
+    if (d) state.players[d.actor].lastCategory = d.category;
+  if (reaction) {
+    const success =
+      reactionEffective ||
+      !valid ||
+      (action.damageTaken > 0 && counters.length > 0);
+    if (success) state.stats.at(-1)!.reactionSuccess[reaction.actor]++;
+  }
+  yield frame(
+    action,
+    "CLEANUP",
+    60,
+    clone(state.players),
+    "Exchange complete; evaluate lethal after post-damage triggers",
+    "commit",
+  );
   return {
     damage: state.players.map((p, i) => p.damageDealt - startDamage[i]),
-    guard: c.guardGained,
+    guard: state.stats.at(-1)!.guard.map((v, i) => v - startGuard[i]),
   };
 }
-
 export function resolveEffects(state: MatchState) {
-  const iterator = resolutionSteps(state);
-  let next = iterator.next();
-  while (!next.done) next = iterator.next();
-  return next.value;
+  const it = resolutionSteps(state);
+  let n = it.next();
+  while (!n.done) n = it.next();
+  return n.value;
 }

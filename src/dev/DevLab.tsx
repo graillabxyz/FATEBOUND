@@ -338,7 +338,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                 [
                   "content",
                   "Content browser",
-                  "72 cards · six Legends",
+                  `${Object.keys(cardById).length} cards · six Legends`,
                   "book",
                 ],
                 [
@@ -571,6 +571,7 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                 }}
                 presentation={{
                   manualAdvance: true,
+                  reactionTimerDisabled: lab.setup.timerMs === 0,
                   viewOnly: lab.options.view === "Spectator",
                   syncKey: lab.epoch,
                   draft: lab.drafts[lab.actor],

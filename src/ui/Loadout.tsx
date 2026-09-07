@@ -155,7 +155,7 @@ export default function Loadout() {
           className={tab === "cards" ? "active" : ""}
           onClick={() => setTab("cards")}
         >
-          Cards <span>12</span>
+          Cards <span>{cardsFor(l.id).length}</span>
         </button>
         <button
           className={tab === "dice" ? "active" : ""}
@@ -220,13 +220,13 @@ export default function Loadout() {
       ) : (
         <>
           <p className="helper-text">
-            Choose a D{l.diceSlots[dieSlot]} for slot {dieSlot + 1}. Every
-            ordered face matters.
+            Choose a collectible die for slot {dieSlot + 1}. Every ordered face
+            matters.
           </p>
           <div className="dice-catalog">
             {DICE.filter(
               (d) =>
-                d.size === l.diceSlots[dieSlot] &&
+                l.allowedDiceSizes.includes(d.size) &&
                 (d.compatibleLegendTags.includes("all") ||
                   d.compatibleLegendTags.some((t) => l.tags.includes(t))),
             ).map((d) => (

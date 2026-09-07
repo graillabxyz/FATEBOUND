@@ -1,616 +1,535 @@
 import { describe, it, expect } from "vitest";
-import { CARDS, cardsFor } from "../src/content/cards";
+import { CARDS, cardById } from "../src/content/cards";
 import { DICE, dieById, SIZES, dieBudget } from "../src/content/dice";
 import { LEGENDS } from "../src/content/legends";
 import { STARTERS } from "../src/content/loadouts";
 import { GAME } from "../src/content/config";
-import { facePosition, sharedFate } from "../src/engine/fate";
 import {
   createMatch,
-  beginRound,
-  projectMatch,
+  advance,
   decisionContext,
   lockPlan,
-  reveal,
-  resolve,
-  cleanup,
-  verifyReplay,
+  pass,
+  timeoutPlan,
+  projectMatch,
   exportReplay,
-  advance,
+  verifyReplay,
   decideWinner,
 } from "../src/engine/match";
 import {
   applyControls,
   validateLoadout,
   validatePlan,
-  safePlan,
   EMPTY_PLAN,
+  meetsRequirement,
+  guardValue,
+  clone,
 } from "../src/engine/rules";
+import { facePosition, turnFate } from "../src/engine/fate";
 import { choosePlan } from "../src/engine/ai";
-import { supportedPrimitives } from "../src/engine/effects";
-import type { LegendId, Loadout, Plan, MatchState } from "../src/engine/types";
+import { resolutionSteps, supportedPrimitives } from "../src/engine/effects";
 import { LocalMatchService } from "../src/services/match-service";
-import {
-  freshProfile,
-  LocalProfileService,
-  periodKey,
-} from "../src/services/profile";
-import type { StorageAdapter } from "../src/services/profile";
-const memory = (): StorageAdapter => {
-  const m = new Map<string, string>();
-  return {
-    getItem: (k) => m.get(k) ?? null,
-    setItem: (k, v) => {
-      m.set(k, v);
-    },
-    removeItem: (k) => {
-      m.delete(k);
-    },
+import type { Loadout, MatchState, Plan, Effect } from "../src/engine/types";
+const command = (target: string, dice = [0]): Plan => ({
+  controls: [],
+  assignments: [{ target, dice }],
+});
+function until(s: MatchState, phase: string) {
+  for (let i = 0; i < 100 && s.phase !== phase; i++) advance(s, 1000);
+  expect(s.phase).toBe(phase);
+}
+function ready(
+  a: Loadout = STARTERS.basajaun,
+  b: Loadout = STARTERS.anansi,
+  round = 1,
+) {
+  const s = createMatch(42, [a, b], undefined, { initiativeWinner: 0 });
+  s.round = round - 1;
+  until(s, "MAIN_ACTION");
+  return s;
+}
+function face(
+  s: MatchState,
+  a: number,
+  slot: number,
+  value: number,
+  held = false,
+) {
+  const p = s.players[a];
+  p.faces[slot] = value - 1;
+  p.dice[slot] = {
+    state: held ? "HELD" : "AVAILABLE",
+    rolledTurn: s.turn,
+    modified: false,
+    originalFace: value - 1,
   };
-};
-function ready(a: LegendId = "basajaun", b: LegendId = "anansi", seed = 431) {
-  const s = createMatch(seed, [STARTERS[a], STARTERS[b]]);
-  beginRound(s);
-  s.phase = "ASSIGNMENT";
-  return s;
 }
-function round(s: MatchState, a: Plan, b: Plan) {
-  lockPlan(s, 0, a);
-  lockPlan(s, 1, b);
-  reveal(s);
-  resolve(s);
-  cleanup(s);
+function exchange(s: MatchState, p: Plan, r: Plan = EMPTY_PLAN) {
+  lockPlan(s, s.activePlayer, p);
+  advance(s);
+  lockPlan(s, 1 - s.activePlayer, r);
+  until(s, "RESOLUTION");
+  advance(s);
 }
-function simulate(seed: number, a: Loadout, b: Loadout) {
-  const s = createMatch(seed, [a, b]);
-  for (let i = 0; i < 7 && s.winner === null; i++) {
-    beginRound(s);
-    s.phase = "ASSIGNMENT";
-    const plans = s.players.map((_, actor) =>
-      choosePlan(decisionContext(s, actor), "Normal"),
-    );
-    round(s, plans[0], plans[1]);
+function finish(s: MatchState) {
+  let n = 0;
+  while (s.phase !== "MATCH_END" && n++ < 3000) {
+    if (["MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
+      const a = s.phase === "MAIN_ACTION" ? s.activePlayer : 1 - s.activePlayer;
+      lockPlan(s, a, choosePlan(decisionContext(s, a)));
+    } else advance(s);
   }
-  s.phase = "MATCH_END";
+  expect(s.phase).toBe("MATCH_END");
   return s;
 }
-
-describe("authored content invariants", () => {
-  it("contains six complete Legends and 72 concise cards", () => {
-    expect(LEGENDS).toHaveLength(6);
-    expect(CARDS).toHaveLength(72);
-    expect(new Set(CARDS.map((c) => c.id)).size).toBe(72);
+function build(base: Loadout, card: string) {
+  const l = clone(base);
+  l.cards[0] = card;
+  return l;
+}
+describe("v2 content and locked loadouts", () => {
+  it("defines all six initiative bonuses and timing on every ability", () => {
+    expect(new Set(CARDS.map((c) => c.id)).size).toBe(CARDS.length);
+    expect(LEGENDS.map((l) => l.initiativeBonus)).toEqual([0, 3, 4, 1, 2, 2]);
     for (const l of LEGENDS) {
-      expect(cardsFor(l.id)).toHaveLength(12);
-      expect(() => validateLoadout(STARTERS[l.id])).not.toThrow();
-      expect(new Set(cardsFor(l.id).map((c) => c.archetype)).size).toBe(3);
+      validateLoadout(STARTERS[l.id]);
+      expect(l.active.timing).toMatch(/ACTION|REACTION/);
     }
-    for (const c of CARDS)
-      expect(c.text.split(/\s+/).length).toBeLessThanOrEqual(25);
+    for (const c of CARDS) {
+      expect(c.mechanicalVersion).toBe(2);
+      expect(c.timing).toMatch(/ACTION|REACTION/);
+    }
   });
-  it("all effects are registered and every die has a valid involutive opposite map", () => {
-    const visit = (effects: (typeof CARDS)[0]["effects"]) =>
-      effects.forEach((e) => {
+  it("registers all authored effects", () => {
+    const visit = (es: Effect[]) =>
+      es.forEach((e) => {
         expect(supportedPrimitives).toContain(e.type);
         if (e.effects) visit(e.effects);
       });
     CARDS.forEach((c) => visit(c.effects));
+    LEGENDS.forEach((l) => visit(l.active.effects));
+  });
+  it("keeps fixed faces and involutive opposite maps for every actual die size", () => {
     for (const d of DICE) {
       expect(d.faces).toHaveLength(d.size);
-      expect(d.faceCount).toBe(d.size);
-      expect(new Set(d.opposites).size).toBe(d.size);
-      d.opposites.forEach((j, i) => {
-        expect(j).not.toBe(i);
-        expect(d.opposites[j]).toBe(i);
+      d.opposites.forEach((op, i) => {
+        expect(op).not.toBe(i);
+        expect(d.opposites[op]).toBe(i);
       });
-      expect(Number.isFinite(dieBudget(d).variance)).toBe(true);
     }
+    expect(SIZES).toEqual([4, 6, 8, 10, 12, 20]);
   });
-  it("custom utility dice have lower mean budgets than their standard counterpart", () => {
-    for (const d of DICE.filter((d) => d.rarity === "rare"))
+  it("pays for symbols with blanks and lower numerical utility", () => {
+    for (const d of DICE.filter((d) => !d.id.startsWith("standard"))) {
+      expect(
+        d.faces.filter((f) => f.type === "blank").length,
+      ).toBeGreaterThanOrEqual(2);
       expect(dieBudget(d).mean).toBeLessThan(
         dieBudget(dieById[`standard-d${d.size}`]).mean,
       );
+    }
   });
-  it("rejects illegal ownership, duplicate cards, incompatible sizes and foreign cards", () => {
-    expect(() =>
-      validateLoadout({
-        ...STARTERS.basajaun,
-        cards: Array(4).fill(STARTERS.basajaun.cards[0]),
-      }),
-    ).toThrow();
-    expect(() =>
-      validateLoadout({
-        ...STARTERS.basajaun,
-        dice: ["standard-d20", "standard-d8", "standard-d6"],
-      }),
-    ).toThrow();
-    expect(() => validateLoadout(STARTERS.basajaun, new Set())).toThrow();
-    expect(() =>
-      validateLoadout({ ...STARTERS.basajaun, cards: STARTERS.anansi.cards }),
-    ).toThrow();
+  it("supports low and high dice builds without treating size as rarity", () => {
+    const l = clone(STARTERS.basajaun);
+    l.dice = ["standard-d4", "standard-d20", "guardian-d6"];
+    expect(() => validateLoadout(l)).not.toThrow();
   });
-});
-describe("Shared Fate and deterministic Control", () => {
-  it("maps the same normalized event uniformly to every supported die size", () => {
+  it("rejects foreign cards, ownership violations and wrong piece counts", () => {
+    const l = clone(STARTERS.basajaun);
+    expect(() => validateLoadout(l, new Set())).toThrow("owned");
+    l.cards[0] = STARTERS.anansi.cards[0];
+    expect(() => validateLoadout(l)).toThrow("incompatible");
+    l.cards.pop();
+    expect(() => validateLoadout(l)).toThrow("four");
+  });
+  it("locks copies of the pre-match loadouts", () => {
+    const a = clone(STARTERS.basajaun),
+      s = createMatch(1, [a, STARTERS.anansi]);
+    a.cards[0] = "changed";
+    a.dice[0] = "changed";
+    expect(s.players[0].loadout).toEqual(STARTERS.basajaun);
+  });
+  it("maps uniform normalized tokens to every supported size", () => {
     for (const size of SIZES) {
       const counts = Array(size).fill(0);
-      for (let token = 0; token < 120; token++)
-        counts[facePosition(token, size)]++;
-      expect(counts.every((n) => n === 120 / size)).toBe(true);
+      for (let i = 0; i < 120; i++) counts[facePosition(i, size)]++;
+      expect(new Set(counts).size).toBe(1);
     }
-    expect(() => facePosition(120, 6)).toThrow();
-    expect(() => facePosition(-1, 6)).toThrow();
-    expect(() => facePosition(0.5, 6)).toThrow();
-  });
-  it("is reproducible and equal for identical loadouts in every slot", () => {
-    for (let seed = 0; seed < 100; seed++) {
-      expect(sharedFate(seed, 3)).toEqual(sharedFate(seed, 3));
-      const s = ready("tengu", "tengu", seed);
-      expect(s.players[0].faces).toEqual(s.players[1].faces);
-    }
-    expect(sharedFate(4, 2)).not.toEqual(sharedFate(4, 3));
-  });
-  it("enforces exact Control cost, numbered SHIFT bounds and designed symbol FLIP", () => {
-    expect(
-      applyControls(
-        STARTERS.basajaun,
-        [4, 2, 1],
-        [{ slot: 0, kind: "shift", direction: 1 }],
-      ),
-    ).toEqual({ positions: [5, 2, 1], control: 1 });
-    expect(() =>
-      applyControls(
-        STARTERS.basajaun,
-        [0, 2, 1],
-        [{ slot: 0, kind: "shift", direction: -1 }],
-      ),
-    ).toThrow();
-    expect(() =>
-      applyControls(
-        STARTERS.basajaun,
-        [4, 2, 1],
-        [
-          { slot: 0, kind: "flip" },
-          { slot: 1, kind: "shift", direction: 1 },
-        ],
-      ),
-    ).toThrow();
-    const l = {
-      ...STARTERS.basajaun,
-      dice: ["basajaun-d12-0", "standard-d8", "standard-d6"],
-    };
-    expect(
-      applyControls(l, [0, 0, 0], [{ slot: 0, kind: "flip" }]).positions[0],
-    ).toBe(11);
-    expect(dieById[l.dice[0]].faces[11].effectId).toBe("guard");
-    expect(() =>
-      applyControls(l, [0, 0, 0], [{ slot: 0, kind: "shift", direction: 1 }]),
-    ).toThrow();
   });
 });
-describe("hidden information and reusable cards", () => {
-  it("projection seals seed, future Fate, hidden cards and assignments from both players", () => {
-    const s = ready();
-    const v = projectMatch(s);
-    expect("seed" in v).toBe(false);
-    expect("replay" in v).toBe(false);
-    expect(v.players[1].loadout.cards).toEqual([null, null, null, null]);
-    expect(v.players[1].plan).toBe(null);
-    const ai = decisionContext(s, 1);
-    expect(ai.enemy.loadout.cards).toEqual([null, null, null, null]);
-    expect(ai.enemy.plan).toBe(null);
-  });
-  it("reveals both plans together and permanently remembers cards without consuming them", () => {
-    const s = ready();
-    s.players[0].faces = [8, 2, 1];
-    s.players[1].faces = [2, 2, 2];
-    const a = {
-      controls: [],
-      assignments: [{ target: STARTERS.basajaun.cards[0], dice: [0] }],
-    };
-    const b = {
-      controls: [],
-      assignments: [{ target: STARTERS.anansi.cards[1], dice: [1] }],
-    };
-    lockPlan(s, 0, a);
-    expect(projectMatch(s, 1).players[0].plan).toBe(null);
-    lockPlan(s, 1, b);
-    reveal(s);
-    expect(projectMatch(s).players[1].loadout.cards[1]).toBe(
-      b.assignments[0].target,
-    );
-    resolve(s);
-    cleanup(s);
-    beginRound(s);
-    expect(s.players[0].loadout.cards).toEqual(STARTERS.basajaun.cards);
-    expect(projectMatch(s).players[1].loadout.cards[1]).toBe(
-      b.assignments[0].target,
-    );
-    expect(s.players[0].control).toBe(2);
-    expect(s.players[0].guard).toBe(0);
-  });
-  it("rejects reused dice and duplicate actions, accepts a two-die finisher", () => {
-    const s = ready();
-    s.players[0].faces = [10, 6, 5];
-    const ctx = decisionContext(s, 0);
-    expect(() =>
-      validatePlan(ctx, {
-        controls: [],
-        assignments: [
-          { target: "guard", dice: [0] },
-          { target: STARTERS.basajaun.cards[0], dice: [0] },
-        ],
-      }),
-    ).toThrow();
-    expect(() =>
-      validatePlan(ctx, {
-        controls: [],
-        assignments: [
-          { target: STARTERS.basajaun.cards[0], dice: [0] },
-          { target: STARTERS.basajaun.cards[0], dice: [1] },
-        ],
-      }),
-    ).toThrow();
-    expect(() =>
-      validatePlan(ctx, {
-        controls: [],
-        assignments: [{ target: STARTERS.basajaun.cards[3], dice: [0, 1] }],
-      }),
-    ).not.toThrow();
-  });
-  it("Leshy permits only one off-by-one adaptation per round", () => {
-    const s = ready("leshy");
-    s.players[0].faces = [3, 3, 1];
-    const c = STARTERS.leshy.cards;
-    expect(() =>
-      validatePlan(decisionContext(s, 0), {
-        controls: [],
-        assignments: [
-          { target: c[0], dice: [0] },
-          { target: c[1], dice: [1] },
-        ],
-      }),
-    ).toThrow();
-  });
-});
-describe("deterministic resolution and end states", () => {
-  it("Guard absorbs damage, Basajaun receives first-Guard bonus, and Guard expires", () => {
-    const s = ready();
-    s.players[0].faces = [0, 0, 0];
-    s.players[1].faces = [6, 0, 0];
-    round(
-      s,
-      {
-        controls: [],
-        assignments: [{ target: STARTERS.basajaun.cards[1], dice: [0] }],
-      },
-      {
-        controls: [],
-        assignments: [{ target: STARTERS.anansi.cards[0], dice: [0] }],
-      },
-    );
-    expect(s.players[0].hp).toBe(20);
-    expect(s.stats[0].guard[0]).toBe(5);
-    expect(s.players[0].guard).toBe(0);
-  });
-  it("resolves same-priority lethal simultaneously", () => {
-    const s = ready("basajaun", "basajaun");
-    s.players.forEach((p) => {
-      p.hp = 4;
-      p.faces = [7, 0, 0];
+describe("authoritative initiative, turns and resource lifetime", () => {
+  it("uses a single d20 contest plus data-driven bonuses", () => {
+    const s = createMatch(1, [STARTERS.tengu, STARTERS.basajaun], undefined, {
+      initiativeRolls: [11, 13],
     });
-    const plan = {
-      controls: [],
-      assignments: [{ target: STARTERS.basajaun.cards[0], dice: [0] }],
-    };
-    round(s, plan, plan);
-    expect(s.players.map((p) => p.hp)).toEqual([0, 0]);
-    expect(s.winner).toBe("draw");
+    advance(s);
+    expect(s.openingInitiative?.totals).toEqual([15, 13]);
+    expect(s.openingInitiative?.winner).toBe(0);
   });
-  it("uses HP, then effective damage, then a draw at the round limit", () => {
-    const s = ready();
-    s.players[0].hp = s.players[1].hp = 5;
-    s.players[0].damageDealt = 10;
-    s.players[1].damageDealt = 9;
-    decideWinner(s, true);
-    expect(s.winner).toBe(0);
-    s.players[1].damageDealt = 10;
-    decideWinner(s, true);
-    expect(s.winner).toBe("draw");
-  });
-  it("assignment swapping can invalidate requirements while retaining known-card memory", () => {
-    const s = ready("anansi", "basajaun");
-    s.players[0].faces = [7, 0, 0];
-    s.players[1].faces = [8, 1, 1];
-    round(
-      s,
-      {
-        controls: [],
-        assignments: [{ target: STARTERS.anansi.cards[3], dice: [0] }],
-      },
-      {
-        controls: [],
-        assignments: [
-          { target: STARTERS.basajaun.cards[0], dice: [0] },
-          { target: STARTERS.basajaun.cards[1], dice: [1] },
-        ],
-      },
-    );
-    expect(s.events.filter((e) => e.type === "fizzle")).toHaveLength(2);
-    expect(s.players[1].known).toHaveLength(2);
-    expect(s.stats[0].guard[0]).toBe(2);
-  });
-  it("AI never relies on hidden loadout cards or pending intent", () => {
-    const s = ready();
-    const before = choosePlan(decisionContext(s, 1));
-    s.players[0].loadout.cards = cardsFor("basajaun")
-      .slice(8)
-      .map((c) => c.id);
-    s.players[0].plan = {
-      controls: [],
-      assignments: [{ target: "guard", dice: [0] }],
-    };
-    expect(choosePlan(decisionContext(s, 1))).toEqual(before);
-  });
-  it("completes every Legend matchup and replays deterministically", () => {
-    for (const l of LEGENDS) {
-      const s = simulate(928, STARTERS[l.id], STARTERS.anansi);
-      expect(s.winner).not.toBe(null);
-      expect(s.round).toBeLessThanOrEqual(7);
-      expect(s.players.every((p) => p.hp >= 0)).toBe(true);
-      const replay = verifyReplay(exportReplay(s));
-      expect(
-        replay.players.map((p) => ({
-          hp: p.hp,
-          damage: p.damageDealt,
-          known: p.known,
-        })),
-      ).toEqual(
-        s.players.map((p) => ({
-          hp: p.hp,
-          damage: p.damageDealt,
-          known: p.known,
-        })),
-      );
-      expect(replay.winner).toBe(s.winner);
-    }
-  }, 30000);
-  it("swapping seats preserves outcome for deterministic AIs", () => {
-    const s = simulate(45, STARTERS.basajaun, STARTERS.tengu),
-      t = simulate(45, STARTERS.tengu, STARTERS.basajaun);
-    expect(s.players.map((p) => p.hp)).toEqual(
-      t.players.map((p) => p.hp).reverse(),
-    );
-    expect(s.stats.map((r) => r.damage)).toEqual(
-      t.stats.map((r) => [...r.damage].reverse()),
-    );
-  }, 30000);
-});
-describe("mock service authority and progression", () => {
-  it("timeout converts unassigned legal dice to Guard and never invents an attack", () => {
-    const s = ready("anansi");
-    s.players[0].faces = [0, 1, 2];
-    const safe = safePlan(decisionContext(s, 0));
-    expect(safe.assignments.every((a) => a.target === "guard")).toBe(true);
-    expect(safe.assignments.flatMap((a) => a.dice)).toEqual([1, 2]);
-  });
-  it("timeout preserves valid drafted offensive actions and guards the remainder", () => {
-    const s = ready();
-    s.players[0].faces = [9, 0, 0];
-    const plan = {
-      controls: [],
-      assignments: [{ target: STARTERS.basajaun.cards[0], dice: [0] }],
-    };
-    const safe = safePlan(decisionContext(s, 0), plan);
-    expect(safe.assignments[0]).toEqual(plan.assignments[0]);
-    expect(safe.assignments).toHaveLength(3);
-  });
-  it("validates command sequence, round, duplicates, reconnect checkpoint and timer expiry", () => {
-    const store = memory();
-    const svc = LocalMatchService.start(
-      1,
-      [STARTERS.basajaun, STARTERS.anansi],
-      "Training",
-      "Training",
-      false,
-      store,
-    );
-    while (svc.view().phase !== "CONTROL") svc.advance(100);
-    const view = svc.view();
-    expect(() =>
-      svc.submit({ matchId: view.id, sequence: 1, round: 2, plan: EMPTY_PLAN }),
-    ).toThrow("Stale round");
-    const cmd = { matchId: view.id, sequence: 1, round: 1, plan: EMPTY_PLAN };
-    const locked = svc.submit(cmd);
-    expect(svc.submit(cmd)).toEqual(locked);
-    expect(() =>
-      svc.submit({
-        ...cmd,
-        plan: { controls: [], assignments: [{ target: "guard", dice: [0] }] },
-      }),
-    ).toThrow("Conflicting");
-    const restored = LocalMatchService.restore(store)!;
-    expect(restored.view()).toEqual(svc.view());
-    const expired = LocalMatchService.start(
-      2,
-      [STARTERS.basajaun, STARTERS.anansi],
-      "Training",
-      "Training",
-      false,
-    );
-    while (expired.view().phase !== "CONTROL") expired.advance(100);
-    expired.tick(100 + GAME.decisionMs + 1);
-    expect(expired.view().phase).toBe("LOCKED");
-  });
-  it("rewards are idempotent and premium cosmetics never change mechanical loadouts", () => {
-    const store = memory();
-    const svc = new LocalProfileService(store);
-    const p = freshProfile();
-    const s = ready();
-    s.phase = "MATCH_END";
-    s.winner = 0;
-    const v = projectMatch(s);
-    const n = svc.claimMatch(p, v, "Training");
-    expect(n.xp).toBe(120);
-    expect(n.coins).toBe(300);
-    expect(n.mastery.basajaun).toBe(40);
-    expect(svc.claimMatch(n, v, "Training")).toBe(n);
-    const rich = { ...n, gems: 1000 };
-    const bought = svc.purchaseCosmetic(rich, "obsidian");
-    expect(bought.loadouts).toEqual(rich.loadouts);
-    expect(bought.cosmetics).toContain("obsidian");
-    expect(() => svc.purchaseCosmetic(rich, "mythic")).toThrow();
-  });
-  it("pass claims cannot repeat or claim locked premium levels", () => {
-    const svc = new LocalProfileService(memory()),
-      p = freshProfile();
-    const n = svc.claimPass(p, 1, "free");
-    expect(n.coins).toBe(p.coins + 50);
-    expect(svc.claimPass(n, 1, "free")).toBe(n);
-    expect(svc.claimPass(p, 2, "free")).toBe(p);
-    expect(svc.claimPass(p, 1, "premium")).toBe(p);
-  });
-  it("has explicit phase transitions and refuses premature reveal", () => {
-    const s = createMatch(7, [STARTERS.basajaun, STARTERS.anansi]);
-    expect(() => reveal(s)).toThrow();
-    advance(s, 0);
-    expect(s.phase).toBe("ROUND_START");
-    advance(s, 0);
-    expect(s.phase).toBe("FATE");
-    advance(s, 0);
-    expect(s.phase).toBe("ROLLING");
-    advance(s, 200);
-    expect(s.deadline).toBe(200 + GAME.decisionMs);
-  });
-  it("UTC quest refresh is deterministic", () => {
-    expect(periodKey("daily", Date.parse("2026-09-07T23:59:59Z"))).toBe(
-      "2026-09-07",
-    );
-    expect(periodKey("daily", Date.parse("2026-09-08T00:00:00Z"))).toBe(
-      "2026-09-08",
-    );
-  });
-});
-describe("regressions from simulation", () => {
-  it("simultaneous manipulation validates both cards before either swap changes their dice", () => {
-    const a = STARTERS.anansi,
-      b = STARTERS.leshy;
-    const aPlan: Plan = {
-      controls: [],
-      assignments: [
-        { target: a.cards[3], dice: [0] },
-        { target: a.cards[0], dice: [1] },
-      ],
-    };
-    const bPlan: Plan = {
-      controls: [],
-      assignments: [
-        { target: b.cards[3], dice: [0] },
-        { target: b.cards[0], dice: [1] },
-      ],
-    };
-    const play = (swapped: boolean) => {
-      const s = createMatch(1, swapped ? [b, a] : [a, b]);
-      beginRound(s);
-      s.phase = "ASSIGNMENT";
-      s.players[swapped ? 1 : 0].faces = [7, 5, 0];
-      s.players[swapped ? 0 : 1].faces = [4, 7, 0];
-      round(s, swapped ? bPlan : aPlan, swapped ? aPlan : bPlan);
-      return s;
-    };
-    const s = play(false),
-      t = play(true);
-    expect(s.players.map((p) => p.hp)).toEqual([16, 21]);
-    expect(t.players.map((p) => p.hp)).toEqual([21, 16]);
-    expect(s.events.some((e) => e.type === "block")).toBe(true);
-  });
-  it("stored strength starts next round and expires after that round", () => {
-    const s = ready();
-    s.players[0].loadout.cards[2] = cardsFor("basajaun")[5].id;
-    s.players[0].faces = [4, 0, 0];
-    round(
-      s,
-      {
-        controls: [],
-        assignments: [{ target: s.players[0].loadout.cards[2], dice: [0] }],
-      },
-      EMPTY_PLAN,
-    );
-    expect(s.players[0].statuses[0].id).toBe("power");
-    beginRound(s);
-    s.phase = "ASSIGNMENT";
-    s.players[0].faces = [7, 0, 0];
-    round(
-      s,
-      {
-        controls: [],
-        assignments: [{ target: s.players[0].loadout.cards[0], dice: [0] }],
-      },
-      EMPTY_PLAN,
-    );
-    expect(s.stats[1].damage[0]).toBe(6);
-    expect(s.players[0].statuses).toHaveLength(0);
-  });
-  it("all authored cards have an attainable requirement on a compatible build", () => {
-    for (const card of CARDS) {
-      const l = LEGENDS.find((l) => l.id === card.legend)!;
-      const dice = l.diceSlots.flatMap((size) =>
-        DICE.filter(
-          (d) =>
-            d.size === size &&
-            (d.compatibleLegendTags.includes("all") ||
-              d.compatibleLegendTags.some((t) => l.tags.includes(t))),
-        ),
-      );
-      const faces = dice.flatMap((d) => d.faces);
-      const r = card.requirement;
-      let reachable = false;
-      if (r.any) reachable = true;
-      else if (r.symbol) reachable = faces.some((f) => f.effectId === r.symbol);
-      else if (r.count === 1)
-        reachable = faces.some(
-          (f) =>
-            f.type === "number" &&
-            f.value >= (r.min ?? 0) &&
-            f.value <= (r.max ?? Infinity),
-        );
-      else
-        reachable = l.diceSlots.some((size, i) =>
-          l.diceSlots.some(
-            (other, j) => i !== j && size + other >= (r.min ?? 0),
+  it("alternates initiative and follows configured dice slot ramp for both seats", () => {
+    const s = createMatch(2, [STARTERS.basajaun, STARTERS.anansi], undefined, {
+      initiativeWinner: 0,
+    });
+    const rolls: { round: number; actor: number; slots: number[] }[] = [];
+    while (s.phase !== "MATCH_END") {
+      if (s.phase === "MAIN_ACTION") {
+        rolls.push({
+          round: s.round,
+          actor: s.activePlayer,
+          slots: s.players[s.activePlayer].dice.flatMap((d, i) =>
+            d.state === "AVAILABLE" ? [i] : [],
           ),
-        );
-      expect(reachable, card.name).toBe(true);
+        });
+        pass(s, s.activePlayer);
+      } else advance(s);
+    }
+    for (let r = 1; r <= 7; r++) {
+      const rows = rolls.filter((x) => x.round === r);
+      expect(rows.map((x) => x.actor)).toEqual(r % 2 ? [0, 1] : [1, 0]);
+      for (const row of rows)
+        expect(row.slots).toEqual(GAME.diceRamp[Math.min(r - 1, 4)]);
+    }
+    expect(s.events.filter((e) => e.type === "initiative")).toHaveLength(1);
+  });
+  it("holds leftover dice through turn end and round end, expiring only at owner turn start", () => {
+    const s = ready();
+    face(s, 0, 0, 3);
+    pass(s, 0);
+    expect(s.players[0].dice[0].state).toBe("HELD");
+    until(s, "MAIN_ACTION");
+    expect(s.activePlayer).toBe(1);
+    expect(s.players[0].dice[0].state).toBe("HELD");
+    face(s, 1, 0, 4);
+    pass(s, 1);
+    until(s, "ROUND_END");
+    expect(s.players[1].dice[0].state).toBe("HELD");
+    advance(s);
+    expect(s.players[1].dice[0].state).toBe("HELD");
+    advance(s);
+    expect(s.players[1].dice[0].state).toBe("EXPIRED");
+    expect(s.players[0].dice[0].state).toBe("HELD");
+  });
+  it("does not reveal future opponent rolls or live seed in projections", () => {
+    const s = ready();
+    for (const a of [0, 1, -1]) {
+      const v = projectMatch(s, a);
+      expect(v).not.toHaveProperty("seed");
+      expect(v).not.toHaveProperty("config");
+      expect(v).not.toHaveProperty("roundFate");
+      expect(v).not.toHaveProperty("replay");
+      expect(v.players[1].loadout.cards.filter(Boolean).length).toBe(
+        a === 1 ? 4 : 0,
+      );
+    }
+    expect(turnFate(1, 1, 0)).not.toEqual(turnFate(1, 1, 1));
+  });
+  it("resets Control each round without clearing preserved resources", () => {
+    const s = ready();
+    s.players[0].control = 0;
+    pass(s, 0);
+    until(s, "MAIN_ACTION");
+    pass(s, 1);
+    until(s, "ROUND_END");
+    advance(s);
+    expect(s.players.map((p) => p.control)).toEqual([2, 2]);
+    expect(s.players[0].dice[0].state).toBe("HELD");
+  });
+  it("refuses out-of-turn declarations and unrolled resource payments", () => {
+    const s = ready();
+    expect(() => lockPlan(s, 1, command("guard"))).toThrow("TIMING");
+    expect(() => lockPlan(s, 0, command("guard", [1]))).toThrow("DIE");
+  });
+  it("passes on timeout without spending or revealing the draft", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    timeoutPlan(s, 0, command("basajaun-crush"));
+    expect(s.players[0].dice[0].state).toBe("HELD");
+    expect(s.players[0].known).toEqual([]);
+    expect(s.players[0].guard).toBe(0);
+  });
+});
+describe("deterministic action and reaction resolution", () => {
+  it("Attack → Guard Reaction pays held die and absorbs damage first", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    face(s, 1, 0, 6, true);
+    exchange(s, command("basajaun-crush"), command("guard"));
+    expect(s.players[1].hp).toBe(17);
+    expect(s.players[1].guard).toBe(0);
+    expect(s.players[1].dice[0].state).toBe("SPENT");
+    expect(s.stats[0].reactions[1]).toBe(1);
+  });
+  it("opens a reaction window before damage and never auto-spends on timeout", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    lockPlan(s, 0, command("basajaun-crush"));
+    expect(s.players[1].hp).toBe(18);
+    advance(s, 100);
+    expect(s.phase).toBe("REACTION_WINDOW");
+    expect(s.deadline).toBe(5100);
+    timeoutPlan(s, 1);
+    advance(s);
+    expect(s.players[1].hp).toBe(14);
+  });
+  it("Attack → Redirect returns damage to the acting Legend", () => {
+    const s = ready(
+      STARTERS.basajaun,
+      build(STARTERS.anansi, "anansi-web-turn"),
+    );
+    face(s, 0, 0, 8);
+    face(s, 1, 0, 6, true);
+    exchange(s, command("basajaun-crush"), command("anansi-web-turn"));
+    expect(s.players[0].hp).toBe(16);
+    expect(s.players[1].hp).toBe(18);
+    expect(s.players[1].known).toContain("anansi-web-turn");
+  });
+  it("Attack → Counterstrike resolves retaliation after actual damage, including lethal", () => {
+    const s = ready(
+      STARTERS.basajaun,
+      build(STARTERS.basajaun, "basajaun-counterstrike"),
+    );
+    face(s, 0, 0, 8);
+    face(s, 1, 0, 8, true);
+    s.players[0].hp = 2;
+    s.players[1].hp = 4;
+    exchange(s, command("basajaun-crush"), command("basajaun-counterstrike"));
+    expect(s.players.map((p) => p.hp)).toEqual([0, 0]);
+    expect(s.phase).toBe("MATCH_END");
+    expect(s.winner).toBe(0);
+  });
+  it("does not counterstrike when Guard prevents all attack damage", () => {
+    const s = ready(
+      STARTERS.basajaun,
+      build(STARTERS.basajaun, "basajaun-counterstrike"),
+    );
+    face(s, 0, 0, 8);
+    face(s, 1, 0, 8, true);
+    s.players[1].guard = 10;
+    exchange(s, command("basajaun-crush"), command("basajaun-counterstrike"));
+    expect(s.players[0].hp).toBe(20);
+  });
+  it("Heal → disruption cancels healing while retaining paid costs and reveal", () => {
+    const s = ready(
+      build(STARTERS.basajaun, "basajaun-deep-roots"),
+      build(STARTERS.anansi, "anansi-unravel"),
+    );
+    face(s, 0, 0, 3);
+    face(s, 1, 0, 2, true);
+    s.players[0].hp = 10;
+    exchange(s, command("basajaun-deep-roots"), command("anansi-unravel"));
+    expect(s.players[0].hp).toBe(10);
+    expect(s.players[0].dice[0].state).toBe("SPENT");
+    expect(s.players[0].known).toContain("basajaun-deep-roots");
+  });
+  it("rechecks paid dice after reaction manipulation and fizzles invalid attacks", () => {
+    const c = cardById["anansi-unravel"],
+      old = clone(c.effects);
+    try {
+      c.effects = [{ type: "SHIFT_DIE", direction: -1 }];
+      const s = ready(STARTERS.basajaun, build(STARTERS.anansi, c.id));
+      face(s, 0, 0, 7);
+      face(s, 1, 0, 2, true);
+      exchange(s, command("basajaun-crush"), command(c.id));
+      expect(s.players[1].hp).toBe(18);
+      expect(s.events.some((e) => e.type === "fizzle")).toBe(true);
+    } finally {
+      c.effects = old;
+    }
+  });
+  it("allows the same permanent card again in the same round using different dice", () => {
+    const s = ready(STARTERS.basajaun, STARTERS.anansi, 5);
+    face(s, 0, 0, 8);
+    face(s, 0, 1, 8);
+    exchange(s, command("basajaun-crush"));
+    exchange(s, command("basajaun-crush", [1]));
+    expect(s.players[1].hp).toBe(10);
+    expect(s.players[0].known).toEqual(["basajaun-crush"]);
+    expect(s.stats.at(-1)!.cards[0]).toEqual([
+      "basajaun-crush",
+      "basajaun-crush",
+    ]);
+  });
+  it("rejects duplicate die payment and second activation using a spent die", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    expect(() =>
+      lockPlan(s, 0, command("basajaun-herensuge", [0, 0])),
+    ).toThrow();
+    exchange(s, command("basajaun-crush"));
+    expect(() => lockPlan(s, 0, command("basajaun-crush"))).toThrow("spent");
+  });
+  it("never opens another window for the reaction", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    face(s, 1, 0, 6, true);
+    lockPlan(s, 0, command("basajaun-crush"));
+    advance(s);
+    lockPlan(s, 1, command("guard"));
+    expect(s.phase).toBe("REACTION_DECLARED");
+    expect(() => lockPlan(s, 0, command("guard"))).toThrow("TIMING");
+    advance(s);
+    expect(s.phase).toBe("RESOLUTION");
+  });
+  it("exposes exactly the same result when stepped effect by effect", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    face(s, 1, 0, 6, true);
+    lockPlan(s, 0, command("basajaun-crush"));
+    advance(s);
+    lockPlan(s, 1, command("guard"));
+    advance(s);
+    const copy = clone(s);
+    const frames = [...resolutionSteps(s, true)];
+    advance(copy);
+    expect(s.players.map((p) => [p.hp, p.guard])).toEqual(
+      copy.players.map((p) => [p.hp, p.guard]),
+    );
+    expect(frames.map((f) => f.priority)).toEqual(
+      [...frames.map((f) => f.priority)].sort((a, b) => a - b),
+    );
+    expect(frames.some((f) => f.before && f.after)).toBe(true);
+  });
+  it("clamps healing to max HP and negative damage to zero", () => {
+    const s = ready(build(STARTERS.basajaun, "basajaun-deep-roots"));
+    face(s, 0, 0, 3);
+    exchange(s, command("basajaun-deep-roots"));
+    expect(s.players[0].hp).toBe(20);
+    const c = cardById["basajaun-crush"],
+      old = clone(c.effects);
+    try {
+      c.effects = [{ type: "DAMAGE", amount: -5 }];
+      const t = ready();
+      face(t, 0, 0, 8);
+      exchange(t, command(c.id));
+      expect(t.players[1].hp).toBe(18);
+    } finally {
+      c.effects = old;
     }
   });
 });
-describe("progression edge cases", () => {
-  it("replaces only an unclaimed daily quest and rejects inactive or repeated claims", () => {
-    const service = new LocalProfileService(memory());
-    const now = Date.parse("2026-09-07T12:00:00Z"),
-      key = periodKey("daily", now);
-    const p = freshProfile();
-    p.questCounts[key] = { control: 6, reveals: 6 };
-    expect(service.claimQuest(p, "daily-reveal", now)).toBe(p);
-    const replaced = service.replaceDaily(p, now);
-    expect(service.replaceDaily(replaced, now)).toBe(replaced);
-    expect(service.claimQuest(replaced, "daily-control", now)).toBe(replaced);
-    const claimed = service.claimQuest(replaced, "daily-reveal", now);
-    expect(claimed.seasonXp).toBe(75);
-    expect(service.claimQuest(claimed, "daily-reveal", now)).toBe(claimed);
-    const originallyClaimed = service.claimQuest(p, "daily-control", now);
-    expect(service.replaceDaily(originallyClaimed, now)).toBe(
-      originallyClaimed,
-    );
+describe("requirements, Control and deterministic verification", () => {
+  it("supports exact totals, parity, relationships, sizes and symbols", () => {
+    const f = (n: number) => dieById["standard-d20"].faces[n - 1];
+    expect(meetsRequirement({ count: 2, exact: 10 }, [f(3), f(7)])).toBe(true);
+    expect(meetsRequirement({ count: 1, parity: "odd" }, [f(6)])).toBe(false);
+    expect(
+      meetsRequirement({ count: 2, relationship: "equal" }, [f(2), f(3)]),
+    ).toBe(false);
+    expect(meetsRequirement({ count: 1, size: 4 }, [f(2)], [20])).toBe(false);
+    expect(meetsRequirement({ count: 1, min: 1, max: 3 }, [f(20)])).toBe(false);
   });
-  it("converts repeated pass cosmetics to an explicit Coin reward", () => {
-    const service = new LocalProfileService(memory());
-    const p = { ...freshProfile(), seasonXp: 1200 };
-    const first = service.claimPass(p, 3, "free");
-    expect(first.cosmetics).toContain("first-light");
-    const duplicate = service.claimPass(first, 8, "free");
-    expect(duplicate.coins).toBe(first.coins + 50);
-    expect(service.claimPass(duplicate, 8, "free")).toBe(duplicate);
+  it("universal Guard is floor(n/2), symbols need an explicit conversion", () => {
+    expect(
+      [2, 5, 8].map((n) => guardValue(dieById["standard-d20"].faces[n - 1])),
+    ).toEqual([1, 2, 4]);
+    expect(guardValue(dieById["guardian-d6"].faces[5])).toBe(3);
+    expect(guardValue(dieById["trickster-d8"].faces[5])).toBe(0);
+  });
+  it("Control changes numeric result by exactly one and respects boundaries", () => {
+    const l = STARTERS.basajaun;
+    expect(
+      applyControls(l, [6, 0, 0], [{ slot: 0, kind: "shift", direction: 1 }], 2)
+        .positions[0],
+    ).toBe(7);
+    expect(() =>
+      applyControls(
+        l,
+        [11, 0, 0],
+        [{ slot: 0, kind: "shift", direction: 1 }],
+        2,
+      ),
+    ).toThrow("SHIFT");
+    expect(() =>
+      applyControls(l, [0, 0, 0], [{ slot: 0, kind: "flip" }], 1),
+    ).toThrow("costs 2");
+  });
+  it("forbids Control on reaction windows and pays it before activation validation", () => {
+    const s = ready();
+    face(s, 0, 0, 6);
+    const p = command("basajaun-crush");
+    p.controls = [{ slot: 0, kind: "shift", direction: 1 }];
+    lockPlan(s, 0, p);
+    expect(s.players[0].control).toBe(1);
+    advance(s);
+    face(s, 1, 0, 2, true);
+    expect(() =>
+      validatePlan(decisionContext(s, 1), {
+        controls: [{ slot: 0, kind: "flip" }],
+        assignments: [],
+      }),
+    ).toThrow("own turn");
+  });
+  it("stun blocks a card with a clear validation error", () => {
+    const s = ready();
+    face(s, 0, 0, 8);
+    s.players[0].statuses = [
+      { id: "stun", cardId: "basajaun-crush", amount: 1, expiresRound: 1 },
+    ];
+    expect(() => lockPlan(s, 0, command("basajaun-crush"))).toThrow("STUNNED");
+    expect(s.players[0].dice[0].state).toBe("AVAILABLE");
+  });
+  it("all 36 matchups finish and their command replays reproduce exact state", () => {
+    for (const a of LEGENDS)
+      for (const b of LEGENDS) {
+        const s = finish(createMatch(131, [STARTERS[a.id], STARTERS[b.id]]));
+        const replay = verifyReplay(exportReplay(s));
+        expect(replay.players).toEqual(s.players);
+        expect(replay.events).toEqual(s.events);
+        expect(replay.stats).toEqual(s.stats);
+      }
+  });
+  it("swapped seats and RNG streams preserve outcomes in paired simulations", () => {
+    for (const a of LEGENDS) {
+      const s = finish(createMatch(44, [STARTERS[a.id], STARTERS.anansi]));
+      const t = finish(
+        createMatch(44, [STARTERS.anansi, STARTERS[a.id]], undefined, {
+          rngSeats: [1, 0],
+        }),
+      );
+      expect(s.players.map((p) => p.hp)).toEqual(
+        t.players.map((p) => p.hp).reverse(),
+      );
+    }
+  });
+  it("AI choices cannot depend on private opponent cards", () => {
+    const s = ready();
+    const ctx = decisionContext(s, 0),
+      a = choosePlan(ctx);
+    s.players[1].loadout.cards.reverse();
+    expect(choosePlan(decisionContext(s, 0))).toEqual(a);
+  });
+  it("rejects old replay versions instead of guessing missing turn state", () => {
+    const s = finish(createMatch(42, [STARTERS.basajaun, STARTERS.anansi]));
+    const r = exportReplay(s);
+    r.version = 1;
+    expect(() => verifyReplay(r)).toThrow("version");
+  });
+  it("uses HP then effective damage and deterministic draw at round cap", () => {
+    const s = ready();
+    s.round = 7;
+    s.players.forEach((p) => {
+      p.hp = 10;
+      p.damageDealt = 2;
+    });
+    decideWinner(s, true);
+    expect(s.winner).toBe("draw");
+    s.players[1].damageDealt++;
+    decideWinner(s, true);
+    expect(s.winner).toBe(1);
+  });
+  it("service rejects stale decisions and idempotently acknowledges duplicates", () => {
+    const state = ready(),
+      svc = new LocalMatchService(state, "Normal", "Training", true);
+    const v = svc.view(),
+      c = {
+        matchId: v.id,
+        round: v.round,
+        revision: v.revision,
+        sequence: 1,
+        plan: EMPTY_PLAN,
+      };
+    expect(svc.submit(c).phase).toBe("TURN_END");
+    expect(() => svc.submit(c)).not.toThrow();
+    expect(() => svc.submit({ ...c, sequence: 2 })).toThrow("Stale");
   });
 });

@@ -15,7 +15,7 @@ export function validateRecord(
     !raw ||
     typeof raw.id !== "string" ||
     raw.id.length > 180 ||
-    raw.version !== 1 ||
+    raw.version !== 2 ||
     !["live", "simulation", "lab"].includes(source) ||
     raw.source !== source
   )
@@ -71,7 +71,7 @@ export function validateRecord(
     throw new Error("Invalid round metrics.");
   raw.stats.forEach((r) => {
     number(r.round, 1, 99);
-    for (const key of ["damage", "guard", "control", "unused"] as const) {
+    for (const key of ["damage", "guard", "control", "unused", "held", "expired", "rolls", "reactions", "reactionWindows", "reactionSuccess", "turns"] as const) {
       if (!Array.isArray(r[key]) || r[key].length !== 2)
         throw new Error("Invalid per-seat metric.");
       r[key].forEach((n) => number(n));
@@ -85,17 +85,17 @@ export function validateRecord(
       throw new Error("Invalid card/face metrics.");
     r.cards.forEach((ids, a) => {
       if (
-        ids.length > 4 ||
+        ids.length > 12 ||
         ids.some((id) => !cardById[id] || !raw.loadouts[a].cards.includes(id))
       )
         throw new Error("Metric uses an unequipped card.");
     });
     r.faces.forEach((faces, a) => {
-      if (faces.length !== 3)
-        throw new Error("Three die observations required.");
-      faces.forEach((f, slot) => {
+      if (faces.length > 3)
+        throw new Error("At most three die observations per turn.");
+      faces.forEach((f) => {
         const [id, index] = f.split(":");
-        if (id !== raw.loadouts[a].dice[slot] || !dieById[id])
+        if (!raw.loadouts[a].dice.includes(id) || !dieById[id])
           throw new Error("Invalid die ID.");
         number(+index, 0, dieById[id].size - 1);
         if (!Number.isInteger(+index))
@@ -113,12 +113,17 @@ export function validateRecord(
     if (!["shift", "flip"].includes(c.kind))
       throw new Error("Invalid Control kind.");
   });
+  if (!raw.openingInitiative || ![0,1].includes(raw.openingInitiative.winner)) throw new Error("Opening initiative metrics required.");
+  for (const key of ["rolls","bonuses","totals"] as const) {
+    const values=raw.openingInitiative[key];if(!Array.isArray(values)||values.length!==2)throw new Error("Invalid initiative metrics.");
+    values.forEach(v=>number(v,key==="rolls"?1:0,key==="rolls"?20:40));
+  }
   // Only anonymous content identifiers and numeric outcomes are persisted; no profile or authored build names.
   return {
     id: raw.id,
     source,
     mode: String(raw.mode).slice(0, 40),
-    version: 1,
+    version: 2,
     timestamp: new Date(timestamp).toISOString(),
     durationMs: raw.durationMs,
     rounds: raw.rounds,
@@ -138,6 +143,7 @@ export function validateRecord(
       guard: [...r.guard],
       control: [...r.control],
       unused: [...r.unused],
+      held: [...r.held], expired: [...r.expired], rolls: [...r.rolls], reactions: [...r.reactions], reactionWindows: [...r.reactionWindows], reactionSuccess: [...r.reactionSuccess], turns: [...r.turns],
       cards: r.cards.map((c) => [...c]),
       faces: r.faces.map((f) => [...f]),
     })),
@@ -151,6 +157,7 @@ export function validateRecord(
       raw.pair && typeof raw.pair.id === "string" && raw.pair.id.length < 180
         ? { id: raw.pair.id, reversed: !!raw.pair.reversed }
         : undefined,
+    openingInitiative: structuredClone(raw.openingInitiative),
     seed: typeof raw.seed === "number" ? raw.seed : undefined,
   };
 }

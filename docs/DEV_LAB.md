@@ -15,7 +15,7 @@ npm run dev:lab          # terminal 2: localhost:5174
 - Game and lab: `http://127.0.0.1:5174/game` → Menu → Settings → Developer · Dev Lab.
 - Desktop/mobile metrics: `http://127.0.0.1:5174/metrics`.
 - The local database is stored in `../../work/fatebound-metrics.sqlite`. Override with `METRICS_DB_PATH` if needed. It survives restarts; it is excluded from source control.
-- The hosted site opens the metrics dashboard first; **Open game & Dev Lab** opens its internal game build.
+- The hosted `/metrics` route opens the dashboard; **Open game & Dev Lab** opens the internal `/game` build.
 
 ## Reproduce the requested example
 
@@ -24,9 +24,9 @@ Open **Round 6 · flipped two-die attack** on Dev Lab Home. This sets Basajaun t
 For any custom situation:
 
 1. Battle Lab → select each Legend, four distinct cards, three dice, HP/Guard/Control and human/AI controller. All six Legends are supported.
-2. Fixed Fate → choose exact face positions for either player. A preview shows the resulting faces on both sides. Shared Fate uses production positions 1–120 across different die sizes; direct die overrides can intentionally break that relationship.
+2. Fixed Fate → choose exact face positions for either player. A preview shows the resulting faces on both sides. Forced policies use normalized positions 1–120 across different die sizes; random mode uses independent seeded owner turns.
 3. Start lab match → DEV → STATE switches A, B, spectator or omniscient view. A/B/spectator use production information projections. Enable **Inspect taps** to tap cards, dice and Legends; disable it for normal selection and assignment.
-4. Use Next Phase through assignment, lock and reveal. Enable Step Resolution, then Next Effect. Each primitive pauses separately; COMMIT applies the priority's damage and healing together. Before/after state and pending deltas appear in LOG.
+4. Declare one action, advance to the reaction window, then declare a reaction or pass. Enable Step Resolution and use Next Effect for prevention, target validation, action damage, post-damage triggers and cleanup. Before/after state appears in LOG.
 5. Save Snapshot, change the situation, Restore Snapshot, or save a named local scenario. Exported snapshots and reports can be pasted into Import Match State, including snapshots taken during a suspended effect.
 6. Finish normally or force a winner in PHASE. Review Results shows the outcome and match statistics. Save Outcome to Dashboard stores it in the separate lab dataset.
 
@@ -34,20 +34,20 @@ The floating DEV sheet pauses timers and auto-advance. **Hide all Dev UI** prese
 
 ## Controls and validation
 
-- Setup supports default/random/mirrored/swapped loadouts, known cards, status JSON, round limits, seed, rank labels, timer durations and prior effective damage. Previous-card context is recorded in reports; this engine has no cross-round card-chain or stored-die mechanic.
+- Setup supports default/random/mirrored/swapped loadouts, known cards, status JSON, round limits, seed, rank labels, timer durations and prior effective damage. Setup also forces initiative bonuses, opening d20 rolls/winner and held-die faces. Held resources survive only until owner turn start. Previous-card context is recorded in reports.
 - Ignore Restrictions bypasses Legend/card/die compatibility only. Four distinct existing cards and three existing dice are still required because production targets use card IDs. Planning, Control costs and effect rules are never bypassed silently.
 - Fate supports random, fixed and multiround sequences with repeat/random/stop endings. Current/next Fate, individual faces and symbols can be changed. Sequence exhaustion stops at the round boundary with a clear message.
 - Dice inspection exposes ordered face indices, values, opposites, balance weights and compatibility. Shift/Flip use production Control rules; Set Face is an explicit audited override.
-- Card inspection exposes requirement reasons, reveal memory, card-scoped stun/disable, assignment and activation. Activation locks a valid plan; normal reveal and priority resolution execute it.
+- Card inspection exposes requirement reasons, reveal memory, card-scoped stun/disable, assignment and activation. Activation pays and reveals one valid action or reaction; production timing and resource validation always apply.
 - Legend inspection exposes health, Guard, Control and statuses. Numeric state overrides are labeled separately from damage/healing effects. Clear existing Control actions before reducing Control below their cost.
-- Current, previously known and hidden-but-known labels all map to the current production known-hand model. “Currently revealed” is an inspection flag; the match phase still governs simultaneous public assignments.
-- AI diagnostics show the actual production candidate search and score components, chosen plan and alternatives. You can recalculate, accept, force an alternative or stage a deterministic random alternative. Reveal-cost weight is explicitly zero in the current heuristic.
-- Safe rewind during suspended resolution returns to its pre-resolution REVEAL state; otherwise it resets the round. State edits during a suspended batch are rejected to protect its shared priority snapshot.
-- Timeouts preserve valid assignments and safely Guard unused legal dice. A timeout after lock does not alter the locked plan. Network disconnect is represented by snapshot/checkpoint restoration in the local authority; no live network failure simulator is claimed.
+- Current, previously known and hidden-but-known labels all map to the current production known-hand model. “Currently revealed” is an inspection flag; first declaration makes the card permanently public.
+- AI diagnostics show the actual production candidate search and score components, chosen plan and alternatives. You can recalculate, accept, force an alternative or stage a deterministic random alternative. Reveal cost and held-resource opportunity have explicit heuristic weights.
+- Safe rewind during suspended resolution returns to its pre-resolution RESOLUTION state; otherwise it resets the round. State edits during a suspended batch are rejected to protect its deterministic iterator state.
+- Timeouts pass without activating drafts or spending dice. Main turns end with available dice held; a reaction timeout passes the window. Network disconnect is represented by snapshot/checkpoint restoration in the local authority; no live network failure simulator is claimed.
 
 ## Content and balance workflow
 
-Content Browser searches cards by Legend, region, category, primitive and activation requirements, exposes raw structured definitions, and compares Legends. Dice Lab compares up to three ordered dice, face weights, opposites, numeric averages, symbol/blank probabilities and observed frequencies over 1/10/100/1000 rolls. Its comparison uses shared normalized Fate, including differently sized dice.
+Content Browser searches cards by Legend, region, category, primitive and activation requirements, exposes raw structured definitions, and compares Legends. Dice Lab compares up to three ordered dice, face weights, opposites, numeric averages, symbol/blank probabilities and observed frequencies over 1/10/100/1000 rolls. Its comparison uses identical normalized tokens, including differently sized dice, for probability comparisons; live owner turns use independent seeded streams.
 
 Edit `src/content/cards.ts`, `dice.ts`, `legends.ts` or `config.ts` while the development server runs. Vite refreshes the module graph. Restart the lab from the same setup/seed and replay the actions before comparing results. Hot reload does not rewrite a suspended iterator or guarantee old snapshots remain compatible with changed mechanical definitions. Increment the mechanical version for incompatible content/rule releases.
 
@@ -58,7 +58,7 @@ The website adapts to desktop and phone screens independently of the portrait-on
 - Source, date, Legend and opponent filters; human/AI content-usage cohorts for actual play.
 - Completed games, active anonymous game sessions, duration, rounds, draw rates and Legend performance.
 - Card equip/use counts, win rates when equipped or used, and first reveal round; dice equip counts, win rates, face frequencies and Control adjustments.
-- A matchup matrix, reversible-seat pair diagnostics, lethal round distribution and JSON export.
+- A matchup matrix, reversible-seat pair diagnostics, lethal round distribution and JSON export. Opening-initiative and class results, held dice, reactions, expirations and die-size correlations use mechanical version 2. Starting-win uncertainty counts each reversed pair once.
 - Simulations for 10, 100, 1,000 or 10,000 matches, custom four-card/three-die loadouts, deterministic seeds, two AI difficulties, mirror tests, reversed-seat pairing, background-worker progress/cancellation, and persistent run saving.
 - Actual interaction event counts and automatic refresh every ten seconds while visible.
 
@@ -66,7 +66,7 @@ Simulation runs execute entirely through the production engine. They have no fab
 
 “Used” cards include assigned/revealed cards that later fizzle. Win rates include draws in the denominator. Card or die success is correlated with its whole loadout, matchup and controller; it is not causal value attribution. Guard measures generated Guard, not damage prevented. No independent per-card “value created” score is invented.
 
-Live data consists of real interactions and completed human-vs-AI matches from connected internal game sessions. It is client-reported, not authoritative multiplayer telemetry. The actual-play dataset starts empty. Simulations and forced lab outcomes never populate it. No profile name, email, custom build name or event properties are collected; a rotating page-session identifier supports the 15-minute active-session count. Match IDs make retry ingestion idempotent. Short device-local outboxes tolerate temporary connectivity loss.
+Live data consists of real interactions and completed human-vs-AI matches from connected internal game sessions. It is client-reported, not authoritative multiplayer telemetry. Actual-play data is collected only from completed internal play sessions. Simulations and forced lab outcomes never populate it. No profile name, email, custom build name or event properties are collected; a rotating page-session identifier supports the 15-minute active-session count. Match IDs make retry ingestion idempotent. Short device-local outboxes tolerate temporary connectivity loss.
 
 ## Hosting and release separation
 
@@ -85,6 +85,6 @@ Release telemetry is disabled unless `VITE_TELEMETRY_URL` is configured. A publi
 
 ## Automated checks
 
-The tests cover deterministic presets, all-Legend stepped/normal equivalence, exact suspended snapshot restoration, hidden views, reveal rewind, Control limits, sequence endings, timeout behavior, simultaneous lethal, targeted stun, poison expiry, healing caps, AI diagnostics, telemetry validation, transactional batches, retry deduplication, matchup filtering and private access. The 1,200-game paired-seat report remains the engine's broad fairness regression.
+The tests cover deterministic presets, all-Legend stepped/normal equivalence, exact suspended snapshot restoration, hidden views, reveal rewind, Control limits, sequence endings, timeout behavior, simultaneous lethal, targeted stun, poison expiry, healing caps, AI diagnostics, telemetry validation, transactional batches, retry deduplication, matchup filtering and private access. The current 1,000-game version-two report has 500 pairs and zero seat/stream mismatches; starting-initiative imbalance remains explicitly flagged.
 
-Browser WebMCP registration is optional and has a no-support fallback. The available browser reported no registered WebMCP tools, so that optional integration was not verified. The new site has not undergone a full visual/browser interaction pass or native device validation; compilation and automated engine/API checks are recorded in VERIFICATION.md.
+Browser WebMCP registration is optional and has a no-support fallback. The available browser reported no registered WebMCP tools, so that optional integration was not verified. Version-two mobile action/reaction screens receive browser checks; native device validation remains separate. The historical version-one checks in VERIFICATION.md do not establish version-two balance.

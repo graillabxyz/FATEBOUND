@@ -1662,3 +1662,422 @@
   width: 63px;
   height: 70px;
 }
+
+/* Rules v2: portrait turn and reaction battlefield. */
+.turn-battle {
+  background:
+    linear-gradient(#101610cf, #101510ee),
+    url("/art/arena-portrait.webp") center/cover;
+  gap: 0 !important;
+}
+.turn-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 0 10px;
+  color: var(--gold, #d3b77e);
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.turn-header button {
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  color: inherit;
+  display: grid;
+  place-items: center;
+}
+.turn-header small {
+  opacity: 0.65;
+}
+.turn-board {
+  padding: 0 12px 10px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+}
+.turn-combatant {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 62px;
+}
+.turn-portrait {
+  height: 58px;
+  width: 54px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid #a9946255;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #18231c;
+}
+.turn-portrait .legend-art {
+  width: 100%;
+  height: 100%;
+}
+.turn-vitals {
+  flex: 1;
+  min-width: 0;
+}
+.turn-vitals > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.turn-vitals strong {
+  font-family: var(--font-display, "Cormorant Garamond");
+  font-size: 23px;
+  line-height: 1;
+}
+.turn-vitals > small {
+  font-size: 9px;
+  color: #b4b7a6;
+}
+.turn-vitals .health {
+  margin: 0;
+}
+.active-turn .turn-portrait {
+  border-color: #c3ac75;
+  box-shadow: 0 0 14px #c7ac4b24;
+}
+.initiative-badge {
+  font-size: 8px;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  color: #e3c98c;
+  white-space: nowrap;
+}
+.turn-battle .opponent-hand {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  flex-shrink: 0;
+}
+.turn-battle .opponent-hand .card-back {
+  height: 53px;
+  min-height: 53px;
+  width: auto;
+}
+.turn-battle .opponent-hand .card-back span {
+  font-size: 10px;
+}
+.turn-enemy-dice {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-shrink: 0;
+}
+.resource-die {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2px;
+}
+.resource-die > small {
+  font-size: 7px;
+  letter-spacing: 0.03em;
+  color: #bec4b2;
+  max-width: 90px;
+  text-align: center;
+  min-height: 10px;
+}
+.resource-spent .die,
+.resource-expired .die,
+.resource-unrolled .die {
+  opacity: 0.32;
+  filter: grayscale(0.8);
+}
+.resource-spent .die-face {
+  text-decoration: line-through;
+}
+.resource-held .die {
+  filter: drop-shadow(0 0 6px #83bfa04a);
+}
+.resource-held > small {
+  color: #b4e0c0;
+}
+.turn-announcement {
+  text-align: center;
+  border-block: 1px solid #a9946233;
+  padding: 9px 3px;
+  background: #1723185c;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.turn-announcement > small {
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: #aeb79b;
+}
+.turn-announcement > strong {
+  font-size: 19px;
+  letter-spacing: 0.1em;
+  color: #ead9b3;
+  font-family: var(--font-display, "Cormorant Garamond");
+}
+.turn-announcement > span {
+  font-size: 10px;
+  color: #c7c6b2;
+}
+.turn-announcement.reaction {
+  border-color: #c9ac6f;
+  background: #74603226;
+}
+.turn-announcement.reaction strong {
+  color: #ffe2a0;
+}
+.turn-last-event {
+  font-size: 10px;
+  text-align: center;
+  color: #afb79f;
+  line-height: 1.45;
+  padding: 4px 10px;
+  min-height: 28px;
+  margin: auto 0;
+}
+.turn-log {
+  max-height: 180px;
+  overflow: auto;
+  background: #111912;
+  padding: 8px;
+  border: 1px solid #b09c6433;
+}
+.turn-log p {
+  font-size: 10px;
+  margin: 7px 0;
+}
+.turn-log small {
+  display: block;
+  font-size: 8px;
+  color: #c0a779;
+}
+.turn-hand {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  flex-shrink: 0;
+}
+.timed-card {
+  min-width: 0;
+}
+.timing-label {
+  display: block;
+  font-size: 6px;
+  letter-spacing: 0.01em;
+  color: #aaa892;
+  padding: 4px 0;
+  white-space: nowrap;
+}
+.eligible .timing-label {
+  color: #e5ca87;
+}
+.timed-card.eligible .gameplay-card {
+  border-color: #a8be86aa;
+  box-shadow: 0 0 8px #a9c98214;
+}
+.turn-battle .gameplay-card.compact {
+  width: 100%;
+  height: 124px;
+  min-height: 0;
+}
+.turn-battle .gameplay-card.compact .card-illustration {
+  height: 38px;
+}
+.turn-battle .gameplay-card.compact .card-top {
+  height: 28px;
+}
+.turn-battle .gameplay-card.compact .card-top span {
+  font-size: 11px;
+}
+.turn-battle .gameplay-card.compact .card-rules p {
+  font-size: 8px;
+  line-height: 1.25;
+}
+.turn-battle .gameplay-card.compact .card-rules strong {
+  font-size: 12px;
+}
+.turn-controls {
+  padding: 8px 12px max(8px, env(safe-area-inset-bottom)) !important;
+  background: linear-gradient(#192119f5, #0c120ffd) !important;
+  border-top: 1px solid #a9946255;
+  flex-shrink: 0;
+}
+.turn-resource-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 10px;
+  color: #c2c7b2;
+}
+.turn-resource-heading .control-counter {
+  font-size: 11px;
+}
+.turn-dice-tray {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  margin: 6px 0;
+}
+.turn-dice-tray .die {
+  width: 68px;
+  height: 68px;
+  min-width: 0;
+  min-height: 0;
+}
+.turn-dice-tray .die-size {
+  font-size: 8px;
+}
+.turn-dice-tray .die-face {
+  font-size: 27px;
+}
+.turn-abilities {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 6px;
+}
+.turn-abilities button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid #79806a77;
+  background: #283129;
+  color: #e2dbc8;
+  font-size: 11px;
+  border-radius: 5px;
+}
+.turn-abilities small {
+  display: block;
+  color: #aaa;
+  font-size: 8px;
+  margin-top: 2px;
+}
+.turn-abilities button.selected {
+  border-color: #e4c689;
+  background: #b5994140;
+}
+.turn-control-actions {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+.turn-control-actions button {
+  flex: 1;
+  min-height: 44px;
+  border: 1px solid #92947344;
+  border-radius: 5px;
+  background: #202c24;
+  color: #d2cfba;
+  font-size: 10px;
+}
+.turn-diagnostic {
+  font-size: 10px;
+  line-height: 1.4;
+  margin: 6px 2px;
+}
+.turn-diagnostic.valid {
+  color: #c4dfac;
+}
+.turn-diagnostic.invalid {
+  color: #f1b399;
+}
+.turn-submit {
+  display: flex;
+  gap: 6px;
+  margin-top: 7px;
+}
+.turn-submit > * {
+  flex: 1;
+  min-width: 0;
+}
+.turn-submit .primary-button {
+  height: 44px;
+  min-height: 44px;
+  font-size: 12px;
+}
+.hold-button {
+  min-height: 44px;
+  background: #2c382b;
+  border: 1px solid #9caa784f;
+  border-radius: 5px;
+  color: #e0d6b6;
+  font-size: 11px;
+}
+.turn-waiting {
+  font-size: 10px;
+  text-align: center;
+  color: #a4ac98;
+  margin: 4px 0 10px;
+}
+.initiative-contest {
+  position: absolute;
+  inset: 70px 15px auto;
+  background: #172119f5;
+  border: 1px solid #b49a64;
+  border-radius: 10px;
+  z-index: 12;
+  padding: 28px 15px;
+  text-align: center;
+  box-shadow: 0 12px 80px #000;
+}
+.initiative-contest > div {
+  display: flex;
+  gap: 15px;
+  justify-content: space-around;
+}
+.initiative-contest span {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.initiative-contest b {
+  color: #e9ce97;
+  font-size: 25px;
+}
+.initiative-contest small {
+  font-size: 11px;
+  color: #afb69e;
+}
+@media (max-height: 750px) {
+  .turn-board {
+    gap: 6px;
+  }
+  .turn-announcement {
+    padding: 5px;
+  }
+  .turn-combatant {
+    min-height: 53px;
+  }
+  .turn-portrait {
+    height: 48px;
+    width: 45px;
+  }
+  .turn-battle .gameplay-card.compact {
+    height: 112px;
+  }
+  .turn-dice-tray .die {
+    width: 58px;
+    height: 58px;
+  }
+  .turn-vitals strong {
+    font-size: 20px;
+  }
+  .turn-enemy-dice .die.small {
+    width: 34px;
+    height: 34px;
+  }
+}

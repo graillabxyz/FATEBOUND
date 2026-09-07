@@ -1,5 +1,17 @@
 # Verification record — 2026-09-07
 
+## Current release: mechanical version 2
+
+86 tests pass across engine/service, turn edge cases, Dev Lab, metrics API, profile and dice geometry. Coverage includes all 36 Legend matchups, deterministic replay, alternating initiative, configurable dice ramp, owner-turn resource expiration, reusable private cards, atomic costs, one reaction window, Guard/redirect/counter/disruption ordering, malformed checkpoint rejection and exact mid-effect snapshot restoration. TypeScript, formatting, player release exclusion checks and internal client/Worker builds pass.
+
+`reports/balance-v2.json` contains 1,000 AI matches with 500 reversed-seat/RNG-stream pairs and zero mismatches. Seats win 499 each with two draws; average length is 4.39 rounds. Opening initiative wins 43.89% of decisive games (95% Wilson interval 39.60–48.27%, 499 independent decisive seeds). This is a detected balance problem, not evidence of 50% balance. Real-time human match duration remains unmeasured.
+
+At 393 × 852, the new battle was exercised through action declaration, resource spending, permanent card reveal, alternating initiative and dice ramp. In the Lab, switching to normal Player B view preserved hidden opponent cards. Web Turn consumed Anansi's held 6, revealed the card, and stepped through the production resolver: Anansi gained 2 passive Guard, Crush redirected, and Basajaun lost 4 HP (20 → 16); Anansi remained at 18 HP. Preset assignments survive opening the battle. Native shells are synchronized from the player build; native compilation/device limits below still apply.
+
+## Historical version-one verification
+
+The following records describe the superseded simultaneous-round engine and are retained as history only.
+
 ## Rules and data
 
 30 Vitest tests pass. Coverage includes all six Legends and 72 concise cards, legal default loadouts, face/opposite invariants, custom-die budget tradeoffs, uniform normalized mapping for every size, deterministic seeds, Control costs and bounds, ownership and slot validation, hidden player projections, reusable revealed-card memory, multi-die validation, Leshy's once-per-round adaptation, Guard and expiry, simultaneous lethal, deterministic ties, assignment swaps and fizzling, non-cheating AI, complete matches and replay reconstruction, reversed seats, safe timeouts, command idempotency/stale-round protection, reconnect, reward/pass idempotency, quest refresh, same-priority manipulation regression, stored strength, attainable card requirements, preserved peak rank, cosmetic reward duplicates, and quest replacement/claim validation.

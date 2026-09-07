@@ -55,12 +55,14 @@ export default function Dashboard() {
   }, []);
   const records = useMemo(
     () =>
-      (response?.records ?? []).filter((r) =>
-        r.loadouts.some(
-          (l, a) =>
-            (legend === "all" || l.legend === legend) &&
-            (opponent === "all" || r.loadouts[1 - a].legend === opponent),
-        ),
+      (response?.records ?? []).filter(
+        (r) =>
+          r.version === 2 &&
+          r.loadouts.some(
+            (l, a) =>
+              (legend === "all" || l.legend === legend) &&
+              (opponent === "all" || r.loadouts[1 - a].legend === opponent),
+          ),
       ),
     [response, legend, opponent],
   );
@@ -266,6 +268,96 @@ export default function Dashboard() {
               ))}
             </div>
             {page === "Overview" && (
+              <section className="metrics-panel" style={{ marginBottom: 16 }}>
+                <h2>Initiative & reaction balance</h2>
+                <p
+                  className={
+                    data.initiativeSignificant ? "dev-warning" : "dev-muted"
+                  }
+                >
+                  {data.initiativeSignificant
+                    ? "Starting initiative deviates significantly from 50% in this sample."
+                    : "No significant starting-initiative deviation detected in this sample."}{" "}
+                  Wilson 95% interval; at least 30 independent decisive seeds
+                  required. Paired seat reversals count once for uncertainty.
+                </p>
+                <div className="metrics-kpis">
+                  {[
+                    [
+                      "Opening initiative wins",
+                      percent(
+                        data.initiativeWins[0],
+                        data.initiativeWins[0] + data.initiativeWins[1],
+                      ),
+                      `${data.initiativeWins[0]} first / ${data.initiativeWins[1]} second`,
+                    ],
+                    [
+                      "Held dice / turn",
+                      (data.held / Math.max(1, data.turns)).toFixed(2),
+                      `${data.held} dice held`,
+                    ],
+                    [
+                      "Reaction frequency",
+                      percent(data.reactions, data.reactionWindows),
+                      `${data.reactions} / ${data.reactionWindows} windows`,
+                    ],
+                    [
+                      "Reaction success",
+                      percent(data.reactionSuccess, data.reactions),
+                      "Resolved useful responses",
+                    ],
+                    [
+                      "Unused expiration",
+                      percent(data.expired, data.rolls),
+                      `${data.expired} expired / ${data.rolls} rolled`,
+                    ],
+                    [
+                      "95% opening interval",
+                      data.initiativeGames
+                        ? data.openingConfidence
+                            .map((v) => (100 * v).toFixed(1) + "%")
+                            .join("–")
+                        : "—",
+                      "Decisive matches only",
+                    ],
+                  ].map(([label, value, sub]) => (
+                    <article key={label}>
+                      <span>{label}</span>
+                      <strong>{value}</strong>
+                      <small>{sub}</small>
+                    </article>
+                  ))}
+                </div>
+                <div className="dev-grid2">
+                  <div>
+                    <h3>Class performance</h3>
+                    {Object.entries(data.byClass).map(([id, r]) => (
+                      <p key={id}>
+                        {id}: {percent(r.wins, r.games)} · {r.games} appearances
+                      </p>
+                    ))}
+                  </div>
+                  <div>
+                    <h3>Damage by round</h3>
+                    {Object.entries(data.damageByRound).map(([id, r]) => (
+                      <p key={id}>
+                        Round {id}:{" "}
+                        {(r.damage / Math.max(1, r.games)).toFixed(2)} damage /
+                        match
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                <h3>Initiative bonus</h3>
+                {Object.entries(data.byInitiativeBonus).map(([id, r]) => (
+                  <p key={id}>
+                    +{id}: opening {percent(r.openings, r.games)} · match wins{" "}
+                    {percent(r.wins, r.games)} · {r.games} appearances
+                  </p>
+                ))}
+              </section>
+            )}
+            {page === "Overview" && (
               <div className="metrics-overview-grid">
                 <section className="metrics-panel">
                   <div className="metrics-panel-title">
@@ -410,7 +502,7 @@ export default function Dashboard() {
               </section>
             )}
             <footer className="metrics-footnote">
-              Mechanical version 1 · Updated{" "}
+              Mechanical version 2 · Updated{" "}
               {response
                 ? new Date(response.updatedAt).toLocaleTimeString()
                 : "—"}

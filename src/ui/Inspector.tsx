@@ -44,10 +44,14 @@ export default function Inspector({
             {l.hp} HP
           </span>
         </div>
+        <p className="rules-copy">
+          <Icon name="wind" size={16} /> Initiative +{l.initiativeBonus} ·{" "}
+          {l.class}
+        </p>
         <p className="lore">{l.lore}</p>
         <SectionLabel>PASSIVE</SectionLabel>
         <p className="rules-copy">{l.passive}</p>
-        <SectionLabel right={<span>{l.active.requirement.min}+</span>}>
+        <SectionLabel right={<span>{l.active.timing}</span>}>
           {l.active.name}
         </SectionLabel>
         <p>{l.active.text}</p>
@@ -85,7 +89,7 @@ export default function Inspector({
     return (
       <Modal
         title={c.name}
-        eyebrow={`${legendById[c.legend].name} · ${c.category}`}
+        eyebrow={`${legendById[c.legend].name} · ${c.timing} · ${c.category}`}
         onClose={onClose}
       >
         <LegendArt id={c.legend} className="inspect-card-art">

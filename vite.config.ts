@@ -30,7 +30,11 @@ export default defineConfig(({ command, mode }) => {
       port: 5173,
       strictPort: true,
       proxy: { "/api": "http://127.0.0.1:8787" },
-      watch: { ignored: ["**/android/**", "**/ios/**", "**/reports/**"] },
+      watch: {
+        usePolling: true,
+        interval: 500,
+        ignored: ["**/android/**", "**/ios/**", "**/reports/**"],
+      },
     },
     build: { target: "es2022" },
     test: { include: ["tests/**/*.test.ts"] },

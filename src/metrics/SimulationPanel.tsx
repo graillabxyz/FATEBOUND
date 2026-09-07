@@ -142,10 +142,7 @@ export default function SimulationPanel({
                   </Field>
                 ))}
                 {l.dice.map((id, i) => (
-                  <Field
-                    key={`die-${i}`}
-                    label={`Die ${i + 1} · D${legendById[l.legend].diceSlots[i]}`}
-                  >
+                  <Field key={`die-${i}`} label={`Collectible die ${i + 1}`}>
                     <select
                       value={id}
                       onChange={(e) =>
@@ -160,7 +157,9 @@ export default function SimulationPanel({
                     >
                       {DICE.filter(
                         (d) =>
-                          d.size === legendById[l.legend].diceSlots[i] &&
+                          legendById[l.legend].allowedDiceSizes.includes(
+                            d.size,
+                          ) &&
                           (d.compatibleLegendTags.includes("all") ||
                             d.compatibleLegendTags.some((t) =>
                               legendById[l.legend].tags.includes(t),

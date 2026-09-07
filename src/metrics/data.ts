@@ -1,3 +1,5 @@
+import { dieById } from "../content/dice";
+import { legendById } from "../content/legends";
 import type {
   Loadout,
   MatchState,
@@ -21,6 +23,12 @@ export type MatchRecord = {
   actors: ["human" | "ai", "human" | "ai"];
   pair?: { id: string; reversed: boolean };
   seed?: number;
+  openingInitiative?: {
+    winner: 0 | 1;
+    rolls: [number, number];
+    bonuses: [number, number];
+    totals: [number, number];
+  };
 };
 export type EntityMetrics = {
   games: number;
@@ -72,6 +80,8 @@ export function aggregate(
   records: MatchRecord[],
   actorFilter: "all" | "human" | "ai" = "all",
 ) {
+  records = records.filter((r) => r.version === 2);
+  const byDiceSize: Record<string, { games: number; wins: number }> = {};
   const byLegend: Record<string, EntityMetrics> = {},
     byCard: Record<string, CardMetrics> = {},
     byDie: Record<string, DieMetrics> = {},
@@ -90,8 +100,58 @@ export function aggregate(
     control = 0,
     draws = 0,
     unused = 0;
-  const seatWins = [0, 0];
+  const seatWins = [0, 0],
+    initiativeWins = [0, 0];
+  const byClass: Record<string, { games: number; wins: number }> = {};
+  const byInitiativeBonus: Record<
+    string,
+    { games: number; openings: number; wins: number }
+  > = {};
+  const damageByRound: Record<number, { games: number; damage: number }> = {};
+  let held = 0,
+    expired = 0,
+    rolls = 0,
+    reactions = 0,
+    reactionWindows = 0,
+    reactionSuccess = 0,
+    turns = 0,
+    initiativeGames = 0;
+
   for (const r of records) {
+    if (r.version !== 2) continue;
+    if (r.openingInitiative) {
+      initiativeGames++;
+      if (r.winner !== "draw")
+        initiativeWins[r.winner === r.openingInitiative.winner ? 0 : 1]++;
+    }
+    for (const [a, l] of r.loadouts.entries()) {
+      const cls = legendById[l.legend].class,
+        row = (byClass[cls] ??= { games: 0, wins: 0 });
+      row.games++;
+      row.wins += +(r.winner === a);
+      const bonus =
+          r.openingInitiative?.bonuses[a] ??
+          legendById[l.legend].initiativeBonus,
+        br = (byInitiativeBonus[bonus] ??= { games: 0, openings: 0, wins: 0 });
+      br.games++;
+      br.openings += +(r.openingInitiative?.winner === a);
+      br.wins += +(r.winner === a);
+    }
+    for (const st of r.stats) {
+      const sum = (v: number[] | undefined) =>
+        (v ?? []).reduce((a, b) => a + b, 0);
+      held += sum(st.held);
+      expired += sum(st.expired);
+      rolls += sum(st.rolls);
+      reactions += sum(st.reactions);
+      reactionWindows += sum(st.reactionWindows);
+      reactionSuccess += sum(st.reactionSuccess);
+      turns += sum(st.turns);
+      const row = (damageByRound[st.round] ??= { games: 0, damage: 0 });
+      row.games++;
+      row.damage += sum(st.damage);
+    }
+
     rounds += r.rounds;
     if (r.durationMs !== null) {
       duration += r.durationMs;
@@ -162,13 +222,21 @@ export function aggregate(
         row.equipped++;
         row.equippedWins += +won;
         const uses = r.stats.filter((v) => v.cards[a].includes(id));
-        row.uses += uses.length;
+        row.uses += r.stats.reduce(
+          (n, v) => n + v.cards[a].filter((c) => c === id).length,
+          0,
+        );
         if (uses.length) {
           row.usedMatches++;
           row.usedWins += +won;
           row.firstRevealRound += uses[0].round;
           row.reveals++;
         }
+      }
+      for (const size of new Set(l.dice.map((id) => dieById[id].size))) {
+        const row = (byDiceSize[size] ??= { games: 0, wins: 0 });
+        row.games++;
+        row.wins += +won;
       }
       for (const id of new Set(l.dice)) {
         const row = (byDie[id] ??= {
@@ -206,8 +274,47 @@ export function aggregate(
       if (a.winner !== winner || a.hp[0] !== b.hp[1] || a.hp[1] !== b.hp[0])
         mismatches++;
     }
+  // Paired reversals share all random draws: count each pair once for uncertainty.
+  const independent = new Map<string, MatchRecord>();
+  for (const r of records)
+    if (r.openingInitiative && r.winner !== "draw")
+      independent.set(r.pair?.id ?? r.id, r);
+  const independentWins = [...independent.values()].filter(
+    (r) => r.winner === r.openingInitiative!.winner,
+  ).length;
+  const decisive = independent.size;
+  const openingRate = decisive ? independentWins / decisive : 0.5;
+  const z = 1.96,
+    den = 1 + (z * z) / Math.max(1, decisive),
+    center = (openingRate + (z * z) / (2 * Math.max(1, decisive))) / den,
+    margin =
+      (z *
+        Math.sqrt(
+          (openingRate * (1 - openingRate) +
+            (z * z) / (4 * Math.max(1, decisive))) /
+            Math.max(1, decisive),
+        )) /
+      den;
   return {
-    games: records.length,
+    byDiceSize,
+    independentOpeningGames: decisive,
+    initiativeWins,
+    initiativeGames,
+    openingRate,
+    openingConfidence: [center - margin, center + margin],
+    initiativeSignificant:
+      decisive >= 30 && (center - margin > 0.5 || center + margin < 0.5),
+    held,
+    expired,
+    rolls,
+    reactions,
+    reactionWindows,
+    reactionSuccess,
+    turns,
+    byClass,
+    byInitiativeBonus,
+    damageByRound,
+    games: records.filter((r) => r.version === 2).length,
     seatWins,
     draws,
     averageRounds: records.length ? rounds / records.length : 0,
@@ -256,11 +363,20 @@ export function recordMatch(
     controls:
       "replay" in state
         ? state.replay.flatMap((r) =>
-            r.plans.flatMap((p, a) =>
-              p.controls.map((c) => ({ actor: a, slot: c.slot, kind: c.kind })),
-            ),
+            (r.plan?.controls ?? []).map((c) => ({
+              actor: r.actor,
+              slot: c.slot,
+              kind: c.kind,
+            })),
           )
-        : [],
+        : state.events
+            .filter((e) => e.type === "control")
+            .map((e) => ({
+              actor: e.actor,
+              slot: e.amount ?? 0,
+              kind: e.text.includes("flip") ? "flip" : "shift",
+            })),
+    openingInitiative: state.openingInitiative ?? undefined,
     seed: "seed" in state ? state.seed : undefined,
   };
 }

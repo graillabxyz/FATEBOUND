@@ -29,9 +29,22 @@ export function shiftedPosition(
   position: number,
   direction: -1 | 1,
 ) {
-  const target = position + direction;
-  return die.faces[position]?.type === "number" &&
-    die.faces[target]?.type === "number"
-    ? target
-    : null;
+  const face = die.faces[position];
+  if (!face || face.type !== "number") return null;
+  const target = die.faces.findIndex(
+    (f) => f.type === "number" && f.value === face.value + direction,
+  );
+  return target < 0 ? null : target;
+}
+export function initiativeDice(seed: number): [number, number] {
+  const next = randomSource((seed ^ 0xa371b5e9) >>> 0);
+  const roll = () => {
+    let n = next();
+    while (n >= 4294967280) n = next();
+    return (n % 20) + 1;
+  };
+  return [roll(), roll()];
+}
+export function turnFate(seed: number, round: number, stream: number) {
+  return sharedFate((seed ^ Math.imul(stream + 1, 0x85ebca6b)) >>> 0, round);
 }

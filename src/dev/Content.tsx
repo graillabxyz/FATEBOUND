@@ -29,7 +29,7 @@ export function ContentBrowser() {
         (requirement === "control" && !!c.requirement.control) ||
         (requirement === "condition" && !!c.requirement.condition) ||
         (requirement === "number" && c.requirement.min !== undefined)) &&
-      `${c.name} ${c.id} ${c.text} ${c.tags.join(" ")} ${c.archetype} ${c.requirementLabel}`
+      `${c.name} ${c.id} ${c.timing} ${c.text} ${c.tags.join(" ")} ${c.archetype} ${c.requirementLabel}`
         .toLowerCase()
         .includes(search.toLowerCase()),
   );
@@ -42,7 +42,7 @@ export function ContentBrowser() {
           className={kind === "cards" ? "active" : ""}
           onClick={() => setKind("cards")}
         >
-          Cards · 72
+          Cards · {CARDS.length}
         </button>
         <button
           className={kind === "legends" ? "active" : ""}
@@ -172,7 +172,8 @@ export function ContentBrowser() {
                   <LegendArt id={l.id} />
                   <h3>{l.name}</h3>
                   <p>
-                    {l.hp} HP · {l.diceSlots.map((s) => `D${s}`).join("/")}
+                    {l.hp} HP · Initiative +{l.initiativeBonus} ·{" "}
+                    {l.diceSlots.map((s) => `D${s}`).join("/")}
                   </p>
                   <p>{l.passive}</p>
                   <p>{l.approaches.join(" · ")}</p>

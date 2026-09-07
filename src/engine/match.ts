@@ -1,43 +1,116 @@
+import { GAME } from "../content/config";
+import { legendById } from "../content/legends";
+import { cardById } from "../content/cards";
+import { dieById } from "../content/dice";
+import { clone, validateLoadout, validatePlan, assignmentValid } from "./rules";
+import { facePosition, initiativeDice, turnFate } from "./fate";
+import { effectsFor, resolveEffects } from "./effects";
 import type {
+  DecisionContext,
   Loadout,
+  MatchConfig,
   MatchState,
   MatchView,
   Plan,
-  PublicPlayer,
-  DecisionContext,
   Replay,
+  RoundStats,
 } from "./types";
-import { GAME } from "../content/config";
-import { legendById } from "../content/legends";
-import { dieById } from "../content/dice";
-import { sharedFate, facePosition } from "./fate";
-import {
-  clone,
-  validateLoadout,
-  validatePlan,
-  safePlan,
-  requirementFor,
-} from "./rules";
-import { resolveEffects } from "./effects";
+type Seat = 0 | 1;
+const other = (a: Seat): Seat => (a === 0 ? 1 : 0);
+const log = (
+  s: MatchState,
+  actor: number,
+  type: string,
+  text: string,
+  amount?: number,
+) => s.events.push({ round: s.round, actor, type, text, amount });
 export function createMatch(
   seed: number,
   loadouts: [Loadout, Loadout],
-  id = `local-${seed}`,
+  id = `match-${seed}`,
+  config: Partial<MatchConfig> = {},
 ): MatchState {
+  if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff)
+    throw new Error("Invalid seed.");
+  if (!Array.isArray(loadouts) || loadouts.length !== 2)
+    throw new Error("Two locked loadouts required.");
   loadouts.forEach((l) => validateLoadout(l));
+  const rules: MatchConfig = {
+    maxRounds: GAME.maxRounds,
+    ramp: GAME.diceRamp.map((r) => [...r]),
+    rngSeats: [0, 1],
+    ...clone(config),
+  };
+  if (
+    !Number.isInteger(rules.maxRounds) ||
+    rules.maxRounds < 1 ||
+    rules.maxRounds > 99 ||
+    !rules.ramp.length ||
+    rules.ramp.some(
+      (r) =>
+        !r.length ||
+        new Set(r).size !== r.length ||
+        r.some((i) => !Number.isInteger(i) || i < 0 || i > 2),
+    )
+  )
+    throw new Error("Invalid match configuration.");
+  if (
+    rules.initiativeWinner !== undefined &&
+    ![0, 1].includes(rules.initiativeWinner)
+  )
+    throw new Error("Invalid initiative winner.");
+  if (
+    rules.rngSeats.length !== 2 ||
+    new Set(rules.rngSeats).size !== 2 ||
+    rules.rngSeats.some((n) => n !== 0 && n !== 1)
+  )
+    throw new Error("Invalid RNG streams.");
+  if (
+    (rules.initiativeRolls && rules.initiativeRolls.length !== 2) ||
+    (rules.initiativeBonuses && rules.initiativeBonuses.length !== 2)
+  )
+    throw new Error("Two initiative values required.");
+  if (
+    rules.initiativeRolls?.some((n) => !Number.isInteger(n) || n < 1 || n > 20)
+  )
+    throw new Error("Initiative rolls must be 1–20.");
+  if (
+    rules.initiativeBonuses?.some(
+      (n) => !Number.isInteger(n) || n < 0 || n > 20,
+    )
+  )
+    throw new Error("Initiative bonuses must be 0–20.");
   return {
     id,
     version: GAME.version,
-    seed: seed >>> 0,
+    seed,
+    config: rules,
+    openingInitiative: null,
+    initiative: 0,
+    activePlayer: 0,
+    turn: 0,
+    turnInRound: 0,
+    pending: null,
+    reaction: null,
+    roundFate: null,
     round: 0,
-    phase: "INTRO",
-    fate: [],
-    players: loadouts.map((l) => ({
-      loadout: clone(l),
-      hp: legendById[l.legend].hp,
+    phase: "MATCH_INTRO",
+    fate: [0, 0, 0],
+    players: loadouts.map((loadout) => ({
+      loadout: clone(loadout),
+      hp: legendById[loadout.legend].hp,
       guard: 0,
       control: GAME.controlPerRound,
       faces: [0, 0, 0],
+      dice: [0, 1, 2].map(() => ({
+        state: "UNROLLED" as const,
+        rolledTurn: 0,
+        modified: false,
+        originalFace: 0,
+      })),
+      actionsThisRound: 0,
+      passiveUsed: [],
+      lastCategory: null,
       known: [],
       statuses: [],
       damageDealt: 0,
@@ -52,137 +125,386 @@ export function createMatch(
     revision: 0,
   };
 }
-export function projectMatch(state: MatchState, viewer = 0): MatchView {
-  const { seed: _seed, replay: _replay, players, ...rest } = clone(state);
-  const revealed = [
-    "REVEAL",
-    "RESOLUTION",
-    "CLEANUP",
-    "ROUND_END",
-    "MATCH_END",
-  ].includes(state.phase);
-  const projected = players.map((p, i) => ({
-    ...p,
-    loadout: {
-      ...p.loadout,
-      cards: p.loadout.cards.map((c) =>
-        i === viewer || p.known.includes(c) || state.phase === "MATCH_END"
-          ? c
-          : null,
-      ),
-    },
-    plan: i === viewer || revealed ? p.plan : null,
-  })) as [PublicPlayer, PublicPlayer];
-  return { ...rest, players: projected };
-}
-export function decisionContext(
-  state: MatchState,
-  actor: number,
-): DecisionContext {
+export function projectMatch(s: MatchState, viewer: number = 0): MatchView {
+  const {
+    seed: _seed,
+    config: _config,
+    roundFate: _forced,
+    players,
+    replay: _replay,
+    ...publicState
+  } = clone(s);
   return {
-    round: state.round,
-    fate: [...state.fate],
-    self: clone(state.players[actor]),
-    enemy: projectMatch(state, actor).players[1 - actor],
+    ...publicState,
+    players: players.map((p, i) => ({
+      ...p,
+      statuses: p.statuses.map((st) =>
+        st.cardId && i !== viewer && !p.known.includes(st.cardId)
+          ? { ...st, cardId: undefined }
+          : st,
+      ),
+      loadout: {
+        ...p.loadout,
+        id: i === viewer ? p.loadout.id : "locked",
+        name: i === viewer ? p.loadout.name : "Private loadout",
+        cards: p.loadout.cards.map((id) =>
+          i === viewer || p.known.includes(id) || s.phase === "MATCH_END"
+            ? id
+            : null,
+        ),
+      },
+      plan:
+        p.plan && (s.pending?.actor === i || s.reaction?.actor === i)
+          ? p.plan
+          : null,
+    })) as MatchView["players"],
   };
 }
-export function beginRound(state: MatchState, now = 0, forced?: number[]) {
-  if (state.winner !== null) throw new Error("Match has ended.");
-  state.round++;
-  state.phase = "FATE";
-  state.fate = forced ?? sharedFate(state.seed, state.round);
-  if (state.fate.length !== 3) throw new Error("Fate has three slots.");
-  for (const p of state.players) {
+export function decisionContext(s: MatchState, actor: number): DecisionContext {
+  return {
+    actor,
+    phase: s.phase,
+    activePlayer: s.activePlayer,
+    turnInRound: s.turnInRound,
+    initiative: s.initiative,
+    pending: clone(s.pending),
+    round: s.round,
+    fate: clone(s.fate),
+    self: clone(s.players[actor]),
+    enemy: projectMatch(s, actor).players[1 - actor],
+  };
+}
+export function rollInitiative(s: MatchState) {
+  if (s.openingInitiative) return;
+  const random = initiativeDice(s.seed),
+    rolls =
+      s.config.initiativeRolls ??
+      (s.config.rngSeats.map((i) => random[i]) as [number, number]);
+  const bonuses =
+    s.config.initiativeBonuses ??
+    (s.players.map((p) => legendById[p.loadout.legend].initiativeBonus) as [
+      number,
+      number,
+    ]);
+  const totals = rolls.map((n, i) => n + bonuses[i]) as [number, number];
+  // Ties: higher raw d20, then higher stable RNG stream. Never reroll initiative.
+  const winner =
+    s.config.initiativeWinner ??
+    (totals[0] !== totals[1]
+      ? totals[0] > totals[1]
+        ? 0
+        : 1
+      : rolls[0] !== rolls[1]
+        ? rolls[0] > rolls[1]
+          ? 0
+          : 1
+        : s.config.rngSeats[0] > s.config.rngSeats[1]
+          ? 0
+          : 1);
+  s.openingInitiative = {
+    rolls: [...rolls],
+    bonuses: [...bonuses],
+    totals,
+    winner,
+  };
+  s.initiative = winner;
+  s.activePlayer = winner;
+  log(
+    s,
+    winner,
+    "initiative",
+    `Opening initiative: ${rolls[0]} + ${bonuses[0]} = ${totals[0]} vs ${rolls[1]} + ${bonuses[1]} = ${totals[1]}. ${legendById[s.players[winner].loadout.legend].name} leads Round 1.`,
+  );
+}
+const freshStats = (round: number): RoundStats => ({
+  round,
+  damage: [0, 0],
+  guard: [0, 0],
+  control: [0, 0],
+  cards: [[], []],
+  unused: [0, 0],
+  faces: [[], []],
+  held: [0, 0],
+  expired: [0, 0],
+  rolls: [0, 0],
+  reactions: [0, 0],
+  reactionWindows: [0, 0],
+  reactionSuccess: [0, 0],
+  turns: [0, 0],
+});
+export function beginRound(s: MatchState, _now = 0, forcedFate?: number[]) {
+  if (!["MATCH_INTRO", "INITIATIVE_ROLL", "ROUND_END"].includes(s.phase))
+    throw new Error("Cannot begin a round during a turn.");
+  if (s.winner !== null) throw new Error("Match already ended.");
+  if (
+    forcedFate &&
+    (forcedFate.length !== 3 ||
+      forcedFate.some((n) => !Number.isInteger(n) || n < 0 || n >= 120))
+  )
+    throw new Error("Three valid forced Fate tokens required.");
+  rollInitiative(s);
+  s.round++;
+  s.turnInRound = 0;
+  s.initiative =
+    s.round % 2
+      ? s.openingInitiative!.winner
+      : other(s.openingInitiative!.winner);
+  s.activePlayer = s.initiative;
+  s.roundFate = forcedFate ? clone(forcedFate) : null;
+  s.pending = null;
+  s.reaction = null;
+  s.players.forEach((p) => {
     p.control = GAME.controlPerRound;
-    p.guard = 0;
-    p.locked = false;
-    p.plan = null;
-    p.faces = p.loadout.dice.map((id, i) =>
-      facePosition(state.fate[i], dieById[id].size),
+    p.actionsThisRound = 0;
+    p.passiveUsed = [];
+    p.lastCategory = null;
+  });
+  s.stats.push(freshStats(s.round));
+  s.phase = "ROUND_START";
+  s.revision++;
+  log(
+    s,
+    s.initiative,
+    "round",
+    `Round ${s.round}: ${legendById[s.players[s.initiative].loadout.legend].name} has initiative.`,
+  );
+}
+export function beginTurn(s: MatchState) {
+  if (!["ROUND_START", "SECOND_TURN"].includes(s.phase))
+    throw new Error("Turn start requires a round or second-turn boundary.");
+  const p = s.players[s.activePlayer],
+    stats = s.stats.at(-1)!;
+  s.turn++;
+  const expired = p.dice.filter((d) =>
+    ["AVAILABLE", "HELD"].includes(d.state),
+  ).length;
+  stats.expired[s.activePlayer] += expired;
+  stats.unused[s.activePlayer] += expired;
+  stats.turns[s.activePlayer]++;
+  if (expired)
+    log(
+      s,
+      s.activePlayer,
+      "expire",
+      `${expired} unused dice expired at owner turn start.`,
+      expired,
+    );
+  p.dice.forEach((d) => {
+    if (d.state !== "UNROLLED") d.state = "EXPIRED";
+  });
+  p.guard = 0;
+  p.plan = null;
+  p.locked = false;
+  s.phase = s.winner === null ? "TURN_START" : "MATCH_END";
+  s.revision++;
+}
+export function rollDice(s: MatchState) {
+  if (s.phase !== "TURN_START")
+    throw new Error("Dice roll requires TURN_START.");
+  const p = s.players[s.activePlayer],
+    slots = s.config.ramp[Math.min(s.round - 1, s.config.ramp.length - 1)];
+  s.fate =
+    s.roundFate ?? turnFate(s.seed, s.round, s.config.rngSeats[s.activePlayer]);
+  slots.forEach((slot) => {
+    const d = dieById[p.loadout.dice[slot]],
+      face = facePosition(s.fate[slot], d.size);
+    p.faces[slot] = face;
+    p.dice[slot] = {
+      state: "ROLLING",
+      rolledTurn: s.turn,
+      modified: false,
+      originalFace: face,
+    };
+    s.stats.at(-1)!.rolls[s.activePlayer]++;
+    s.stats
+      .at(-1)!
+      .faces[s.activePlayer].push(
+        `${d.id}:${face}:${d.faces[face].effectId ?? d.faces[face].value}`,
+      );
+  });
+  log(
+    s,
+    s.activePlayer,
+    "roll",
+    `Slots ${slots.map((i) => i + 1).join(", ")} rolled: ${slots.map((i) => dieById[p.loadout.dice[i]].faces[p.faces[i]].displayIcon).join(" / ")}`,
+  );
+  // Start statuses apply after the new roll, before the main decision.
+  const poison = p.statuses
+    .filter((x) => x.id === "poison")
+    .reduce((n, x) => n + x.amount, 0);
+  if (poison) {
+    const dmg = Math.min(p.hp, Math.max(0, poison));
+    p.hp -= dmg;
+    s.players[other(s.activePlayer)].damageDealt += dmg;
+    s.stats.at(-1)!.damage[other(s.activePlayer)] += dmg;
+    log(s, other(s.activePlayer), "poison", `${dmg} poison damage`, dmg);
+  }
+  decideWinner(s, false);
+  s.phase = s.winner === null ? "DICE_ROLL" : "MATCH_END";
+  s.revision++;
+}
+export function lockPlan(s: MatchState, actor: number, plan: Plan) {
+  if (actor !== 0 && actor !== 1) throw new Error("Invalid actor.");
+  const ctx = decisionContext(s, actor),
+    paid = validatePlan(ctx, plan),
+    p = s.players[actor];
+  if (!plan.assignments.length && !plan.controls.length) {
+    pass(s, actor);
+    return;
+  }
+  s.replay.push({
+    round: s.round,
+    turn: s.turn,
+    actor,
+    kind: "plan",
+    plan: clone(plan),
+  });
+  const before = p.control;
+  p.faces = paid.positions;
+  p.control = paid.control;
+  s.stats.at(-1)!.control[actor] += before - p.control;
+  for (const c of plan.controls) {
+    p.dice[c.slot].modified = true;
+    log(
+      s,
+      actor,
+      "control",
+      `Die ${c.slot + 1}: ${c.kind}${c.direction ? ` ${c.direction > 0 ? "+1" : "−1"}` : ""}`,
+      c.slot,
     );
   }
-  state.deadline = now + GAME.decisionMs;
-  state.revision++;
-}
-export function lockPlan(state: MatchState, actor: number, plan: Plan) {
-  if (!["CONTROL", "ASSIGNMENT", "LOCKED"].includes(state.phase))
-    throw new Error("Planning is closed.");
-  const p = state.players[actor];
-  if (p.locked) throw new Error("Plan already locked.");
-  validatePlan(decisionContext(state, actor), plan);
-  p.plan = clone(plan);
-  p.locked = true;
-  state.revision++;
-  if (state.players.every((p) => p.locked)) state.phase = "LOCKED";
-}
-export function timeoutPlan(state: MatchState, actor: number, draft?: Plan) {
-  if (!state.players[actor].locked)
-    lockPlan(state, actor, safePlan(decisionContext(state, actor), draft));
-}
-export function reveal(state: MatchState) {
-  if (!state.players.every((p) => p.locked))
-    throw new Error("Both plans must be locked.");
-  if (state.phase !== "LOCKED") throw new Error("Invalid reveal transition.");
-  state.replay.push({
-    round: state.round,
-    plans: state.players.map((p) => clone(p.plan!)) as [Plan, Plan],
-  });
-  for (let i = 0; i < 2; i++) {
-    const p = state.players[i];
-    const result = validatePlan(decisionContext(state, i), p.plan!);
-    p.faces = result.positions;
-    p.control = result.control;
-    for (const a of p.plan!.assignments)
-      if (p.loadout.cards.includes(a.target) && !p.known.includes(a.target))
-        p.known.push(a.target);
+  if (!plan.assignments.length) {
+    s.revision++;
+    return;
   }
-  state.phase = "REVEAL";
-  state.revision++;
+  const a = clone(plan.assignments[0]);
+  const tolerance = assignmentValid(p.loadout, p.faces, a)
+    ? 0
+    : (legendById[p.loadout.legend].passiveRule?.amount ?? 0);
+  if (tolerance) p.passiveUsed.push("adapt");
+  const heldDice = a.dice.filter((i) => p.dice[i].state === "HELD").length;
+  a.dice.forEach((i) => (p.dice[i].state = "SPENT"));
+  p.plan = clone(plan);
+  p.actionsThisRound++;
+  if (cardById[a.target]) {
+    if (!p.known.includes(a.target)) p.known.push(a.target);
+    s.stats.at(-1)!.cards[actor].push(a.target);
+  }
+  const d = {
+    actor: actor as Seat,
+    assignment: a,
+    effects: effectsFor(s, actor, a),
+    category:
+      cardById[a.target]?.category ??
+      ((a.target === "guard" ? "Guard" : "Setup") as "Guard" | "Setup"),
+    canceled: false,
+    redirected: false,
+    prevention: 0,
+    damageTaken: 0,
+    tolerance,
+    heldDice,
+  };
+  if (s.phase === "REACTION_WINDOW") {
+    s.reaction = d;
+    s.stats.at(-1)!.reactions[actor]++;
+    s.phase = "REACTION_DECLARED";
+  } else {
+    s.pending = d;
+    s.reaction = null;
+    s.phase = "ACTION_DECLARED";
+  }
+  log(
+    s,
+    actor,
+    "declaration",
+    `${s.reaction === d ? "Reaction" : "Action"}: ${cardById[a.target]?.name ?? (a.target === "guard" ? "Universal Guard" : legendById[p.loadout.legend].active.name)} · spent dice ${a.dice.map((i) => i + 1).join(", ")}`,
+  );
+  s.revision++;
 }
-export function resolve(state: MatchState) {
-  if (state.phase !== "REVEAL") throw new Error("Reveal before resolution.");
-  state.phase = "RESOLUTION";
-  recordResolution(state, resolveEffects(state));
+export function pass(s: MatchState, actor: number) {
+  const reacting = s.phase === "REACTION_WINDOW";
+  if (
+    !(reacting
+      ? actor === 1 - s.activePlayer
+      : s.phase === "MAIN_ACTION" && actor === s.activePlayer)
+  )
+    throw new Error("No decision window for this player.");
+  s.replay.push({
+    round: s.round,
+    turn: s.turn,
+    actor: actor as Seat,
+    kind: "pass",
+  });
+  log(
+    s,
+    actor,
+    reacting ? "reaction-pass" : "hold",
+    reacting
+      ? "Reaction passed; no resources spent."
+      : "Turn ended; remaining dice held for reactions.",
+  );
+  if (reacting) s.phase = "RESOLUTION";
+  else {
+    const p = s.players[actor];
+    p.dice.forEach((d) => {
+      if (d.state === "AVAILABLE") d.state = "HELD";
+    });
+    const held = p.dice.filter((d) => d.state === "HELD").length;
+    s.stats.at(-1)!.held[actor] += held;
+    const rule = legendById[p.loadout.legend].passiveRule;
+    if (rule?.trigger === "holdOne" && held === 1) {
+      p.guard += rule.amount;
+      s.stats.at(-1)!.guard[actor] += rule.amount;
+      log(
+        s,
+        actor,
+        "guard",
+        `Held one die: +${rule.amount} Guard`,
+        rule.amount,
+      );
+    }
+    s.phase = "TURN_END";
+  }
+  s.revision++;
+}
+export function timeoutPlan(s: MatchState, actor: number, _draft?: Plan) {
+  pass(s, actor);
+  log(s, actor, "timeout", "Timeout: pass without spending resources.");
+}
+export function reveal(s: MatchState) {
+  if (s.phase === "ACTION_DECLARED") advance(s);
+  else if (s.phase === "REACTION_DECLARED") s.phase = "RESOLUTION";
+  else throw new Error("No declaration to reveal.");
+}
+export function resolve(s: MatchState) {
+  if (s.phase !== "RESOLUTION")
+    throw new Error("Wait for the reaction window before resolving.");
+  const result = resolveEffects(s);
+  recordResolution(s, result);
 }
 export function recordResolution(
-  state: MatchState,
-  { damage, guard }: { damage: number[]; guard: number[] },
+  s: MatchState,
+  _result: { damage: number[]; guard: number[] },
 ) {
-  state.stats.push({
-    round: state.round,
-    damage,
-    guard,
-    control: (
-      state.replay.at(-1)?.plans ?? state.players.map((p) => p.plan!)
-    ).map(
-      (plan, actor) =>
-        plan.controls.reduce((n, c) => n + (c.kind === "flip" ? 2 : 1), 0) +
-        plan.assignments.reduce(
-          (n, a) =>
-            n +
-            (requirementFor(state.players[actor].loadout, a.target).control ??
-              0),
-          0,
-        ),
-    ),
-    cards: state.players.map((p) =>
-      p
-        .plan!.assignments.filter((a) => p.loadout.cards.includes(a.target))
-        .map((a) => a.target),
-    ),
-    unused: state.players.map(
-      (p) => 3 - new Set(p.plan!.assignments.flatMap((a) => a.dice)).size,
-    ),
-    faces: state.players.map((p) =>
-      p.faces.map((f, i) => `${p.loadout.dice[i]}:${f}`),
-    ),
-  });
-  state.revision++;
+  decideWinner(s, false);
+  s.pending = null;
+  s.reaction = null;
+  s.players.forEach((p) => (p.plan = null));
+  s.phase = s.winner === null ? "MAIN_ACTION" : "MATCH_END";
+  s.revision++;
 }
-export function decideWinner(state: MatchState, roundLimit = false) {
-  const [a, b] = state.players;
-  if (a.hp > 0 && b.hp > 0 && !roundLimit) return;
-  state.winner =
+export function decideWinner(
+  s: MatchState,
+  atRoundLimit: boolean | number = false,
+) {
+  const ended =
+    s.players.some((p) => p.hp <= 0) ||
+    (typeof atRoundLimit === "number"
+      ? s.round >= atRoundLimit
+      : atRoundLimit && s.round >= s.config.maxRounds);
+  if (!ended) return;
+  const [a, b] = s.players;
+  s.winner =
     a.hp !== b.hp
       ? a.hp > b.hp
         ? 0
@@ -193,90 +515,101 @@ export function decideWinner(state: MatchState, roundLimit = false) {
           : 1
         : "draw";
 }
-export function cleanup(state: MatchState, maxRounds: number = GAME.maxRounds) {
-  if (state.phase !== "RESOLUTION") throw new Error("Resolve before cleanup.");
-  for (let i = 0; i < 2; i++) {
-    const p = state.players[i];
-    const poison = p.statuses
-      .filter((s) => s.id === "poison" && s.expiresRound === state.round)
-      .reduce((n, s) => n + s.amount, 0);
-    const damage = Math.min(p.hp, poison);
-    if (damage) {
-      p.hp -= damage;
-      state.players[1 - i].damageDealt += damage;
-      state.stats.at(-1)!.damage[1 - i] += damage;
-      state.events.push({
-        round: state.round,
-        actor: 1 - i,
-        type: "poison",
-        text: `${damage} poison damage`,
-        amount: damage,
+export function cleanup(s: MatchState, maxRounds = s.config.maxRounds) {
+  if (s.phase !== "ROUND_END")
+    throw new Error("Cleanup is a round-end operation.");
+  s.players.forEach((p) => {
+    p.statuses = p.statuses.filter((x) => x.expiresRound > s.round);
+  });
+  decideWinner(s, s.round >= maxRounds);
+  if (s.winner !== null) s.phase = "MATCH_END";
+  s.revision++;
+}
+export function advance(s: MatchState, now = 0) {
+  switch (s.phase) {
+    case "MATCH_INTRO":
+      rollInitiative(s);
+      s.phase = "INITIATIVE_ROLL";
+      break;
+    case "INITIATIVE_ROLL":
+      beginRound(s);
+      break;
+    case "ROUND_START":
+      beginTurn(s);
+      break;
+    case "TURN_START":
+      rollDice(s);
+      break;
+    case "DICE_ROLL":
+      s.players[s.activePlayer].dice.forEach((d) => {
+        if (d.state === "ROLLING") d.state = "AVAILABLE";
       });
-    }
-    p.statuses = p.statuses.filter(
-      (s) => s.expiresRound > state.round && s.amount > 0,
-    );
-    p.guard = 0;
+      s.phase = "MAIN_ACTION";
+      s.deadline = now + GAME.decisionMs;
+      break;
+    case "ACTION_DECLARED":
+      s.phase = "REACTION_WINDOW";
+      s.deadline = now + GAME.reactionMs;
+      s.stats.at(-1)!.reactionWindows[other(s.activePlayer)]++;
+      break;
+    case "REACTION_DECLARED":
+      s.phase = "RESOLUTION";
+      break;
+    case "RESOLUTION":
+      resolve(s);
+      s.deadline = now + GAME.decisionMs;
+      break;
+    case "TURN_END":
+      if (s.turnInRound === 0) {
+        s.turnInRound = 1;
+        s.activePlayer = other(s.initiative);
+        s.phase = "SECOND_TURN";
+      } else s.phase = "ROUND_END";
+      break;
+    case "SECOND_TURN":
+      beginTurn(s);
+      break;
+    case "ROUND_END":
+      cleanup(s);
+      if (s.winner === null) beginRound(s);
+      break;
+    case "MAIN_ACTION":
+    case "REACTION_WINDOW":
+      throw new Error("A decision is required: declare an ability or pass.");
+    case "MATCH_END":
+      return;
   }
-  decideWinner(state, state.round >= maxRounds);
-  state.phase = "CLEANUP";
-  state.revision++;
+  s.revision++;
 }
-export function advance(state: MatchState, now: number) {
-  const phase = state.phase;
-  if (phase === "INTRO") {
-    state.phase = "ROUND_START";
-  } else if (
-    phase === "ROUND_START" ||
-    (phase === "ROUND_END" && state.winner === null)
-  ) {
-    beginRound(state, now);
-  } else if (phase === "FATE") {
-    state.phase = "ROLLING";
-  } else if (phase === "ROLLING") {
-    state.phase = "CONTROL";
-    state.deadline = now + GAME.decisionMs;
-  } else if (phase === "CONTROL") {
-    state.phase = "ASSIGNMENT";
-  } else if (phase === "LOCKED") {
-    reveal(state);
-  } else if (phase === "REVEAL") {
-    resolve(state);
-  } else if (phase === "RESOLUTION") {
-    cleanup(state);
-  } else if (phase === "CLEANUP") {
-    state.phase = "ROUND_END";
-  } else if (phase === "ROUND_END") {
-    state.phase = "MATCH_END";
-  } else throw new Error(`Cannot advance ${phase}.`);
-  state.revision++;
-}
-export function exportReplay(state: MatchState): Replay {
-  if (state.phase !== "MATCH_END")
-    throw new Error("Replay seed is sealed until the match ends.");
+export function exportReplay(s: MatchState): Replay {
+  if (s.phase !== "MATCH_END")
+    throw new Error("Live seed is private until match end.");
   return {
-    seed: state.seed,
-    version: state.version,
-    loadouts: state.players.map((p) => clone(p.loadout)) as [Loadout, Loadout],
-    turns: clone(state.replay),
+    seed: s.seed,
+    version: s.version,
+    loadouts: clone(s.players.map((p) => p.loadout)) as [Loadout, Loadout],
+    turns: clone(s.replay),
+    config: clone(s.config),
   };
 }
-export function verifyReplay(replay: Replay): MatchState {
-  if (replay.version !== GAME.version)
-    throw new Error("Unsupported mechanical version.");
-  const s = createMatch(replay.seed, replay.loadouts);
-  for (const turn of replay.turns) {
-    if (s.winner !== null)
-      throw new Error("Replay contains actions after match end.");
-    beginRound(s);
-    if (turn.round !== s.round) throw new Error("Invalid replay round.");
-    s.phase = "ASSIGNMENT";
-    lockPlan(s, 0, turn.plans[0]);
-    lockPlan(s, 1, turn.plans[1]);
-    reveal(s);
-    resolve(s);
-    cleanup(s);
+export function verifyReplay(r: Replay) {
+  if (r.version !== GAME.version)
+    throw new Error(
+      "Unsupported mechanical version. Version 1 simultaneous replays cannot use turn rules.",
+    );
+  const s = createMatch(r.seed, r.loadouts, undefined, r.config);
+  let cursor = 0,
+    steps = 0;
+  while (s.phase !== "MATCH_END" && steps++ < 3000) {
+    if (["MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
+      const c = r.turns[cursor++];
+      if (!c || c.round !== s.round || c.turn !== s.turn)
+        throw new Error("Replay decision missing or out of sequence.");
+      if (c.kind === "pass") pass(s, c.actor);
+      else lockPlan(s, c.actor, c.plan!);
+    } else advance(s);
   }
-  s.phase = s.winner === null ? "ROUND_END" : "MATCH_END";
+  if (s.phase !== "MATCH_END" || cursor !== r.turns.length)
+    throw new Error("Incomplete or trailing replay commands.");
   return s;
 }

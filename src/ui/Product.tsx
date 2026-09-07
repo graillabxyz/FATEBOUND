@@ -537,22 +537,22 @@ export function TutorialContent() {
         <p>
           <b>01</b>
           <span>
-            <strong>One shared Fate</strong>Your dice read the same random
-            event.
+            <strong>Take the initiative</strong>d20 + your Legend’s bonus opens
+            the match. Initiative alternates each round.
           </span>
         </p>
         <p>
           <b>02</b>
           <span>
-            <strong>Four cards. Always yours.</strong>Assign dice. Reveal
-            together. Use them again.
+            <strong>Four cards. Always yours.</strong>Spend dice on actions or
+            hold them for reactions. A used card becomes permanently known.
           </span>
         </p>
         <p>
           <b>03</b>
           <span>
-            <strong>Change the odds yourself</strong>Shift or Flip with Control.
-            Every change is certain.
+            <strong>Build your probability</strong>Roll 1, then 2, then 3 dice
+            as rounds advance. Shift or Flip using 2 Control per round.
           </span>
         </p>
       </div>
@@ -571,10 +571,10 @@ export function TutorialContent() {
           start("Training", "Training", true);
         }}
       >
-        Begin guided match
+        Begin practice match
       </PrimaryButton>
       <p className="helper-text">
-        Guest play · no account needed · no time pressure
+        No main-turn timer · reactions pass after 5 seconds
       </p>
     </div>
   );

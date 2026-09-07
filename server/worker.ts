@@ -176,7 +176,7 @@ export default {
         )
           throw new Error("Invalid matchup filter.");
         const values: unknown[] = [source, since];
-        let where = "source = ? AND created_at >= ?";
+        let where = "source = ? AND created_at >= ? AND mechanical_version = 2";
         if (legend !== "all" && opponent !== "all") {
           where +=
             " AND ((legend_a = ? AND legend_b = ?) OR (legend_a = ? AND legend_b = ?))";

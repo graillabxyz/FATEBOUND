@@ -6,7 +6,7 @@ const endpoint =
   (import.meta.env.DEV || import.meta.env.MODE === "internal"
     ? "/api/telemetry"
     : "");
-const outboxKey = "fatebound.telemetry.outbox.v1";
+const outboxKey = "fatebound.telemetry.outbox.v2";
 type Event = { id: string; event: string; session: string; at: number };
 type Queue = { events: Event[]; matches: MatchRecord[] };
 let queue: Queue = { events: [], matches: [] },

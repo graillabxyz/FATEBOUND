@@ -4,7 +4,7 @@ This is a portrait-only iOS/Android game with a local browser development previe
 
 - Rules are pure TypeScript under src/engine; no DOM, React, storage, wall clock or unseeded randomness there.
 - Content and tuning belong under src/content, never in UI card-ID conditionals.
-- Both seats share normalized Fate; priority batches must be invariant to seating.
+- Opening d20 + Legend initiative is followed by alternating turns. Held dice expire only at owner turn start. Reactions resolve through one authoritative window. Swapping seats and RNG stream identities must preserve deterministic outcomes.
 - Never pass hidden enemy cards, plans or future RNG to clients or AI.
 - Preserve exactly four reusable cards and three compatible dice per build.
 - Cosmetic definitions and purchases must not change mechanical state.

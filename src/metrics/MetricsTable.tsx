@@ -40,6 +40,51 @@ export function MetricsTable({
           </strong>
         </div>
       </div>
+      <div className="dev-grid2">
+        <div className="dev-stat">
+          <small>Opening / second initiative wins</small>
+          <strong>{data.initiativeWins.join(" / ")}</strong>
+        </div>
+        <div className="dev-stat">
+          <small>Held dice / turn</small>
+          <strong>{average(data.held, data.turns)}</strong>
+        </div>
+        <div className="dev-stat">
+          <small>Reaction frequency / success</small>
+          <strong>
+            {percent(data.reactions, data.reactionWindows)} /{" "}
+            {percent(data.reactionSuccess, data.reactions)}
+          </strong>
+        </div>
+        <div className="dev-stat">
+          <small>Unused expiration rate</small>
+          <strong>{percent(data.expired, data.rolls)}</strong>
+        </div>
+      </div>
+      {data.initiativeSignificant && (
+        <p className="dev-warning" role="status">
+          Opening initiative win rate differs significantly from 50% in this
+          sample. 95% interval:{" "}
+          {data.openingConfidence
+            .map((v) => (100 * v).toFixed(1) + "%")
+            .join("–")}
+          ; {data.independentOpeningGames} independent decisive seeds.
+        </p>
+      )}
+      {tab === "Dice" && (
+        <Section title="Die size correlations">
+          {Object.entries(data.byDiceSize).map(([size, r]) => (
+            <p key={size}>
+              D{size}: {percent(r.wins, r.games)} win rate · {r.games} loadout
+              appearances
+            </p>
+          ))}
+          <p className="dev-muted">
+            Correlated with whole loadouts, opponents and controller; size is a
+            probability profile.
+          </p>
+        </Section>
+      )}
       {data.mismatches > 0 && (
         <p className="dev-error" role="alert">
           SEATING ASYMMETRY: {data.mismatches} reversed-seed pairs ended

@@ -8,7 +8,6 @@ import { legendById } from "../content/legends";
 import { facePosition } from "../engine/fate";
 import { decisionContext } from "../engine/match";
 import { explainAssignment, validatePlan } from "../engine/rules";
-import { effectPriority } from "../engine/effects";
 import type { Loadout, Status } from "../engine/types";
 import { Button, Field, Json, NumberField, Section, Toggle } from "./controls";
 import { GameplayCard } from "../ui/components";
@@ -143,9 +142,10 @@ export function FateEditor({ lab, run }: { lab: LabController; run: Run }) {
         <Button
           onClick={() =>
             run(() => {
-              if (!["FATE", "ROLLING"].includes(lab.state.phase))
+              if (!["TURN_START", "DICE_ROLL"].includes(lab.state.phase))
                 throw new Error("Skip is available in FATE or ROLLING.");
-              while (["FATE", "ROLLING"].includes(lab.state.phase)) lab.next();
+              while (["TURN_START", "DICE_ROLL"].includes(lab.state.phase))
+                lab.next();
             })
           }
         >
@@ -216,12 +216,12 @@ export function AssignmentEditor({
       </p>
       <div className="dev-actions">
         <Button onClick={() => run(() => lab.lock(actor))}>
-          Lock Player {actor === 0 ? "A" : "B"}
+          Declare · Player {actor === 0 ? "A" : "B"}
         </Button>
-        <Button onClick={() => run(() => lab.unlock(actor))}>Unlock</Button>
-        <Button onClick={() => run(() => lab.safe(actor))}>
-          Safe Guard fallback
+        <Button onClick={() => run(() => lab.unlock(actor))}>
+          Clear draft
         </Button>
+        <Button onClick={() => run(() => lab.safe(actor))}>Prepare pass</Button>
         <Button
           onClick={() =>
             run(() => {
@@ -291,6 +291,25 @@ export function DieInspector({
         <br />
         Cosmetic: lab preview only · no mechanical effect
       </p>
+      <Field label="Die resource state">
+        <select
+          value={p.dice[slot].state}
+          onChange={(e) =>
+            run(() =>
+              lab.setResource(
+                actor,
+                slot,
+                e.target.value as
+                  "AVAILABLE" | "HELD" | "SPENT" | "UNROLLED" | "EXPIRED",
+              ),
+            )
+          }
+        >
+          {["AVAILABLE", "HELD", "SPENT", "UNROLLED", "EXPIRED"].map((v) => (
+            <option key={v}>{v}</option>
+          ))}
+        </select>
+      </Field>
       <Field label="Set face position">
         <select
           value={position}
@@ -401,7 +420,7 @@ export function CardInspector({
       </div>
       <h3>{c.name}</h3>
       <code>
-        {c.id} · priority {c.priority}
+        {c.id} · {c.timing} · priority {c.priority}
       </code>
       <p>
         {c.tags.join(" / ")} · {legendById[c.legend].name}
@@ -418,8 +437,8 @@ export function CardInspector({
               (e) =>
                 e.round === lab.state.round &&
                 e.actor === actor &&
-                e.type === "card" &&
-                e.text === c.name,
+                e.type === "declaration" &&
+                e.text.includes(c.name),
             )
               ? "Yes"
               : a
@@ -448,8 +467,8 @@ export function CardInspector({
       </Field>
       <p className="dev-muted">
         All known states share production known-hand memory. “Currently
-        revealed” records an inspection flag; actual simultaneous reveal still
-        follows the match phase.
+        revealed” records an inspection flag; card use reveals its identity
+        immediately.
       </p>
       <div className="dev-actions">
         <Button
@@ -504,12 +523,12 @@ export function CardInspector({
             })
           }
         >
-          Activate · lock plan
+          Declare ability
         </Button>
       </div>
       <p className="dev-muted">
-        Activation seals the valid plan. Reveal both players, then Next Effect
-        to execute it through production priorities.
+        Declaration pays dice and reveals the card. Finish the one reaction
+        window, then use Next Effect to inspect resolution.
       </p>
       <Json
         value={{
@@ -543,7 +562,11 @@ export function LegendInspector({
       </h3>
       <p>{l.passive}</p>
       <p>
-        {l.active.name}: {l.active.text}
+        {l.active.timing} · {l.active.name}: {l.active.text}
+        <br />
+        Initiative +
+        {lab.state.openingInitiative?.bonuses[actor] ??
+          l.initiativeBonus} · {l.class}
       </p>
       <p>
         Slots: {l.diceSlots.map((n) => `D${n}`).join(" / ")} ·{" "}
@@ -654,13 +677,27 @@ export function PhaseControls({ lab, run }: { lab: LabController; run: Run }) {
           ROUND {lab.state.round}/{lab.setup.maxRounds}
         </strong>
         <b>
-          {lab.state.phase}
+          {lab.state.phase} · Active {lab.state.activePlayer ? "B" : "A"} ·
+          Initiative {lab.state.initiative ? "B" : "A"}
           {lab.resolving ? " · SUSPENDED" : ""}
         </b>
       </div>
       <div className="dev-actions">
         <Button primary onClick={() => run(() => lab.next())}>
           Next phase
+        </Button>
+        <Button
+          onClick={() =>
+            run(() =>
+              lab.timeout(
+                (lab.state.phase === "REACTION_WINDOW"
+                  ? 1 - lab.state.activePlayer
+                  : lab.state.activePlayer) as Seat,
+              ),
+            )
+          }
+        >
+          Skip turn / pass reaction
         </Button>
         <Button primary onClick={() => run(() => lab.nextEffect())}>
           Next effect
@@ -829,28 +866,24 @@ export function AIPanel({
 }
 export function EffectLog({ lab }: { lab: LabController }) {
   const frame = lab.frames.at(-1);
-  const queue = lab.state.players
-    .flatMap((p, actor) =>
-      (p.plan ?? lab.drafts[actor]).assignments.map((a) => ({
-        actor,
-        source: a.target,
-        priority: effectPriority(a),
-        conditions: cardById[a.target]?.requirement ?? "Universal",
-        effects:
-          cardById[a.target]?.effects ??
-          (a.target === "guard"
-            ? "GUARD"
-            : legendById[p.loadout.legend].active.effects),
-      })),
-    )
-    .sort((a, b) => a.priority - b.priority);
+  const queue = [lab.state.reaction, lab.state.pending]
+    .filter((d) => d !== null)
+    .map((d) => ({
+      actor: d.actor,
+      source: d.assignment.target,
+      priority: d === lab.state.reaction ? 20 : 40,
+      conditions: cardById[d.assignment.target]?.requirement ?? "Universal",
+      effects: d.effects,
+      canceled: d.canceled,
+      redirected: d.redirected,
+    }));
   return (
     <div className="dev-stack">
       <h3>Effect queue / resolution</h3>
       <p className="dev-muted">
-        Next Effect applies one primitive. COMMIT applies queued damage and
-        healing simultaneously. A composite completion frame may follow its
-        child effects.
+        Next Effect applies one primitive with its before/after state. Reaction
+        prevention → target validation → action damage → post-damage triggers →
+        cleanup. A composite frame follows its child effects.
       </p>
       {frame && (
         <Section title={`Last step · ${frame.effect} · ${frame.result}`} open>

@@ -103,7 +103,7 @@ export default function Home() {
           {resumeAvailable ? "RESUME MATCH" : "PLAY"}
         </PrimaryButton>
         <div className="play-footnote">
-          <span>SHARED FATE</span>
+          <span>READ · REACT</span>
           <i />
           <span>YOUR DECISIONS</span>
           <i />
@@ -135,7 +135,7 @@ export default function Home() {
             <span>
               {profile.tutorialComplete
                 ? "Complete quests. Earn coins and XP."
-                : "Learn the rules in a guided match."}
+                : "Practice actions, held dice and reactions."}
             </span>
           </span>
           <Icon name="right" size={18} />
@@ -166,7 +166,7 @@ export default function Home() {
         </div>
         <div className="home-note">
           <Sigil size={18} />
-          <span>Six Legends. One shared Fate.</span>
+          <span>Six Legends. Every turn matters.</span>
           <span>Lv. {level(profile)}</span>
         </div>
       </section>

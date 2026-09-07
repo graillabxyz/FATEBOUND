@@ -1,5 +1,5 @@
 import type { LabSnapshot } from "./model";
-const KEY = "fatebound.dev.scenarios.v1";
+const KEY = "fatebound.dev.scenarios.v2";
 export type SavedScenario = {
   id: string;
   name: string;
@@ -63,7 +63,7 @@ export function downloadJSON(name: string, value: unknown) {
 export function loadSnapshot(): LabSnapshot | null {
   try {
     const value = JSON.parse(
-      localStorage.getItem("fatebound.dev.snapshot.v1") ?? "null",
+      localStorage.getItem("fatebound.dev.snapshot.v2") ?? "null",
     );
     return value?.format === "fatebound-dev-snapshot" ? value : null;
   } catch {
@@ -72,7 +72,7 @@ export function loadSnapshot(): LabSnapshot | null {
 }
 export function persistSnapshot(snapshot: LabSnapshot) {
   try {
-    localStorage.setItem("fatebound.dev.snapshot.v1", JSON.stringify(snapshot));
+    localStorage.setItem("fatebound.dev.snapshot.v2", JSON.stringify(snapshot));
   } catch {
     throw new Error(
       "Snapshot storage is full or unavailable. Export the snapshot instead.",

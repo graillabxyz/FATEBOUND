@@ -535,7 +535,7 @@ export default function App() {
                     onClick={() => start("Training", "Training", true)}
                   >
                     <Icon name="book" size={15} />
-                    Guided practice · no timer
+                    Practice · untimed main turns
                   </button>
                   <p className="helper-text">
                     Online matchmaking is not connected in this build.

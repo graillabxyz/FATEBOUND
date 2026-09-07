@@ -17,8 +17,11 @@ const symbol = (id: SymbolId, weight: number): Face => ({
     swap: "⇄",
     steal: "↗",
     redirect: "↪",
+    smash: "✦",
   }[id],
   balanceWeight: weight,
+  guardValue: id === "guard" ? 3 : undefined,
+  tags: [id],
 });
 const blank: Face = {
   type: "blank",
@@ -36,7 +39,7 @@ export const DICE: DieDef[] = SIZES.map((size) => ({
   tags: ["standard"],
   compatibleLegendTags: ["all"],
   rarity: "common",
-  mechanicalVersion: 1,
+  mechanicalVersion: 2,
   description: "Ordered numbers. Dependable, adaptable, yours to shape.",
 }));
 LEGENDS.forEach((l) => {
@@ -56,7 +59,7 @@ LEGENDS.forEach((l) => {
               : "strike";
     faces[0] = { ...blank };
     faces[size - 1] = symbol(effect, 3);
-    faces[Math.floor(size / 2) - 1] = numeric(1);
+    faces[size - 2] = { ...blank };
     DICE.push({
       id: `${l.id}-d${size}-${j}`,
       name: [
@@ -74,11 +77,75 @@ LEGENDS.forEach((l) => {
       tags: [...l.tags, "utility"],
       compatibleLegendTags: l.tags,
       rarity: "rare",
-      mechanicalVersion: 1,
-      description: `Trade a blank and lower numbers for ${effect}. Flip the blank to reach the symbol.`,
+      mechanicalVersion: 2,
+      description: `Trade two numbered faces for blanks and a third for ${effect}. Flip the blank to reach the symbol.`,
     });
   });
 });
+const fixed = (
+  id: string,
+  name: string,
+  size: DieSize,
+  faces: Face[],
+  tags: string[],
+) =>
+  DICE.push({
+    id,
+    name,
+    size,
+    faceCount: size,
+    faces,
+    opposites: Array.from({ length: size }, (_, i) => size - 1 - i),
+    tags,
+    compatibleLegendTags: ["all"],
+    rarity: "rare",
+    mechanicalVersion: 2,
+    description:
+      "Fixed collectible faces. Symbols replace numbers; blanks pay for utility.",
+  });
+fixed(
+  "guardian-d6",
+  "Guardian D6",
+  6,
+  [
+    { ...blank },
+    numeric(2),
+    numeric(3),
+    numeric(4),
+    { ...blank },
+    symbol("guard", 3),
+  ],
+  ["guardian"],
+);
+fixed(
+  "trickster-d8",
+  "Trickster D8",
+  8,
+  [
+    numeric(1),
+    numeric(2),
+    { ...blank },
+    numeric(4),
+    numeric(5),
+    symbol("swap", 3),
+    { ...blank },
+    symbol("redirect", 3),
+  ],
+  ["trickster"],
+);
+fixed(
+  "giant-d12",
+  "Giant D12",
+  12,
+  [
+    { ...blank },
+    { ...blank },
+    ...Array.from({ length: 8 }, (_, i) => numeric(i + 3)),
+    { ...blank },
+    symbol("smash", 4),
+  ],
+  ["giant"],
+);
 export const dieById = Object.fromEntries(DICE.map((d) => [d.id, d])) as Record<
   string,
   DieDef

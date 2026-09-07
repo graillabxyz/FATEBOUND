@@ -1,59 +1,69 @@
-# Fatebound foundation
+# Fatebound authoritative combat · mechanical version 2
 
-## Runtime and scope
+## Runtime and boundaries
 
-A portrait-first React + TypeScript client, Vite development preview, and Capacitor iOS/Android shells. The UI is a single 480px maximum-width phone surface; large screens are a testing viewport for the game. The separate internal metrics website has its own responsive desktop/mobile layout. The pure TypeScript rules engine has no React, DOM, clock, storage, or network dependencies. Mobile releases still require signing, store assets, native device QA, and a production authority.
+The mobile game is a portrait React/TypeScript client with Capacitor shells. The separate internal metrics website is responsive. All battle decisions, random generation, timing permissions, costs, effects, victory and projections live in pure TypeScript under `src/engine`. The engine has no React, DOM, storage, wall clock or unseeded randomness. Services supply clock values and persistence. Dev Lab orchestrates this same engine and effect iterator.
 
-## Match loop / explicit state machine
+LocalMatchService is a mock authority for human-vs-AI play. Ranked/casual labels remain local simulations. Production multiplayer, server rewards, matchmaking and signed telemetry are not connected. Native signing, platform builds and device testing remain release work.
 
-WAITING → INTRO → ROUND_START → FATE → ROLLING → CONTROL → ASSIGNMENT → LOCKED → REVEAL → RESOLUTION → CLEANUP → ROUND_END → FATE (or MATCH_END). Both players plan concurrently. Control and assignment share a configurable 12-second deadline. Tutorial practice can pause that deadline. A lock submits a complete intent; the local authority validates it and seals it. Nothing hidden is exposed until both players have locked (AI locks internally). Timeout keeps a valid current plan and sends remaining legal dice to universal Guard. It never chooses an offensive card. Non-planning phases are driven by the match service, with short UI transitions.
+## Locked loadout and content
 
-## Shared Fate and different die sizes
+A match clones one Legend, four distinct compatible reusable cards and three fixed collectible dice for each player. There is no deck, draw, discard, random hand, universal cooldown or normal mid-match swap command. Content compatibility, Legend class and initiative bonus, passive rules, timings, effects, requirements and die utility weights are data-driven. All six supported dice sizes can be equipped where their tags are compatible. Legend diceSlots describe starter recommendations; allowedDiceSizes and compatibility tags govern restrictions. Dice faces cannot be customized by players.
 
-All supported sizes (4, 6, 8, 10, 12, 20) divide 120. Each slot draws a shared integer token in [0,119] via a versioned deterministic PRNG with rejection sampling. Face index = floor(token * size / 120). Equal-size dice always land at the same position. Different sizes receive the same percentile band, uniformly over each die's ordered faces. This resolves the otherwise undefined case of a shared position exceeding a smaller die's face count. The seed creates the puzzle; there are no further random decisions in effect resolution. Shared exposure does not itself prove balanced loadouts; simulations measure that separately.
+Cards have ACTION, REACTION or PASSIVE timing. Current activatable content uses ACTION/REACTION; Legend passive rules are triggered by production events. Requirements support numeric ranges, exact totals, parity, die count/type, symbols, equal/different values, Control, held/unused resources, initiative, class, round bounds and contextual predicates. High values do not satisfy low ranges or exact requirements. Special faces replace numeric faces and authored blanks pay for their utility. Utility weights are estimates, not a universal power ranking.
 
-The authority alone knows the live seed and future Fate. Client projections omit seeds, unrevealed opponent card identities, pending enemy assignments, and AI planning. Completed replays contain seed, content version, loadouts, and validated intent logs. Debug forced Fate is explicitly separated from competitive services.
+## Initiative, rounds and turns
 
-## Dice and Control
+MATCH_INTRO → INITIATIVE_ROLL → ROUND_START → TURN_START → DICE_ROLL → MAIN_ACTION.
 
-A mechanical die has size, ordered faces, tags, compatibility, rarity, version, and a bijective opposite-face map. Face definitions contain kind, numeric value or registered symbol, icon, and balance weight. SHIFT (1 Control) moves to the adjacent ordered numerical face only; both faces must be numbers. FLIP (2) follows the authored opposite map, including symbols and blanks. No rerolls. Each round resets Control to 2. Cosmetic skins are separate IDs and never enter rules calculations. Budget reports include mean weight, variance, blank share, and opposite-face utility, rather than pretending a single scalar proves balance.
+Each Legend rolls d20 + its data-defined initiativeBonus once. Tied totals compare raw d20, then stable RNG stream index; no reroll. The winner leads Round 1. Initiative alternates thereafter. Each round contains exactly two turns. TURN_END → SECOND_TURN → TURN_START for the other player, then TURN_END → ROUND_END → next ROUND_START.
 
-## Content and effects
+Both players use the same configurable zero-index slot ramp: [0], [1], [0,1], [1,2], [0,1,2] for rounds 1–5; the last row repeats. Dice expire specifically at their owner's next TURN_START, then new dice roll and start-of-turn statuses apply. Unused available dice become HELD at TURN_END. ROUND_END never clears dice. Because initiative alternates, the previous second player immediately becomes next round's first player; their held dice expire before that consecutive turn. No extra carryover exception is invented.
 
-Six Legends, twelve authored cards per Legend, standard dice in all six sizes, and twelve custom dice. All defaults and rule text live under content/. Loadouts contain exactly one Legend, four distinct compatible cards, and three slot-compatible dice. All prototype gameplay content is unlocked.
+Prototype Guard lasts until owner turn start, when old Guard clears with old resources. Both players reset Control to 2 at ROUND_START; it does not bank. Start poison applies after the new roll and before MAIN_ACTION. Status lifetimes end at the configured round cleanup. Stored power becomes usable in its due round and is consumed by the next damage effect.
 
-Requirements compose die count, numerical interval/total, symbol, die size, Control cost, and state predicates. Effects are data interpreted by a handler registry, not card-ID switch statements. Initial content uses DAMAGE, HEAL, GUARD, STATUS, GAIN_CONTROL, LOSE_CONTROL, SWAP_ASSIGNMENT, BLOCK_EFFECT, CLEANSE, CONVERT, CONDITIONAL and MULTIPLIER. Additional typed primitive hooks are independently registered. Statuses carry explicit expiry.
+## Deterministic random streams
 
-Resolution priority: manipulation 10 → defense/counters 20 → recovery/setup 30 → attacks 40 → finishers 50. At each priority, both actors read the same phase snapshot and their health/guard deltas are applied as a batch, so seating does not grant a first-action advantage. Actor-local passives are applied in stable card-slot order. Swapped assignments are revalidated; invalidated actions fizzle visibly. Card identities become known on reveal even if an effect fizzles or is blocked. Cards never leave the loadout. Guard expires after the round. Death is evaluated after all actions in the current priority batch. Simultaneous lethal uses effective damage, then a deterministic draw. Round seven: HP, effective damage, then draw. No random tie breaks.
+Each seat has a seeded independent stream for its owner's rolls; initiative is separately seeded. The normalized 120-token mapping remains the uniform face sampler for every supported die size. Future opponent dice are not inferred from the active player's roll. No further random choice occurs in resolution. Paired simulations swap loadouts AND RNG stream identities, including opening initiative rolls and the tie fallback.
 
-## AI and simulation
+## Decisions and resolution
 
-AI sees only a public opponent projection, its own loadout, and current Fate. It enumerates affordable deterministic Control choices and all legal assignments, scores candidate effects against HP, likely opposing offense/defense, known cards, archetype priors, lethal opportunities, and round pressure. Training uses fewer candidate controls; Normal searches the full two-Control horizon. Ties use stable enumeration. Simulation exports wins by Legend/loadout, seating symmetry, rounds, per-round damage/guard, Control use, card use, face frequencies, reveals and unused dice.
+A MAIN_ACTION command may pay Control and declare one action, or pay only Control, or end the turn. Multiple sequential uses of the same card are legal when separate available dice pay each cost. SHIFT costs 1 and selects an authored numeric face exactly one value above/below the current result; missing values and boundaries fail. FLIP costs 2 and follows the authored opposite map. Only available unspent resources on the owner's turn may use Control.
 
-## Authority and reconnection
+Declaration validates timing, status, ownership, resource availability and requirements atomically, then pays Control/dice and permanently reveals the card. ACTION_DECLARED → REACTION_WINDOW. The defender may spend eligible held/available resources on one reaction or universal Guard, or PASS. Universal Guard spends one numbered die for floor(value/2); symbols require explicit guardValue metadata. A reaction has no reaction-time Control permission in this version.
 
-MatchService is the transport boundary. LocalMatchService is explicitly a MOCK authority, used for training and labeled ranked/casual simulations. Commands carry match ID, sequence and expected round; duplicate sequence is idempotent, stale/conflicting commands fail. The service validates ownership, slots, Control and assignments. The local checkpoint persists enough authority state to resume a training match after refresh; this is not a security boundary. A production adapter must move all authoritative state, RNG, timeouts, rewards, currency, ownership, MMR and replay signing to the server, authenticate players, enforce reconnect grace and prevent concurrent claims. Never expose this local service as a ranked backend.
+REACTION_DECLARED or reaction PASS → RESOLUTION. The exact production iterator provides these ordered stages:
 
-## Economy and product services
+1. Reaction prevention, Guard, redirect, cancellation and manipulation (10/20).
+2. Revalidate the action's target and paid dice after manipulation (30). Invalidated actions fizzle visibly; costs remain spent.
+3. Resolve action effects, healing and damage (40). Damage clamps at zero, Guard absorbs first, healing clamps to max HP, and effective damage cannot exceed remaining HP.
+4. Counterstrike/post-damage effects (50), only after actual incoming attack damage. Lethal does not suppress an already armed counterstrike.
+5. Cleanup and victory evaluation (60). Return to MAIN_ACTION if neither side has ended the match.
 
-Only Coins and Gems. Mock progression claims are idempotent by match ID and pass reward ID, stored in a versioned local profile. Account XP, Legend mastery, season XP and rank are separate. Premium rewards contain cosmetics/currency only; no paid mechanical advantage. Cosmetic-only shop previews have no real billing. Rank changes are simulation-only. Quests rotate on deterministic UTC day/week keys. Social and notification adapters are local shells; no messages or pushes are sent.
+There is one reaction window per action and no recursive response stack. Redirect exchanges the action's player targets, including beneficial self-target effects; conversion costs still belong to the original caster. A round can contain multiple exchanges. Legend passives are stable actor-local rules. Composite effect frames follow their child frames and show before/after state.
 
-## Accessibility / presentation
+Both zero HP: compare effective damage, then draw. Round cap defaults to seven: HP, then effective damage, then draw. No random match tiebreak.
 
-Touch targets ≥44px, icon + label status cues, no color-only requirements. Tap-select then tap-target and pointer drag use the same assignment validator. Four reusable cards remain available; full readable card inspection is available in a sheet. Persistent five-tab navigation. Reduced motion removes rolling/bounce/flourish; battery saver suppresses ambient animation. Local fonts and artwork remove runtime network dependencies. Audio is a capped-volume event bus with synthesized placeholder cues and material metadata; native haptics are optional.
+## Information and client behavior
+
+The authority owns the phase and current actor. Player projections omit seed, RNG configuration, future forced Fate, hidden card IDs and private drafts. Unknown card-scoped statuses also omit their card IDs. Declared cards become permanently known, even when canceled. Dice and held resources are public; intended private reactions are not. Spectators see only revealed cards. Omniscient projections exist only in internal tooling.
+
+Battle renders the authoritative turn/phase, initiative contest/marker, ACTION/REACTION cards, validation messages, available/held/spent/expired resources and public event log. Tap-select dice, choose an ability, then Activate/React. Ending a turn holds the remainder. Normal main decisions allow 12 seconds; reaction windows allow 5 seconds. Practice disables the main timer, while reactions still auto-pass. Timeout never activates a draft or silently spends defensive resources. Internal timers may be disabled or controlled for debugging.
+
+## Replay, reconnect and lab snapshots
+
+Mechanical version 2 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Old simultaneous version 1 replays/checkpoints are rejected. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
+
+Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local scenarios/snapshots and telemetry outboxes now use version 2 storage keys.
+
+## AI, simulations and metrics
+
+AI receives its own state and a production public opponent projection. It enumerates legal single actions/reactions and affordable Control choices, retaining pass as an option. Its deterministic heuristic exposes damage, defense, healing, lethal risk, prediction, resource preservation, Control cost and reveal cost. These scores are estimates for tuning, not an optimal-play guarantee.
+
+Simulation uses the same phase loop and actions in a background worker (up to 10,000 matches per run). Paired seeds verify seat equivariance independently of opening-initiative advantage. The dashboard records opening/second-initiative wins, class and Legend outcomes, damage by round, held dice per turn, reaction frequency/success, unused expiration, card uses, die size/loadout correlations and individual die outcomes. Repeated uses within a round count separately. Wilson 95% starting-win intervals count a reversed pair once, and flag deviations from 50% after 30 independent decisive seeds. Mixed matchup/AI cohorts are not causal proofs of class or initiative power.
+
+Hosted D1/local SQLite ingestion stores versioned summaries, filters active rules cohorts and separates actual internal human-vs-AI play, simulation and forced lab outcomes. Actual multiplayer telemetry remains unconnected. Detailed collection and private deployment boundaries are in DEV_LAB.md.
 
 ## Verification
 
-Engine invariant and integration tests cover content, all die sizes, fairness, manipulations, legal plans, hidden projections, reusable reveal memory, simultaneous resolution, timers, replay determinism, idempotent rewards and complete matches. AI round-robin simulations detect seat asymmetry and content balance concerns. Browser flows exercise loadout editing, battle, results, progression, and mobile layout. Native packaging and live multiplayer are separate release gates.
-
-## Internal Dev Lab
-
-Dev Lab is lazy-loaded only in development or an explicitly enabled `internal` build. Release builds remove the entry and Dev Lab chunks. It owns an isolated in-memory authority and `fatebound.dev.*` storage, never profile rewards, competitive services, or player checkpoints.
-
-The production effect resolver exposes a generator of primitive and priority-commit frames. Normal matches drain that iterator; the laboratory calls the same iterator one step at a time. All health commits retain simultaneous priority semantics. Mid-resolution snapshots include the exact pre-resolution state and number of consumed frames; restore deterministically rebuilds the suspended iterator. Editing a suspended priority snapshot requires rewinding first. Card-scoped stun uses the production status model. Negative damage is clamped to zero at the damage commit boundary.
-
-Fate uses the production normalized 120-position model. Lab fields are explicit one-based shared positions (1–120); a preview shows each die's resulting face. Individual face overrides are separate and visibly break shared Fate for edge-case tests. Sequence handling, timers, overrides, AI inspection and view switching belong to the internal orchestrator. Normal A/B and spectator projections always call the production projection; omniscience is available only to internal tooling.
-
-## Durable internal analytics
-
-The internal Worker API uses a D1 database with generated Drizzle migrations, prepared statements and idempotent inserts. Its loopback-only development adapter uses SQLite. Anonymous interaction events and completed internal human-vs-AI matches use a bounded transport outbox; database records remain the source of truth. Simulation and forced lab records use distinct validated endpoints and cohorts. Released clients default to no telemetry endpoint. Actual multiplayer authority remains an integration boundary. See DEV_LAB.md for collection semantics and the bounded metrics query window.
+Run `npm test`, `npm run typecheck`, `npm run build` and paired `npm run simulate -- --games=1000` after mechanical changes. Tests exercise all six Legends and all 36 matchups, deterministic replays, action/reaction order, paid-cost invalidation, held-resource lifetime, fixed content, public projections, snapshots, telemetry validation and release gating. Publication builds and normal native sync retain separate internal/player bundles.

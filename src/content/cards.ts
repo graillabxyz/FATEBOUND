@@ -26,16 +26,6 @@ const req = (min: number, max?: number): Requirement => ({
 });
 const any: Requirement = { count: 1, any: true };
 const two = (min: number): Requirement => ({ count: 2, min });
-const priorities: Record<Category, number> = {
-  Manipulation: 10,
-  Guard: 20,
-  Counter: 20,
-  Recovery: 30,
-  Setup: 30,
-  Attack: 40,
-  Prediction: 40,
-  Finisher: 50,
-};
 export const CARDS: CardDef[] = [];
 function add(
   legend: LegendId,
@@ -58,16 +48,19 @@ function add(
     name,
     legend,
     category,
+    timing: ["Guard", "Counter", "Manipulation"].includes(category)
+      ? "REACTION"
+      : "ACTION",
     requirement,
     requirementLabel: label,
     text,
     effects,
-    priority: priorities[category],
+    priority: ["Guard", "Counter", "Manipulation"].includes(category) ? 20 : 40,
     preferred,
     archetype: l.approaches[approach],
     artIndex: l.artIndex,
-    tags: [...l.tags, category.toLowerCase()],
-    mechanicalVersion: 1,
+    tags: [`legend:${legend}`, ...l.tags, category.toLowerCase()],
+    mechanicalVersion: 2,
   });
 }
 // Basajaun: shelter, retaliation, then stored force.
@@ -184,10 +177,9 @@ add(
   "anansi",
   "Unravel",
   "Manipulation",
-  req(6),
-  "Reduce the first enemy damage effect by 3.",
-  [{ type: "BLOCK_EFFECT", amount: 3 }],
-  2,
+  req(2, 3),
+  "Cancel the declared enemy action, including healing.",
+  [{ type: "CANCEL" }],
 );
 add(
   "anansi",
@@ -620,6 +612,72 @@ add(
   "Deal 2 damage. If the enemy guards, deal 2 more.",
   [dmg(2), when("enemyGuarding", dmg(2))],
   2,
+);
+// Turn-rule content migration: defensive counters resolve after actual attack damage;
+// assignment exchanges now redirect the one declared action.
+const migrate = (effects: Effect[]): Effect[] =>
+  effects.map((e) => ({
+    ...e,
+    type: e.type === "SWAP_ASSIGNMENT" ? "REDIRECT" : e.type,
+    effects: e.effects ? migrate(e.effects) : undefined,
+  }));
+for (const card of CARDS) {
+  // Predictions about an incoming attack need an actual opposing declaration.
+  if (
+    card.category === "Prediction" &&
+    card.effects.some((e) => e.condition === "enemyAttacking")
+  )
+    card.timing = "REACTION";
+  card.priority = card.timing === "REACTION" ? 20 : 40;
+  card.effects = migrate(card.effects);
+  if (card.category === "Counter") {
+    const counter = (es: Effect[]): Effect[] =>
+      es.map((e) => ({
+        ...e,
+        type: e.type === "DAMAGE" ? "COUNTERSTRIKE" : e.type,
+        effects: e.effects ? counter(e.effects) : undefined,
+      }));
+    card.effects = counter(card.effects);
+    card.text += " Counter damage occurs after you receive attack damage.";
+  }
+  if (card.effects.some((e) => e.type === "REDIRECT"))
+    card.text = "Redirect the declared enemy action back to its user.";
+}
+add("basajaun", "Quick Strike", "Attack", req(1, 3), "Deal 2 damage.", [
+  dmg(2),
+]);
+add(
+  "anansi",
+  "Web Turn",
+  "Manipulation",
+  req(6, 6),
+  "Redirect the declared enemy action back to its user.",
+  [{ type: "REDIRECT" }],
+);
+add(
+  "tengu",
+  "Precision Cut",
+  "Attack",
+  req(5, 5),
+  "Deal 3 damage; ignore 1 Guard.",
+  [{ type: "DAMAGE", amount: 3, guardPierce: 1 }],
+);
+add(
+  "basajaun",
+  "Counterstrike",
+  "Counter",
+  req(8),
+  "After receiving attack damage, deal 2 damage back.",
+  [{ type: "COUNTERSTRIKE", amount: 2 }],
+);
+
+add(
+  "quetzalcoatl",
+  "Ritual",
+  "Setup",
+  { count: 2, exact: 10, min: 10, max: 10 },
+  "Two dice totaling exactly 10: heal 4 and gain 2 Guard.",
+  [heal(4), guard(2)],
 );
 export const cardById = Object.fromEntries(
   CARDS.map((c) => [c.id, c]),

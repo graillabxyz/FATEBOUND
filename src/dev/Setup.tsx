@@ -126,7 +126,7 @@ export default function Setup({
                       (c) => setup.ignoreRestrictions || c.legend === l.id,
                     ).map((c) => (
                       <option key={c.id} value={c.id}>
-                        {c.name} · {c.requirementLabel}
+                        {c.name} · {c.timing} · {c.requirementLabel}
                       </option>
                     ))}
                   </select>
@@ -150,7 +150,7 @@ export default function Setup({
                     {DICE.filter(
                       (d) =>
                         setup.ignoreRestrictions ||
-                        (d.size === l.diceSlots[i] &&
+                        (l.allowedDiceSizes.includes(d.size) &&
                           (d.compatibleLegendTags.includes("all") ||
                             d.compatibleLegendTags.some((t) =>
                               l.tags.includes(t),
@@ -164,6 +164,14 @@ export default function Setup({
                 </Field>
               ))}
             </div>
+            <NumberField
+              label={`Player ${a === 0 ? "A" : "B"} Initiative bonus`}
+              value={p.initiativeBonus}
+              max={20}
+              onChange={(v) =>
+                change((s) => (s.players[a].initiativeBonus = v))
+              }
+            />
             <div className="dev-grid3">
               <NumberField
                 label={`Player ${a === 0 ? "A" : "B"} HP`}
@@ -210,6 +218,40 @@ export default function Setup({
                 </select>
               </Field>
             </div>
+            <Section title="Held dice at match entry">
+              <p className="dev-muted">
+                Explicit lab resources, including a defender who has not rolled
+                yet. Face positions below are one-based.
+              </p>
+              {p.heldFaces.map((f, i) => (
+                <Field
+                  key={i}
+                  label={`Player ${a ? "B" : "A"} held die ${i + 1}`}
+                >
+                  <select
+                    value={f ?? "none"}
+                    onChange={(e) =>
+                      change(
+                        (s) =>
+                          (s.players[a].heldFaces[i] =
+                            e.target.value === "none"
+                              ? null
+                              : Number(e.target.value)),
+                      )
+                    }
+                  >
+                    <option value="none">No override · follow turn ramp</option>
+                    {DICE.find((d) => d.id === p.loadout.dice[i])!.faces.map(
+                      (face, j) => (
+                        <option key={j} value={j}>
+                          Face {j + 1}: {face.effectId ?? face.value}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </Field>
+              ))}
+            </Section>
             <Field label={`Player ${a === 0 ? "A" : "B"} rank display`}>
               <input
                 value={p.rank}
@@ -282,8 +324,8 @@ export default function Setup({
                 </select>
               </Field>
               <p className="dev-muted">
-                Prior-card context is recorded. The current engine resets chain
-                categories each round and has no stored-die mechanic.
+                Dice held from the previous turn expire at the start of their
+                owner’s next turn.
               </p>
               <Field label={`Player ${a === 0 ? "A" : "B"} statuses JSON`}>
                 <textarea
@@ -319,6 +361,47 @@ export default function Setup({
         </Button>
         <Button onClick={() => setSetup(defaultSetup())}>Reset setup</Button>
       </div>
+      <Section title="Opening initiative" open>
+        <Field label="Force initiative winner">
+          <select
+            value={setup.initiativeWinner ?? "random"}
+            onChange={(e) =>
+              change(
+                (s) =>
+                  (s.initiativeWinner =
+                    e.target.value === "random"
+                      ? null
+                      : (Number(e.target.value) as Seat)),
+              )
+            }
+          >
+            <option value="random">d20 + Legend bonus</option>
+            <option value="0">Player A</option>
+            <option value="1">Player B</option>
+          </select>
+        </Field>
+        <Toggle
+          label="Force opening d20 rolls"
+          value={setup.initiativeRolls !== null}
+          onChange={(v) =>
+            change((s) => (s.initiativeRolls = v ? [10, 10] : null))
+          }
+        />
+        {setup.initiativeRolls && (
+          <div className="dev-grid2">
+            {([0, 1] as Seat[]).map((a) => (
+              <NumberField
+                key={a}
+                label={`Player ${a ? "B" : "A"} d20 roll`}
+                min={1}
+                max={20}
+                value={setup.initiativeRolls![a]}
+                onChange={(v) => change((s) => (s.initiativeRolls![a] = v))}
+              />
+            ))}
+          </div>
+        )}
+      </Section>
       <Section title="Round, seed & timer" open>
         <div className="dev-grid3">
           <NumberField
@@ -349,7 +432,7 @@ export default function Setup({
           onChange={(v) => change((s) => (s.seed = v))}
         />
       </Section>
-      <Section title="Shared Fate" open>
+      <Section title="Forced roll policy" open>
         <Field label="Fate mode">
           <select
             value={setup.fate.mode}
@@ -366,8 +449,9 @@ export default function Setup({
           </select>
         </Field>
         <p className="dev-muted">
-          Shared positions are 1–120, normalized across die sizes. The preview
-          below shows the exact face on every equipped die.
+          Forced positions are 1–120, normalized across die sizes. Random mode
+          uses independent seeded turns. The preview below shows the exact face
+          on every equipped die.
         </p>
         <Field label="Fixed shared positions">
           <input

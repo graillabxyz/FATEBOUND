@@ -2,69 +2,53 @@ import { describe, it, expect } from "vitest";
 import { LabController, importSnapshot } from "../src/dev/controller";
 import { defaultSetup, defaultPlayer, randomLoadout } from "../src/dev/model";
 import { SCENARIOS } from "../src/dev/scenarios";
-import { STARTERS } from "../src/content/loadouts";
 import { LEGENDS } from "../src/content/legends";
-import { decisionContext, resolve } from "../src/engine/match";
-import { choosePlan, inspectAI } from "../src/engine/ai";
-import { clone, validateLoadout } from "../src/engine/rules";
-import { aggregate } from "../src/metrics/data";
+import { validateLoadout, clone, EMPTY_PLAN } from "../src/engine/rules";
+import { recordMatch, aggregate } from "../src/metrics/data";
 import { simulateGame } from "../src/dev/simulation";
+import { STARTERS } from "../src/content/loadouts";
 import { validateRecord } from "../server/validation";
-const finishRound = (lab: LabController) => {
-  if (lab.state.phase === "CONTROL") lab.next();
-  if (lab.state.phase === "ASSIGNMENT") lab.next();
-  if (lab.state.phase === "LOCKED") lab.next();
-  if (lab.state.phase === "REVEAL") lab.resolveCurrent();
-  if (lab.state.phase === "RESOLUTION") lab.next();
-};
-describe("production-backed laboratory", () => {
-  it("creates all scenario presets with valid engine content", () => {
-    for (const scenario of SCENARIOS) {
-      const c = scenario.build();
-      expect(c.state.players).toHaveLength(2);
-      expect(() => LabController.restore(c.snapshot())).not.toThrow();
-    }
+function lab() {
+  const setup = defaultSetup();
+  setup.initiativeWinner = 0;
+  setup.players.forEach((p) => (p.ai = false));
+  setup.fate.fixed = [80, 60, 40];
+  return new LabController(setup);
+}
+function resolving() {
+  const c = lab();
+  c.assign(0, 0, "basajaun-crush");
+  c.lock(0);
+  c.next();
+  c.lock(1, EMPTY_PLAN);
+  expect(c.state.phase).toBe("RESOLUTION");
+  return c;
+}
+describe("v2 production Battle Lab", () => {
+  it("builds every scenario with real content", () => {
+    for (const s of SCENARIOS) expect(() => s.build()).not.toThrow();
   });
-  it("sets up all six Legends and reproducible random valid loadouts", () => {
+  it("configures all six Legends and reproducible random compatible builds", () => {
     for (const l of LEGENDS) {
-      const a = randomLoadout(l.id, 18);
-      expect(a).toEqual(randomLoadout(l.id, 18));
-      expect(() => validateLoadout(a)).not.toThrow();
-      const setup = defaultSetup();
-      setup.players[0] = defaultPlayer(l.id, false);
-      expect(new LabController(setup).state.players[0].loadout.legend).toBe(
-        l.id,
-      );
+      const s = defaultSetup();
+      s.players[0] = defaultPlayer(l.id, false);
+      expect(() => new LabController(s)).not.toThrow();
+      expect(randomLoadout(l.id, 4)).toEqual(randomLoadout(l.id, 4));
+      validateLoadout(randomLoadout(l.id, 4));
     }
   });
-  it("enforces restrictions unless explicitly bypassed without bypassing action rules", () => {
+  it("applies forced opening rolls, bonus, winner and configured round", () => {
     const s = defaultSetup();
-    s.players[0].loadout.cards[0] = STARTERS.anansi.cards[0];
-    expect(() => new LabController(s)).toThrow("incompatible");
-    s.ignoreRestrictions = true;
+    s.players[0].initiativeBonus = 5;
+    s.initiativeRolls = [20, 1];
+    s.round = 6;
     const c = new LabController(s);
-    expect(c.state.players[0].loadout.cards[0]).toBe(STARTERS.anansi.cards[0]);
-    c.drafts[0] = {
-      controls: [
-        { slot: 0, kind: "flip" },
-        { slot: 1, kind: "flip" },
-      ],
-      assignments: [],
-    };
-    expect(() => c.lock(0)).toThrow("Control");
+    expect(c.state.openingInitiative?.totals).toEqual([25, 4]);
+    expect(c.state.initiative).toBe(1);
+    expect(c.state.round).toBe(6);
   });
-  it("rejects reducing Control below the already drafted spend without mutating state", () => {
-    const lab = new LabController(defaultSetup());
-    lab.control(0, { slot: 0, kind: "flip" });
-    const before = clone(lab.state);
-    expect(() => lab.editPlayer(0, { control: 0 })).toThrow("Control");
-    expect(lab.state).toEqual(before);
-    lab.setDraft(0, { controls: [], assignments: [] });
-    lab.editPlayer(0, { control: 0 });
-    expect(lab.state.players[0].control).toBe(0);
-  });
-  it("normal and spectator projections never expose hidden card IDs or enemy plans", () => {
-    const c = new LabController(defaultSetup());
+  it("keeps normal and spectator hidden information private and swaps view B authority", () => {
+    const c = lab();
     expect(c.view("A").players[1].loadout.cards).toEqual([
       null,
       null,
@@ -77,254 +61,144 @@ describe("production-backed laboratory", () => {
       null,
       null,
     ]);
+    expect(c.view("B").activePlayer).toBe(1);
     expect(
       c
         .view("Spectator")
-        .players.every((p) => p.loadout.cards.every((id) => id === null)),
+        .players.flatMap((p) => p.loadout.cards)
+        .every((v) => v === null),
     ).toBe(true);
-    c.lock(1, choosePlan(decisionContext(c.state, 1)));
-    expect(c.view("A").players[1].plan).toBe(null);
-    expect(c.view("Omniscient").players[1].plan).not.toBe(null);
-    expect("seed" in c.view("A")).toBe(false);
-  });
-  it("preserves known-hand memory and safely rewinds reveal", () => {
-    const c = SCENARIOS.find((s) => s.id === "two")!.build();
-    const before = c.snapshot();
-    finishRound(c);
-    expect(c.state.players[0].known).toContain(
-      c.state.players[0].loadout.cards[3],
+    expect(c.view("Omniscient").players[1].loadout.cards).toEqual(
+      c.state.players[1].loadout.cards,
     );
-    const restored = LabController.restore(before);
-    expect(restored.state.players[0].known).toEqual([]);
   });
-  it("consumes fixed/sequence Fate with repeat, random and stop policies", () => {
-    for (const end of ["repeat", "random", "stop"] as const) {
-      const s = defaultSetup();
-      s.fate = {
-        mode: "sequence",
-        fixed: [0, 0, 0],
-        sequence: [[1, 2, 3]],
-        end,
-      };
-      s.players.forEach((p) => (p.ai = false));
-      const c = new LabController(s);
-      expect(c.state.fate).toEqual([1, 2, 3]);
-      finishRound(c);
-      c.next();
-      if (end === "stop") {
-        expect(() => c.next()).toThrow("exhausted");
-        expect(c.state.round).toBe(1);
-        c.setFate([3, 2, 1], true);
-        c.next();
-        expect(c.state.fate).toEqual([3, 2, 1]);
-      } else {
-        c.next();
-        expect(c.state.round).toBe(2);
-        if (end === "repeat") expect(c.state.fate).toEqual([1, 2, 3]);
-      }
-    }
+  it("lets developers set held resources without bypassing action timing", () => {
+    const c = lab();
+    c.setFace(1, 0, 5);
+    c.setResource(1, 0, "HELD");
+    expect(c.state.players[1].dice[0].state).toBe("HELD");
+    expect(() =>
+      c.lock(1, {
+        controls: [],
+        assignments: [{ target: "guard", dice: [0] }],
+      }),
+    ).toThrow("TIMING");
   });
-  it("uses the same result for normal resolution and primitive-by-primitive stepping", () => {
-    for (const legend of LEGENDS) {
-      const s = defaultSetup();
-      s.players[0] = defaultPlayer(legend.id, false);
-      const lab = new LabController(s);
-      for (const a of [0, 1] as const) lab.acceptAI(a);
-      lab.next();
-      const normal = clone(lab.state);
-      resolve(normal);
-      lab.resolveCurrent();
-      expect(lab.state.players).toEqual(normal.players);
-      expect(lab.state.events).toEqual(normal.events);
-      expect(lab.state.stats).toEqual(normal.stats);
-    }
+  it("can stress incompatible loadouts but still validates real action costs", () => {
+    const s = defaultSetup();
+    s.players[0].loadout.cards[0] = "anansi-web-turn";
+    expect(() => new LabController(s)).toThrow("incompatible");
+    s.ignoreRestrictions = true;
+    s.initiativeWinner = 0;
+    const c = new LabController(s);
+    expect(() =>
+      c.lock(0, {
+        controls: [],
+        assignments: [{ target: "anansi-web-turn", dice: [0] }],
+      }),
+    ).toThrow("TIMING");
   });
-  it("reconstructs an exact suspended resolver when restoring a snapshot", () => {
-    const c = SCENARIOS.find((s) => s.id === "two")!.build();
-    c.next();
-    c.next();
-    c.next();
-    for (let i = 0; i < 4; i++) c.nextEffect();
+  it("steps exactly the production resolver and restores mid-effect snapshots", () => {
+    const c = resolving();
+    c.nextEffect();
     expect(c.resolving).toBe(true);
     const saved = c.snapshot(),
-      restored = importSnapshot(JSON.stringify(saved));
-    expect(restored.state.players).toEqual(c.state.players);
+      r = LabController.restore(saved);
     c.resolveCurrent();
-    restored.resolveCurrent();
-    expect(restored.state.players).toEqual(c.state.players);
-    expect(restored.state.events).toEqual(c.state.events);
-    expect(restored.state.stats).toEqual(c.state.stats);
+    r.resolveCurrent();
+    expect(r.state.players).toEqual(c.state.players);
+    expect(r.state.stats).toEqual(c.state.stats);
+    expect(r.frames).toEqual(c.frames);
   });
-  it("pauses primitive damage before the simultaneous health boundary", () => {
-    const c = SCENARIOS.find((s) => s.id === "simultaneous")!.build();
-    c.next();
-    c.next();
-    c.next();
-    let damageSeen = false;
-    while (!damageSeen) {
-      c.nextEffect();
-      damageSeen = c.frames.at(-1)?.effect === "DAMAGE";
-    }
-    expect(c.state.players.map((p) => p.hp)).toEqual([4, 4]);
-    c.resolveCurrent();
-    expect(c.state.players.map((p) => p.hp)).toEqual([0, 0]);
-    c.next();
-    expect(c.state.winner).toBe("draw");
-  });
-  it("forbids unsafe edits to a suspended priority snapshot", () => {
-    const c = SCENARIOS.find((s) => s.id === "two")!.build();
-    c.next();
-    c.next();
-    c.next();
+  it("rejects unsafe edits while a resolver is suspended and rewinds safely", () => {
+    const c = resolving();
     c.nextEffect();
-    expect(() => c.editPlayer(0, { hp: 4 })).toThrow("suspended");
+    expect(() => c.hp(1, 1)).toThrow("suspended");
     c.rewind();
-    expect(c.state.phase).toBe("REVEAL");
-    expect(() => c.editPlayer(0, { hp: 4 })).not.toThrow();
+    expect(c.state.phase).toBe("RESOLUTION");
+    expect(c.resolving).toBe(false);
   });
-  it("handles safe timeout after Control and leaves a locked plan unchanged", () => {
-    const c = new LabController(defaultSetup());
-    c.control(0, { slot: 0, kind: "shift", direction: 1 });
-    c.timeout(0);
-    const plan = clone(c.state.players[0].plan);
-    c.timeout(0);
-    expect(c.state.players[0].plan).toEqual(plan);
-    expect(plan?.assignments.every((a) => a.target === "guard")).toBe(true);
-    expect(() => c.control(0, { slot: 0, kind: "flip" })).toThrow("locked");
+  it("snapshots restore held dice, reveal memory, HP, Control and seed exactly", () => {
+    const c = lab();
+    c.setResource(1, 0, "HELD");
+    c.setFace(1, 0, 5);
+    c.memory(1, c.state.players[1].loadout.cards[0], "HIDDEN BUT KNOWN");
+    c.editPlayer(0, { hp: 4, control: 5 });
+    const restored = importSnapshot(JSON.stringify(c.report()));
+    expect(restored.state.players).toEqual(c.state.players);
+    expect(restored.state.seed).toBe(c.state.seed);
   });
-  it("freezes timers while overlay is open and honors a one-second deadline", () => {
-    const s = defaultSetup();
-    s.timerMs = 1000;
-    const c = new LabController(s);
+  it("restart uses the same initiative and Fate without retaining spent dice", () => {
+    const c = lab(),
+      before = clone(c.state.players);
+    c.lock(0, EMPTY_PLAN);
+    c.restart();
+    expect(c.state.players).toEqual(before);
+  });
+  it("reveal memory can be explicitly reset and rewound", () => {
+    const c = lab(),
+      id = c.state.players[1].loadout.cards[0];
+    c.memory(1, id, "CURRENTLY REVEALED");
+    expect(c.view().players[1].loadout.cards[0]).toBe(id);
+    c.memory(1, id, "NEVER REVEALED");
+    expect(c.view().players[1].loadout.cards[0]).toBeNull();
+  });
+  it("overlay pause stops short timers and timeout spends nothing", () => {
+    const c = lab();
+    c.setup.timerMs = 1000;
+    c.remainingMs = 1000;
     c.tick(100);
     c.paused = true;
     c.tick(1100);
     expect(c.remainingMs).toBe(1000);
     c.paused = false;
-    c.tick(1600);
-    expect(c.remainingMs).toBe(500);
     c.tick(2100);
-    expect(c.state.phase).toBe("LOCKED");
+    expect(c.state.phase).toBe("TURN_END");
+    expect(c.state.players[0].known).toEqual([]);
   });
-  it("supports exact numbered shift boundaries and blank-to-symbol flips", () => {
-    const c = SCENARIOS.find((s) => s.id === "blank")!.build();
-    expect(() =>
-      c.control(0, { slot: 0, kind: "shift", direction: 1 }),
-    ).toThrow("numbered");
-    c.control(0, { slot: 0, kind: "flip" });
-    expect(c.positions(0).positions[0]).toBe(11);
-    c.setFace(0, 0, 11);
-    expect(() =>
-      c.control(0, { slot: 0, kind: "shift", direction: 1 }),
-    ).toThrow();
-    expect(() => c.editPlayer(0, { control: -1 })).toThrow("Control");
+  it("consumes fixed and sequence Fate with repeat, random and stop endings", () => {
+    const c = lab();
+    c.setup.fate.mode = "sequence";
+    expect(c.fateForRound(1)).toEqual(c.setup.fate.sequence[0]);
+    expect(c.fateForRound(4)).toEqual(c.setup.fate.sequence[0]);
+    c.setup.fate.end = "random";
+    expect(c.fateForRound(4)).toBeUndefined();
+    c.setup.fate.end = "stop";
+    expect(() => c.fateForRound(4)).toThrow("exhausted");
   });
-  it("targets card stun and clears only that card’s temporary status", () => {
-    const c = SCENARIOS.find((s) => s.id === "stun")!.build();
-    finishRound(c);
-    expect(
-      c.state.events.some(
-        (e) => e.type === "fizzle" && e.text.includes("stunned"),
-      ),
-    ).toBe(true);
-    expect(c.state.stats[0].damage[0]).toBe(0);
+  it("rejects old snapshots and malformed resource states", () => {
+    const c = lab(),
+      s = c.snapshot();
+    s.mechanicalVersion = 1;
+    expect(() => LabController.restore(s)).toThrow("version");
+    expect(() => importSnapshot("{broken")).toThrow("JSON");
   });
-  it("caps actual healing at max HP and expires poison through cleanup", () => {
-    const c = SCENARIOS.find((s) => s.id === "heal")!.build();
-    finishRound(c);
-    expect(c.state.players[0].hp).toBe(20);
-    const poison = SCENARIOS.find((s) => s.id === "cleanup")!.build();
-    finishRound(poison);
-    expect(poison.state.players[0].hp).toBe(18);
-    expect(poison.state.players[0].statuses.map((s) => s.id)).toEqual([
-      "power",
-    ]);
-  });
-  it("uses configured round limit and deterministic tie handling", () => {
-    const s = defaultSetup();
-    s.players[1] = defaultPlayer("basajaun", false);
-    s.maxRounds = 1;
-    const c = new LabController(s);
-    finishRound(c);
-    expect(c.state.winner).toBe("draw");
-  });
-  it("rejects malformed and inconsistent imports without mutating a running session", () => {
-    const c = new LabController(defaultSetup());
-    const raw = c.snapshot();
-    raw.state.players[0].faces[0] = 999;
-    expect(() => LabController.restore(raw)).toThrow("Face index");
-    expect(() => importSnapshot("{")).toThrow("Invalid JSON");
-    const unknown = c.snapshot();
-    unknown.state.players[0].loadout.cards[0] = "unknown";
-    expect(() => LabController.restore(unknown)).toThrow();
-  });
-  it("reports actual production AI scores and never changes the chosen plan", () => {
-    const c = new LabController(defaultSetup());
-    const ctx = decisionContext(c.state, 1),
-      d = inspectAI(ctx);
-    expect(d.chosen).toEqual(choosePlan(ctx));
-    expect(d.alternatives[0].plan).toEqual(d.chosen);
-    expect(d.alternatives[0].score).toBe(d.alternatives[0].details.overall);
-    expect(d.evaluated).toBeGreaterThan(5);
-  });
-  it("stores actual Control expenditure when starting above the default resource", () => {
-    const c = SCENARIOS.find((s) => s.id === "five")!.build();
-    c.control(0, { slot: 0, kind: "flip" });
-    finishRound(c);
-    expect(c.state.stats[0].control[0]).toBe(2);
-  });
-});
-describe("metrics cohort integrity", () => {
-  it("counts equipped vs used cards and paired-seat outcomes independently", () => {
-    const config = {
+  it("exports initiative and resource metrics from completed real engine simulations", () => {
+    const cfg = {
       loadouts: [STARTERS.basajaun, STARTERS.anansi] as [
         typeof STARTERS.basajaun,
         typeof STARTERS.anansi,
       ],
       games: 2,
       difficulty: "Normal" as const,
-      seed: 12000,
+      seed: 200,
       paired: true,
     };
-    const records = [simulateGame(config, 0), simulateGame(config, 1)],
-      data = aggregate(records);
-    expect(data.games).toBe(2);
-    expect(data.paired).toBe(1);
-    expect(data.mismatches).toBe(0);
-    expect(
-      Object.values(data.byCard).every((c) => c.equipped >= c.usedMatches),
-    ).toBe(true);
-    expect(aggregate(records, "human").byCard).toEqual({});
+    const rows = [simulateGame(cfg, 0), simulateGame(cfg, 1)];
+    rows.forEach((r) =>
+      expect(() => validateRecord(r, "simulation")).not.toThrow(),
+    );
+    const stats = aggregate(rows);
+    expect(stats.games).toBe(2);
+    expect(stats.mismatches).toBe(0);
+    expect(stats.initiativeGames).toBe(2);
+    expect(stats.rolls).toBeGreaterThan(0);
   });
-  it("rejects forged cohort labels and removes authored names", () => {
-    const c = simulateGame(
-      {
-        loadouts: [STARTERS.basajaun, STARTERS.anansi],
-        games: 1,
-        difficulty: "Training",
-        seed: 2,
-        paired: false,
-      },
-      0,
-    );
-    expect(() => validateRecord(c, "live")).toThrow("source");
-    c.loadouts[0].name = "personal name";
-    expect(validateRecord(c, "simulation").loadouts[0].name).toBe(
-      "basajaun build",
-    );
-  });
-  it("validates real IDs and faces in metric records", () => {
-    const c = simulateGame(
-      {
-        loadouts: [STARTERS.basajaun, STARTERS.anansi],
-        games: 1,
-        difficulty: "Training",
-        seed: 5,
-        paired: false,
-      },
-      0,
-    );
-    c.stats[0].faces[0][0] = "unknown:900";
-    expect(() => validateRecord(c, "simulation")).toThrow("die");
+  it("keeps debug metrics separate and strips authored build labels", () => {
+    const c = lab();
+    c.end(0);
+    const r = recordMatch(c.state, "lab", "Internal", null, ["human", "ai"]);
+    expect(validateRecord(r, "lab").loadouts[0].name).toBe("basajaun build");
+    expect(() => validateRecord(r, "live")).toThrow();
   });
 });

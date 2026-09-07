@@ -21,6 +21,8 @@ export type PlayerSetup = {
   statuses: Status[];
   damageDealt: number;
   previousCard: string;
+  initiativeBonus: number;
+  heldFaces: (number | null)[];
 };
 export type LabSetup = {
   players: [PlayerSetup, PlayerSetup];
@@ -35,6 +37,8 @@ export type LabSetup = {
     end: "repeat" | "random" | "stop";
   };
   timerMs: number;
+  initiativeRolls: [number, number] | null;
+  initiativeWinner: Seat | null;
 };
 export type LabOptions = {
   view: ViewMode;
@@ -86,6 +90,8 @@ export function defaultPlayer(id: Loadout["legend"], ai: boolean): PlayerSetup {
     statuses: [],
     damageDealt: 0,
     previousCard: "",
+    initiativeBonus: legendById[id].initiativeBonus,
+    heldFaces: [null, null, null],
   };
 }
 export function defaultSetup(): LabSetup {
@@ -96,6 +102,8 @@ export function defaultSetup(): LabSetup {
     maxRounds: GAME.maxRounds,
     ignoreRestrictions: false,
     timerMs: 0,
+    initiativeRolls: null,
+    initiativeWinner: null,
     fate: {
       mode: "fixed",
       fixed: [12, 66, 102],
@@ -158,7 +166,7 @@ export function restrictionErrors(l: Loadout) {
       legend = legendById[l.legend];
     if (
       d &&
-      (d.size !== legend.diceSlots[i] ||
+      (!legend.allowedDiceSizes.includes(d.size) ||
         (!d.compatibleLegendTags.includes("all") &&
           !d.compatibleLegendTags.some((t) => legend.tags.includes(t))))
     )
@@ -193,6 +201,13 @@ export function validateSetup(s: LabSetup) {
         "Duplicate card IDs cannot identify unique actions. Choose four distinct cards.",
       );
     if (!s.ignoreRestrictions) validateLoadout(p.loadout);
+    int(p.initiativeBonus, 0, 20, "Initiative bonus");
+    if (!Array.isArray(p.heldFaces) || p.heldFaces.length !== 3)
+      throw new Error("Three held-die overrides required.");
+    p.heldFaces.forEach((f, i) => {
+      if (f !== null)
+        int(f, 0, dieById[p.loadout.dice[i]].size - 1, "Held face");
+    });
     int(p.hp, 0, 1000, "HP");
     int(p.guard, 0, 1000, "Guard");
     int(p.control, 0, 6, "Control");
@@ -236,10 +251,10 @@ export function randomLoadout(
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
   const l = legendById[legend];
-  const dice = l.diceSlots.map((size) => {
+  const dice = l.diceSlots.map(() => {
     const options = DICE.filter(
       (d) =>
-        d.size === size &&
+        l.allowedDiceSizes.includes(d.size) &&
         (d.compatibleLegendTags.includes("all") ||
           d.compatibleLegendTags.some((t) => l.tags.includes(t))),
     );

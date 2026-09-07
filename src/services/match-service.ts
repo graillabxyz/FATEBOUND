@@ -1,3 +1,4 @@
+import { validateSavedState } from "../engine/validation";
 import { completedUsage } from "./telemetry";
 import {
   createMatch,
@@ -25,6 +26,7 @@ export type MatchCommand = {
   matchId: string;
   sequence: number;
   round: number;
+  revision: number;
   plan: Plan;
 };
 export type Mode = "Training" | "Casual" | "Ranked";
@@ -37,7 +39,7 @@ export interface MatchService {
   reconnect(): MatchView;
   replay(): Replay;
 }
-const MATCH_KEY = "fatebound.match.v1";
+const MATCH_KEY = "fatebound.match.v2";
 type Checkpoint = {
   state: MatchState;
   difficulty: Difficulty;
@@ -86,9 +88,9 @@ export class LocalMatchService implements MatchService {
       const data = JSON.parse(
         storage.getItem(MATCH_KEY) ?? "null",
       ) as Checkpoint;
-      if (!data || data.state.version !== 1 || data.state.phase === "MATCH_END")
+      if (!data || data.state.version !== 2 || data.state.phase === "MATCH_END")
         return null;
-      data.state.players.forEach((p) => validateLoadout(p.loadout));
+      validateSavedState(data.state);
       const s = new LocalMatchService(
         data.state,
         data.difficulty,
@@ -124,7 +126,11 @@ export class LocalMatchService implements MatchService {
   }
   submit(c: MatchCommand) {
     if (c.matchId !== this.state.id) throw new Error("Wrong match.");
-    const body = JSON.stringify({ round: c.round, plan: c.plan });
+    const body = JSON.stringify({
+      round: c.round,
+      revision: c.revision,
+      plan: c.plan,
+    });
     if (this.sequences[c.sequence]) {
       if (this.sequences[c.sequence] !== body)
         throw new Error("Conflicting duplicate command.");
@@ -132,32 +138,35 @@ export class LocalMatchService implements MatchService {
     }
     if (!Number.isInteger(c.sequence) || c.sequence !== this.nextSequence())
       throw new Error("Out-of-order command.");
+    if (c.revision !== this.state.revision)
+      throw new Error("Stale decision window.");
     if (c.round !== this.state.round) throw new Error("Stale round.");
     lockPlan(this.state, 0, c.plan);
     this.sequences[c.sequence] = body;
-    this.lockAI();
     this.persist();
     return this.view();
   }
-  private lockAI() {
-    if (
-      !this.state.players[1].locked &&
-      ["CONTROL", "ASSIGNMENT", "LOCKED"].includes(this.state.phase)
-    )
+  tick(now: number, _draft?: Plan) {
+    const phase = this.state.phase;
+    const decision =
+      phase === "MAIN_ACTION"
+        ? this.state.activePlayer
+        : phase === "REACTION_WINDOW"
+          ? 1 - this.state.activePlayer
+          : -1;
+    if (decision === 1) {
       lockPlan(
         this.state,
         1,
         choosePlan(decisionContext(this.state, 1), this.difficulty),
       );
-  }
-  tick(now: number, draft?: Plan) {
-    if (
-      !this.practice &&
-      ["CONTROL", "ASSIGNMENT"].includes(this.state.phase) &&
+      this.persist();
+    } else if (
+      decision === 0 &&
+      (phase === "REACTION_WINDOW" || !this.practice) &&
       now >= this.state.deadline
     ) {
-      timeoutPlan(this.state, 0, draft);
-      this.lockAI();
+      timeoutPlan(this.state, 0);
       this.persist();
     }
     return this.view();
