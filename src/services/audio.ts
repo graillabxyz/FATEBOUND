@@ -2,6 +2,10 @@ import { Capacitor } from "@capacitor/core";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import type { Settings } from "./profile";
 export type AudioCue =
+  | "emote"
+  | "heal"
+  | "wardBreak"
+  | "reaction"
   | "roll"
   | "settle"
   | "symbol"
@@ -17,6 +21,10 @@ export type AudioCue =
   | "matchFound"
   | "menu";
 const notes: Record<AudioCue, number[]> = {
+  emote: [520, 660],
+  heal: [392, 523],
+  wardBreak: [210, 140],
+  reaction: [392, 587],
   roll: [110, 140, 100],
   settle: [180],
   symbol: [440, 660],
@@ -38,7 +46,10 @@ let ambientGain: GainNode | undefined;
 export function audioCue(cue: AudioCue, settings: Settings) {
   if (
     settings.haptics &&
-    ["flip", "attack", "reveal", "victory"].includes(cue)
+    !settings.reducedMotion &&
+    ["flip", "attack", "damage", "wardBreak", "reaction", "victory"].includes(
+      cue,
+    )
   ) {
     if (Capacitor.isNativePlatform())
       void Haptics.impact({ style: ImpactStyle.Light }).catch(() => {});

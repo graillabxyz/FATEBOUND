@@ -264,6 +264,11 @@ describe("deterministic action and reaction resolution", () => {
     face(s, 1, 0, 6, true);
     exchange(s, command("basajaun-crush"), command("guard"));
     expect(s.players[1].hp).toBe(17);
+    expect(s.events.find((e) => e.type === "damage")).toMatchObject({
+      target: 1,
+      wardAbsorbed: 3,
+      amount: 1,
+    });
     expect(s.players[1].guard).toBe(0);
     expect(s.players[1].dice[0].state).toBe("SPENT");
     expect(s.stats[0].reactions[1]).toBe(1);

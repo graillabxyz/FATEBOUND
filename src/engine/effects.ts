@@ -217,6 +217,10 @@ export function* resolutionSteps(
             action.damageTaken += damage;
           result = `${damage} damage; ${blocked} Ward absorbed; ${prevented} prevented`;
           log(state, d.actor, "damage", result, damage);
+          Object.assign(state.events.at(-1)!, {
+            target,
+            wardAbsorbed: blocked,
+          });
           break;
         }
         case "HEAL": {

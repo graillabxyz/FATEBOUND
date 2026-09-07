@@ -43,11 +43,3 @@ export const RANKS = [
   "Diamond",
   "Mythic",
 ];
-export const EMOTES = [
-  "Hello",
-  "Good move",
-  "Wow",
-  "Thinking",
-  "Well played",
-  "GG",
-];

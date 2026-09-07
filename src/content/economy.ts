@@ -102,7 +102,17 @@ export const COSMETICS: Cosmetic[] = [
     icon: "sun",
   },
 ];
-export const PASS_REWARDS = Array.from({ length: 50 }, (_, i) => ({
+export type PathReward = {
+  type: string;
+  amount: number;
+  label: string;
+  id?: string;
+};
+export const PASS_REWARDS: {
+  level: number;
+  free: PathReward;
+  premium: PathReward;
+}[] = Array.from({ length: 50 }, (_, i) => ({
   level: i + 1,
   free:
     i % 10 === 4
@@ -189,3 +199,11 @@ export const QUESTS = [
     xp: 1000,
   },
 ] as const;
+
+for (const [level, track, id, label] of [
+  [4, "free", "nice-spark", "Nice! · animated emote"],
+  [12, "free", "root-nod", "Ancient approval · emote"],
+  [25, "premium", "sun-salute", "Sun salute · emote"],
+  [40, "free", "first-light-emote", "First Light · seasonal emote"],
+] as const)
+  PASS_REWARDS[level - 1][track] = { type: "emote", id, amount: 1, label };

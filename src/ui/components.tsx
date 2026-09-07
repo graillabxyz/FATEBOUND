@@ -285,60 +285,55 @@ export function LifeBar({
   hp,
   max,
   guard = 0,
+  reduced = false,
 }: {
   hp: number;
   max: number;
   guard?: number;
+  reduced?: boolean;
 }) {
-  const previousWard = useRef(guard);
-  const [wardLost, setWardLost] = useState(0);
+  const previous = useRef({ hp, guard }),
+    [shownHp, setShownHp] = useState(hp),
+    [change, setChange] = useState(0),
+    [wardLost, setWardLost] = useState(0);
   useEffect(() => {
-    setWardLost(Math.max(0, previousWard.current - guard));
-    previousWard.current = guard;
-    const t = setTimeout(() => setWardLost(0), 650);
-    return () => clearTimeout(t);
-  }, [guard]);
-  const previous = useRef(hp);
-  const [change, setChange] = useState(0);
-  useEffect(() => {
-    const delta = hp - previous.current;
-    previous.current = hp;
-    setChange(delta);
-    const timer = window.setTimeout(() => setChange(0), 1100);
-    return () => window.clearTimeout(timer);
-  }, [hp]);
+    const old = previous.current,
+      delta = hp - old.hp,
+      lost = Math.max(0, old.guard - guard);
+    previous.current = { hp, guard };
+    setWardLost(lost);
+    setChange(0);
+    const delay = lost > 0 && delta < 0 && !reduced ? 180 : 0;
+    const impact = setTimeout(() => {
+      setShownHp(hp);
+      setChange(delta);
+    }, delay);
+    const clear = setTimeout(() => {
+      setChange(0);
+      setWardLost(0);
+    }, delay + 700);
+    return () => {
+      clearTimeout(impact);
+      clearTimeout(clear);
+    };
+  }, [hp, guard, reduced]);
   const bounded = Math.max(0, Math.min(hp, max));
   return (
     <div
-      className={`health ${hp <= max * 0.25 ? "health-critical" : ""} ${change < 0 ? "health-hit" : ""}`}
+      className={`health ${hp <= max * 0.25 ? "health-critical" : ""} ${change < 0 ? "health-hit" : change > 0 ? "health-healed" : ""}`}
     >
-      {change !== 0 && (
-        <span
-          key={hp}
-          className={`health-change ${change > 0 ? "healed" : ""}`}
-          aria-hidden="true"
-        >
-          {change > 0 ? "+" : ""}
-          {change}
-        </span>
-      )}
-      {wardLost > 0 && (
-        <span className="ward-break" role="status">
-          −{wardLost} Ward
-        </span>
-      )}
       <div className="health-label">
         <span>
-          <Icon name="heart" size={12} />
-          <b>{hp}</b>
-          <span>/ {max} Life</span>
-        </span>
-        {guard > 0 && (
-          <span className="guard-count">
-            <Icon name="guard" size={12} />
-            {guard} Ward
+          <b
+            key={`${shownHp}-${change}`}
+            className={change ? "life-number-impact" : ""}
+          >
+            {shownHp}
+          </b>
+          <span className="life-caption">
+            LIFE <small>/ {max}</small>
           </span>
-        )}
+        </span>
       </div>
       <div
         className="health-track"
@@ -349,8 +344,28 @@ export function LifeBar({
         aria-valuemin={0}
         aria-valuemax={max}
       >
-        <i style={{ width: `${max > 0 ? (bounded / max) * 100 : 0}%` }} />
+        <i
+          style={{
+            width: `${max > 0 ? (Math.max(0, Math.min(shownHp, max)) / max) * 100 : 0}%`,
+          }}
+        />
       </div>
+      {(guard > 0 || wardLost > 0) && (
+        <span className={`guard-count ${wardLost ? "ward-breaking" : ""}`}>
+          <Icon name="guard" size={12} />
+          {guard} Ward{wardLost > 0 && <em key={guard}>−{wardLost}</em>}
+        </span>
+      )}
+      {change !== 0 && (
+        <span
+          className={`health-change ${change > 0 ? "healed" : ""}`}
+          key={`${hp}-${guard}`}
+          aria-hidden="true"
+        >
+          {change > 0 ? "+" : ""}
+          {change}
+        </span>
+      )}
     </div>
   );
 }
@@ -382,6 +397,7 @@ export function Omen({
   onClick,
   label,
   rolling = false,
+  motion = "",
   children,
 }: {
   definition: DieDef;
@@ -393,17 +409,18 @@ export function Omen({
   onClick?: () => void;
   label?: string;
   rolling?: boolean;
+  motion?: string;
   children?: ReactNode;
 }) {
   const Root = onClick ? "button" : "div";
   const geometry = DIE_PROJECTIONS[definition.size];
   return (
     <Root
-      className={`die polyhedral die-d${definition.size} ${small ? "small" : ""} ${selected ? "selected" : ""} ${assigned ? "assigned" : ""} ${rolling ? "rolling" : ""} skin-${skin}`}
+      className={`die polyhedral die-d${definition.size} ${small ? "small" : ""} ${selected ? "selected" : ""} ${assigned ? "assigned" : ""} ${rolling ? "rolling" : ""} omen-motion-${motion} face-${face?.type ?? "none"} skin-${skin}`}
       onClick={onClick}
       aria-label={
         label ??
-        `${definition.name}, d${definition.size} ${DIE_SHAPES[definition.size]}${face ? `, ${omenFace(face).name}` : ""}`
+        `${definition.name}, d${definition.size} ${DIE_SHAPES[definition.size]}${face ? `, ${face.displayIcon === "—" ? "Unrolled" : omenFace(face).name}` : ""}`
       }
       aria-pressed={onClick ? selected : undefined}
       role={onClick ? undefined : "img"}
@@ -441,6 +458,8 @@ export function Omen({
               }
               size={small ? 17 : 25}
             />
+          ) : face.displayIcon === "—" ? (
+            "—"
           ) : (
             omenFace(face).icon
           )
@@ -486,6 +505,13 @@ export function GameplayCard({
   onInspect?: () => void;
 }) {
   const icon = CARD_ICONS[card.category];
+  const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null),
+    held = useRef(false);
+  const cancelHold = () => {
+    if (holdTimer.current) clearTimeout(holdTimer.current);
+    holdTimer.current = null;
+  };
+  useEffect(() => cancelHold, []);
   return (
     <div
       className={`gameplay-card ${compact ? "compact" : ""} ${selected ? "selected" : ""} ${disabled ? "unavailable" : ""}`}
@@ -494,7 +520,29 @@ export function GameplayCard({
     >
       <button
         className="card-select"
-        onClick={onClick}
+        onPointerDown={() => {
+          held.current = false;
+          if (onInspect)
+            holdTimer.current = setTimeout(() => {
+              held.current = true;
+              onInspect();
+            }, 450);
+        }}
+        onPointerUp={cancelHold}
+        onPointerLeave={cancelHold}
+        onPointerCancel={cancelHold}
+        onContextMenu={(e) => {
+          if (onInspect) {
+            e.preventDefault();
+            cancelHold();
+            if (!held.current) onInspect();
+            held.current = true;
+          }
+        }}
+        onClick={() => {
+          if (!held.current) onClick?.();
+          held.current = false;
+        }}
         aria-label={`${card.name}. ${card.timing}. ${card.requirementLabel}. ${card.text}`}
         aria-pressed={selected}
       >

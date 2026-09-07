@@ -1,3 +1,4 @@
+import { EmoteCollection } from "./Emotes";
 import { TutorialSteps, Glossary } from "./Help";
 import { ENABLE_DEV_TOOLS } from "../dev/gate";
 import { useState } from "react";
@@ -59,6 +60,26 @@ export function ProfilePage() {
           label="Matches"
         />
       </div>
+      <SectionLabel>PLAYER AVATAR</SectionLabel>
+      <div className="avatar-picker">
+        {LEGENDS.map((l) => (
+          <button
+            key={l.id}
+            aria-label={`Use ${l.name} avatar`}
+            aria-pressed={profile.avatar === l.id}
+            onClick={() => update({ ...profile, avatar: l.id })}
+          >
+            <LegendArt id={l.id} />
+          </button>
+        ))}
+      </div>
+      <details className="profile-emotes">
+        <summary>
+          Emotes{" "}
+          <span>{profile.ownedEmotes.length} owned · 5 battle slots</span>
+        </summary>
+        <EmoteCollection />
+      </details>
       <SectionLabel>FEATURED OMEN</SectionLabel>
       <p>
         {omenById[active.dice[0]].name} · d{omenById[active.dice[0]].size} ·
@@ -251,6 +272,7 @@ export function ShopPage() {
           "Omens",
           "Omen Skins",
           "Cosmetics",
+          "Emotes",
           "Bundles",
         ].map((t) => (
           <button
@@ -279,12 +301,10 @@ export function ShopPage() {
             Choose your Omens
           </SecondaryButton>
         </>
+      ) : tab === "Emotes" ? (
+        <EmoteCollection shop />
       ) : tab === "Bundles" ? (
-        <EmptyState
-          icon="gift"
-          title="Thoughtfully gathered"
-          text="Cosmetic bundles will arrive with future seasons. Nothing here will change the rules of a match."
-        />
+        <EmoteCollection shop bundles />
       ) : (
         <>
           <button
@@ -479,6 +499,16 @@ export function SettingsContent() {
           />
         </label>
       ))}
+      <label className="toggle-setting">
+        <span>
+          Opponent Emotes<small>Show preset greetings during matches</small>
+        </span>
+        <input
+          type="checkbox"
+          checked={profile.settings.opponentEmotes}
+          onChange={(e) => change("opponentEmotes", e.target.checked)}
+        />
+      </label>
       <SectionLabel>NOTIFICATIONS</SectionLabel>
       {Object.entries(profile.settings.notifications).map(([k, v]) => (
         <label className="toggle-setting compact-setting" key={k}>

@@ -1,3 +1,7 @@
+import { BattlePresence, MatchIdentityIntro } from "./BattlePresence";
+import { EmoteMenu } from "./Emotes";
+import { COSMETICS } from "../content/economy";
+import { rankLabel } from "../services/profile";
 import { rulesLabel } from "../content/terminology";
 import { useEffect, useRef, useState } from "react";
 import type {
@@ -23,9 +27,7 @@ import {
   FocusCounter,
   Omen,
   GameplayCard,
-  LifeBar,
   Icon,
-  LegendArt,
   PrimaryButton,
 } from "./components";
 import { audioCue } from "../services/audio";
@@ -81,6 +83,17 @@ export default function Battle({
     [error, setError] = useState(""),
     [seconds, setSeconds] = useState(12),
     [showLog, setShowLog] = useState(false);
+  const [omenMotion, setOmenMotion] = useState<{
+    slot: number;
+    kind: string;
+    key: number;
+  } | null>(null);
+  useEffect(() => {
+    if (!omenMotion) return;
+    const timer = setTimeout(() => setOmenMotion(null), 480);
+    return () => clearTimeout(timer);
+  }, [omenMotion?.key]);
+  const lastFeedback = useRef(view);
   const latest = useRef(view),
     ended = useRef(false);
   latest.current = view;
@@ -129,6 +142,14 @@ export default function Battle({
   } catch {
     /* Validator below explains the invalid draft. */
   }
+  const canFocus = (action: Plan["controls"][number]) => {
+    try {
+      validatePlan(ctx, { controls: [action], assignments: [] });
+      return true;
+    } catch {
+      return false;
+    }
+  };
   const diagnostic = target
     ? explainAssignment(ctx, plan, plan.assignments[0])
     : null;
@@ -181,8 +202,14 @@ export default function Battle({
   useEffect(() => {
     if (view.phase === "MATCH_END") {
       if (!ended.current) {
-        ended.current = true;
-        onEnd(view);
+        const timer = setTimeout(
+          () => {
+            ended.current = true;
+            onEnd(view);
+          },
+          profile.settings.reducedMotion ? 0 : 650,
+        );
+        return () => clearTimeout(timer);
       }
       return;
     }
@@ -190,7 +217,12 @@ export default function Battle({
     if (view.phase === "REACTION_DECLARED")
       audioCue("reveal", profile.settings);
     if (presentation?.manualAdvance) return;
-    const delay = (GAME.phaseMs as Record<string, number>)[view.phase];
+    const delay =
+      view.phase === "MATCH_INTRO"
+        ? 1100
+        : view.phase === "INITIATIVE_ROLL"
+          ? 1200
+          : (GAME.phaseMs as Record<string, number>)[view.phase];
     if (delay === undefined) return;
     const timer = setTimeout(
       () => {
@@ -215,6 +247,27 @@ export default function Battle({
           plan: p,
         }),
       );
+      if (p.controls.length) {
+        setOmenMotion({
+          slot: p.controls[0].slot,
+          kind: p.controls[0].kind,
+          key: Date.now(),
+        });
+        audioCue(
+          p.controls[0].kind === "flip" ? "flip" : "shift",
+          profile.settings,
+        );
+      }
+      if (
+        p.assignments.some((a) =>
+          a.dice.some(
+            (slot) =>
+              omenById[me.loadout.dice[slot]].faces[positions[slot]].type ===
+              "symbol",
+          ),
+        )
+      )
+        audioCue("symbol", profile.settings);
       setSelection([]);
       setTarget("");
       setDraftControls([]);
@@ -247,6 +300,59 @@ export default function Battle({
       return "SIGIL";
     return d.state;
   };
+  const identities = [
+    {
+      name: presentation?.names?.[0] ?? profile.name,
+      rank: presentation?.ranks?.[0] ?? rankLabel(profile),
+      title: profile.title,
+      cosmetic:
+        (COSMETICS.find((c) => c.id === profile.skin)?.name ?? "Heartwood") +
+        " Omens",
+      avatar: profile.avatar,
+    },
+    {
+      name: presentation?.names?.[1] ?? "Training partner",
+      rank: presentation?.ranks?.[1] ?? `${service.difficulty} AI`,
+      title: "The other side of the table",
+      avatar: enemy.loadout.legend,
+    },
+  ];
+  const reactionReady =
+    reaction &&
+    myDecision &&
+    [
+      ...me.loadout.cards.filter((id): id is string => !!id),
+      "legend",
+      "guard",
+    ].some(eligible);
+  useEffect(() => {
+    const prev = lastFeedback.current;
+    lastFeedback.current = view;
+    if (prev.id !== view.id || view.turn < prev.turn) return;
+    const wardBreak =
+      view.players.some(
+        (p, i) => p.guard < prev.players[i].guard && p.hp <= prev.players[i].hp,
+      ) &&
+      view.events.slice(prev.events.length).some((e) => e.type === "damage");
+    if (wardBreak) audioCue("wardBreak", profile.settings);
+    if (view.players.some((p, i) => p.hp < prev.players[i].hp))
+      audioCue("damage", profile.settings);
+    else if (view.players.some((p, i) => p.hp > prev.players[i].hp))
+      audioCue("heal", profile.settings);
+    if (
+      view.phase === "REACTION_WINDOW" &&
+      prev.phase !== "REACTION_WINDOW" &&
+      view.activePlayer === 1
+    )
+      audioCue("reaction", profile.settings);
+    if (view.phase === "ACTION_DECLARED" && prev.phase !== "ACTION_DECLARED")
+      audioCue("reveal", profile.settings);
+    if (view.phase === "MAIN_ACTION" && prev.phase === "DICE_ROLL")
+      audioCue("settle", profile.settings);
+  }, [view.revision]);
+  const declaredCard =
+    view.reaction?.assignment.target ?? view.pending?.assignment.target;
+  const declaringActor = view.reaction?.actor ?? view.pending?.actor;
   const pending = view.pending,
     source = pending
       ? (cardById[pending.assignment.target]?.name ??
@@ -255,7 +361,10 @@ export default function Battle({
           : legendById[view.players[pending.actor].loadout.legend].active.name))
       : "";
   return (
-    <div className="battle-screen turn-battle">
+    <div
+      className={`battle-screen turn-battle premium-table ${reactionReady ? "table-reaction-ready" : myDecision ? "table-own-turn" : "table-opponent-turn"}`}
+      data-phase={view.phase}
+    >
       <header className="turn-header">
         <button aria-label="Leave battle" onClick={onExit}>
           <Icon name="exit" size={18} />
@@ -272,92 +381,75 @@ export default function Battle({
         </button>
       </header>
       <div className="battle-board turn-board">
-        <section
-          className={`turn-combatant opponent ${view.activePlayer === 1 ? "active-turn" : ""}`}
-        >
-          <button
-            className="turn-portrait"
-            onClick={() =>
-              presentation?.inspectLegend
-                ? presentation.inspectLegend(1)
-                : inspect({ type: "legend", item: enemyLegend })
-            }
-          >
-            <LegendArt id={enemyLegend.id} />
-          </button>
-          <div className="turn-vitals">
-            <div>
-              <strong>{enemyLegend.name}</strong>
-              {view.initiative === 1 && (
-                <span className="initiative-badge">
-                  <Icon name="wind" size={12} /> INITIATIVE
-                </span>
-              )}
+        <BattlePresence
+          player={enemy}
+          identity={identities[1]}
+          side={1}
+          initiative={view.initiative === 1}
+          active={view.activePlayer === 1}
+          ability={declaringActor === 1 && declaredCard === "legend"}
+          reduced={profile.settings.reducedMotion}
+          onInspect={() =>
+            presentation?.inspectLegend
+              ? presentation.inspectLegend(1)
+              : inspect({ type: "legend", item: enemyLegend })
+          }
+        />
+        <div className="opponent-kit">
+          <div className="opponent-known">
+            <div className="battle-section-label">KNOWN HAND</div>
+            <div className="opponent-hand">
+              {enemy.loadout.cards.map((id, i) => (
+                <CardBack
+                  key={`${i}-${id ?? "private"}`}
+                  index={i}
+                  known={id ? cardById[id] : undefined}
+                  onClick={() =>
+                    presentation?.inspectCard
+                      ? presentation.inspectCard(1, i)
+                      : id && inspect({ type: "card", item: cardById[id] })
+                  }
+                />
+              ))}
             </div>
-            <LifeBar
-              key={`${presentation?.names?.[1] ?? "opponent"}:${enemyLegend.id}`}
-              hp={enemy.hp}
-              max={enemyLegend.hp}
-              guard={enemy.guard}
-            />
-            <small>
-              {presentation?.names?.[1] ?? `${service.difficulty} AI`} ·{" "}
-              {enemy.control} Focus
-              {enemy.statuses.length
-                ? ` · ${enemy.statuses.map((s) => `${s.id} ${s.amount}`).join(", ")}`
-                : ""}
-            </small>
           </div>
-        </section>
-        <div className="battle-section-label">KNOWN HAND</div>
-        <div className="opponent-hand">
-          {enemy.loadout.cards.map((id, i) => (
-            <CardBack
-              key={i}
-              index={i}
-              known={id ? cardById[id] : undefined}
-              onClick={() =>
-                presentation?.inspectCard
-                  ? presentation.inspectCard(1, i)
-                  : id && inspect({ type: "card", item: cardById[id] })
-              }
-            />
-          ))}
+          <div className="turn-enemy-dice">
+            {enemy.loadout.dice.map((id, i) => (
+              <div
+                key={i}
+                className={`resource-die resource-${enemy.dice[i].state.toLowerCase()}`}
+              >
+                <Omen
+                  definition={omenById[id]}
+                  face={
+                    ["UNROLLED", "EXPIRED"].includes(enemy.dice[i].state)
+                      ? {
+                          type: "blank",
+                          value: 0,
+                          displayIcon: "—",
+                          balanceWeight: 0,
+                        }
+                      : omenById[id].faces[enemy.faces[i]]
+                  }
+                  small
+                  rolling={enemy.dice[i].state === "ROLLING"}
+                  onClick={() =>
+                    presentation?.inspectDie
+                      ? presentation.inspectDie(1, i)
+                      : inspect({
+                          type: "omen",
+                          item: omenById[id],
+                          faceIndex: enemy.faces[i],
+                        })
+                  }
+                />
+                <small>{dieState(1, i)}</small>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="turn-enemy-dice">
-          {enemy.loadout.dice.map((id, i) => (
-            <div
-              key={i}
-              className={`resource-die resource-${enemy.dice[i].state.toLowerCase()}`}
-            >
-              <Omen
-                definition={omenById[id]}
-                face={
-                  ["UNROLLED", "EXPIRED"].includes(enemy.dice[i].state)
-                    ? {
-                        type: "blank",
-                        value: 0,
-                        displayIcon: "—",
-                        balanceWeight: 0,
-                      }
-                    : omenById[id].faces[enemy.faces[i]]
-                }
-                small
-                rolling={enemy.dice[i].state === "ROLLING"}
-                onClick={() =>
-                  presentation?.inspectDie
-                    ? presentation.inspectDie(1, i)
-                    : inspect({
-                        type: "omen",
-                        item: omenById[id],
-                        faceIndex: enemy.faces[i],
-                      })
-                }
-              />
-              <small>{dieState(1, i)}</small>
-            </div>
-          ))}
-        </div>
+      </div>
+      <div className="table-center-and-self">
         <div
           className={`turn-announcement ${reaction ? "reaction" : ""}`}
           role="status"
@@ -372,7 +464,9 @@ export default function Battle({
                 : "OPPONENT CHOOSING OMENS"
               : reaction
                 ? view.activePlayer === 1
-                  ? "YOUR REACTION"
+                  ? reactionReady
+                    ? "REACTION AVAILABLE"
+                    : "REACTION · PASS"
                   : "OPPONENT REACTION"
                 : view.phase === "MAIN_ACTION"
                   ? view.activePlayer === 0
@@ -382,7 +476,12 @@ export default function Battle({
                     ? `${legendById[view.players[view.initiative].loadout.legend].name} leads`
                     : view.phase === "MATCH_END"
                       ? "MATCH COMPLETE"
-                      : source || "Read the moment"}
+                      : view.phase === "RESOLUTION"
+                        ? "RESOLVING"
+                        : view.phase === "ACTION_DECLARED" ||
+                            view.phase === "REACTION_DECLARED"
+                          ? "LOCKED"
+                          : source || "NEXT TURN"}
           </strong>
           {pending && (
             <span>
@@ -400,39 +499,7 @@ export default function Battle({
           )}
         </div>
         {["MATCH_INTRO", "INITIATIVE_ROLL"].includes(view.phase) && (
-          <div className="initiative-contest">
-            <Icon name="wind" />
-            <h2>Opening initiative</h2>
-            {view.openingInitiative ? (
-              <>
-                <div>
-                  {view.players.map((p, i) => (
-                    <span key={i}>
-                      <strong>{legendById[p.loadout.legend].name}</strong>
-                      <b>
-                        {view.openingInitiative!.rolls[i]} +{" "}
-                        {view.openingInitiative!.bonuses[i]} ={" "}
-                        {view.openingInitiative!.totals[i]}
-                      </b>
-                    </span>
-                  ))}
-                </div>
-                <p>
-                  {
-                    legendById[
-                      view.players[view.openingInitiative.winner].loadout.legend
-                    ].name
-                  }{" "}
-                  takes Initiative
-                </p>
-              </>
-            ) : (
-              <p>d20 + Legend initiative bonus</p>
-            )}
-            <small>
-              Opening Initiative sets the turn order: A → B → A → B.
-            </small>
-          </div>
+          <MatchIdentityIntro view={view} identities={identities} />
         )}
         {showLog ? (
           <div className="turn-log">
@@ -450,49 +517,31 @@ export default function Battle({
             {rulesLabel(view.events.at(-1)?.text ?? "")}
           </div>
         )}
-        <section
-          className={`turn-combatant self ${view.activePlayer === 0 ? "active-turn" : ""}`}
-        >
-          <button
-            className="turn-portrait"
-            onClick={() =>
-              presentation?.inspectLegend
-                ? presentation.inspectLegend(0)
-                : inspect({ type: "legend", item: legend })
-            }
-          >
-            <LegendArt id={legend.id} />
-          </button>
-          <div className="turn-vitals">
-            <div>
-              <strong>{legend.name}</strong>
-              {view.initiative === 0 && (
-                <span className="initiative-badge">
-                  <Icon name="wind" size={12} /> INITIATIVE
-                </span>
-              )}
-            </div>
-            <LifeBar
-              key={`${presentation?.names?.[0] ?? "player"}:${legend.id}`}
-              hp={me.hp}
-              max={legend.hp}
-              guard={me.guard}
-            />
-            <small>
-              {presentation?.names?.[0] ?? "You"} · Initiative +
-              {view.openingInitiative?.bonuses[0] ?? legend.initiativeBonus}
-              {me.statuses.length
-                ? ` · ${me.statuses.map((s) => `${s.id} ${s.amount}`).join(", ")}`
-                : ""}
-            </small>
-          </div>
-        </section>
-        <div className="battle-section-label">HAND</div>
+        <BattlePresence
+          player={me}
+          identity={identities[0]}
+          side={0}
+          initiative={view.initiative === 0}
+          active={view.activePlayer === 0}
+          ability={declaringActor === 0 && declaredCard === "legend"}
+          reduced={profile.settings.reducedMotion}
+          onInspect={() =>
+            presentation?.inspectLegend
+              ? presentation.inspectLegend(0)
+              : inspect({ type: "legend", item: legend })
+          }
+        />
+        <EmoteMenu urgent={reaction && myDecision} />
+      </div>
+      <div className="table-hand-zone">
+        <div className="battle-section-label">
+          HAND · HOLD A CARD TO INSPECT
+        </div>
         <div className="turn-hand">
           {me.loadout.cards.map((id, i) =>
             id ? (
               <div
-                className={`timed-card ${eligible(id) ? "eligible" : ""}`}
+                className={`timed-card ${eligible(id) ? "eligible" : ""} ${declaredCard === id && declaringActor === 0 ? "card-declaring" : ""} ${reaction && eligible(id) ? "reaction-card" : ""}`}
                 key={i}
                 data-card-state={
                   me.statuses.some(
@@ -536,7 +585,8 @@ export default function Battle({
       </div>
       <div className="battle-controls turn-controls">
         <div className="battle-section-label">
-          MATCH TURN {view.turn} · OPENING 1 → 2 → 3 → 3
+          TURN {view.turn} · {view.omenRollCount} OMEN
+          {view.omenRollCount !== 1 ? "S" : ""} THIS ROLL
         </div>
         <div className="turn-resource-heading">
           <span>
@@ -544,7 +594,7 @@ export default function Battle({
               ? reaction
                 ? "Available reactions"
                 : choosingOmens
-                  ? `Choose ${view.omenRollCount} equipped Omens`
+                  ? `Choose ${view.omenRollCount} equipped ${view.omenRollCount === 1 ? "Omen" : "Omens"}`
                   : "OMENS · select → activate"
               : "Held Omens remain visible"}
           </span>
@@ -568,6 +618,9 @@ export default function Battle({
                       }
                     : omenById[id].faces[positions[i]]
                 }
+                skin={profile.skin}
+                motion={omenMotion?.slot === i ? omenMotion.kind : ""}
+                key={omenMotion?.slot === i ? omenMotion.key : i}
                 selected={selection.includes(i)}
                 rolling={me.dice[i].state === "ROLLING"}
                 onClick={() => {
@@ -589,6 +642,7 @@ export default function Battle({
                 }}
                 label={`Omen slot ${i + 1}, D${omenById[id].size}, ${dieState(0, i)}`}
               />
+              <span className="resource-name">{omenById[id].name}</span>
               <button
                 className="omen-info-button"
                 aria-label={`Inspect ${omenById[id].name} faces and Sigils`}
@@ -603,7 +657,11 @@ export default function Battle({
                 ⓘ d{omenById[id].size}
               </button>
               <small>
-                {selection.includes(i) ? "ASSIGNED" : dieState(0, i)}
+                {selection.includes(i)
+                  ? choosingOmens
+                    ? "SELECTED"
+                    : "ASSIGNED"
+                  : dieState(0, i)}
               </small>
             </div>
           ))}
@@ -620,32 +678,44 @@ export default function Battle({
         )}
         {myDecision && !choosingOmens && (
           <>
-            <div className="turn-abilities">
-              <button
-                className={target === "legend" ? "selected" : ""}
-                onClick={() => choose("legend")}
-              >
-                <Icon name="star" size={14} />
-                <span>
-                  {legend.active.name}
-                  <small>{legend.active.timing}</small>
-                </span>
-              </button>
-              <button
-                className={target === "guard" ? "selected" : ""}
-                onClick={() => choose("guard")}
-              >
-                <Icon name="guard" size={14} />
-                <span>
-                  Ward<small>½ Value ↓</small>
-                </span>
-              </button>
-            </div>
-            {!reaction && selection.length === 1 && (
+            {!target &&
+              me.dice.some((d) => ["AVAILABLE", "HELD"].includes(d.state)) && (
+                <div className="turn-abilities">
+                  <button
+                    className={target === "legend" ? "selected" : ""}
+                    disabled={!eligible("legend")}
+                    onClick={() => choose("legend")}
+                  >
+                    <Icon name="star" size={14} />
+                    <span>
+                      {legend.active.name}
+                      <small>{legend.active.timing}</small>
+                    </span>
+                  </button>
+                  <button
+                    className={target === "guard" ? "selected" : ""}
+                    disabled={!eligible("guard")}
+                    onClick={() => choose("guard")}
+                  >
+                    <Icon name="guard" size={14} />
+                    <span>
+                      Ward<small>½ Value ↓</small>
+                    </span>
+                  </button>
+                </div>
+              )}
+            {!reaction && !target && selection.length === 1 && (
               <div className="turn-control-actions">
                 {([-1, 1] as const).map((direction) => (
                   <button
                     key={direction}
+                    disabled={
+                      !canFocus({
+                        slot: selection[0],
+                        kind: "shift",
+                        direction,
+                      })
+                    }
                     onClick={() =>
                       submit({
                         controls: [
@@ -659,6 +729,7 @@ export default function Battle({
                   </button>
                 ))}
                 <button
+                  disabled={!canFocus({ slot: selection[0], kind: "flip" })}
                   onClick={() =>
                     submit({
                       controls: [{ slot: selection[0], kind: "flip" }],
@@ -676,6 +747,12 @@ export default function Battle({
                 role="status"
               >
                 {diagnostic?.message}
+                <button
+                  aria-label="Clear selected ability"
+                  onClick={() => setTarget("")}
+                >
+                  ×
+                </button>
               </p>
             )}
             <div className="turn-submit">

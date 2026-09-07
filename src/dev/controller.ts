@@ -224,6 +224,7 @@ export class LabController {
       v.events = v.events.map((e) => ({
         ...e,
         actor: e.actor < 0 ? e.actor : 1 - e.actor,
+        target: e.target === undefined ? undefined : 1 - e.target,
       }));
       v.stats = v.stats.map((r) => ({
         ...r,

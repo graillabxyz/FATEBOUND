@@ -1,3 +1,4 @@
+import { MatchEmoteProvider, EmoteMenu, EmoteBubble } from "./Emotes";
 import { startUsage } from "../services/telemetry";
 import {
   lazy,
@@ -240,144 +241,159 @@ export default function App() {
             </Suspense>
           ) : battle ? (
             <>
-              {result ? (
-                <div
-                  className={`match-result result-${result.winner === 0 ? "victory" : result.winner === "draw" ? "draw" : "defeat"}`}
-                >
-                  <div className="result-art">
-                    <LegendArt id={active.legend} />
-                  </div>
-                  <div className="result-top">
-                    <span className="eyebrow">
-                      {battle.mode === "Training"
-                        ? "TRAINING COMPLETE"
-                        : `${battle.mode.toUpperCase()} SIMULATION`}
-                    </span>
-                    <div className="result-emblem">
-                      <Icon
-                        name={
-                          result.winner === 0
-                            ? "trophy"
-                            : result.winner === "draw"
-                              ? "guard"
-                              : "leaf"
-                        }
-                        size={55}
+              <MatchEmoteProvider key={battle.view().id}>
+                {result ? (
+                  <div
+                    className={`match-result result-${result.winner === 0 ? "victory" : result.winner === "draw" ? "draw" : "defeat"}`}
+                  >
+                    <div className="result-art">
+                      <LegendArt id={active.legend} />
+                    </div>
+                    <div className="result-top">
+                      <span className="eyebrow">
+                        {battle.mode === "Training"
+                          ? "TRAINING COMPLETE"
+                          : `${battle.mode.toUpperCase()} SIMULATION`}
+                      </span>
+                      <div className="result-emblem">
+                        <Icon
+                          name={
+                            result.winner === 0
+                              ? "trophy"
+                              : result.winner === "draw"
+                                ? "guard"
+                                : "leaf"
+                          }
+                          size={55}
+                        />
+                      </div>
+                      <p className="result-kicker">
+                        {result.winner === 0
+                          ? "A FATE WELL CHOSEN"
+                          : result.winner === "draw"
+                            ? "A BALANCE OF WILLS"
+                            : "ANOTHER STORY TO TELL"}
+                      </p>
+                      <h1>
+                        {result.winner === 0
+                          ? "Victory"
+                          : result.winner === "draw"
+                            ? "Draw"
+                            : "Defeat"}
+                      </h1>
+                      <p>
+                        {result.winner === 0
+                          ? "Your decisions made the difference."
+                          : result.winner === "draw"
+                            ? "Equal Life. Equal damage. An honorable draw."
+                            : "Every encounter leaves you wiser."}
+                      </p>
+                      <RankBadge label={rankLabel(profile)} />
+                    </div>
+                    <div className="result-score">
+                      <span>
+                        {legendById[result.players[0].loadout.legend].name}
+                        <b>{result.players[0].hp} Life</b>
+                      </span>
+                      <span>ROUND {result.round} / 7</span>
+                      <span>
+                        {legendById[result.players[1].loadout.legend].name}
+                        <b>{result.players[1].hp} Life</b>
+                      </span>
+                    </div>
+                    <div className="result-social-moment">
+                      <div className="participant-identity">
+                        <LegendArt id={profile.avatar} />
+                        <strong>{profile.name}</strong>
+                        <EmoteBubble side={0} />
+                      </div>
+                      <EmoteMenu end />
+                      <div className="participant-identity">
+                        <LegendArt id={result.players[1].loadout.legend} />
+                        <strong>Training partner · AI</strong>
+                        <EmoteBubble side={1} />
+                      </div>
+                    </div>
+                    <div className="result-rewards">
+                      <RewardTile
+                        icon="star"
+                        value={`+${GAME.rewards.xp + (result.winner === 0 ? 30 : 0)}`}
+                        label="Account XP"
+                      />
+                      <RewardTile
+                        icon="coins"
+                        value={`+${GAME.rewards.coins + (result.winner === 0 ? 15 : 0)}`}
+                        label="Coins"
+                      />
+                      <RewardTile
+                        icon="leaf"
+                        value={`+${GAME.rewards.mastery}`}
+                        label="Mastery XP"
+                      />
+                      <RewardTile
+                        icon="pass"
+                        value={`+${GAME.rewards.season}`}
+                        label="Season XP"
                       />
                     </div>
-                    <p className="result-kicker">
-                      {result.winner === 0
-                        ? "A FATE WELL CHOSEN"
-                        : result.winner === "draw"
-                          ? "A BALANCE OF WILLS"
-                          : "ANOTHER STORY TO TELL"}
+                    <p className="result-quest">
+                      <Icon name="check" size={15} />
+                      Rewards collected · quest progress updated
                     </p>
-                    <h1>
-                      {result.winner === 0
-                        ? "Victory"
-                        : result.winner === "draw"
-                          ? "Draw"
-                          : "Defeat"}
-                    </h1>
-                    <p>
-                      {result.winner === 0
-                        ? "Your decisions made the difference."
-                        : result.winner === "draw"
-                          ? "Equal Life. Equal damage. An honorable draw."
-                          : "Every encounter leaves you wiser."}
-                    </p>
-                    <RankBadge label={rankLabel(profile)} />
+                    {battle.mode === "Ranked" && (
+                      <p className="helper-text">
+                        Local rank{" "}
+                        {result.winner === 0
+                          ? "+25"
+                          : result.winner === "draw"
+                            ? "unchanged"
+                            : "−10"}{" "}
+                        · online rating unaffected
+                      </p>
+                    )}
+                    <div className="result-actions">
+                      <PrimaryButton
+                        icon="attack"
+                        onClick={() => start(battle.mode, battle.difficulty)}
+                      >
+                        Play again
+                      </PrimaryButton>
+                      <SecondaryButton icon="home" onClick={leave}>
+                        Return home
+                      </SecondaryButton>
+                      <button
+                        className="text-button"
+                        onClick={() => {
+                          try {
+                            const blob = new Blob(
+                              [JSON.stringify(battle.replay(), null, 2)],
+                              { type: "application/json" },
+                            );
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = `omnipath-replay-${result.id}.json`;
+                            a.click();
+                            setTimeout(() => URL.revokeObjectURL(url), 1000);
+                            toast("Replay exported.");
+                          } catch (e) {
+                            toast((e as Error).message);
+                          }
+                        }}
+                      >
+                        <Icon name="scroll" size={14} />
+                        Export match replay
+                      </button>
+                    </div>
                   </div>
-                  <div className="result-score">
-                    <span>
-                      {legendById[result.players[0].loadout.legend].name}
-                      <b>{result.players[0].hp} Life</b>
-                    </span>
-                    <span>ROUND {result.round} / 7</span>
-                    <span>
-                      {legendById[result.players[1].loadout.legend].name}
-                      <b>{result.players[1].hp} Life</b>
-                    </span>
-                  </div>
-                  <div className="result-rewards">
-                    <RewardTile
-                      icon="star"
-                      value={`+${GAME.rewards.xp + (result.winner === 0 ? 30 : 0)}`}
-                      label="Account XP"
-                    />
-                    <RewardTile
-                      icon="coins"
-                      value={`+${GAME.rewards.coins + (result.winner === 0 ? 15 : 0)}`}
-                      label="Coins"
-                    />
-                    <RewardTile
-                      icon="leaf"
-                      value={`+${GAME.rewards.mastery}`}
-                      label="Mastery XP"
-                    />
-                    <RewardTile
-                      icon="pass"
-                      value={`+${GAME.rewards.season}`}
-                      label="Season XP"
-                    />
-                  </div>
-                  <p className="result-quest">
-                    <Icon name="check" size={15} />
-                    Rewards collected · quest progress updated
-                  </p>
-                  {battle.mode === "Ranked" && (
-                    <p className="helper-text">
-                      Local rank{" "}
-                      {result.winner === 0
-                        ? "+25"
-                        : result.winner === "draw"
-                          ? "unchanged"
-                          : "−10"}{" "}
-                      · online rating unaffected
-                    </p>
-                  )}
-                  <div className="result-actions">
-                    <PrimaryButton
-                      icon="attack"
-                      onClick={() => start(battle.mode, battle.difficulty)}
-                    >
-                      Play again
-                    </PrimaryButton>
-                    <SecondaryButton icon="home" onClick={leave}>
-                      Return home
-                    </SecondaryButton>
-                    <button
-                      className="text-button"
-                      onClick={() => {
-                        try {
-                          const blob = new Blob(
-                            [JSON.stringify(battle.replay(), null, 2)],
-                            { type: "application/json" },
-                          );
-                          const url = URL.createObjectURL(blob);
-                          const a = document.createElement("a");
-                          a.href = url;
-                          a.download = `omnipath-replay-${result.id}.json`;
-                          a.click();
-                          setTimeout(() => URL.revokeObjectURL(url), 1000);
-                          toast("Replay exported.");
-                        } catch (e) {
-                          toast((e as Error).message);
-                        }
-                      }}
-                    >
-                      <Icon name="scroll" size={14} />
-                      Export match replay
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <Battle
-                  service={battle}
-                  onEnd={end}
-                  onExit={() => open("leave")}
-                />
-              )}
+                ) : (
+                  <Battle
+                    service={battle}
+                    onEnd={end}
+                    onExit={() => open("leave")}
+                  />
+                )}
+              </MatchEmoteProvider>
             </>
           ) : (
             <>
@@ -387,7 +403,7 @@ export default function App() {
                   onClick={() => navigate("profile")}
                   aria-label="Open player profile"
                 >
-                  <LegendArt id={active.legend} className="avatar" />
+                  <LegendArt id={profile.avatar} className="avatar" />
                   <span>
                     <strong>{profile.name}</strong>
                     <small>

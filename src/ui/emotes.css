@@ -1,0 +1,473 @@
+.avatar-picker {
+  display: flex;
+  gap: 9px;
+  margin: 10px 0 22px;
+}
+.avatar-picker button {
+  width: 45px;
+  height: 49px;
+  padding: 2px;
+  border: 1px solid #667764;
+  background: #18271f;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar-picker .legend-art {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.avatar-picker button[aria-pressed="true"] {
+  border: 2px solid #d5bc7a;
+}
+.emote-collection {
+  margin: 20px 0;
+}
+.equipped-emotes {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin: 12px 0;
+}
+.equipped-emotes > button {
+  height: 95px;
+  min-width: 0;
+  padding: 6px 3px;
+  border: 1px solid #7d896448;
+  background: #1b2a25;
+  border-radius: 9px;
+  color: #dddfcb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.equipped-emotes > button[aria-pressed="true"] {
+  border-color: #dcc282;
+  background: #334030;
+}
+.equipped-emotes small {
+  font: 9px "Inter";
+  color: #adb799;
+}
+.equipped-emotes button > span:last-child {
+  font-size: 9px;
+  line-height: 1.2;
+}
+.emote-glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 25px;
+  line-height: 1;
+  color: #ddc18a;
+  background: radial-gradient(ellipse, #bea7771c, transparent);
+  flex-shrink: 0;
+}
+.emote-glyph .legend-art {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #b5ab7280;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.emote-slot-help {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 10px;
+  color: #aebcab;
+}
+.emote-slot-help button {
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: #d6c08a;
+}
+.emote-catalog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+.emote-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px 9px 10px;
+  border: 1px solid #7c8e6740;
+  border-radius: 12px;
+  background: linear-gradient(155deg, #25352bd9, #182521);
+  gap: 7px;
+  min-width: 0;
+}
+.emote-tile > strong {
+  font: 500 19px/1 "Cormorant Garamond";
+  color: #e8ddbe;
+}
+.emote-tile > small {
+  text-transform: uppercase;
+  font-size: 7px;
+  letter-spacing: 0.06em;
+  color: #b5bd9f;
+}
+.emote-tile p {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #a6b59f;
+  margin: 0;
+  flex: 1;
+}
+.emote-tile button {
+  min-height: 44px;
+  border: 1px solid #8c9a6e55;
+  border-radius: 6px;
+  padding: 6px;
+  background: #314332;
+  color: #e3d7b1;
+  font-size: 10px;
+  width: 100%;
+}
+.emote-tile button:disabled {
+  color: #879687;
+  background: #1c2921;
+}
+.emote-tile.rarity-prestige {
+  border-color: #d3b47d66;
+}
+.emote-tile.locked .emote-glyph {
+  opacity: 0.6;
+}
+.bundle-emotes {
+  display: flex;
+  gap: 6px;
+}
+.emote-achievements > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 0;
+  border-bottom: 1px solid #8e9d692f;
+}
+.emote-achievements > div > span:not(.emote-glyph) {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+.emote-achievements strong {
+  font-size: 12px;
+}
+.emote-achievements small {
+  font-size: 9px;
+  color: #a7b29e;
+}
+.emote-achievements b {
+  font-size: 10px;
+  color: #ddc995;
+}
+.emote-achievements progress {
+  height: 4px;
+  width: 100%;
+  accent-color: #bcb885;
+}
+.battle-social {
+  flex-shrink: 0;
+  position: relative;
+}
+.social-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+}
+.social-actions button {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: none;
+  color: #a7b79d;
+  font-size: 10px;
+  padding: 3px 8px;
+}
+.social-actions button:disabled {
+  opacity: 0.3;
+}
+.social-actions button[aria-pressed="true"] {
+  color: #d3be84;
+}
+.emote-menu {
+  background: #1b2b29;
+  border: 1px solid #97a37c88;
+  border-radius: 10px;
+  margin: 5px 0;
+  padding: 8px;
+  box-shadow: 0 8px 25px #0007;
+}
+.emote-menu-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #dcc792;
+}
+.emote-menu-heading button {
+  min-width: 32px;
+  height: 28px;
+  background: none;
+  border: 0;
+  color: #ddd1ab;
+  font-size: 22px;
+}
+.emote-choices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.emote-choices > button {
+  border: 1px solid #93a28040;
+  background: #2d3b31;
+  color: #eadcb8;
+  min-height: 48px;
+  font-size: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 3px;
+}
+.emote-choices .emote-glyph {
+  width: 23px;
+  height: 23px;
+  font-size: 19px;
+}
+.emote-choices > button:disabled {
+  opacity: 0.45;
+}
+.emote-menu > small {
+  display: block;
+  font-size: 8px;
+  color: #99aa99;
+  margin-top: 7px;
+}
+.empty-emote {
+  font-size: 9px;
+  color: #778e7b;
+  display: grid;
+  place-items: center;
+}
+.emote-bubble {
+  position: absolute;
+  left: 38px;
+  right: 0;
+  top: 0;
+  min-height: 32px;
+  border: 1px solid #d0be9180;
+  background: #e4d9bb;
+  color: #20322b;
+  border-radius: 9px 9px 9px 2px;
+  box-shadow: 0 4px 9px #0005;
+  padding: 4px 9px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 3;
+  pointer-events: none;
+  animation: emote-arrival 2.6s both;
+  font: 500 12px/1.2 "Inter";
+}
+.emote-bubble .emote-glyph {
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+  color: #4e6638;
+}
+.emote-bubble .emote-wave {
+  animation: emote-wave 0.5s ease-in-out 2;
+}
+.emote-bubble .emote-nod {
+  animation: emote-nod 0.45s ease-in-out 2;
+}
+.emote-bubble .emote-spark {
+  animation: emote-spark 0.65s ease-out;
+}
+.emote-tile:hover .emote-spark {
+  animation: emote-spark 0.65s ease-out;
+}
+.result-social-moment {
+  margin: 12px 25px;
+  padding: 12px 15px;
+  border: 1px solid #a8b17b44;
+  border-radius: 12px;
+  background: #132521cc;
+}
+.result-social-moment .participant-identity > .legend-art {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.result-social-moment .participant-identity strong {
+  font-size: 10px;
+  color: #b9c8ac;
+}
+.result-social-moment .social-actions {
+  height: 44px;
+}
+.result-social-moment .social-actions button {
+  min-height: 44px;
+}
+.result-social-moment .emote-bubble {
+  right: 0;
+}
+@keyframes emote-arrival {
+  0% {
+    opacity: 0;
+    transform: translateY(3px) scale(0.97);
+  }
+  10%,
+  85% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}
+@keyframes emote-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  35% {
+    transform: rotate(-17deg);
+  }
+  70% {
+    transform: rotate(13deg);
+  }
+}
+@keyframes emote-nod {
+  40% {
+    transform: translateY(3px) rotate(-5deg);
+  }
+  80% {
+    transform: translateY(-1px);
+  }
+}
+@keyframes emote-spark {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.5;
+  }
+  45% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.premium-table .emote-choices {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+.premium-table .emote-choices > button {
+  min-height: 54px;
+  flex-direction: column;
+  font-size: 9px;
+  gap: 3px;
+  padding: 4px 2px;
+}
+.premium-table .emote-menu {
+  padding: 6px;
+}
+.premium-table .emote-menu-heading {
+  font-size: 10px;
+}
+.premium-table .emote-menu > small {
+  margin-top: 4px;
+}
+.profile-emotes {
+  margin: 20px 0;
+  border-block: 1px solid #9dae6c44;
+}
+.profile-emotes > summary {
+  min-height: 58px;
+  cursor: pointer;
+  padding: 16px 2px;
+  color: #e6d6b6;
+  font: 500 24px "Cormorant Garamond";
+}
+.profile-emotes > summary span {
+  float: right;
+  font: 10px/26px "Inter";
+  color: #a5b799;
+}
+.phone-shell .match-result {
+  padding-top: 20px;
+}
+.phone-shell .result-top {
+  padding-top: 8px;
+}
+.phone-shell .result-emblem {
+  width: 76px;
+  height: 76px;
+  margin: 24px auto 20px;
+}
+.phone-shell .result-emblem > svg {
+  width: 34px;
+  height: 34px;
+}
+.phone-shell .result-top h1 {
+  font-size: 70px;
+  line-height: 1;
+  margin: 10px 0;
+}
+.phone-shell .result-top .result-kicker {
+  margin-top: 10px;
+  font-size: 9px;
+}
+.phone-shell .result-top > p {
+  font-size: 12px;
+  margin: 10px auto;
+}
+.phone-shell .result-score {
+  margin-top: 20px;
+  padding: 13px 10px;
+}
+.phone-shell .result-social-moment {
+  margin: 10px 0;
+  padding: 8px 12px;
+}
+.phone-shell .result-rewards .reward-tile {
+  padding: 10px 2px;
+}
+.phone-shell .result-quest {
+  margin: 10px 0;
+}
+.phone-shell .result-actions .primary-button,
+.phone-shell .result-actions .secondary-button {
+  min-height: 44px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .emote-glyph,
+  .emote-bubble {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.reduced-motion .emote-glyph,
+.reduced-motion .emote-bubble,
+.battery-saver .emote-glyph {
+  animation: none !important;
+  transition: none !important;
+}

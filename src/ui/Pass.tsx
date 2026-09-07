@@ -103,13 +103,15 @@ export default function Pass() {
               >
                 <Icon
                   name={
-                    r[t].type === "coins"
-                      ? "coins"
-                      : r[t].type === "gems"
-                        ? "gems"
-                        : t === "free"
-                          ? "loadout"
-                          : "dice"
+                    r[t].type === "emote"
+                      ? "social"
+                      : r[t].type === "coins"
+                        ? "coins"
+                        : r[t].type === "gems"
+                          ? "gems"
+                          : t === "free"
+                            ? "loadout"
+                            : "dice"
                   }
                   size={25}
                 />

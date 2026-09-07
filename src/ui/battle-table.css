@@ -1,0 +1,1431 @@
+/* Battle presentation: motion communicates a change, never an idle distraction. */
+.premium-table {
+  --table-ink: #eae6d9;
+  --table-muted: #a5ada5;
+  --table-gold: #d3b779;
+  padding: 0 !important;
+  color: var(--table-ink);
+  background:
+    radial-gradient(ellipse at 50% 43%, #38504a30, transparent 56%),
+    linear-gradient(180deg, #111c1cef, #0c1417e0 46%, #101a19f5),
+    var(--asset-arena, url("/art/arena-portrait.webp")) center/cover;
+  isolation: isolate;
+  overflow: hidden;
+}
+.premium-table:before {
+  content: "";
+  position: absolute;
+  inset: 50px 9px 210px;
+  border: 1px solid #c4b28516;
+  border-radius: 90px 90px 24px 24px;
+  box-shadow: inset 0 0 70px #0005;
+  pointer-events: none;
+  z-index: -1;
+}
+.premium-table .turn-header {
+  height: 43px;
+  border-bottom: 1px solid #d1bd8420;
+  background: #070e1280;
+  color: #c8b68e;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  padding: 0 8px;
+}
+.premium-table .turn-header button {
+  color: #b9c1b6;
+}
+.premium-table .turn-board {
+  padding: 10px 14px 9px !important;
+  gap: 7px;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+}
+.participant {
+  flex-shrink: 0;
+  min-width: 0;
+  position: relative;
+}
+.participant-identity {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 35px;
+  margin-bottom: 5px;
+}
+.player-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 2px;
+  border: 1px solid #d3b77965;
+  background: #0b1315;
+  box-shadow: 0 2px 7px #0006;
+  flex-shrink: 0;
+}
+.player-avatar .legend-art {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.player-name {
+  min-width: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+.player-name strong {
+  font: 600 11px/1.3 var(--font-body, "Inter");
+  letter-spacing: 0.02em;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.player-name small {
+  font-size: 9px;
+  color: #99a7a2;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.participant-identity .rank-badge {
+  font-size: 9px;
+  color: #c9b787;
+  white-space: nowrap;
+  border: 0;
+  background: none;
+  gap: 3px;
+  padding: 3px;
+}
+.legend-presence {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 78px;
+  padding: 5px 0 7px;
+  border-bottom: 1px solid #c2b38526;
+}
+.table-legend-portrait {
+  position: relative;
+  flex: 0 0 62px;
+  width: 62px;
+  height: 76px;
+  border-radius: 18px 5px 18px 5px;
+  padding: 2px;
+  background: linear-gradient(140deg, #c4b89470, #102023, #66807877);
+  border: 1px solid #81968455;
+  box-shadow:
+    0 8px 14px #0005,
+    0 1px 0 #fff2 inset;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
+}
+.table-legend-portrait .legend-art {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px 3px 15px 3px;
+  overflow: hidden;
+}
+.table-legend-portrait:active {
+  transform: scale(0.96);
+}
+.participant-active .table-legend-portrait {
+  border-color: #dbbb78;
+}
+.portrait-initiative {
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border: 1px solid #dbc789;
+  background: #283630;
+  border-radius: 50%;
+  color: #f3d796;
+  box-shadow: 0 2px 5px #0009;
+}
+.legend-presence-copy {
+  min-width: 0;
+  flex: 1;
+  align-self: center;
+}
+.legend-presence h2 {
+  font:
+    500 27px/0.95 "Cormorant Garamond",
+    serif;
+  letter-spacing: -0.015em;
+  margin: 0 0 6px;
+  color: #f0e8d6;
+  overflow-wrap: anywhere;
+}
+.legend-class {
+  display: block;
+  color: #98aea6;
+  font:
+    10px/1.3 "Inter",
+    sans-serif;
+}
+.legend-class b {
+  font-size: 8px;
+  font-weight: 500;
+  color: #dac080;
+  white-space: nowrap;
+}
+.participant-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 4px;
+  max-height: 34px;
+  overflow: auto;
+}
+.participant-statuses:empty {
+  display: none;
+}
+.participant-statuses span {
+  font: 8px/1.3 "Inter";
+  padding: 2px 4px;
+  background: #293633;
+  border: 1px solid #78988a33;
+  border-radius: 3px;
+  color: #c5d0c6;
+}
+.participant-statuses .held-status {
+  color: #bed8c4;
+  border-color: #97c6ad55;
+}
+.premium-table .health {
+  position: relative;
+  flex: 0 0 91px;
+  width: 91px;
+  margin: 0;
+  align-self: center;
+}
+.premium-table .health-label {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  margin: 0 0 5px;
+  min-height: 39px;
+  color: #f6f1e6;
+}
+.premium-table .health-label > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.premium-table .health-label b {
+  font:
+    600 39px/0.95 "Inter",
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.08em;
+  color: inherit;
+  min-width: 42px;
+  text-align: right;
+  text-shadow: 0 2px 3px #0008;
+}
+.life-caption {
+  display: flex;
+  flex-direction: column;
+  font: 8px/1.5 "Inter";
+  letter-spacing: 0.04em;
+  color: #bac8c0;
+}
+.life-caption small {
+  font-size: 9px;
+  color: #83978e;
+}
+.premium-table .health-track {
+  height: 4px;
+  background: #080f10;
+  border: 0;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 1px 0 #ffffff18;
+}
+.premium-table .health-track i {
+  background: linear-gradient(90deg, #3b7168, #a4c5ad);
+  height: 100%;
+  display: block;
+  transition: width 0.3s ease;
+}
+.premium-table .health-critical .health-label {
+  color: #f49a83;
+}
+.premium-table .health-critical .health-track i {
+  background: #d8836c;
+}
+.premium-table .guard-count {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  color: #a9c8e5;
+  background: none;
+  border: 0;
+  font: 10px/1.4 "Inter";
+  padding: 0;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.guard-count em {
+  position: absolute;
+  right: 0;
+  bottom: -16px;
+  color: #d3e5fa;
+  font-size: 12px;
+  font-style: normal;
+  animation: ward-chip 0.6s both;
+}
+.premium-table .health-change {
+  right: 0;
+  left: auto;
+  top: -14px;
+  font: 600 19px/1 "Inter";
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: #2d1917;
+  color: #ffb8a5;
+  z-index: 3;
+  animation: life-float 0.7s ease-out both;
+  box-shadow: 0 4px 12px #0007;
+}
+.premium-table .health-change.healed {
+  background: #17392e;
+  color: #a8f4c5;
+}
+.health-hit .life-number-impact {
+  animation: life-impact 0.38s ease-out;
+}
+.health-healed .life-number-impact {
+  animation: heal-rise 0.5s ease-out;
+}
+.participant.hurt .table-legend-portrait {
+  animation: portrait-hit 0.38s;
+}
+.participant.healing .table-legend-portrait {
+  animation: portrait-heal 0.6s;
+}
+.participant.warding .table-legend-portrait {
+  animation: portrait-ward 0.55s;
+}
+.participant.legend-casting .table-legend-portrait {
+  animation: legend-cast 0.5s;
+}
+.premium-table .battle-section-label {
+  font: 8px/1.3 "Inter";
+  letter-spacing: 0.16em;
+  color: #93a39a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.premium-table .battle-section-label:after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, #819c8220, transparent);
+}
+.premium-table .opponent-hand {
+  gap: 7px;
+  margin: 0 2px;
+}
+.premium-table .opponent-hand .card-back {
+  min-height: 45px;
+  height: 45px;
+  border-radius: 5px;
+  border-color: #52685b66;
+  background: linear-gradient(135deg, #1d2b2c, #10181d);
+  box-shadow:
+    0 3px 7px #0004,
+    0 1px 0 #b7bc9511 inset;
+  transform: none;
+}
+.premium-table .opponent-hand .card-back.known {
+  background: linear-gradient(135deg, #354136, #202c29);
+  border-color: #aaab7c80;
+  animation: card-discovery 0.55s ease-out;
+  transform-origin: center;
+}
+.premium-table .card-back.known span {
+  font: 500 12px/1 "Cormorant Garamond";
+  color: #eee2c5;
+}
+.premium-table .card-back.known small {
+  font-size: 8px;
+  color: #b9c5ad;
+}
+.premium-table .turn-enemy-dice {
+  justify-content: center;
+  gap: 30px;
+  padding: 0 0 2px;
+}
+.premium-table .turn-enemy-dice .die.small {
+  height: 40px;
+  width: 40px;
+  min-height: 40px;
+  min-width: 40px;
+}
+.premium-table .resource-die > small {
+  font-size: 8px;
+  color: #aebcb1;
+  min-height: 11px;
+  letter-spacing: 0.04em;
+}
+.premium-table .resource-held > small {
+  color: #b5dcc0;
+}
+.premium-table .turn-announcement {
+  position: relative;
+  padding: 10px 8px;
+  min-height: 67px;
+  justify-content: center;
+  margin: 2px -4px 0;
+  border: 0;
+  border-block: 1px solid #afbf9e27;
+  background: radial-gradient(ellipse at center, #74968512, transparent 75%);
+  transition: background 0.2s;
+  isolation: isolate;
+}
+.premium-table .turn-announcement:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 84px;
+  height: 84px;
+  border: 1px solid #b4c6ad13;
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  box-shadow: 0 0 0 10px #c5ceb005;
+}
+.premium-table .turn-announcement > small {
+  font: 8px/1.3 "Inter";
+  letter-spacing: 0.2em;
+  color: #91aa9f;
+}
+.premium-table .turn-announcement > strong {
+  font: 500 23px/1.1 "Cormorant Garamond";
+  letter-spacing: 0.08em;
+  color: #e5dec7;
+}
+.premium-table .turn-announcement > span {
+  font-size: 10px;
+  line-height: 1.3;
+}
+.premium-table.table-reaction-ready .turn-announcement {
+  background: linear-gradient(90deg, transparent, #75532533, transparent);
+  border-color: #d4b67a88;
+  animation: reaction-entry 0.35s ease-out;
+}
+.premium-table.table-reaction-ready .turn-announcement > strong {
+  color: #fbe0a7;
+}
+.table-own-turn .turn-announcement {
+  border-color: #8ab8a655;
+}
+.premium-table .turn-last-event {
+  font-size: 9px;
+  line-height: 1.3;
+  min-height: 13px;
+  padding: 0 7px;
+  margin: 0;
+  color: #85988c;
+  max-height: 24px;
+  overflow: hidden;
+}
+.premium-table .turn-hand {
+  gap: 7px;
+  padding: 3px 1px 0;
+  perspective: 800px;
+  isolation: isolate;
+}
+.premium-table .timing-label {
+  font: 7px/1.2 "Inter";
+  color: #8e9e90;
+  letter-spacing: 0;
+  padding: 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.premium-table .gameplay-card.compact {
+  height: 140px;
+  border-radius: 7px 7px 5px 5px;
+  border: 1px solid #7c876377;
+  background: linear-gradient(150deg, #3a4538, #192821);
+  box-shadow:
+    0 7px 12px #0008,
+    0 1px 0 #dadbb82b inset;
+  transition:
+    transform 0.16s,
+    filter 0.16s,
+    border-color 0.16s,
+    box-shadow 0.16s;
+}
+.premium-table .gameplay-card.compact .card-top {
+  height: 27px;
+  padding: 4px 5px;
+  background: linear-gradient(#344332, #263529);
+  border-bottom: 1px solid #afb18425;
+}
+.premium-table .gameplay-card.compact .card-top span {
+  font: 600 12px/0.96 "Cormorant Garamond";
+  color: #eee6c9;
+}
+.premium-table .gameplay-card.compact .card-illustration {
+  height: 42px;
+  opacity: 0.9;
+}
+.premium-table .gameplay-card.compact .card-rules {
+  padding: 5px 5px;
+  background: linear-gradient(#23372e, #17261f);
+}
+.premium-table .gameplay-card.compact .card-rules strong {
+  font: 600 13px/1.1 "Cormorant Garamond";
+  color: #f2deb0;
+}
+.premium-table .gameplay-card.compact .card-rules p {
+  font: 9px/1.27 "Inter";
+  color: #d6dac8;
+  margin-top: 3px;
+}
+.premium-table .gameplay-card.unavailable {
+  filter: saturate(0.55);
+  opacity: 0.72;
+}
+.premium-table .timed-card.eligible .gameplay-card {
+  border-color: #94a37e;
+  box-shadow: 0 7px 12px #0008;
+}
+.premium-table .gameplay-card.selected {
+  transform: translateY(-6px) rotate(-1deg);
+  border-color: #f0d8a1;
+  box-shadow:
+    0 12px 17px #0009,
+    0 0 0 1px #debf7955;
+  z-index: 2;
+}
+.premium-table .card-select:active {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+.premium-table .card-inspect {
+  width: 27px;
+  height: 27px;
+  min-height: 27px;
+  right: 0;
+  bottom: 0;
+  background: #14221cdb;
+  border-radius: 6px 0 4px 0;
+}
+.premium-table .assigned-dice {
+  background: #b29d65;
+  color: #111d19;
+  box-shadow: 0 2px 6px #0009;
+}
+.premium-table .reaction-card .gameplay-card {
+  border-color: #ddba72 !important;
+  filter: none;
+  opacity: 1;
+  transform: translateY(-3px);
+}
+.card-declaring .gameplay-card {
+  animation: card-play 0.55s ease-out !important;
+  z-index: 4;
+}
+.premium-table .turn-controls {
+  border-top: 1px solid #a8996659;
+  border-radius: 20px 20px 0 0;
+  padding: 9px 14px max(9px, env(safe-area-inset-bottom)) !important;
+  background: linear-gradient(145deg, #26352eef, #111e1dfd) !important;
+  box-shadow:
+    0 -7px 24px #0004,
+    0 1px 0 #dbe2c414 inset;
+  z-index: 5;
+}
+.premium-table .turn-controls > .battle-section-label {
+  font-size: 8px;
+  margin-bottom: 5px;
+}
+.premium-table .turn-resource-heading {
+  font-size: 10px;
+  min-height: 24px;
+  color: #b5c3b5;
+}
+.premium-table .control-counter {
+  color: #c8d6c8;
+  gap: 4px;
+}
+.premium-table .control-counter i.lit {
+  color: #e4c987;
+  text-shadow: none;
+}
+.premium-table .control-counter b {
+  font-variant-numeric: tabular-nums;
+}
+.premium-table .turn-dice-tray {
+  margin: 3px 0 5px;
+  padding: 0 3px;
+  gap: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #0b171838, transparent 68%);
+}
+.premium-table .turn-dice-tray .die {
+  width: 66px;
+  height: 66px;
+  filter: drop-shadow(0 6px 4px #0008);
+  transition:
+    transform 0.18s,
+    opacity 0.2s;
+}
+.premium-table .turn-dice-tray .die.selected {
+  transform: translateY(-5px) rotate(-4deg);
+  filter: drop-shadow(0 9px 5px #0008);
+  outline: 0;
+  box-shadow: none;
+}
+.premium-table .die.selected .face-front {
+  stroke: #f5df9e;
+  stroke-width: 2.8;
+}
+.premium-table .die-face {
+  color: #f8ecd0;
+  text-shadow: 0 2px 1px #0009;
+}
+.premium-table .die.face-blank .die-face {
+  color: #8ea69b;
+  text-shadow: none;
+}
+.premium-table .resource-held .die {
+  filter: drop-shadow(0 5px 4px #0008);
+}
+.premium-table .resource-held .face-front {
+  stroke: #aad0b6;
+  stroke-width: 2.2;
+}
+.premium-table .resource-spent .die {
+  opacity: 0.4;
+  transform: translateY(3px);
+  filter: grayscale(0.8);
+}
+.premium-table .resource-unrolled .die,
+.premium-table .resource-expired .die {
+  opacity: 0.4;
+  filter: grayscale(0.6);
+}
+.premium-table[data-phase="OMEN_CHOICE"]
+  .turn-dice-tray
+  .resource-unrolled
+  .die {
+  opacity: 1;
+  filter: drop-shadow(0 6px 4px #0008);
+}
+.premium-table .resource-rolling .die {
+  animation: omen-tumble 0.5s ease-out both;
+}
+.premium-table
+  .resource-available
+  .die:not(.omen-motion-flip):not(.omen-motion-shift) {
+  animation: omen-settle 0.24s ease-out;
+}
+.premium-table .omen-motion-flip {
+  animation: omen-flip 0.42s ease-out both !important;
+}
+.premium-table .omen-motion-shift {
+  animation: omen-shift 0.27s ease-out both !important;
+}
+.premium-table .resource-spent .face-symbol .die-face {
+  animation: sigil-spend 0.5s ease-out;
+}
+.premium-table .omen-info-button {
+  padding: 0 10px;
+  font-size: 9px;
+  line-height: 22px;
+  min-height: 22px;
+  color: #aebba7;
+  border: 0;
+  background: none;
+  display: none;
+}
+.premium-table .turn-abilities {
+  margin: 5px 0;
+  gap: 7px;
+}
+.premium-table .turn-abilities button {
+  min-height: 42px;
+  background: #162620;
+  border: 1px solid #7b8f6744;
+  border-radius: 7px;
+  padding: 6px 8px;
+  color: #c8d6bf;
+  font-size: 11px;
+}
+.premium-table .turn-control-actions {
+  gap: 6px;
+  margin: 5px 0;
+}
+.premium-table .turn-control-actions button {
+  min-height: 39px;
+  padding: 4px 2px;
+  font-size: 10px;
+  background: #14211f;
+  border: 1px solid #839a6c44;
+  border-radius: 6px;
+}
+.premium-table .turn-submit {
+  gap: 7px;
+  margin-top: 5px;
+}
+.premium-table .primary-button {
+  min-height: 44px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #c8b985, #a79663);
+  color: #15241e;
+  border-radius: 8px;
+  box-shadow:
+    0 3px 8px #0005,
+    0 1px 0 #fff3 inset;
+}
+.premium-table .primary-button:disabled {
+  filter: saturate(0.3);
+  opacity: 0.45;
+}
+.premium-table .hold-button {
+  border: 1px solid #80937d55;
+  min-height: 44px;
+  color: #d6dfca;
+  border-radius: 8px;
+  font-size: 11px;
+  background: #182923;
+}
+.premium-table .turn-diagnostic {
+  margin: 5px 0;
+  padding: 5px 8px;
+  line-height: 1.3;
+  font-size: 10px;
+  border-radius: 5px;
+}
+.premium-table .turn-waiting {
+  margin: 5px 0;
+  font: 10px/1.4 "Inter";
+  color: #99ae9e;
+}
+.match-identity-intro {
+  position: absolute;
+  inset: 43px 0 0;
+  z-index: 15;
+  background: radial-gradient(ellipse at 50% 40%, #28403aec, #0a1416fa 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  color: #e8dec0;
+  text-align: center;
+  pointer-events: none;
+  animation: intro-enter 0.35s ease-out;
+}
+.match-identity-intro > small {
+  font: 8px/1.5 "Inter";
+  letter-spacing: 0.2em;
+  color: #b6bd9b;
+}
+.match-identity-intro h2 {
+  font: 500 33px/1.1 "Cormorant Garamond";
+  margin: 10px 0 28px;
+}
+.intro-rivals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+.intro-rivals > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.intro-portrait {
+  position: relative;
+  width: 105px;
+  height: 148px;
+  background: #283d33;
+  padding: 3px;
+  border: 1px solid #88865d66;
+  border-radius: 35px 5px 35px 5px;
+  box-shadow: 0 15px 25px #0007;
+}
+.intro-portrait > .legend-art {
+  width: 100%;
+  height: 100%;
+  border-radius: 32px 3px 32px 3px;
+  overflow: hidden;
+}
+.intro-avatar {
+  position: absolute;
+  bottom: -9px;
+  left: -9px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #c4b883;
+  background: #10241b;
+  overflow: hidden;
+}
+.intro-avatar .legend-art {
+  width: 100%;
+  height: 100%;
+}
+.intro-winner .intro-portrait {
+  border-color: #e0c882;
+}
+.intro-name {
+  margin-top: 7px;
+  font: 500 11px/1.3 "Inter";
+}
+.intro-rivals strong {
+  font: 500 26px/1 "Cormorant Garamond";
+}
+.intro-rivals small {
+  font-size: 9px;
+  color: #96ac99;
+}
+.intro-rivals .rank-badge {
+  font-size: 9px;
+}
+.intro-roll {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 8px 0;
+  font: 10px "Inter";
+  color: #afbbab;
+}
+.intro-roll b {
+  font: 600 36px/1 "Inter";
+  color: #f0dcac;
+}
+.match-identity-intro > p {
+  font: 500 23px "Cormorant Garamond";
+  margin: 17px 0 11px;
+}
+@keyframes life-impact {
+  0% {
+    transform: scale(1.16);
+    color: #ffb1a1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes life-float {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-13px);
+  }
+}
+@keyframes heal-rise {
+  0% {
+    color: #a4f3c1;
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes ward-chip {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+@keyframes portrait-hit {
+  20% {
+    transform: translateX(-3px);
+    filter: sepia(0.4) brightness(1.3);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes portrait-heal {
+  30% {
+    box-shadow: 0 0 16px #7ed69e55;
+  }
+  100% {
+    box-shadow: 0 8px 14px #0005;
+  }
+}
+@keyframes portrait-ward {
+  30% {
+    border-color: #b0cceb;
+    box-shadow: 0 0 14px #99b6ff30;
+  }
+}
+@keyframes legend-cast {
+  45% {
+    transform: translateY(-3px);
+    border-color: #f5dd99;
+  }
+}
+@keyframes card-discovery {
+  0% {
+    transform: translateY(-5px) rotateY(85deg);
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: translateY(0) rotateY(0);
+  }
+}
+@keyframes card-play {
+  35% {
+    transform: translateY(-10px) scale(1.04);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes reaction-entry {
+  0% {
+    transform: translateY(3px);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes omen-tumble {
+  0% {
+    transform: translateY(-8px) rotate(-35deg);
+  }
+  35% {
+    transform: translateY(2px) rotate(30deg);
+  }
+  70% {
+    transform: translateY(-2px) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+}
+@keyframes omen-settle {
+  0% {
+    transform: translateY(-4px) rotate(5deg);
+  }
+  65% {
+    transform: translateY(1px) rotate(-2deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes omen-flip {
+  0% {
+    transform: rotateY(0);
+  }
+  50% {
+    transform: rotateY(90deg) translateY(-6px);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes omen-shift {
+  40% {
+    transform: translateX(5px) rotate(10deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes sigil-spend {
+  25% {
+    transform: scale(1.3);
+    color: #fff4c1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+@keyframes intro-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-height: 760px) {
+  .premium-table .turn-board {
+    gap: 5px;
+    padding-top: 5px !important;
+  }
+  .premium-table .legend-presence {
+    min-height: 68px;
+  }
+  .premium-table .table-legend-portrait {
+    width: 55px;
+    flex-basis: 55px;
+    height: 65px;
+  }
+  .premium-table .participant-identity {
+    min-height: 29px;
+    margin-bottom: 1px;
+  }
+  .premium-table .player-avatar {
+    height: 27px;
+    width: 27px;
+  }
+  .premium-table .turn-enemy-dice .die.small {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    min-height: 35px;
+  }
+  .premium-table .turn-announcement {
+    min-height: 54px;
+    padding: 5px;
+  }
+  .premium-table .gameplay-card.compact {
+    height: 127px;
+  }
+  .premium-table .gameplay-card.compact .card-illustration {
+    height: 31px;
+  }
+  .premium-table .turn-dice-tray .die {
+    height: 58px;
+    width: 58px;
+  }
+  .premium-table .turn-last-event {
+    display: none;
+  }
+  .premium-table .turn-controls {
+    padding-top: 6px !important;
+  }
+}
+@media (max-width: 370px) {
+  .premium-table .turn-board {
+    padding-inline: 10px !important;
+  }
+  .legend-presence {
+    gap: 7px;
+  }
+  .legend-presence h2 {
+    font-size: 24px;
+  }
+  .premium-table .health {
+    flex-basis: 83px;
+    width: 83px;
+  }
+  .premium-table .health-label b {
+    font-size: 37px;
+  }
+  .legend-class b {
+    display: block;
+  }
+  .premium-table .gameplay-card.compact .card-top span {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-table *,
+  .premium-table *:before,
+  .emote-glyph,
+  .emote-bubble {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.reduced-motion .premium-table *,
+.reduced-motion .emote-glyph,
+.reduced-motion .emote-bubble,
+.battery-saver .emote-glyph {
+  animation: none !important;
+  transition: none !important;
+}
+/* Second pass: keep the Hand fully visible; only the distant table can scroll. */
+.premium-table .turn-board {
+  flex: 1;
+  min-height: 113px;
+  overflow-y: auto;
+  padding-bottom: 2px !important;
+  gap: 5px;
+}
+.table-center-and-self {
+  padding: 0 14px;
+  flex-shrink: 0;
+}
+.table-hand-zone {
+  padding: 4px 14px 10px;
+  flex-shrink: 0;
+}
+.premium-table .participant {
+  height: 88px;
+  margin: 0;
+}
+.premium-table .participant-identity {
+  position: absolute;
+  left: 72px;
+  right: 0;
+  top: 1px;
+  min-height: 25px;
+  height: 25px;
+  margin: 0;
+  gap: 5px;
+}
+.premium-table .player-avatar {
+  width: 23px;
+  height: 23px;
+  padding: 1px;
+}
+.premium-table .player-name small {
+  display: none;
+}
+.premium-table .player-name strong {
+  font-size: 10px;
+}
+.premium-table .legend-presence {
+  height: 88px;
+  min-height: 0;
+  position: relative;
+  padding: 29px 0 9px;
+  align-items: start;
+}
+.premium-table .table-legend-portrait {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 61px;
+  height: 76px;
+}
+.premium-table .legend-presence-copy {
+  margin-left: 72px;
+  margin-right: 95px;
+  align-self: center;
+}
+.premium-table .legend-presence .health {
+  position: absolute;
+  right: 0;
+  top: 32px;
+}
+.premium-table .participant-statuses {
+  margin-top: 3px;
+  max-height: 20px;
+}
+.premium-table .legend-class {
+  font-size: 9px;
+}
+.premium-table .legend-class b {
+  display: block;
+  font-size: 7px;
+}
+.premium-table .legend-presence h2 {
+  font-size: 26px;
+  margin-bottom: 4px;
+}
+.premium-table .turn-last-event {
+  display: none;
+}
+.premium-table .turn-announcement {
+  min-height: 59px;
+  margin: 0 -4px 7px;
+  padding: 7px 2px;
+}
+.premium-table .turn-controls > .battle-section-label {
+  display: none;
+}
+.premium-table .emote-bubble {
+  left: 0;
+  right: 0;
+  top: -2px;
+  min-height: 27px;
+  font-size: 10px;
+  max-height: 32px;
+}
+.premium-table .emote-bubble .emote-glyph {
+  height: 21px;
+  width: 21px;
+  font-size: 18px;
+}
+.premium-table .turn-log {
+  position: absolute;
+  top: 44px;
+  left: 12px;
+  right: 12px;
+  z-index: 20;
+  max-height: 50vh;
+  box-shadow: 0 8px 20px #000b;
+}
+.premium-table .omen-motion-flip {
+  animation: omen-flip-readable 0.42s ease-out both !important;
+}
+@keyframes omen-flip-readable {
+  0% {
+    transform: rotateY(0);
+  }
+  50% {
+    transform: rotateY(90deg) translateY(-6px);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+@media (max-height: 760px) {
+  .premium-table .participant,
+  .premium-table .legend-presence {
+    height: 78px;
+  }
+  .premium-table .table-legend-portrait {
+    height: 66px;
+    width: 54px;
+  }
+  .premium-table .participant-identity {
+    left: 63px;
+  }
+  .premium-table .legend-presence-copy {
+    margin-left: 63px;
+  }
+  .premium-table .legend-presence h2 {
+    font-size: 24px;
+  }
+  .premium-table .turn-announcement {
+    min-height: 47px;
+    padding: 4px 2px;
+    margin-bottom: 3px;
+  }
+  .table-hand-zone {
+    padding-bottom: 6px;
+  }
+  .premium-table .turn-board {
+    min-height: 100px;
+  }
+  .premium-table .turn-resource-heading {
+    min-height: 18px;
+  }
+  .premium-table .turn-control-actions button {
+    min-height: 34px;
+  }
+  .premium-table .turn-dice-tray {
+    margin-block: 0;
+  }
+  .premium-table .turn-dice-tray .die {
+    height: 53px;
+    width: 53px;
+  }
+  .premium-table .turn-abilities button {
+    min-height: 36px;
+  }
+}
+@media (max-height: 690px) {
+  .premium-table {
+    overflow-y: auto;
+  }
+  .premium-table .turn-board {
+    flex: none;
+    height: 154px;
+  }
+  .premium-table .turn-controls {
+    position: sticky;
+    bottom: 0;
+  }
+  .premium-table .gameplay-card.compact {
+    height: 127px;
+  }
+}
+.premium-table .gameplay-card.compact .card-rules p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.premium-table .card-inspect {
+  top: 27px;
+  bottom: auto;
+  width: 38px;
+  height: 42px;
+  background: linear-gradient(transparent, #0b171aa8);
+  border: 0;
+  color: #ddd8b6;
+}
+.premium-table .resource-name {
+  font: 9px/1.3 "Inter";
+  color: #b3c3ac;
+  max-width: 103px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.premium-table:has(.emote-menu) {
+  overflow-y: auto;
+}
+.premium-table:has(.emote-menu) .turn-controls {
+  position: sticky;
+  bottom: 0;
+}
+.premium-table .battle-social .social-actions {
+  height: 32px;
+}
+.premium-table .social-actions button {
+  min-height: 32px;
+}
+.premium-table .gameplay-card.compact .card-top {
+  min-height: 0 !important;
+  flex: 0 0 27px;
+  height: 27px !important;
+}
+.premium-table .gameplay-card.compact .card-illustration {
+  flex: 0 0 42px;
+  min-height: 0 !important;
+  height: 42px !important;
+}
+.premium-table .gameplay-card.compact .card-rules {
+  min-height: 0 !important;
+  flex: 1 1 auto;
+  padding: 5px;
+}
+.premium-table .opponent-kit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 126px;
+  gap: 9px;
+  align-items: end;
+  padding: 4px 0 2px;
+  flex-shrink: 0;
+}
+.premium-table .opponent-known .battle-section-label {
+  margin-bottom: 5px;
+}
+.premium-table .opponent-hand {
+  gap: 4px;
+  margin: 0;
+}
+.premium-table .opponent-hand .card-back {
+  height: 44px;
+  min-height: 44px;
+  padding: 3px;
+}
+.premium-table .opponent-hand .card-back span {
+  font-size: 10px;
+  line-height: 1.1;
+}
+.premium-table .opponent-hand .card-back small {
+  display: none;
+}
+.premium-table .opponent-kit .turn-enemy-dice {
+  gap: 5px;
+  justify-content: space-between;
+}
+.premium-table .opponent-kit .die.small {
+  width: 35px;
+  height: 35px;
+  min-height: 35px;
+  min-width: 35px;
+}
+.premium-table .opponent-kit .resource-die > small {
+  font-size: 6px;
+  max-width: 38px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.premium-table .turn-diagnostic {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 35px;
+}
+.premium-table .turn-diagnostic button {
+  background: none;
+  border: 0;
+  color: inherit;
+  min-width: 30px;
+  min-height: 30px;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.premium-table .turn-abilities button:disabled {
+  opacity: 0.45;
+}
+@media (max-height: 760px) {
+  .premium-table .gameplay-card.compact .card-illustration {
+    flex-basis: 31px;
+    height: 31px !important;
+  }
+  .premium-table .opponent-kit {
+    gap: 5px;
+    grid-template-columns: minmax(0, 1fr) 119px;
+  }
+}
+/* Keep inspection off the primary tap center; press-and-hold also opens full rules. */
+.premium-table .card-inspect {
+  top: 0;
+  right: 0;
+  width: 23px;
+  height: 26px;
+  min-height: 26px;
+  opacity: 0;
+  background: #17271fbd;
+  border-radius: 0 6px 0 4px;
+}
+.premium-table .gameplay-card:hover .card-inspect,
+.premium-table .card-inspect:focus-visible {
+  opacity: 1;
+}
+.premium-table .card-select {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* Short displays scroll the complete table instead of covering Card rules. */
+@media (max-height: 690px) {
+  .premium-table .turn-controls,
+  .premium-table:has(.emote-menu) .turn-controls {
+    position: relative;
+    bottom: auto;
+  }
+}
+.phone-shell .premium-table .turn-controls {
+  margin-inline: 0;
+}
+@media (max-height: 690px) {
+  .phone-shell .premium-table {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+.phone-shell .premium-table:has(.emote-menu) {
+  overflow-y: auto;
+  overflow-x: hidden;
+}

@@ -1,3 +1,10 @@
+import {
+  DEFAULT_EMOTES,
+  EMOTE_CONFIG,
+  EMOTE_ACHIEVEMENTS,
+  EMOTE_BUNDLES,
+  emoteById,
+} from "../content/emotes";
 import { GAME } from "../content/config";
 import { STARTERS } from "../content/loadouts";
 import { LEGENDS } from "../content/legends";
@@ -7,6 +14,7 @@ import { COSMETICS, PASS_REWARDS, QUESTS } from "../content/economy";
 import { validateLoadout } from "../engine/rules";
 import type { LegendId, Loadout, MatchView } from "../engine/types";
 export type Settings = {
+  opponentEmotes: boolean;
   music: number;
   sfx: number;
   haptics: boolean;
@@ -17,6 +25,14 @@ export type Settings = {
   muted: boolean;
 };
 export type Profile = {
+  ownedEmotes: string[];
+  equippedEmotes: (string | null)[];
+  avatar: LegendId;
+  achievementProgress: {
+    rankedWins: number;
+    wardAbsorbed: number;
+    basajaunRankedWins: number;
+  };
   version: 1;
   name: string;
   title: string;
@@ -53,6 +69,14 @@ export interface StorageAdapter {
 }
 export function freshProfile(): Profile {
   return {
+    ownedEmotes: [...DEFAULT_EMOTES],
+    equippedEmotes: [...DEFAULT_EMOTES],
+    avatar: "basajaun",
+    achievementProgress: {
+      rankedWins: 0,
+      wardAbsorbed: 0,
+      basajaunRankedWins: 0,
+    },
     version: 1,
     name: "Wayfarer",
     title: "The story begins",
@@ -81,6 +105,7 @@ export function freshProfile(): Profile {
     premium: false,
     tutorialComplete: false,
     settings: {
+      opponentEmotes: true,
       music: 25,
       sfx: 40,
       haptics: true,
@@ -119,9 +144,49 @@ export class LocalProfileService {
         !Number.isFinite(p.xp)
       )
         return freshProfile();
+      const owned = [
+        ...new Set([
+          ...DEFAULT_EMOTES,
+          ...(Array.isArray(p.ownedEmotes) ? p.ownedEmotes : []),
+        ]),
+      ].filter((id) => emoteById[id]);
+      for (const reward of PASS_REWARDS)
+        for (const track of ["free", "premium"] as const) {
+          const r = reward[track];
+          if (
+            r.type === "emote" &&
+            r.id &&
+            p.claimedPass?.includes(
+              `${GAME.season.id}:${reward.level}:${track}`,
+            ) &&
+            !owned.includes(r.id)
+          )
+            owned.push(r.id);
+        }
+      const progress = freshProfile().achievementProgress;
+      for (const key of Object.keys(progress) as (keyof typeof progress)[]) {
+        const value = p.achievementProgress?.[key];
+        progress[key] =
+          typeof value === "number" && Number.isFinite(value) && value >= 0
+            ? Math.floor(value)
+            : 0;
+      }
+      const equipped = Array.isArray(p.equippedEmotes)
+        ? p.equippedEmotes
+        : DEFAULT_EMOTES;
+      const seen = new Set<string>();
       return {
         ...freshProfile(),
         ...p,
+        ownedEmotes: owned,
+        equippedEmotes: Array.from({ length: EMOTE_CONFIG.slots }, (_, i) => {
+          const id = equipped[i];
+          if (!id || !owned.includes(id) || seen.has(id)) return null;
+          seen.add(id);
+          return id;
+        }),
+        avatar: LEGENDS.some((l) => l.id === p.avatar) ? p.avatar : "basajaun",
+        achievementProgress: progress,
         settings: { ...freshProfile().settings, ...p.settings },
       };
     } catch {
@@ -168,6 +233,27 @@ export class LocalProfileService {
         0,
         n.rankPoints + (win ? 25 : view.winner === "draw" ? 0 : -10),
       );
+    n.achievementProgress.rankedWins += +(win && mode === "Ranked");
+    n.achievementProgress.basajaunRankedWins += +(
+      win &&
+      mode === "Ranked" &&
+      view.players[0].loadout.legend === "basajaun"
+    );
+    n.achievementProgress.wardAbsorbed += view.events.reduce(
+      (sum, e) =>
+        sum +
+        (e.type === "damage" && e.target === 0
+          ? Number.isFinite(e.wardAbsorbed)
+            ? Math.max(0, e.wardAbsorbed!)
+            : 0
+          : 0),
+      0,
+    );
+    for (const achievement of EMOTE_ACHIEVEMENTS)
+      if (n.achievementProgress[achievement.metric] >= achievement.target)
+        this.grantEmote(n, achievement.emoteId);
+    if (n.rankPoints >= 900) this.grantEmote(n, "respect");
+    if (n.mastery.basajaun >= 1800) this.grantEmote(n, "old-friend");
     n.highestRankPoints = Math.max(n.highestRankPoints, n.rankPoints);
     const metrics = {
       matches: 1,
@@ -212,6 +298,8 @@ export class LocalProfileService {
     n.claimedPass.push(id);
     if (reward.type === "coins") n.coins += reward.amount;
     else if (reward.type === "gems") n.gems += reward.amount;
+    else if (reward.type === "emote" && reward.id)
+      this.grantEmote(n, reward.id);
     else {
       const cosmetic = track === "free" ? "first-light" : "obsidian";
       if (!n.cosmetics.includes(cosmetic)) n.cosmetics.push(cosmetic);
@@ -250,6 +338,45 @@ export class LocalProfileService {
     )
       return p;
     const n = { ...p, dailyReplaced: [...p.dailyReplaced, key] };
+    this.save(n);
+    return n;
+  }
+  private grantEmote(p: Profile, id: string) {
+    if (emoteById[id] && !p.ownedEmotes.includes(id)) p.ownedEmotes.push(id);
+  }
+  equipEmote(p: Profile, slot: number, id: string | null) {
+    if (!Number.isInteger(slot) || slot < 0 || slot >= EMOTE_CONFIG.slots)
+      throw new Error("Choose one of five emote slots.");
+    if (id && (!p.ownedEmotes.includes(id) || !emoteById[id]))
+      throw new Error("This emote has not been earned.");
+    const n = structuredClone(p);
+    n.equippedEmotes = n.equippedEmotes.map((e) => (e === id ? null : e));
+    n.equippedEmotes[slot] = id;
+    this.save(n);
+    return n;
+  }
+  purchaseEmote(p: Profile, id: string) {
+    const e = emoteById[id];
+    if (!e || e.source !== "shop" || e.price === undefined || !e.currency)
+      throw new Error("This emote must be earned from its listed source.");
+    if (p.ownedEmotes.includes(id)) return p;
+    if (p[e.currency] < e.price)
+      throw new Error("Not enough " + e.currency + ".");
+    const n = structuredClone(p);
+    n[e.currency] -= e.price;
+    this.grantEmote(n, id);
+    this.save(n);
+    return n;
+  }
+  purchaseEmoteBundle(p: Profile, id: string) {
+    const bundle = EMOTE_BUNDLES.find((b) => b.id === id);
+    if (!bundle) throw new Error("Unknown bundle.");
+    if (bundle.emotes.every((e) => p.ownedEmotes.includes(e))) return p;
+    if (p[bundle.currency] < bundle.price)
+      throw new Error("Not enough " + bundle.currency + ".");
+    const n = structuredClone(p);
+    n[bundle.currency] -= bundle.price;
+    bundle.emotes.forEach((id) => this.grantEmote(n, id));
     this.save(n);
     return n;
   }

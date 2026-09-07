@@ -263,6 +263,8 @@ export type RoundStats = {
   turns: number[];
 };
 export type MatchEvent = {
+  target?: number;
+  wardAbsorbed?: number;
   round: number;
   actor: number;
   type: string;

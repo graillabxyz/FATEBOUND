@@ -20,6 +20,8 @@ const Dashboard = ENABLE_DEV_TOOLS
 import { ErrorBoundary } from "./ui/ErrorBoundary";
 import "./ui/styles.css";
 import "./ui/polish.css";
+import "./ui/battle-table.css";
+import "./ui/emotes.css";
 if (Capacitor.isNativePlatform())
   void ScreenOrientation.lock({ orientation: "portrait" }).catch(() => {});
 ReactDOM.createRoot(document.getElementById("root")!).render(
