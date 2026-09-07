@@ -177,3 +177,8 @@
   min-height: 0;
   max-height: 44px;
 }
+#root .gameplay-card .card-inspect {
+  z-index: 3;
+  width: 24px;
+  padding: 4px;
+}

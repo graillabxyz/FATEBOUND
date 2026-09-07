@@ -18,7 +18,7 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   herensuge: {
     src: "/art/cards/herensuge.webp",
-    alt: "An immense ancient serpentine dragon unleashes a focused fiery blast across a mountain ravine, overwhelming finishing force, no gore.",
+    alt: "An immense ancient serpentine dragon unleashes a focused fiery blast across a mountain ravine, overwhelming finishing force.",
     objectPosition: "50% 50%",
   },
   "deep-roots": {
@@ -158,7 +158,7 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   "wolf-shape": {
     src: "/art/cards/wolf-shape.webp",
-    alt: "A battered forest wanderer transforms into a fierce wolf mid-leap, recovering strength for a desperate counteroffensive, no gore.",
+    alt: "A battered forest wanderer transforms into a fierce wolf mid-leap, recovering strength for a desperate counteroffensive.",
     objectPosition: "50% 50%",
   },
   "lost-path": {
@@ -173,7 +173,7 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   "bramble-trap": {
     src: "/art/cards/bramble-trap.webp",
-    alt: "A defender braces behind a quickly raised bramble shield; an enemy blade makes contact and a thorny vine lashes back. Show an immediate defensive counter, not a planted trap or creature summon.",
+    alt: "A defender braces behind a quickly raised bramble shield; an enemy blade makes contact and a thorny vine lashes back.",
     objectPosition: "50% 50%",
   },
   "wild-bloom": {
@@ -203,7 +203,7 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   offering: {
     src: "/art/cards/offering.webp",
-    alt: "A traveler offers a small red life-like ember from their palm into an ancient stone bowl, their weapon answering with restrained powerful light; sacrifice without gore.",
+    alt: "A traveler offers a small red life-like ember from their palm into an ancient stone bowl, their weapon answering with restrained powerful light.",
     objectPosition: "50% 50%",
   },
   "dawn-shield": {
@@ -218,7 +218,7 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   "burning-crown": {
     src: "/art/cards/burning-crown.webp",
-    alt: "A crown of living solar fire burns above a warrior's bowed head, a red ember drawn from their chest into an immense outward blast; costly power without gore.",
+    alt: "A crown of living solar fire burns above a warrior's bowed head, a red ember drawn from their chest into an immense outward blast.",
     objectPosition: "50% 50%",
   },
   horizon: {
@@ -278,12 +278,12 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   counterstrike: {
     src: "/art/cards/counterstrike.webp",
-    alt: "A fighter recoils from a glancing blow then immediately answers with a compact strong punch, resilience and post-impact retaliation, no gore.",
+    alt: "A fighter recoils from a glancing blow then immediately answers with a compact strong punch, resilience and post-impact retaliation.",
     objectPosition: "50% 50%",
   },
   ritual: {
     src: "/art/cards/ritual.webp",
-    alt: "Two smooth Omen stones sit within an ancient ritual circle around a traveler; healing light rises and a strong protective veil forms, no writing or interface symbols.",
+    alt: "Two smooth Omen stones sit within an ancient ritual circle around a traveler; healing light rises and a strong protective veil forms.",
     objectPosition: "50% 50%",
   },
   meditate: {
@@ -293,7 +293,7 @@ export const CARD_ART: Record<string, CardArtwork> = {
   },
   "hollow-sign": {
     src: "/art/cards/hollow-sign.webp",
-    alt: "A dark empty faceted Omen turns in a traveler's hand while another carved Omen rotates to its opposite side, void-inspired manipulation, no UI or floating icons.",
+    alt: "A dark empty faceted Omen turns in a traveler's hand while another carved Omen rotates to its opposite side, void-inspired manipulation.",
     objectPosition: "50% 50%",
   },
   "thread-the-path": {
