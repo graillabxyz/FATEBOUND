@@ -1,4 +1,5 @@
 import type { MatchRecord } from "./data";
+import { cloudFetch } from "../online/client";
 export class MetricsSignInRequiredError extends Error {
   constructor() {
     super("Sign in to the private dashboard.");
@@ -18,7 +19,7 @@ export async function loadMetrics(
   legend = "all",
   opponent = "all",
 ): Promise<MetricsResponse> {
-  const response = await fetch(
+  const response = await cloudFetch(
     `/api/metrics?source=${encodeURIComponent(source)}&days=${days}&legend=${encodeURIComponent(legend)}&opponent=${encodeURIComponent(opponent)}`,
   );
   if (response.status === 401) throw new MetricsSignInRequiredError();
@@ -38,7 +39,7 @@ export async function storeSimulation(records: MatchRecord[], runId: string) {
       id: `${runId}:${r.id}`,
       pair: r.pair ? { ...r.pair, id: `${runId}:${r.pair.id}` } : undefined,
     }));
-    const response = await fetch("/api/simulations", {
+    const response = await cloudFetch("/api/simulations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ records: rows }),
@@ -51,7 +52,7 @@ export async function storeSimulation(records: MatchRecord[], runId: string) {
 }
 
 export async function storeLabOutcome(record: MatchRecord) {
-  const response = await fetch("/api/lab-results", {
+  const response = await cloudFetch("/api/lab-results", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ records: [record] }),

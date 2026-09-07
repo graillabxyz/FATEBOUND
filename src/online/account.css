@@ -1,0 +1,57 @@
+.cloud-account {
+  width: min(100% - 32px, 440px);
+  margin: 8vh auto;
+  padding: 28px;
+  background: #15252b;
+  border: 1px solid #365058;
+  border-radius: 16px;
+  color: #e6eded;
+  font:
+    16px Inter,
+    sans-serif;
+}
+.cloud-account h1 {
+  letter-spacing: 0.15em;
+  font-size: 26px;
+}
+.cloud-account h2 {
+  font-size: 20px;
+}
+.cloud-account label {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+.cloud-account input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0b161b;
+  color: white;
+  border: 1px solid #526b75;
+  border-radius: 8px;
+  padding: 14px;
+  font: inherit;
+}
+.cloud-account button,
+.cloud-account a {
+  display: block;
+  margin: 12px 0;
+  padding: 12px;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+.cloud-account button {
+  width: 100%;
+  border: 1px solid #739a91;
+  border-radius: 8px;
+  background: #31584f;
+  color: #fff;
+  font: inherit;
+}
+.cloud-account a {
+  color: #a8d5c6;
+  text-decoration: underline;
+}
+.cloud-account button:disabled {
+  opacity: 0.5;
+}

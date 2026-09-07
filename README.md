@@ -1,4 +1,4 @@
-# Fatebound
+# OMNIPATH
 
 A playable, portrait-first mobile strategy game foundation. Six folklore Legends. Four hidden, reusable cards. Three fixed collectible dice. Alternating initiative and meaningful reactions.
 

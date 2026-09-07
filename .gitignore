@@ -14,3 +14,8 @@ dist-internal/
 *.sqlite-wal
 .env.local
 .env.*.local
+.vercel
+.env*.local
+.env
+supabase/.temp/
+supabase/functions/omnipath-api/index.ts

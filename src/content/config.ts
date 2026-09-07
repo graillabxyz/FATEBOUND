@@ -1,5 +1,5 @@
 export const GAME = {
-  title: "FATEBOUND",
+  title: "OMNIPATH",
   subtitle: "Read the moment. Shape your fate.",
   version: 2,
   maxRounds: 7,

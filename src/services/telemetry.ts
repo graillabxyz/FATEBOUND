@@ -1,6 +1,7 @@
 import type { AnalyticsRecord } from "./analytics";
 import { recordMatch, type MatchRecord } from "../metrics/data";
 import type { MatchState } from "../engine/types";
+import { cloudFetch } from "../online/client";
 const endpoint =
   import.meta.env.VITE_TELEMETRY_URL ||
   (import.meta.env.DEV || import.meta.env.MODE === "internal"
@@ -54,7 +55,7 @@ export async function flushUsage() {
   flushing = true;
   const batch = structuredClone(queue);
   try {
-    const response = await fetch(endpoint, {
+    const response = await cloudFetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(batch),

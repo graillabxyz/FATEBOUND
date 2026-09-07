@@ -1,5 +1,5 @@
 {
-  "name": "fatebound",
+  "name": "omnipath",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -20,7 +20,10 @@
     "metrics:server": "node --import tsx scripts/metrics-server.ts",
     "build:internal": "tsc -b && vite build --mode internal --outDir dist-internal",
     "build:site": "tsc -b && node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && vite build --mode internal --outDir dist/client && node tooling/sites/node_modules/vite/bin/vite.js build --config vite.site.config.ts",
-    "db:generate": "node tooling/sites/node_modules/drizzle-kit/bin.cjs generate --config drizzle.config.ts"
+    "db:generate": "node tooling/sites/node_modules/drizzle-kit/bin.cjs generate --config drizzle.config.ts",
+    "build:vercel": "npm run build && vite build --config vite.metrics.config.ts",
+    "build:edge": "node scripts/build-edge.mjs",
+    "seed:catalog": "node --import tsx scripts/seed-catalog.ts"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
@@ -30,6 +33,7 @@
     "@capacitor/screen-orientation": "^7.0.2",
     "@fontsource/cormorant-garamond": "^5.2.8",
     "@fontsource/inter": "^5.2.6",
+    "@supabase/supabase-js": "2.115.0",
     "lucide-react": "^0.468.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -41,6 +45,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^4.7.0",
+    "esbuild": "0.28.2",
     "prettier": "^3.9.6",
     "tsx": "^4.20.5",
     "typescript": "~5.9.2",

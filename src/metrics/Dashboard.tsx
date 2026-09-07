@@ -51,7 +51,7 @@ export default function Dashboard() {
     return () => clearInterval(timer);
   }, [refresh]);
   useEffect(() => {
-    document.title = "Fatebound · Developer metrics";
+    document.title = "OMNIPATH · Developer metrics";
   }, []);
   const records = useMemo(
     () =>
@@ -102,7 +102,7 @@ export default function Dashboard() {
         <a className="metrics-brand" href="/metrics">
           <Icon name="dice" size={30} />
           <span>
-            FATEBOUND<small>DEVELOPER METRICS</small>
+            OMNIPATH<small>DEVELOPER METRICS</small>
           </span>
         </a>
         <nav>
@@ -167,7 +167,7 @@ export default function Dashboard() {
                     setResponse(null);
                   }}
                 >
-                  <option value="live">Actual play · human vs AI</option>
+                  <option value="live">Actual play · AI & PvP</option>
                   <option value="simulation">AI simulations</option>
                   <option value="lab">Saved lab outcomes</option>
                 </select>

@@ -309,7 +309,7 @@ input[type="checkbox"] {
   width: 100%;
   aspect-ratio: 2/3;
   min-height: 100%;
-  background-image: url("/art/legends-atlas.png");
+  background-image: var(--asset-legends, url("/art/legends-atlas.png"));
   background-size: 300% 200%;
   background-position: var(--art-x) var(--art-y);
   background-repeat: no-repeat;

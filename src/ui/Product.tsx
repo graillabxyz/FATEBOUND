@@ -496,7 +496,11 @@ export function SettingsContent() {
           Privacy
           <Icon name="right" size={16} />
         </button>
-        <button onClick={() => open("account")}>
+        <button
+          onClick={() => {
+            window.location.href = "/account";
+          }}
+        >
           Account
           <Icon name="right" size={16} />
         </button>

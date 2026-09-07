@@ -1,0 +1,4 @@
+project_id = "omnipath"
+[functions.omnipath-api]
+verify_jwt = false
+# Handler validates the bearer token using auth.getUser before every protected operation.

@@ -4,12 +4,14 @@
   --muted: #a4b1aa;
   --line: #b99c6538;
   --bronze-edge: #aa895757;
-  --stone: linear-gradient(#132221ed, #101c1cf5), url("/art/basalt-tile.webp");
+  --stone:
+    linear-gradient(#132221ed, #101c1cf5),
+    var(--asset-basalt, url("/art/basalt-tile.webp"));
 }
 .app-surround .ambient-backdrop {
   background:
     linear-gradient(90deg, #060c0fed, #071111b8 50%, #060c0fed),
-    url("/art/arena-portrait.webp") center 47% / cover;
+    var(--asset-arena, url("/art/arena-portrait.webp")) center 47% / cover;
 }
 .app-surround .ambient-backdrop:after {
   display: none;
@@ -385,7 +387,7 @@
 .gameplay-card .card-rules {
   background:
     linear-gradient(#26372cef, #182923f7),
-    url("/art/basalt-tile.webp") center / 300px;
+    var(--asset-basalt, url("/art/basalt-tile.webp")) center / 300px;
   border-top: 1px solid #d2bc722f;
 }
 .gameplay-card .card-rules > strong {
@@ -560,7 +562,7 @@
 .phone-shell .shop-item {
   background:
     linear-gradient(#25372ccf, #12251cef),
-    url("/art/basalt-tile.webp") center / 300px;
+    var(--asset-basalt, url("/art/basalt-tile.webp")) center / 300px;
   border: 1px solid #9e885757;
   border-radius: 8px;
   box-shadow:
@@ -640,7 +642,7 @@
 .phone-shell .modal {
   background:
     linear-gradient(#21362df5, #0f201af7),
-    url("/art/basalt-tile.webp") center / 440px;
+    var(--asset-basalt, url("/art/basalt-tile.webp")) center / 440px;
   border-top: 2px solid #c7a264;
   box-shadow:
     0 -12px 50px #0008,
@@ -821,7 +823,7 @@
 .phone-shell.in-battle {
   background:
     linear-gradient(#06111144, #08171766),
-    url("/art/arena-portrait.webp") center / cover;
+    var(--asset-arena, url("/art/arena-portrait.webp")) center / cover;
 }
 .phone-shell .battle-screen {
   padding: 0 12px;
@@ -927,7 +929,7 @@
 .phone-shell .card-back {
   background:
     linear-gradient(145deg, #334337ed, #152d25eb),
-    url("/art/basalt-tile.webp") center / 220px;
+    var(--asset-basalt, url("/art/basalt-tile.webp")) center / 220px;
   border-color: #bda46670;
   border-radius: 5px;
   box-shadow: 0 2px 3px #0006;
@@ -1114,7 +1116,7 @@
   padding: 4px 12px max(5px, env(safe-area-inset-bottom));
   background:
     linear-gradient(#283b2bf7, #0b211bf9),
-    url("/art/basalt-tile.webp") center / 430px;
+    var(--asset-basalt, url("/art/basalt-tile.webp")) center / 430px;
   border-top: 1px solid #b59d5b8c;
   box-shadow:
     0 -3px 16px #0004,
@@ -1667,7 +1669,7 @@
 .turn-battle {
   background:
     linear-gradient(#101610cf, #101510ee),
-    url("/art/arena-portrait.webp") center/cover;
+    var(--asset-arena, url("/art/arena-portrait.webp")) center/cover;
   gap: 0 !important;
 }
 .turn-header {
