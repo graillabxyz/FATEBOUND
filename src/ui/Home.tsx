@@ -1,5 +1,5 @@
 import { GAME } from "../content/config";
-import { legendById } from "../content/legends";
+import { LEGENDS, legendById } from "../content/legends";
 import { dieById } from "../content/dice";
 import { level, rankLabel, seasonLevel } from "../services/profile";
 import { useGame } from "./context";
@@ -42,7 +42,12 @@ export default function Home() {
           </button>
         </div>
         <div className="hero-side">
-          <span>01 — 06</span>
+          <span>
+            {String(
+              LEGENDS.findIndex((entry) => entry.id === l.id) + 1,
+            ).padStart(2, "0")}{" "}
+            / {String(LEGENDS.length).padStart(2, "0")}
+          </span>
           <i />
         </div>
         <div className="hero-caption">
@@ -88,7 +93,7 @@ export default function Home() {
       <section className="home-play">
         <div className="rank-line">
           <RankBadge label={rankLabel(profile)} />
-          <span>A new story awaits</span>
+          <span>4 cards · 3 dice · Your move</span>
         </div>
         <PrimaryButton
           onClick={() => (resumeAvailable ? resume() : open("play"))}
@@ -124,13 +129,13 @@ export default function Home() {
             </small>
             <strong>
               {profile.tutorialComplete
-                ? "A little further, every day"
+                ? "Your next rewards await"
                 : "Learn to shape your Fate"}
             </strong>
             <span>
               {profile.tutorialComplete
-                ? "Small steps. Lasting mastery."
-                : "A guided match. A world of possibilities."}
+                ? "Complete quests. Earn coins and XP."
+                : "Learn the rules in a guided match."}
             </span>
           </span>
           <Icon name="right" size={18} />

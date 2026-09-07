@@ -241,7 +241,9 @@ export default function App() {
           ) : battle ? (
             <>
               {result ? (
-                <div className="match-result">
+                <div
+                  className={`match-result result-${result.winner === 0 ? "victory" : result.winner === "draw" ? "draw" : "defeat"}`}
+                >
                   <div className="result-art">
                     <LegendArt id={active.legend} />
                   </div>

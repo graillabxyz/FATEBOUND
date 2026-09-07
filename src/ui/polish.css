@@ -1,0 +1,1664 @@
+/* Player presentation layer. Internal dashboards keep their own visual system. */
+.app-surround {
+  --gold: #e0bd79;
+  --muted: #a4b1aa;
+  --line: #b99c6538;
+  --bronze-edge: #aa895757;
+  --stone: linear-gradient(#132221ed, #101c1cf5), url("/art/basalt-tile.webp");
+}
+.app-surround .ambient-backdrop {
+  background:
+    linear-gradient(90deg, #060c0fed, #071111b8 50%, #060c0fed),
+    url("/art/arena-portrait.webp") center 47% / cover;
+}
+.app-surround .ambient-backdrop:after {
+  display: none;
+}
+.phone-shell {
+  background: var(--stone);
+  background-size: auto, 540px;
+  border-color: #b097654d;
+  box-shadow:
+    0 0 0 5px #050a0c,
+    0 0 0 6px #aa8c4a29,
+    0 28px 100px #000a;
+}
+.phone-shell .app-header {
+  background: linear-gradient(#1d2b28f5, #111b1df5);
+  border-bottom: 1px solid var(--bronze-edge);
+  box-shadow: 0 3px 16px #0004;
+}
+.phone-shell .profile-strip strong {
+  font-size: 13px;
+}
+.phone-shell .profile-strip small {
+  font-size: 10px;
+}
+.phone-shell .currency {
+  background: #081312a6;
+  border: 1px solid #bc985e30;
+  border-radius: 5px;
+  padding: 7px 8px;
+}
+.phone-shell .bottom-navigation {
+  background: linear-gradient(#24332f, #111b1c 65%);
+  border-top-color: #bc995b73;
+  box-shadow:
+    0 -6px 22px #040c0d8c,
+    inset 0 1px #f2cb7c12;
+  padding-top: 5px;
+}
+.phone-shell .bottom-navigation button {
+  color: #99aaa0;
+  gap: 6px;
+}
+.phone-shell .bottom-navigation button.active {
+  color: #f1cc87;
+  background: radial-gradient(ellipse at 50% 0, #ae874232, transparent 75%);
+  text-shadow: 0 0 15px #ffc05a50;
+}
+.phone-shell .bottom-navigation button.active svg {
+  filter: drop-shadow(0 0 6px #e1b26355);
+}
+.phone-shell .bottom-navigation span {
+  font-size: 10px;
+  font-weight: 500;
+}
+.phone-shell .primary-button {
+  background: linear-gradient(100deg, #b88a49, #f2d59d 48%, #c69854);
+  border: 1px solid #f7d9a0;
+  border-bottom: 4px solid #805c30;
+  border-radius: 7px;
+  box-shadow:
+    inset 0 0 0 3px #764c2729,
+    inset 0 2px #fff1c770,
+    0 4px 0 #080f10,
+    0 6px 18px #0005;
+  color: #25281c;
+  text-shadow: 0 1px #fff2cc60;
+  min-height: 54px;
+}
+.phone-shell .primary-button:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 0 0 3px #764c2729,
+    0 1px 0 #080f10;
+}
+.phone-shell .secondary-button,
+.phone-shell .filter-row button,
+.phone-shell .menu-grid button {
+  background: linear-gradient(#293830, #192824);
+  border-color: #a489545c;
+  box-shadow:
+    inset 0 1px #ede2b210,
+    0 2px 3px #0004;
+  color: #ddd9c6;
+  font-size: 12px;
+  min-height: 44px;
+}
+.phone-shell .text-button {
+  font-size: 11px;
+  min-height: 44px;
+}
+.phone-shell .icon-button {
+  min-height: 44px;
+  min-width: 44px;
+}
+.phone-shell .eyebrow,
+.phone-shell .section-label,
+.phone-shell .page-heading .eyebrow {
+  font-size: 9px;
+  letter-spacing: 1.25px;
+  color: #b9ba9f;
+}
+.phone-shell .page-heading {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 18px;
+  margin-bottom: 19px;
+}
+.phone-shell .page-heading h1 {
+  font-size: 39px;
+  color: #f0e4c8;
+  text-shadow: 0 2px 10px #0005;
+}
+.phone-shell .page {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+.phone-shell .intro-copy {
+  color: #b6c1b6;
+  font-size: 13px;
+}
+.phone-shell .helper-text {
+  font-size: 11px;
+  line-height: 1.65;
+  color: #a9b6a4;
+}
+.phone-shell .progress-track {
+  height: 5px;
+  background: #050e0d99;
+  box-shadow: 0 1px #c8b77820;
+}
+.phone-shell .progress-track > i {
+  background: linear-gradient(90deg, #6c8c72, #dcc080);
+  box-shadow: 0 0 9px #bdad6560;
+}
+
+/* Landing: a framed Legend portrait and a physical play control. */
+.phone-shell .wordmark {
+  padding-top: 15px;
+  gap: 10px;
+}
+.phone-shell .wordmark h1 {
+  font-size: 29px;
+  letter-spacing: 5px;
+  color: #ebd4a3;
+  text-shadow:
+    0 2px 0 #000,
+    0 0 24px #a8843d44;
+}
+.phone-shell .wordmark > svg {
+  color: #dfba74;
+}
+.phone-shell .season-ribbon {
+  font-size: 8px;
+  letter-spacing: 1.1px;
+  color: #b0baa5;
+  padding-bottom: 11px;
+}
+.phone-shell .home-hero {
+  height: clamp(320px, 43dvh, 398px);
+  margin: 5px 14px 0;
+  border: 1px solid #c1a16c80;
+  border-radius: 12px 12px 5px 5px;
+  background: #15211f;
+  box-shadow:
+    0 8px 22px #0006,
+    inset 0 0 0 4px #050e0e;
+  overflow: hidden;
+}
+.phone-shell .home-hero:after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid #d3bc7c26;
+  border-radius: 8px 8px 2px 2px;
+  pointer-events: none;
+}
+.phone-shell .hero-art {
+  mask-image: none;
+}
+.phone-shell .hero-art .portrait-paint {
+  top: -28px;
+}
+.phone-shell .home-hero:before {
+  background:
+    linear-gradient(0deg, #0b1719 1%, #10201aeb 16%, #14261b3a 52%, #0a151220),
+    linear-gradient(
+      90deg,
+      #04140c4d,
+      transparent 30%,
+      transparent 80%,
+      #06100f4d
+    );
+}
+.phone-shell .hero-grain {
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    transparent 20%,
+    #0b171866 85%
+  );
+}
+.phone-shell .hero-top {
+  left: 16px;
+  right: 13px;
+  top: 10px;
+}
+.phone-shell .hero-top .eyebrow {
+  background: #081a17a8;
+  border: 1px solid #c5b9813b;
+  padding: 8px;
+  border-radius: 3px;
+  font-size: 8px;
+  color: #e5d8b5;
+}
+.phone-shell .hero-top .text-button {
+  background: #0b1a16bd;
+  border: 1px solid #b4a16b42;
+  border-radius: 5px;
+  padding: 0 10px;
+  min-height: 36px;
+}
+.phone-shell .hero-side {
+  left: 13px;
+  top: 100px;
+}
+.phone-shell .hero-caption {
+  bottom: 8px;
+}
+.phone-shell .hero-caption h2 {
+  font-size: clamp(43px, 12.5vw, 58px);
+  font-weight: 600;
+  color: #f4e8c8;
+  text-shadow: 0 3px 4px #0008;
+  margin: 3px 0;
+}
+.phone-shell .hero-region {
+  color: #ddcaa1;
+  font-size: 9px;
+}
+.phone-shell .hero-subtitle {
+  color: #c4d1b9;
+  font-size: 18px;
+}
+.phone-shell .hero-flourish {
+  margin-bottom: 5px;
+}
+.phone-shell .hero-build {
+  height: 65px;
+  margin-top: 8px;
+  gap: 16px;
+}
+.phone-shell .hero-build .die.small {
+  width: 49px;
+  height: 56px;
+}
+.phone-shell .hero-edit {
+  border: 1px solid #af9b6163;
+  padding: 0;
+  border-radius: 5px;
+  width: 40px;
+  color: #d4bc87;
+  background: #2736268c;
+}
+.phone-shell .home-play {
+  padding: 3px 20px 0;
+}
+.phone-shell .rank-line {
+  margin: 10px 1px 12px;
+}
+.phone-shell .rank-line > span:last-child {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-size: 10px;
+  color: #b2bca7;
+}
+.phone-shell .rank-badge {
+  color: #dfd2af;
+  font-size: 11px;
+}
+.phone-shell .play-button {
+  min-height: 61px;
+  font-size: 20px;
+  letter-spacing: 4px;
+}
+.phone-shell .play-footnote {
+  font-size: 7px;
+  letter-spacing: 0.8px;
+  color: #a4af9e;
+  padding: 12px 0 16px;
+}
+.phone-shell .home-lower {
+  padding: 0 20px 22px;
+}
+.phone-shell .journey-banner {
+  border: 1px solid #947c4c5e;
+  border-radius: 7px;
+  background: linear-gradient(115deg, #334032b3, #13221f);
+  padding: 13px 12px;
+  box-shadow:
+    inset 0 1px #dcc49516,
+    0 4px 12px #0002;
+}
+.phone-shell .journey-icon {
+  width: 38px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #bc9d5866;
+  border-radius: 6px;
+  background: #bda86413;
+}
+.phone-shell .journey-banner small {
+  font-size: 8px;
+}
+.phone-shell .journey-banner strong {
+  font-size: 20px;
+  color: #ebe2c8;
+}
+.phone-shell .journey-banner > span:nth-child(2) > span {
+  font-size: 10px;
+  color: #adbaab;
+}
+.phone-shell .home-progress > div:first-child {
+  font-size: 11px;
+}
+
+/* Cards, collection, loadout and progression share the same material language. */
+.gameplay-card {
+  --card-accent: #c9a869;
+  border-color: color-mix(in srgb, var(--card-accent) 58%, #23352c);
+  border-radius: 7px;
+  box-shadow:
+    0 3px 0 #060e0d,
+    0 5px 12px #0005;
+  overflow: hidden;
+}
+.gameplay-card[data-category="Attack"],
+.gameplay-card[data-category="Finisher"] {
+  --card-accent: #d59a75;
+}
+.gameplay-card[data-category="Guard"],
+.gameplay-card[data-category="Counter"] {
+  --card-accent: #8bbfcd;
+}
+.gameplay-card[data-category="Recovery"] {
+  --card-accent: #a7c582;
+}
+.gameplay-card[data-category="Manipulation"],
+.gameplay-card[data-category="Prediction"] {
+  --card-accent: #bea4d9;
+}
+.gameplay-card .card-top {
+  background: linear-gradient(#334336, #1c2b25);
+  border-bottom: 2px solid var(--card-accent);
+  color: #f2e7ce;
+  width: 100%;
+}
+.gameplay-card .card-top > span {
+  font-size: 19px;
+  line-height: 1.08;
+}
+.gameplay-card .card-top > svg {
+  color: var(--card-accent);
+  opacity: 1;
+}
+.gameplay-card .card-illustration {
+  filter: saturate(0.95);
+}
+.gameplay-card .card-symbol {
+  color: #f4e7bf;
+}
+.gameplay-card .card-symbol > svg {
+  filter: drop-shadow(0 1px 3px #000);
+}
+.gameplay-card .card-rules {
+  background:
+    linear-gradient(#26372cef, #182923f7),
+    url("/art/basalt-tile.webp") center / 300px;
+  border-top: 1px solid #d2bc722f;
+}
+.gameplay-card .card-rules > strong {
+  color: var(--card-accent);
+}
+.gameplay-card .card-rules p {
+  font-size: 12px;
+  color: #e0e4d3;
+  line-height: 1.55;
+}
+.gameplay-card.selected {
+  border-color: #f4d892;
+  box-shadow:
+    0 0 0 1px #e8c680,
+    0 0 18px #e0bc5d30;
+}
+.gameplay-card.unavailable {
+  opacity: 0.6;
+  filter: saturate(0.5);
+}
+.compact .card-top,
+.battle-hand .compact .card-top {
+  min-height: 40px;
+  padding: 6px;
+}
+.compact .card-top > span,
+.battle-hand .compact .card-top > span {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.04;
+}
+.compact .card-illustration,
+.battle-hand .compact .card-illustration {
+  height: 38px;
+}
+.compact .card-rules,
+.battle-hand .compact .card-rules {
+  padding: 7px 6px 29px;
+  min-height: 92px;
+}
+.compact .card-rules > strong {
+  font-size: 17px;
+  line-height: 1.05;
+  margin-bottom: 5px;
+}
+.compact .card-rules p,
+.battle-hand .compact .card-rules p {
+  font-size: 10px;
+  line-height: 1.4;
+}
+.card-inspect {
+  width: 44px;
+  height: 44px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 7px;
+  background: none;
+  color: #c3c9b3;
+}
+.card-inspect > svg {
+  width: 13px;
+  height: 13px;
+}
+.assigned-dice {
+  top: 44px;
+  border: 1px solid #ffe4a9;
+  background: #dec188;
+  color: #172c20;
+  min-height: 25px;
+  box-shadow: 0 2px 6px #0008;
+}
+.phone-shell .active-hand,
+.phone-shell .battle-hand {
+  gap: 7px;
+}
+.phone-shell .loadout-legend {
+  border-color: #bd9b5b69;
+  box-shadow:
+    inset 0 0 0 3px #e0be7510,
+    0 4px 16px #0003;
+}
+.phone-shell .loadout-legend small,
+.phone-shell .loadout-legend > span > span {
+  font-size: 10px;
+  color: #b6c3ad;
+}
+.phone-shell .loadout-dice {
+  border: 1px solid #9784564f;
+  border-radius: 8px;
+  background: radial-gradient(ellipse at top, #77997b18, #07161270);
+  padding: 12px 6px;
+  margin: 18px 0 10px;
+}
+.phone-shell .loadout-dice small {
+  font-size: 10px;
+  line-height: 1.4;
+  color: #b6c1a9;
+}
+.phone-shell .segmented {
+  border-color: #a0864e55;
+  box-shadow: inset 0 2px 5px #0006;
+}
+.phone-shell .segmented button {
+  font-size: 12px;
+  min-height: 40px;
+}
+.phone-shell .segmented button.active {
+  background: linear-gradient(#47503a, #2a382a);
+  color: #f3d7a0;
+  box-shadow:
+    inset 0 1px #d6bc6550,
+    0 2px 4px #0006;
+}
+.phone-shell .collection-tabs button,
+.phone-shell .horizontal-tabs button {
+  font-size: 12px;
+}
+.phone-shell .filter-row select {
+  min-height: 44px;
+  font-size: 12px;
+}
+.phone-shell .collection-count {
+  text-align: right;
+  line-height: 1.1;
+  font-size: 25px;
+}
+.phone-shell .collection-count span {
+  display: block;
+  font-family: Inter, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.7px;
+  color: #a6b69e;
+}
+.phone-shell .legend-card {
+  border-color: #a8935a6b;
+  border-radius: 9px;
+  box-shadow:
+    0 4px 0 #071311,
+    0 6px 18px #0005;
+}
+.phone-shell .legend-card:before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid #e9d39530;
+  border-radius: 5px;
+  z-index: 2;
+  pointer-events: none;
+}
+.phone-shell .legend-card.selected {
+  box-shadow:
+    0 0 0 1px #dfbd7b,
+    0 0 18px #d3ad4730;
+}
+.phone-shell .legend-card-copy small {
+  font-size: 8px;
+  letter-spacing: 0.8px;
+}
+.phone-shell .legend-card-copy > span {
+  font-size: 9px;
+  color: #bdcbb7;
+}
+.phone-shell .legend-hp {
+  font-size: 11px;
+  border: 1px solid #b99b6060;
+  background: #10231ce6;
+  padding: 6px;
+}
+.phone-shell .die-catalog-item,
+.phone-shell .cosmetic-tile,
+.phone-shell .shop-item {
+  background:
+    linear-gradient(#25372ccf, #12251cef),
+    url("/art/basalt-tile.webp") center / 300px;
+  border: 1px solid #9e885757;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px #e5d0961a,
+    0 3px 7px #0003;
+}
+.phone-shell .die-catalog-item .die-display {
+  height: 98px;
+  margin: 0;
+  background: radial-gradient(#b2b17918, transparent 70%);
+}
+.phone-shell .die-catalog-item .die-display > .die {
+  width: 78px;
+  height: 86px;
+}
+.phone-shell .die-catalog-item > strong {
+  font-size: 18px;
+}
+.phone-shell .die-catalog-item > span {
+  font-size: 10px;
+  color: #b2beaa;
+}
+.phone-shell .cosmetic-tile small,
+.phone-shell .cosmetic-tile > span,
+.phone-shell .shop-item small {
+  font-size: 10px;
+}
+.phone-shell .season-hero,
+.phone-shell .profile-hero,
+.phone-shell .shop-feature {
+  border: 1px solid #b0985f66;
+  border-radius: 9px;
+  box-shadow:
+    inset 0 0 0 4px #0a1a1533,
+    0 5px 18px #0004;
+  overflow: hidden;
+}
+.phone-shell .season-hero h2,
+.phone-shell .shop-feature h2 {
+  color: #f1e0b7;
+  text-shadow: 0 2px 6px #000;
+}
+.phone-shell .season-countdown,
+.phone-shell .season-progress > div > span {
+  font-size: 10px;
+}
+.phone-shell .path-reward {
+  border-color: #ac99525c;
+  background: linear-gradient(#314330, #1a2c24);
+  box-shadow:
+    inset 0 1px #e0c67c22,
+    0 3px 6px #0003;
+}
+.phone-shell .path-reward small {
+  font-size: 10px;
+  color: #b8c5ac;
+}
+.phone-shell .path-reward strong {
+  font-size: 14px;
+}
+.phone-shell .reward-tile {
+  border: 1px solid #bba06436;
+  background: linear-gradient(#4c50332b, #13231c8c);
+  border-radius: 7px;
+}
+.phone-shell .reward-tile strong {
+  font-size: 24px;
+  color: #ecd09a;
+}
+.phone-shell .reward-tile span {
+  font-size: 10px;
+  color: #b8c3ac;
+}
+.phone-shell .profile-stats {
+  gap: 7px;
+}
+.phone-shell .modal {
+  background:
+    linear-gradient(#21362df5, #0f201af7),
+    url("/art/basalt-tile.webp") center / 440px;
+  border-top: 2px solid #c7a264;
+  box-shadow:
+    0 -12px 50px #0008,
+    inset 0 4px #e0bb7512;
+  padding-left: 21px;
+  padding-right: 21px;
+}
+.phone-shell .modal > header h2 {
+  font-size: 34px;
+  color: #ecdfbe;
+}
+.phone-shell .modal > header .eyebrow {
+  font-size: 9px;
+}
+.phone-shell .modal > p,
+.phone-shell .modal > div > p {
+  font-size: 13px;
+}
+.phone-shell .modal .helper-text {
+  font-size: 11px;
+}
+.phone-shell .sheet-handle {
+  width: 42px;
+  height: 4px;
+  background: #d4bd7e66;
+}
+.phone-shell .mode-card {
+  min-height: 88px;
+  border-color: #a28b585c;
+  background: linear-gradient(100deg, #394634, #182e24);
+  box-shadow:
+    inset 0 1px #d5be8222,
+    0 3px 8px #0003;
+}
+.phone-shell .mode-card.recommended {
+  border-color: #d1af68;
+  background: linear-gradient(110deg, #545335, #20382a);
+}
+.phone-shell .mode-card strong {
+  font-size: 25px;
+}
+.phone-shell .mode-card small {
+  font-size: 11px;
+  color: #b9c7af;
+}
+.phone-shell .menu-grid span,
+.phone-shell .settings-links > button {
+  font-size: 12px;
+}
+.phone-shell .toast {
+  box-shadow:
+    0 6px 30px #0009,
+    inset 0 0 0 3px #78583020;
+  border-bottom: 3px solid #aa8249;
+  font-size: 12px;
+}
+
+/* True polyhedra: front face carries the result; remaining faces carry light. */
+.die.polyhedral {
+  --die-light: #ccb887;
+  --die-dark: #263a2c;
+  --die-edge: #d9c48a;
+  --die-ink: #fff0bc;
+  width: 70px;
+  height: 79px;
+  color: var(--die-ink);
+  isolation: isolate;
+  transition:
+    transform 0.16s,
+    filter 0.16s,
+    opacity 0.16s;
+}
+.die.polyhedral:before {
+  display: none;
+}
+.die-polyhedron {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 4px 2px #020a09a8);
+}
+.die-facet {
+  fill: color-mix(
+    in srgb,
+    var(--die-light) var(--facet-light),
+    var(--die-dark)
+  );
+  stroke: var(--die-edge);
+  stroke-width: 0.85;
+  stroke-linejoin: round;
+}
+.die-facet.face-front {
+  stroke-width: 1.15;
+}
+.die.polyhedral .die-face {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 27px;
+  font-weight: 600;
+  color: var(--die-ink);
+  text-shadow:
+    0 1px 1px #000,
+    0 -1px 1px #172218;
+  pointer-events: none;
+}
+.die.polyhedral .die-face svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
+  filter: drop-shadow(0 1px 1px #162119);
+}
+.die.polyhedral .die-size {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 9px;
+  line-height: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #cfc3a2;
+  text-align: center;
+  pointer-events: none;
+}
+.die.polyhedral.small {
+  width: 45px;
+  height: 52px;
+}
+.die.polyhedral.small .die-face {
+  font-size: 19px;
+}
+.die.polyhedral.small .die-face svg {
+  width: 16px;
+  height: 16px;
+}
+.die.polyhedral.small .die-size {
+  font-size: 8px;
+  line-height: 10px;
+  bottom: -1px;
+}
+.die.polyhedral.skin-obsidian {
+  --die-light: #a998c9;
+  --die-dark: #17182c;
+  --die-edge: #c0a8e9;
+  --die-ink: #f3e5ff;
+}
+.die.polyhedral.skin-jade {
+  --die-light: #8abf96;
+  --die-dark: #123c33;
+  --die-edge: #a6d4ab;
+  --die-ink: #e9ffe0;
+}
+.die.polyhedral.selected {
+  filter: drop-shadow(0 0 6px #f1d18477);
+  transform: translateY(-4px);
+  --die-edge: #ffebad;
+}
+.die.polyhedral.selected .die-facet {
+  stroke-width: 1.9;
+}
+.die.polyhedral.assigned {
+  opacity: 0.65;
+}
+.die.polyhedral .assigned-mark {
+  top: 0;
+  right: -2px;
+  border: 1px solid #ffebb9;
+  box-shadow: 0 2px 5px #000;
+  opacity: 1;
+}
+.die.polyhedral.rolling {
+  animation: poly-roll calc(0.52s * var(--lab-animation, 1))
+    cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Battle: the arena is visible between high-contrast, compact control plates. */
+.phone-shell.in-battle {
+  background:
+    linear-gradient(#06111144, #08171766),
+    url("/art/arena-portrait.webp") center / cover;
+}
+.phone-shell .battle-screen {
+  padding: 0 12px;
+  background: linear-gradient(#0b1c2033, #0a1b194d);
+}
+.phone-shell .battle-header {
+  margin: 0 -4px;
+  min-height: 42px;
+}
+.phone-shell .battle-header > span {
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #c1c7ae;
+}
+.phone-shell .opponent-panel {
+  border: 1px solid #c3a06a78;
+  background: #172b27ed;
+  box-shadow:
+    0 4px 13px #0006,
+    inset 0 0 0 3px #f1d3920b;
+  border-radius: 8px;
+}
+.phone-shell .opponent-copy {
+  top: 10px;
+  right: 12px;
+}
+.phone-shell .opponent-copy > div:first-child {
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+.phone-shell .opponent-copy h2 {
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+.phone-shell .opponent-copy .rank-badge {
+  font-size: 8px;
+}
+.phone-shell .health {
+  position: relative;
+}
+.phone-shell .health-label {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.phone-shell .health-label b {
+  font-weight: 600;
+}
+.phone-shell .health-label > span > span {
+  font-size: 10px;
+  color: #a7b69a;
+}
+.phone-shell .health-track {
+  height: 7px;
+  background: #061511;
+  border: 1px solid #b4c18935;
+  box-shadow: inset 0 1px 3px #000;
+  border-radius: 3px;
+}
+.phone-shell .health-track > i {
+  background: linear-gradient(#a2c793, #698d72);
+  box-shadow:
+    inset 0 1px #e5fac07a,
+    0 0 7px #bdc68266;
+}
+.phone-shell .health-critical .health-track > i {
+  background: linear-gradient(#d69d72, #a65646);
+}
+.phone-shell .health-critical .health-label b {
+  color: #ffb28a;
+}
+.phone-shell .guard-count {
+  background: #193f4d;
+  border: 1px solid #7ea5b070;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-top: -3px;
+  color: #d6eff2;
+}
+.health-change {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffd0aa;
+  text-shadow: 0 2px 3px #000;
+  z-index: 8;
+  pointer-events: none;
+  animation: health-float 1.1s ease-out both;
+}
+.health-change.healed {
+  color: #c2f1a3;
+}
+.phone-shell .health-hit .health-track {
+  animation: health-impact 0.3s;
+}
+.phone-shell .known-hand-label {
+  font-size: 8px;
+  letter-spacing: 0.6px;
+  color: #b3c1a7;
+  padding-top: 10px;
+}
+.phone-shell .card-back {
+  background:
+    linear-gradient(145deg, #334337ed, #152d25eb),
+    url("/art/basalt-tile.webp") center / 220px;
+  border-color: #bda46670;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px #0006;
+}
+.phone-shell .card-back:before {
+  border-color: #c7b17236;
+}
+.phone-shell .card-back.known {
+  background: linear-gradient(130deg, #536047, #283d2e);
+  border-color: #d8c48c;
+}
+.phone-shell .card-back.known > span {
+  font-size: 13px;
+  color: #efe7c9;
+}
+.phone-shell .card-back.known > small {
+  font-size: 9px;
+}
+.phone-shell .opponent-dice {
+  min-height: 58px;
+  height: 58px;
+  gap: 28px;
+  opacity: 1;
+}
+.phone-shell .opponent-dice .die.small {
+  width: 43px;
+  height: 49px;
+}
+.phone-shell .fate-arena {
+  min-height: 100px;
+  height: auto;
+  padding: 10px 7px 8px;
+  margin-bottom: 8px;
+  border: 1px solid #b79f5e62;
+  border-radius: 8px;
+  background: radial-gradient(ellipse at center, #3c624566, #0b201adf);
+  box-shadow:
+    inset 0 0 0 3px #d3bd7410,
+    0 4px 16px #0005;
+}
+.phone-shell .round-dots {
+  top: -3px;
+  gap: 7px;
+}
+.phone-shell .round-dots > i {
+  width: 5px;
+  height: 5px;
+}
+.phone-shell .round-dots > i.active {
+  background: #edd395;
+  box-shadow: 0 0 6px #edca6955;
+}
+.phone-shell .round-count {
+  font-size: 8px;
+  gap: 4px;
+  flex-wrap: wrap;
+  max-width: 73px;
+}
+.phone-shell .round-count b {
+  font-size: 31px;
+  color: #f0d8a3;
+}
+.phone-shell .round-count small {
+  font-size: 9px;
+}
+.phone-shell .round-phase .eyebrow {
+  font-size: 8px;
+  letter-spacing: 0.8px;
+}
+.phone-shell .round-phase h3 {
+  font-size: 24px;
+  color: #eee4c5;
+}
+.phone-shell .decision-timer {
+  min-width: 42px;
+  font-size: 16px;
+  color: #d5d9b3;
+}
+.phone-shell .decision-timer.urgent {
+  color: #ffbc8e;
+  animation: timer-pulse 1s ease-in-out infinite;
+}
+.phone-shell .fate-tokens {
+  margin-top: 7px;
+  gap: 7px;
+  height: 28px;
+}
+.phone-shell .fate-tokens > span {
+  color: #acbca3;
+  font-size: 8px;
+  letter-spacing: 0.7px;
+}
+.phone-shell .fate-tokens b {
+  background: #071a12d4;
+  color: #ebce90;
+  border-color: #c3ab605a;
+  font-size: 12px;
+  padding: 5px 8px;
+  min-width: 39px;
+  text-align: center;
+  box-shadow: inset 0 2px 3px #0006;
+}
+.phone-shell .fate-tokens > button {
+  width: 32px;
+  height: 44px;
+  justify-content: center;
+}
+.phone-shell .player-panel {
+  min-height: 62px;
+  padding: 8px;
+  background: linear-gradient(100deg, #253c2cef, #11291bdd);
+  border: 1px solid #9d9e6270;
+  border-radius: 7px;
+  gap: 10px;
+  box-shadow: 0 3px 9px #0004;
+}
+.phone-shell .player-panel > .legend-art {
+  height: 44px;
+  width: 41px;
+  border-color: #d6bb77;
+}
+.phone-shell .player-panel h3 {
+  font-size: 23px;
+}
+.phone-shell .player-panel > div:nth-child(2) > div:first-child > span {
+  font-size: 9px;
+  color: #b1c4a4;
+}
+.phone-shell .status-label {
+  bottom: -6px;
+  right: 5px;
+  background: #183125;
+  padding: 2px 6px;
+  font-size: 9px;
+  border-radius: 3px;
+}
+.phone-shell .hand-label {
+  font-size: 8px;
+  min-height: 32px;
+  color: #c1c7a5;
+  letter-spacing: 0.3px;
+}
+.phone-shell .hand-label > span:last-child {
+  font-size: 9px;
+  color: #c7d5bb;
+}
+.phone-shell .tutorial-tip {
+  background: #293b24ed;
+  border-color: #c2a55d77;
+  margin: 7px 0;
+}
+.phone-shell .tutorial-tip > span {
+  font-size: 11px;
+  line-height: 1.4;
+}
+.phone-shell .battle-hand {
+  min-height: 178px;
+}
+.phone-shell .universal-actions {
+  min-height: 54px;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.phone-shell .universal-actions > button:not(.icon-button) {
+  background: linear-gradient(#33452dde, #1a3426ed);
+  border-color: #baa66967;
+  min-height: 46px;
+  padding: 6px;
+}
+.phone-shell .universal-actions > button > span {
+  font-size: 10px;
+}
+.phone-shell .universal-actions small {
+  font-size: 8px;
+  color: #b5c3a5;
+}
+.phone-shell .universal-actions .icon-button {
+  min-width: 30px;
+  width: 30px;
+}
+.phone-shell .battle-controls {
+  margin-left: -12px;
+  margin-right: -12px;
+  padding: 4px 12px max(5px, env(safe-area-inset-bottom));
+  background:
+    linear-gradient(#283b2bf7, #0b211bf9),
+    url("/art/basalt-tile.webp") center / 430px;
+  border-top: 1px solid #b59d5b8c;
+  box-shadow:
+    0 -3px 16px #0004,
+    inset 0 2px #e4c77e10;
+}
+.phone-shell .control-bar {
+  min-height: 32px;
+}
+.phone-shell .control-counter > span {
+  font-size: 9px;
+  color: #c4c8a5;
+}
+.phone-shell .control-counter > b {
+  font-size: 13px;
+}
+.phone-shell .control-counter > i {
+  width: 9px;
+  height: 9px;
+}
+.phone-shell .control-bar .text-button {
+  font-size: 10px;
+  min-height: 32px;
+}
+.phone-shell .dice-dock {
+  gap: 4px;
+  min-height: 78px;
+}
+.phone-shell .die-touch .die {
+  width: 59px;
+  height: 68px;
+}
+.phone-shell .control-actions {
+  margin-left: 6px;
+  width: 132px;
+  flex-shrink: 0;
+  gap: 3px;
+}
+.phone-shell .control-actions > button {
+  background: linear-gradient(#445038, #243d2b);
+  border-color: #b5a36380;
+  color: #f3d89d;
+  border-bottom-width: 2px;
+  box-shadow: 0 2px 3px #0004;
+}
+.phone-shell .control-actions > button > span {
+  font-size: 9px;
+  color: #ccd5b2;
+}
+.phone-shell .lock-row > .primary-button {
+  min-height: 48px;
+}
+.phone-shell .lock-row > .icon-button {
+  width: 44px;
+  min-width: 44px;
+  border-color: #c8aa5d5c;
+  background: #213727;
+}
+.phone-shell .battle-footnote {
+  font-size: 9px;
+  color: #aebd9d;
+  margin: 8px 0 3px;
+}
+.phone-shell .resolution-overlay {
+  inset: 0;
+  padding: 9px;
+  background: linear-gradient(#304731fa, #152e22fc);
+  border-color: #d6b969b3;
+  box-shadow: 0 0 24px #9cbd5b22;
+}
+.phone-shell .resolution-overlay strong {
+  font-size: 21px;
+}
+.phone-shell .resolution-overlay p {
+  font-size: 11px;
+  line-height: 1.4;
+}
+.phone-shell .phase-resolution .player-panel {
+  animation: none;
+}
+.phone-shell .phase-reveal .known {
+  animation: card-turn 0.4s ease-out;
+}
+.phone-shell .drag-ghost {
+  width: 74px;
+  height: 84px;
+  background: none;
+  clip-path: none;
+  filter: drop-shadow(0 7px 10px #0009);
+}
+.phone-shell .drag-ghost .die {
+  width: 74px;
+  height: 84px;
+}
+.phone-shell .match-intro {
+  background: #0d211e;
+}
+.phone-shell .intro-art {
+  height: 44%;
+}
+.phone-shell .intro-art h2 {
+  font-size: 48px;
+  color: #f3e1b7;
+  text-shadow: 0 3px 8px #000;
+}
+.phone-shell .intro-art > div:last-child {
+  bottom: 15px;
+}
+.phone-shell .intro-art .eyebrow {
+  font-size: 10px;
+}
+.phone-shell .versus {
+  height: 10%;
+  background: linear-gradient(90deg, #142b25, #4d4c2b, #142b25);
+  border-block: 1px solid #c6a3658c;
+  box-shadow:
+    0 0 0 4px #091813,
+    0 0 30px #a6874340;
+}
+.phone-shell .versus strong {
+  font-size: 36px;
+  font-weight: 600;
+}
+.phone-shell .match-intro > p {
+  font-size: 11px;
+  min-height: 36px;
+  background: #0e201cec;
+  color: #cfcca8;
+  bottom: 0;
+}
+.phone-shell .match-result {
+  background:
+    radial-gradient(ellipse at 50% 24%, #6f783633, transparent 58%),
+    linear-gradient(transparent, #092319e6);
+  padding: 0 20px 25px;
+}
+.phone-shell .result-art {
+  opacity: 0.6;
+  max-height: 75%;
+}
+.phone-shell .result-top {
+  padding-top: 40px;
+}
+.phone-shell .result-top > .eyebrow {
+  font-size: 10px;
+}
+.phone-shell .result-emblem {
+  border: 2px solid #e4c57a;
+  background: radial-gradient(#647342b0, #102b1cb8);
+  box-shadow:
+    inset 0 0 0 5px #a7924c30,
+    0 0 0 8px #091b1770,
+    0 0 0 9px #bfaa6680,
+    0 0 50px #d2b65438;
+  margin: 34px auto 28px;
+}
+.phone-shell .result-top h1 {
+  font-size: 78px;
+  color: #f0dba4;
+  text-shadow:
+    0 3px 0 #152116,
+    0 0 30px #d8b45230;
+}
+.phone-shell .result-kicker {
+  font-size: 9px;
+}
+.phone-shell .result-top > p {
+  font-size: 13px;
+  color: #c5d1b7;
+}
+.phone-shell .result-score {
+  border: 1px solid #c2a96a66;
+  border-radius: 8px;
+  background: linear-gradient(#233d2bde, #142b22e8);
+  padding: 17px 10px;
+  gap: 8px;
+}
+.phone-shell .result-score > span {
+  font-size: 21px;
+}
+.phone-shell .result-score > span:nth-child(2) {
+  font-size: 9px;
+  color: #b7c4a8;
+  line-height: 1.5;
+}
+.phone-shell .result-score b {
+  font-size: 14px;
+}
+.phone-shell .result-rewards {
+  gap: 6px;
+  margin: 10px 0;
+}
+.phone-shell .result-rewards .reward-tile {
+  padding: 14px 2px;
+}
+.phone-shell .result-rewards .reward-tile > span {
+  font-size: 9px;
+}
+.phone-shell .result-quest {
+  font-size: 10px;
+  margin: 16px 0 22px;
+}
+.phone-shell .result-actions > .text-button {
+  font-size: 11px;
+}
+.phone-shell .result-defeat .result-emblem {
+  border-color: #8aa997;
+  color: #c5d7c6;
+  box-shadow:
+    inset 0 0 0 5px #738f6e26,
+    0 0 0 8px #091b1770,
+    0 0 0 9px #8ba8875c;
+}
+
+@keyframes poly-roll {
+  0% {
+    transform: translateY(-9px) rotate(-26deg) scale(0.8);
+  }
+  45% {
+    transform: translateY(-4px) rotate(17deg) scale(1.07);
+  }
+  75% {
+    transform: rotate(-8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes health-float {
+  0% {
+    transform: translateY(8px) scale(0.8);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+    transform: translateY(0) scale(1.1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-23px);
+  }
+}
+@keyframes health-impact {
+  35% {
+    box-shadow: 0 0 15px #fca17f;
+  }
+}
+@keyframes timer-pulse {
+  50% {
+    opacity: 0.65;
+  }
+}
+@keyframes card-turn {
+  from {
+    transform: perspective(300px) rotateY(80deg);
+  }
+  to {
+    transform: perspective(300px) rotateY(0);
+  }
+}
+@media (max-width: 374px) {
+  .phone-shell .wordmark h1 {
+    font-size: 26px;
+  }
+  .phone-shell .home-hero {
+    margin-inline: 11px;
+    height: 330px;
+  }
+  .phone-shell .rank-line > span:last-child {
+    font-size: 9px;
+  }
+  .phone-shell .page {
+    padding-inline: 14px;
+  }
+  .phone-shell .compact .card-top > span {
+    font-size: 14px;
+  }
+  .phone-shell .compact .card-rules p {
+    font-size: 10px;
+  }
+  .phone-shell .battle-screen {
+    padding-inline: 10px;
+  }
+  .phone-shell .battle-controls {
+    margin-inline: -10px;
+    padding-inline: 10px;
+  }
+  .phone-shell .die-touch .die {
+    width: 51px;
+    height: 61px;
+  }
+  .phone-shell .die-touch .die-face {
+    font-size: 24px;
+  }
+  .phone-shell .control-actions {
+    width: 132px;
+    margin-left: 3px;
+  }
+  .phone-shell .fate-tokens {
+    gap: 5px;
+  }
+  .phone-shell .round-phase h3 {
+    font-size: 21px;
+  }
+  .phone-shell .hand-label {
+    font-size: 7px;
+  }
+  .phone-shell .hand-label > span:last-child {
+    font-size: 8px;
+  }
+  .phone-shell .universal-actions > button > span {
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone-shell *,
+  .die.polyhedral {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.app-surround.reduced-motion *,
+.app-surround.battery-saver * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Keep the action dock on screen; exceptionally short boards scroll above it. */
+.phone-shell .battle-screen {
+  overflow: hidden;
+}
+.battle-board {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #a8935866 transparent;
+  padding-bottom: 5px;
+}
+.phone-shell .battle-screen .opponent-panel {
+  height: 80px;
+  min-height: 80px;
+}
+.phone-shell .opponent-copy {
+  top: 8px;
+}
+.phone-shell .opponent-copy h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+.phone-shell .opponent-panel .portrait-paint {
+  top: -31px;
+}
+.phone-shell .known-hand-label {
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+.phone-shell .battle-screen .known-hand {
+  min-height: 44px;
+}
+.phone-shell .battle-screen .card-back {
+  height: 44px;
+}
+.phone-shell .opponent-dice {
+  min-height: 51px;
+  height: 51px;
+}
+.phone-shell .opponent-dice .die.small {
+  width: 39px;
+  height: 45px;
+}
+.phone-shell .battle-screen .fate-arena {
+  min-height: 90px;
+  padding: 7px 7px 6px;
+  margin-bottom: 6px;
+}
+.phone-shell .round-phase {
+  min-height: 38px;
+}
+.phone-shell .round-phase h3 {
+  font-size: 22px;
+}
+.phone-shell .fate-tokens {
+  margin-top: 5px;
+}
+.phone-shell .player-panel {
+  min-height: 54px;
+  padding: 5px 7px;
+}
+.phone-shell .player-panel > .legend-art {
+  height: 42px;
+}
+.phone-shell .tutorial-tip {
+  min-height: 34px;
+  padding: 6px;
+  margin: 5px 0;
+}
+.phone-shell .tutorial-tip > span {
+  font-size: 10px;
+}
+.phone-shell .battle-hand {
+  min-height: 163px;
+}
+.phone-shell .battle-hand .compact .card-top {
+  min-height: 36px;
+  padding: 5px;
+}
+.phone-shell .battle-hand .compact .card-illustration {
+  height: 30px;
+}
+.phone-shell .battle-hand .compact .card-rules {
+  padding: 6px 5px 22px;
+  min-height: 90px;
+}
+.phone-shell .battle-hand .compact .card-rules p {
+  line-height: 1.3;
+}
+.phone-shell .battle-hand .compact .card-rules > strong {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.phone-shell .battle-hand .assigned-dice {
+  top: 37px;
+}
+.phone-shell .universal-actions {
+  min-height: 48px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+.phone-shell .battle-controls {
+  margin-top: 0;
+}
+.phone-shell .dice-dock {
+  min-height: 72px;
+}
+.phone-shell .battle-footnote {
+  font-size: 8px;
+  margin: 5px 0 1px;
+  min-height: 12px;
+}
+@media (max-height: 800px) {
+  .phone-shell .battle-screen .opponent-panel {
+    height: 74px;
+    min-height: 74px;
+  }
+  .phone-shell .opponent-copy h2 {
+    font-size: 25px;
+  }
+  .phone-shell .battle-hand .card-rules p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .phone-shell .battle-hand .compact .card-rules {
+    min-height: 84px;
+  }
+  .phone-shell .battle-hand .compact .card-illustration {
+    height: 25px;
+  }
+  .phone-shell .battle-screen .fate-arena {
+    min-height: 84px;
+    padding-top: 5px;
+  }
+  .phone-shell .round-phase h3 {
+    font-size: 21px;
+  }
+  .phone-shell .hand-label {
+    min-height: 27px;
+  }
+}
+@media (max-height: 800px) {
+  .phone-shell .battle-board {
+    position: relative;
+  }
+  .phone-shell .opponent-dice {
+    position: absolute;
+    top: 84px;
+    left: 8px;
+    width: 112px;
+    height: 32px;
+    min-height: 32px;
+    gap: 6px;
+    padding: 0 4px;
+    border-radius: 4px;
+    background: #081c15b8;
+  }
+  .phone-shell .opponent-dice .die.small {
+    width: 29px;
+    height: 32px;
+  }
+  .phone-shell .opponent-dice .die-face {
+    font-size: 15px;
+  }
+  .phone-shell .opponent-dice .die-face svg {
+    width: 12px;
+    height: 12px;
+  }
+  .phone-shell .opponent-dice .die-size {
+    display: none;
+  }
+  .phone-shell .battle-hand {
+    min-height: 145px;
+  }
+  .phone-shell .battle-hand .compact .card-rules {
+    min-height: 78px;
+    padding-bottom: 20px;
+  }
+  .phone-shell .battle-hand .compact .card-rules p {
+    font-size: 10px;
+  }
+}
+/* Preserve room for a two-line training hint on standard portrait phones. */
+.phone-shell .round-phase h3 {
+  line-height: 1.1;
+}
+.phone-shell .battle-screen .fate-arena {
+  min-height: 87px;
+}
+.phone-shell .tutorial-tip > span {
+  line-height: 1.3;
+}
+@media (min-height: 801px) {
+  .phone-shell .opponent-dice {
+    height: 46px;
+    min-height: 46px;
+  }
+}
+.phone-shell .obsidian-orbit .die {
+  width: 118px;
+  height: 129px;
+}
+.phone-shell .obsidian-orbit .die-face {
+  font-size: 40px;
+}
+.phone-shell .shop-item-art {
+  height: 75px;
+  display: flex;
+  align-items: center;
+}
+.phone-shell .shop-item-art .die {
+  width: 63px;
+  height: 70px;
+}

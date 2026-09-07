@@ -2,10 +2,12 @@ import { ENABLE_DEV_TOOLS } from "../dev/gate";
 import { useState } from "react";
 import { useGame } from "./context";
 import { LEGENDS, legendById } from "../content/legends";
+import { dieById } from "../content/dice";
 import { COSMETICS, QUESTS } from "../content/economy";
 import { GAME } from "../content/config";
 import { level, masteryLevel, rankLabel, periodKey } from "../services/profile";
 import {
+  Die,
   EmptyState,
   Icon,
   IconButton,
@@ -261,7 +263,7 @@ export function ShopPage() {
             onClick={() => inspect({ type: "cosmetic", item: COSMETICS[1] })}
           >
             <div className="obsidian-orbit">
-              <Icon name="dice" size={84} />
+              <Die definition={dieById["standard-d12"]} skin="obsidian" />
             </div>
             <span className="eyebrow">FEATURED · COSMETIC ONLY</span>
             <h2>Obsidian Fate</h2>
@@ -283,9 +285,13 @@ export function ShopPage() {
                 key={c.id}
                 onClick={() => inspect({ type: "cosmetic", item: c })}
               >
-                <span style={{ color: c.color }}>
-                  <Icon name={c.icon} size={32} />
-                </span>
+                <div className="shop-item-art" style={{ color: c.color }}>
+                  {c.kind === "Dice skin" ? (
+                    <Die definition={dieById["standard-d12"]} skin={c.id} />
+                  ) : (
+                    <Icon name={c.icon} size={32} />
+                  )}
+                </div>
                 <strong>{c.name}</strong>
                 <small>{c.kind}</small>
                 <b>

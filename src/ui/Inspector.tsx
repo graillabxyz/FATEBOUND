@@ -6,6 +6,7 @@ import { dieById, dieBudget } from "../content/dice";
 import { legendById } from "../content/legends";
 import {
   Die,
+  CARD_ICONS,
   Icon,
   LegendArt,
   Modal,
@@ -13,6 +14,7 @@ import {
   SecondaryButton,
   SectionLabel,
 } from "./components";
+import { DIE_SHAPES } from "./dice-geometry";
 import { audioCue } from "../services/audio";
 export default function Inspector({
   target,
@@ -88,18 +90,7 @@ export default function Inspector({
       >
         <LegendArt id={c.legend} className="inspect-card-art">
           <span className="inspect-card-symbol">
-            <Icon
-              name={
-                c.category === "Guard"
-                  ? "guard"
-                  : c.category === "Recovery"
-                    ? "heart"
-                    : c.category === "Manipulation"
-                      ? "swap"
-                      : "attack"
-              }
-              size={62}
-            />
+            <Icon name={CARD_ICONS[c.category]} size={62} />
           </span>
         </LegendArt>
         <div className="requirement-large">
@@ -143,9 +134,12 @@ export default function Inspector({
     return (
       <Modal
         title={d.name}
-        eyebrow={`D${d.size} · ${d.rarity} · MECHANICAL DIE`}
+        eyebrow={`D${d.size} · ${d.rarity}`}
         onClose={onClose}
       >
+        <p className="die-shape-label">
+          {DIE_SHAPES[d.size]} · {d.size} faces
+        </p>
         <div className="die-inspect-display">
           <Die
             definition={d}

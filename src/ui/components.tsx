@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { DIE_PROJECTIONS, DIE_SHAPES } from "./dice-geometry";
 import type { CSSProperties, ReactNode } from "react";
 import {
   Home,
@@ -288,8 +289,30 @@ export function HealthBar({
   max: number;
   guard?: number;
 }) {
+  const previous = useRef(hp);
+  const [change, setChange] = useState(0);
+  useEffect(() => {
+    const delta = hp - previous.current;
+    previous.current = hp;
+    setChange(delta);
+    const timer = window.setTimeout(() => setChange(0), 1100);
+    return () => window.clearTimeout(timer);
+  }, [hp]);
+  const bounded = Math.max(0, Math.min(hp, max));
   return (
-    <div className="health">
+    <div
+      className={`health ${hp <= max * 0.25 ? "health-critical" : ""} ${change < 0 ? "health-hit" : ""}`}
+    >
+      {change !== 0 && (
+        <span
+          key={hp}
+          className={`health-change ${change > 0 ? "healed" : ""}`}
+          aria-hidden="true"
+        >
+          {change > 0 ? "+" : ""}
+          {change}
+        </span>
+      )}
       <div className="health-label">
         <span>
           <Icon name="heart" size={12} />
@@ -307,11 +330,12 @@ export function HealthBar({
         className="health-track"
         role="progressbar"
         aria-label="Health"
-        aria-valuenow={hp}
+        aria-valuenow={bounded}
+        aria-valuetext={`${hp} of ${max} HP`}
         aria-valuemin={0}
         aria-valuemax={max}
       >
-        <i style={{ width: `${(hp / max) * 100}%` }} />
+        <i style={{ width: `${max > 0 ? (bounded / max) * 100 : 0}%` }} />
       </div>
     </div>
   );
@@ -352,23 +376,34 @@ export function Die({
   children?: ReactNode;
 }) {
   const Root = onClick ? "button" : "div";
+  const geometry = DIE_PROJECTIONS[definition.size];
   return (
     <Root
-      className={`die ${small ? "small" : ""} ${selected ? "selected" : ""} ${assigned ? "assigned" : ""} ${rolling ? "rolling" : ""} skin-${skin}`}
+      className={`die polyhedral die-d${definition.size} ${small ? "small" : ""} ${selected ? "selected" : ""} ${assigned ? "assigned" : ""} ${rolling ? "rolling" : ""} skin-${skin}`}
       onClick={onClick}
       aria-label={
         label ??
-        `${definition.name}, d${definition.size}${face ? `, ${face.type === "symbol" ? face.effectId : face.type === "blank" ? "blank" : face.value}` : ""}`
+        `${definition.name}, d${definition.size} ${DIE_SHAPES[definition.size]}${face ? `, ${face.type === "symbol" ? face.effectId : face.type === "blank" ? "blank" : face.value}` : ""}`
       }
-      aria-pressed={selected}
+      aria-pressed={onClick ? selected : undefined}
       role={onClick ? undefined : "img"}
     >
-      <svg viewBox="0 0 80 80" className="die-outline" aria-hidden="true">
-        <path d="M40 3 74 23 74 57 40 77 6 57 6 23Z" />
-        <path d="m40 3 19 37-19 37L21 40ZM6 23l15 17L6 57m68-34L59 40l15 17M21 40h38" />
+      <svg viewBox="0 0 100 104" className="die-polyhedron" aria-hidden="true">
+        {geometry.faces.map((facet, i) => (
+          <polygon
+            key={i}
+            points={facet.points}
+            className={facet.front ? "die-facet face-front" : "die-facet"}
+            style={{ "--facet-light": `${facet.light}%` } as CSSProperties}
+          />
+        ))}
       </svg>
       <span
         className={`die-face ${face?.type === "symbol" ? "symbol-face" : ""}`}
+        style={{
+          left: `${geometry.label[0]}%`,
+          top: `${geometry.label[1] / 1.04}%`,
+        }}
       >
         {face ? (
           face.type === "symbol" ? (
@@ -390,7 +425,7 @@ export function Die({
             face.displayIcon
           )
         ) : (
-          <Icon name="dice" size={small ? 19 : 25} />
+          definition.size
         )}
       </span>
       <span className="die-size">D{definition.size}</span>
@@ -403,6 +438,16 @@ export function Die({
     </Root>
   );
 }
+export const CARD_ICONS: Record<CardDef["category"], string> = {
+  Attack: "attack",
+  Guard: "guard",
+  Counter: "wind",
+  Recovery: "heart",
+  Manipulation: "swap",
+  Setup: "sun",
+  Finisher: "flame",
+  Prediction: "eye",
+};
 export function GameplayCard({
   card,
   onClick,
@@ -420,20 +465,12 @@ export function GameplayCard({
   disabled?: boolean;
   onInspect?: () => void;
 }) {
-  const icon = {
-    Attack: "attack",
-    Guard: "guard",
-    Counter: "wind",
-    Recovery: "heart",
-    Manipulation: "swap",
-    Setup: "sun",
-    Finisher: "flame",
-    Prediction: "eye",
-  }[card.category];
+  const icon = CARD_ICONS[card.category];
   return (
     <div
       className={`gameplay-card ${compact ? "compact" : ""} ${selected ? "selected" : ""} ${disabled ? "unavailable" : ""}`}
       data-card-target={card.id}
+      data-category={card.category}
     >
       <button
         className="card-select"

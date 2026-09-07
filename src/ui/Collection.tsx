@@ -14,7 +14,14 @@ export default function Collection() {
     <div className="page collection-page">
       <PageHeading eyebrow="STORIES WORTH COLLECTING" title="The collection">
         <span className="collection-count">
-          06 <span>/ 06</span>
+          {category === "Legends"
+            ? LEGENDS.length
+            : category === "Cards"
+              ? CARDS.length
+              : category === "Dice"
+                ? DICE.length
+                : COSMETICS.length}
+          <span> {category.toUpperCase()}</span>
         </span>
       </PageHeading>
       <div className="collection-tabs">
@@ -112,8 +119,7 @@ export default function Collection() {
                 onClick={() => inspect({ type: "die", item: d })}
               >
                 <div className="die-display">
-                  <Icon name="dice" size={35} />
-                  <b>D{d.size}</b>
+                  <Die definition={d} skin={profile.skin} />
                 </div>
                 <strong>{d.name}</strong>
                 <span>
