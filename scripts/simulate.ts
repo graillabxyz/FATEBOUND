@@ -1,3 +1,4 @@
+import { openingMetrics } from "../src/metrics/opening";
 import { GAME } from "../src/content/config";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { LEGENDS } from "../src/content/legends";
@@ -41,6 +42,7 @@ const report = {
   method:
     "Normal AI; paired swapped seats AND RNG streams; all Legend matchups including mirrors. Wilson 95% opening-initiative interval; balance estimate, not a human-play claim.",
   ...stats,
+  opening: openingMetrics(records),
   dieBudgets: DICE.map(dieBudget),
 };
 mkdirSync("reports", { recursive: true });
@@ -52,6 +54,7 @@ console.log(
   JSON.stringify(
     {
       games: stats.games,
+      opening: report.opening,
       averageRounds: stats.averageRounds,
       initiativeWins: stats.initiativeWins,
       openingRate: stats.openingRate,

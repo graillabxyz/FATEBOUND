@@ -1,4 +1,4 @@
-# OMNIPATH authoritative combat · mechanical version 3
+# OMNIPATH authoritative combat · mechanical version 4
 
 ## Runtime and boundaries
 
@@ -16,9 +16,13 @@ Cards have ACTION, REACTION or PASSIVE timing. Current activatable content uses 
 
 MATCH_INTRO → INITIATIVE_ROLL → ROUND_START → TURN_START → DICE_ROLL → MAIN_ACTION.
 
-Each Legend rolls d20 + its data-defined initiativeBonus once. Tied totals compare raw d20, then stable RNG stream index; no reroll. The winner leads Round 1. Initiative alternates thereafter. Each round contains exactly two turns. TURN_END → SECOND_TURN → TURN_START for the other player, then TURN_END → ROUND_END → next ROUND_START.
+Each Legend rolls d20 + its data-defined initiativeBonus once. Tied totals compare raw d20, then stable RNG stream index; no reroll. The winner leads every round. Normal turn order remains A → B → A → B; Initiative does not switch or reroll. Each round contains exactly two turns. TURN_END → SECOND_TURN → TURN_START for the other player, then TURN_END → ROUND_END → next ROUND_START.
 
-In Round 1 the opening Initiative winner chooses one equipped Omen; the other player chooses two. OMEN_CHOICE is an authoritative decision with a 12-second timeout. Explicit selected slot indices are validated and recorded in replays. Timeout and AI use deterministic slot-order defaults. In Round 2 and thereafter both players roll all three. GAME.openingOmenCounts is configurable; an explicit custom ramp disables the default opening choice for internal scenarios. Omens expire specifically at their owner's next TURN_START, then new Omens roll and start-of-turn statuses apply. Unused available Omens become HELD at TURN_END. ROUND_END never clears Omens. Because initiative alternates, the previous second player immediately becomes next round's first player; their held Omens expire before that consecutive turn. No extra carryover exception is invented.
+Each PlayerState tracks playerTurnCount, incremented at owner TURN_START. On owner Turn 1 the opening Initiative winner chooses one equipped Omen, and the other player chooses two. All three roll automatically from owner Turn 2 onward. The round number never determines this allowance. GAME.openingOmenCounts configures the two opening allowances; the old round-ramp configuration is removed.
+
+OMEN_CHOICE is an authoritative decision with a 12-second timeout. Human choices begin unselected. Selected slot indices are validated and recorded in the command replay; phase advance cannot auto-select. AI and timeout fallback compare every eligible slot combination against the own Hand/Legend abilities over the Omens’ fixed face distributions. These are deterministic expected-utility estimates, not optimal-play claims. No seed or hidden opposing Hand enters selection. A timeout selects the roll only and never spends a resource or reveals a Card.
+
+Omens expire specifically at their owner's next TURN_START, then new Omens roll and start-of-turn statuses apply. Unused available Omens become HELD at TURN_END. ROUND_END never clears Omens. The second player’s first-turn resources remain available during the opening winner’s first full three-Omen turn. No mid-match loadout swap is introduced.
 
 Prototype Ward lasts until owner turn start, when old Ward clears with old resources. Both players reset Focus to 2 at ROUND_START; it does not bank. Start poison applies after the new roll and before MAIN_ACTION. Status lifetimes end at the configured round cleanup. Stored power becomes usable in its due round and is consumed by the next damage effect.
 
@@ -52,15 +56,17 @@ Battle renders the authoritative turn/phase, initiative contest/marker, ACTION/R
 
 ## Replay, reconnect and lab snapshots
 
-Mechanical version 3 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Version 1 simultaneous and version 2 round-ramp replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
+Mechanical version 4 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Versions 1–3 replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
 
-Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local profile, Loadout and snapshot container keys remain compatible; embedded mechanical versions are validated. Version 3 telemetry uses a separate outbox.
+Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local profile, Loadout and snapshot container keys remain compatible; embedded mechanical versions are validated. Version 4 telemetry uses a separate outbox.
 
 ## AI, simulations and metrics
 
 AI receives its own state and a production public opponent projection. It enumerates legal single actions/reactions and affordable Focus choices, retaining pass as an option. Its deterministic heuristic exposes damage, defense, healing, lethal risk, prediction, resource preservation, Focus cost and reveal cost. These scores are estimates for tuning, not an optimal-play guarantee.
 
-Simulation uses the same phase loop and actions in a background worker (up to 10,000 matches per run). Paired seeds verify seat equivariance independently of opening-initiative advantage. The dashboard records opening/second-initiative wins, class and Legend outcomes, damage by round, held Omens per turn, reaction frequency/success, unused expiration, card uses, Omen size/loadout correlations and individual Omen outcomes. Repeated uses within a round count separately. Wilson 95% starting-win intervals count a reversed pair once, and flag deviations from 50% after 30 independent decisive seeds. Mixed matchup/AI cohorts are not causal proofs of class or initiative power.
+Simulation uses the same phase loop and actions in a background worker (up to 10,000 matches per run). Paired seeds verify seat equivariance independently of opening-initiative advantage. Turn history records each actor’s owner-turn count, selected slots, effective damage, opening reaction counts and held resources. Life differential is sampled after both players have rolled their first full three-Omen turn, before the second player acts on that turn; early-ended matches are excluded from this sample. Opening metrics group choices by opening role, Legend and collectible IDs and distinguish each player’s own first/second turn.
+
+The dashboard records opening/second-initiative wins, class and Legend outcomes, damage by round, held Omens per turn, reaction frequency/success, unused expiration, card uses, Omen size/loadout correlations and individual Omen outcomes. Repeated uses within a round count separately. Wilson 95% starting-win intervals count a reversed pair once, and flag deviations from 50% after 30 independent decisive seeds. Mixed matchup/AI cohorts are not causal proofs of class or initiative power.
 
 Hosted D1/local SQLite ingestion stores versioned summaries, filters active rules cohorts and separates actual internal human-vs-AI play, simulation and forced lab outcomes. The Vercel API records server-authoritative multiplayer results separately from client-reported local use. Detailed collection and private deployment boundaries are in DEV_LAB.md.
 

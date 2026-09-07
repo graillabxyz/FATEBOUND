@@ -191,6 +191,8 @@ describe("authoritative opening Omen choices", () => {
     timeoutPlan(s, 0);
     expect(s.players[0].known).toEqual([]);
     expect(s.players[0].control).toBe(2);
-    expect(s.players[0].dice[0].state).toBe("ROLLING");
+    expect(s.players[0].dice.filter((d) => d.state === "ROLLING")).toHaveLength(
+      1,
+    );
   });
 });

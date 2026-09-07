@@ -10,6 +10,7 @@ import { randomSource } from "../engine/fate";
 export type Seat = 0 | 1;
 export type ViewMode = "A" | "B" | "Spectator" | "Omniscient";
 export type PlayerSetup = {
+  turnsTaken: number | null;
   loadout: Loadout;
   hp: number;
   guard: number;
@@ -25,6 +26,7 @@ export type PlayerSetup = {
   heldFaces: (number | null)[];
 };
 export type LabSetup = {
+  pauseOpening: boolean;
   players: [PlayerSetup, PlayerSetup];
   seed: number;
   round: number;
@@ -80,6 +82,7 @@ export type LabSnapshot = {
 export function defaultPlayer(id: Loadout["legend"], ai: boolean): PlayerSetup {
   return {
     loadout: clone(STARTERS[id]),
+    turnsTaken: null,
     hp: legendById[id].hp,
     guard: 0,
     control: GAME.controlPerRound,
@@ -96,6 +99,7 @@ export function defaultPlayer(id: Loadout["legend"], ai: boolean): PlayerSetup {
 }
 export function defaultSetup(): LabSetup {
   return {
+    pauseOpening: false,
     players: [defaultPlayer("basajaun", false), defaultPlayer("anansi", true)],
     seed: 31337,
     round: 1,
@@ -175,6 +179,8 @@ export function restrictionErrors(l: Loadout) {
   return [...new Set(errors)];
 }
 export function validateSetup(s: LabSetup) {
+  if (typeof s.pauseOpening !== "boolean")
+    throw new Error("Opening choice pause must be enabled or disabled.");
   int(s.seed, 0, 0xffffffff, "Seed");
   int(s.round, 1, 99, "Starting round");
   int(s.maxRounds, s.round, 99, "Maximum round");
@@ -208,6 +214,8 @@ export function validateSetup(s: LabSetup) {
       if (f !== null)
         int(f, 0, omenById[p.loadout.dice[i]].size - 1, "Held face");
     });
+    if (p.turnsTaken !== null)
+      int(p.turnsTaken, 0, 197, "Completed player turns");
     int(p.hp, 0, 1000, "Life");
     int(p.guard, 0, 1000, "Ward");
     int(p.control, 0, 6, "Focus");

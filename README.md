@@ -4,7 +4,7 @@ Live game: https://omnipath-chi.vercel.app · Developer metrics: https://omnipat
 
 GitHub `main` automatically deploys the public game and server API to Vercel. Supabase provides accounts, asset storage and multiplayer authority. See [deployment and backend setup](docs/DEPLOYMENT.md).
 
-A playable, portrait-first mobile strategy game foundation. Six folklore Legends. Four hidden, reusable cards. Three fixed collectible Omens. Alternating initiative and meaningful reactions.
+A playable, portrait-first mobile strategy game foundation. Six folklore Legends. Four hidden, reusable cards. Three fixed collectible Omens. Fixed turn order and meaningful reactions.
 
 ## Run the game
 
@@ -20,7 +20,7 @@ Node.js 24 recommended (required for the local metrics SQLite adapter). Dependen
 ## Play
 
 1. Choose one Legend, four compatible reusable cards and three fixed collectible Omens in **Loadout**. Save before starting; the match locks all eight pieces.
-2. Opening initiative is d20 + Legend bonus. It alternates each round. The opening player chooses 1 Omen; the second chooses 2. Both roll all 3 on their subsequent Turns.
+2. Opening initiative is d20 + Legend bonus. The winner leads every round; turns remain A → B. The opening player chooses 1 Omen; the second chooses 2. Both roll all 3 on their subsequent Turns.
 3. On your turn, select Omens, choose an ACTION or universal Ward, and Activate. Shift a numeric result ±1 for 1 Focus or Flip to the authored opposite for 2. Focus resets each round.
 4. End your turn to hold unused Omens. When the opponent declares an action, spend eligible resources on one REACTION or Pass. Reaction windows last five seconds; timeout never spends resources for you.
 5. Omens and Ward expire at their owner's next turn start. Cards remain reusable and permanently known after their first use. Win by reducing the enemy to zero Life, or lead on Life/effective damage at the seven-round cap.
@@ -49,7 +49,7 @@ npm run native:android   # open Android Studio
 
 - Mobile home, persistent navigation, profile, six-Legend collection, 77 cards, and 21 mechanical Omens (including d4, d6, d8, d10, d12 and d20).
 - At least twelve compatible cards and three broad build approaches per Legend. All prototype gameplay content is unlocked.
-- Authoritative individual turns, opening initiative, configurable opening Omen choices, held resources, one-window reactions, paid-cost revalidation, deterministic effect stepping, reusable reveal memory and round-cap victory.
+- Authoritative individual turns, opening initiative, owner-turn opening Omen choices, held resources, one-window reactions, paid-cost revalidation, deterministic effect stepping, reusable reveal memory and round-cap victory.
 - Training and Normal tactical AI. Opponent decisions use only the public projection, including revealed cards and archetype priors.
 - Local reconnect checkpoints, command sequence/round/revision validation, duplicate-command idempotency, completed replay export and reconstruction.
 - Local profile XP, Coins/Gems, mastery, rank simulation, a 50-level free/premium Season Path, daily/weekly/season quests and one daily quest replacement.
@@ -67,7 +67,7 @@ npm run format:check
 npm run simulate -- --games=1000
 ```
 
-`reports/balance-v3.json` records the latest paired-seat simulation of the opening Omen rules. The 1,000-game run has zero mismatches across 500 seat/stream reversals, 498 wins per seat, four draws and 3.112 mean rounds. Opening Initiative won 37.95% of decisive matches (95% interval 33.80–42.29%); the dashboard flags this significant second-Initiative advantage in the current AI/default-Loadout cohort. No unrelated balance values were changed. Older reports remain historical cohorts and are excluded from current metrics.
+`reports/balance-v4.json` records 1,000 games with 500 reversed-seat/RNG-stream pairs and zero mismatches. Each seat won 498 times, with four draws and 3.226 mean rounds. The opening Initiative winner won 62.45% of decisive matches (95% Wilson interval 58.12–66.59%, 498 independent decisive seeds). This is a significant first-player advantage in the Normal AI/starter-Loadout cohort, not proof of human balance. The AI held no resources after the winner’s opening turn and only 0.024 Omens on average after the second player’s opening turn; there were no Reactions in global Turns 1–2. Both players reached their first full roll in all 1,000 matches; mean Life difference there was +4.864 for the opener. Opening choices, own first/second-turn damage, resources, reactions and combination outcomes are included in the report. Older rules reports remain historical and are excluded from current metrics.
 
 Automated tests cover all 36 Legend matchups, deterministic replay, hidden projections, snapshots, costs, timers, Omen choices, vocabulary, API and geometry. Native compilation/device QA is separate.
 
@@ -77,6 +77,6 @@ Automated tests cover all 36 Legend matchups, deterministic replay, hidden proje
 
 **The 3–5 minute goal needs human timing data.** Simulations measure rounds and resource decisions without inventing a real-time duration. Main and reaction windows now both contribute to match length; actual internal matches record elapsed duration.
 
-**The content is a prototype balance set.** The current paired simulation detects a starting-initiative disadvantage and differences between starter loadouts. The dashboard exposes those findings for tuning. Card illustrations reuse the Legend atlas; distinct production card art and final audio remain future content work.
+**The content is a prototype balance set.** The current paired simulation detects a starting-initiative advantage and differences between starter loadouts. The dashboard exposes those findings for tuning. Card illustrations reuse the Legend atlas; distinct production card art and final audio remain future content work.
 
 See `docs/ARCHITECTURE.md` for the rules and authority model, `docs/ART.md` for artwork provenance/prompt, and `docs/BRIEF.txt` for the original brief. Rename the visible title in `src/content/config.ts`; regenerate static manifest/native display metadata when preparing a renamed release.

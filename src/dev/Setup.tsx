@@ -35,6 +35,11 @@ export default function Setup({
   };
   return (
     <div className="dev-stack">
+      <Toggle
+        label="Pause for battlefield opening Omen choice"
+        value={setup.pauseOpening}
+        onChange={(v) => change((s) => (s.pauseOpening = v))}
+      />
       <h2>Battle setup</h2>
       <Toggle
         label="Ignore loadout restrictions"
@@ -134,6 +139,12 @@ export default function Setup({
                 </Field>
               ))}
             </div>
+            <NumberField
+              label="Completed turns before start"
+              value={p.turnsTaken ?? setup.round - 1}
+              max={197}
+              onChange={(v) => change((s) => (s.players[a].turnsTaken = v))}
+            />
             <div className="dev-grid3">
               {p.loadout.dice.map((id, i) => (
                 <Field

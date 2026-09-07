@@ -6,7 +6,7 @@ import { STARTERS } from "../src/content/loadouts";
 import { GAME } from "../src/content/config";
 import {
   createMatch,
-  advance,
+  advance as engineAdvance,
   decisionContext,
   lockPlan,
   pass,
@@ -166,7 +166,7 @@ describe("authoritative initiative, turns and resource lifetime", () => {
     expect(s.openingInitiative?.totals).toEqual([15, 13]);
     expect(s.openingInitiative?.winner).toBe(0);
   });
-  it("alternates initiative and follows configured dice slot ramp for both seats", () => {
+  it("keeps opening Initiative and uses 1 / 2 / 3 / 3 Omen rolls", () => {
     const s = createMatch(2, [STARTERS.basajaun, STARTERS.anansi], undefined, {
       initiativeWinner: 0,
     });
@@ -185,7 +185,7 @@ describe("authoritative initiative, turns and resource lifetime", () => {
     }
     for (let r = 1; r <= 7; r++) {
       const rows = rolls.filter((x) => x.round === r);
-      expect(rows.map((x) => x.actor)).toEqual(r % 2 ? [0, 1] : [1, 0]);
+      expect(rows.map((x) => x.actor)).toEqual([0, 1]);
       for (const row of rows)
         expect(row.slots).toEqual(
           r === 1 ? [0, 1, 2].slice(0, row.actor === 0 ? 1 : 2) : [0, 1, 2],
@@ -208,8 +208,15 @@ describe("authoritative initiative, turns and resource lifetime", () => {
     advance(s);
     expect(s.players[1].dice[0].state).toBe("HELD");
     advance(s);
+    expect(s.players[0].dice[0].state).toBe("EXPIRED");
+    expect(s.players[1].dice[0].state).toBe("HELD");
+    until(s, "MAIN_ACTION");
+    expect(s.activePlayer).toBe(0);
+    expect(s.players[1].dice[0].state).toBe("HELD");
+    pass(s, 0);
+    until(s, "TURN_START");
+    expect(s.activePlayer).toBe(1);
     expect(s.players[1].dice[0].state).toBe("EXPIRED");
-    expect(s.players[0].dice[0].state).toBe("HELD");
   });
   it("does not reveal future opponent rolls or live seed in projections", () => {
     const s = ready();
@@ -535,3 +542,14 @@ describe("requirements, Control and deterministic verification", () => {
     expect(() => svc.submit({ ...c, sequence: 2 })).toThrow("Stale");
   });
 });
+
+// Explicit opening choices for deterministic rule fixtures, never a production fallback.
+function advance(s: import("../src/engine/types").MatchState, now = 0) {
+  if (s.phase === "OMEN_CHOICE")
+    lockPlan(s, s.activePlayer, {
+      controls: [],
+      assignments: [],
+      omenSlots: [0, 1, 2].slice(0, s.omenRollCount),
+    });
+  else engineAdvance(s, now);
+}

@@ -58,7 +58,7 @@ The website adapts to desktop and phone screens independently of the portrait-on
 - Source, date, Legend and opponent filters; human/AI content-usage cohorts for actual play.
 - Completed games, active anonymous game sessions, duration, rounds, draw rates and Legend performance.
 - Card equip/use counts, win rates when equipped or used, and first reveal round; Omens equip counts, win rates, face frequencies and Focus adjustments.
-- A matchup matrix, reversible-seat pair diagnostics, lethal round distribution and JSON export. Opening-initiative and class results, held Omens, reactions, expirations and Omen-size correlations use mechanical version 2. Starting-win uncertainty counts each reversed pair once.
+- A matchup matrix, reversible-seat pair diagnostics, lethal round distribution and JSON export. Opening-initiative and class results, held Omens, reactions, expirations and Omen-size correlations use mechanical version 4. Starting-win uncertainty counts each reversed pair once.
 - Simulations for 10, 100, 1,000 or 10,000 matches, custom four-card/three-Omen loadouts, deterministic seeds, two AI difficulties, mirror tests, reversed-seat pairing, background-worker progress/cancellation, and persistent run saving.
 - Actual interaction event counts and automatic refresh every ten seconds while visible.
 
@@ -85,6 +85,12 @@ Release telemetry is disabled unless `VITE_TELEMETRY_URL` is configured. A publi
 
 ## Automated checks
 
-The tests cover deterministic presets, all-Legend stepped/normal equivalence, exact suspended snapshot restoration, hidden views, reveal rewind, Focus limits, sequence endings, timeout behavior, simultaneous lethal, targeted stun, poison expiry, healing caps, AI diagnostics, telemetry validation, transactional batches, retry deduplication, matchup filtering and private access. The current 1,000-game version-two report has 500 pairs and zero seat/stream mismatches; starting-initiative imbalance remains explicitly flagged.
+The tests cover deterministic presets, all-Legend stepped/normal equivalence, exact suspended snapshot restoration, hidden views, reveal rewind, Focus limits, sequence endings, timeout behavior, simultaneous lethal, targeted stun, poison expiry, healing caps, AI diagnostics, telemetry validation, transactional batches, retry deduplication, matchup filtering and private access. The historical 1,000-game version-two report has 500 pairs and zero seat/stream mismatches; starting-initiative imbalance remains explicitly flagged.
 
 Browser WebMCP registration is optional and has a no-support fallback. The available browser reported no registered WebMCP tools, so that optional integration was not verified. Version-two mobile action/reaction screens receive browser checks; native device validation remains separate. The historical version-one checks in VERIFICATION.md do not establish version-two balance.
+
+## Fixed opening tools (version 4)
+
+Setup exposes completed owner turns independently of Round. Enable “Pause for battlefield opening Omen choice” to start directly at the restricted roll; choose one or two equipped Omens on the battlefield or Phase panel. Manual phase advance requires a valid choice. Disabling the pause uses production AI selection for quick-state scenarios. Snapshots preserve both owner counters, pending choices and measured turn history. AI diagnostics rank opening combinations using fixed-face probability and own ability utility.
+
+The responsive Metrics overview reports first/second role win rates, damage on each player’s first and second turns, held Omens after the first turn, opening reaction frequency, opening combination outcomes, Initiative Bonus outcomes and signed Life differential after both first full rolls. Existing private live telemetry and simulation records carry the same fields; old rules cohorts remain excluded.

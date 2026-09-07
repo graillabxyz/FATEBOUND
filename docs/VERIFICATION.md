@@ -1,6 +1,14 @@
 # Verification record — 2026-09-07
 
-## Current release: mechanical version 2
+## Current release: mechanical version 4
+
+108 tests pass, including all opening slot combinations for either winner, fixed A → B order, owner-turn counters independent of Round, restricted-roll API rejection, held-resource expiry, probability-based AI choices, exact pending-choice snapshots, opening telemetry, all 36 matchups and deterministic replays. TypeScript, Vercel Node ESM smoke tests, production release exclusion gate, player/metrics/internal builds and Edge compilation pass. This release was not given a new browser interaction or native-device pass.
+
+`reports/balance-v4.json`: 1,000 Normal AI/starter games, 500 seat/RNG-stream reversal pairs, zero mismatches, 498 wins per seat and four draws. Opening Initiative won 62.45% of decisive games; Wilson 95% interval 58.12–66.59%, 498 independent decisive seeds. Mean match length was 3.226 rounds. This significant opening advantage is flagged. The policy seldom held opening resources and used no Reactions in global Turns 1–2; this limits human-balance interpretation. The complete report includes owner first/second-turn damage and opening combinations.
+
+The catalog migration preserves all 104 collectible IDs and ownership while advancing to mechanical version 4. Version 1–3 saved matches/replays are rejected instead of being reinterpreted under different turn-order rules.
+
+## Historical release: mechanical version 2
 
 86 tests pass across engine/service, turn edge cases, Dev Lab, metrics API, profile and dice geometry. Coverage includes all 36 Legend matchups, deterministic replay, alternating initiative, configurable dice ramp, owner-turn resource expiration, reusable private cards, atomic costs, one reaction window, Guard/redirect/counter/disruption ordering, malformed checkpoint rejection and exact mid-effect snapshot restoration. TypeScript, formatting, player release exclusion checks and internal client/Worker builds pass.
 

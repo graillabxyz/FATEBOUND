@@ -1,3 +1,4 @@
+import { OpeningMetrics } from "./OpeningMetrics";
 import { GAME } from "../content/config";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "../ui/components";
@@ -271,6 +272,7 @@ export default function Dashboard() {
             {page === "Overview" && (
               <section className="metrics-panel" style={{ marginBottom: 16 }}>
                 <h2>Initiative & reaction balance</h2>
+                <OpeningMetrics records={records} />
                 <p
                   className={
                     data.initiativeSignificant ? "dev-warning" : "dev-muted"

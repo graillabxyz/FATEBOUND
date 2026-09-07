@@ -7,7 +7,7 @@ const endpoint =
   (import.meta.env.DEV || import.meta.env.MODE === "internal"
     ? "/api/telemetry"
     : "");
-const outboxKey = "omnipath.telemetry.outbox.v3";
+const outboxKey = "omnipath.telemetry.outbox.v4";
 type Event = { id: string; event: string; session: string; at: number };
 type Queue = { events: Event[]; matches: MatchRecord[] };
 let queue: Queue = { events: [], matches: [] },

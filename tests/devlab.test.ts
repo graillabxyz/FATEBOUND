@@ -44,7 +44,7 @@ describe("v2 production Battle Lab", () => {
     s.round = 6;
     const c = new LabController(s);
     expect(c.state.openingInitiative?.totals).toEqual([25, 4]);
-    expect(c.state.initiative).toBe(1);
+    expect(c.state.initiative).toBe(0);
     expect(c.state.round).toBe(6);
   });
   it("keeps normal and spectator hidden information private and swaps view B authority", () => {
@@ -91,6 +91,7 @@ describe("v2 production Battle Lab", () => {
     s.ignoreRestrictions = true;
     s.initiativeWinner = 0;
     const c = new LabController(s);
+    c.setResource(0, 0, "AVAILABLE");
     expect(() =>
       c.lock(0, {
         controls: [],

@@ -43,7 +43,7 @@ import type {
   ViewMode,
 } from "./model";
 const freshDrafts = (): [Plan, Plan] => [clone(EMPTY_PLAN), clone(EMPTY_PLAN)];
-const planningPhases = ["MAIN_ACTION", "REACTION_WINDOW"];
+const planningPhases = ["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW"];
 export class LabController {
   setup: LabSetup;
   state: MatchState;
@@ -89,16 +89,29 @@ export class LabController {
         initiativeWinner: setup.initiativeWinner ?? undefined,
       },
     );
-    this.state.players.forEach(
-      (p, i) => (p.loadout = clone(setup.players[i].loadout)),
-    );
+    this.state.players.forEach((p, i) => {
+      p.loadout = clone(setup.players[i].loadout);
+      p.playerTurnCount = setup.players[i].turnsTaken ?? setup.round - 1;
+    });
     this.state.round = setup.round - 1;
     beginRound(this.state, 0, this.fateForRound(setup.round));
     while (
       this.state.phase !== "MAIN_ACTION" &&
       this.state.phase !== "MATCH_END"
-    )
-      advance(this.state, 0);
+    ) {
+      if (this.state.phase === "OMEN_CHOICE") {
+        if (setup.pauseOpening) break;
+        const actor = this.state.activePlayer;
+        lockPlan(
+          this.state,
+          actor,
+          choosePlan(
+            decisionContext(this.state, actor),
+            setup.players[actor].difficulty,
+          ),
+        );
+      } else advance(this.state, 0);
+    }
     this.state.players.forEach((p, i) =>
       Object.assign(
         p,
@@ -187,6 +200,16 @@ export class LabController {
       ) as MatchView["players"];
     if (mode === "B") {
       v.players.reverse();
+      v.openingFullLife?.reverse();
+      v.turnHistory = v.turnHistory.map((r) => ({
+        ...r,
+        actor: (1 - r.actor) as Seat,
+        lifeAtStart: [...r.lifeAtStart].reverse(),
+        damageAtStart: [...r.damageAtStart].reverse(),
+        reactionsAtStart: [...r.reactionsAtStart].reverse(),
+        damage: [...r.damage].reverse(),
+        reactions: [...r.reactions].reverse(),
+      }));
       v.activePlayer = v.activePlayer === 0 ? 1 : 0;
       v.initiative = v.initiative === 0 ? 1 : 0;
       if (v.pending) v.pending.actor = v.pending.actor === 0 ? 1 : 0;
@@ -344,7 +367,7 @@ export class LabController {
       throw new Error("Match ended. Restart or restore a snapshot.");
     if (planningPhases.includes(phase)) {
       const actor = (
-        phase === "MAIN_ACTION"
+        phase !== "REACTION_WINDOW"
           ? this.state.activePlayer
           : 1 - this.state.activePlayer
       ) as Seat;
@@ -366,10 +389,7 @@ export class LabController {
         advance(this.state, 0);
         this.state.roundFate = fate ?? null;
       } else advance(this.state, 0);
-      if (
-        this.state.phase === "MAIN_ACTION" ||
-        this.state.phase === "REACTION_WINDOW"
-      ) {
+      if (planningPhases.includes(this.state.phase)) {
         this.remainingMs =
           this.state.phase === "REACTION_WINDOW"
             ? this.setup.timerMs === 0
@@ -642,7 +662,7 @@ export class LabController {
     const phase = this.state.phase;
     if (planningPhases.includes(phase)) {
       const actor = (
-        phase === "MAIN_ACTION"
+        phase !== "REACTION_WINDOW"
           ? this.state.activePlayer
           : 1 - this.state.activePlayer
       ) as Seat;
@@ -883,6 +903,14 @@ function validateDraft(plan: Plan, p: PlayerState) {
     )
       throw new Error("Invalid Focus action.");
   }
+  if (
+    plan.omenSlots &&
+    (!Array.isArray(plan.omenSlots) ||
+      plan.omenSlots.length > 3 ||
+      new Set(plan.omenSlots).size !== plan.omenSlots.length ||
+      plan.omenSlots.some((i) => !Number.isInteger(i) || i < 0 || i > 2))
+  )
+    throw new Error("Invalid opening Omen selection.");
   for (const a of plan.assignments) {
     if (
       !["guard", "legend", ...p.loadout.cards].includes(a.target) ||

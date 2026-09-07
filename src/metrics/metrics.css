@@ -511,3 +511,28 @@
   display: grid;
   gap: 16px;
 }
+.opening-metrics {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 16px 0 24px;
+}
+.opening-metrics .metrics-table-wrap {
+  overflow-x: auto;
+}
+.opening-metrics table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+.opening-metrics th,
+.opening-metrics td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #56637555;
+}
+.opening-metrics summary {
+  padding: 12px 0;
+  cursor: pointer;
+  color: #d6bf86;
+  min-height: 44px;
+}

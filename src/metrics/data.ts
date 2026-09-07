@@ -20,6 +20,8 @@ export type MatchRecord = {
   hp: number[];
   known: number[];
   stats: RoundStats[];
+  turnHistory: MatchState["turnHistory"];
+  openingFullLife: number[] | null;
   controls: { actor: number; slot: number; kind: string }[];
   actors: ["human" | "ai", "human" | "ai"];
   pair?: { id: string; reversed: boolean };
@@ -360,6 +362,8 @@ export function recordMatch(
     hp: state.players.map((p) => p.hp),
     known: state.players.map((p) => p.known.length),
     stats: structuredClone(state.stats),
+    turnHistory: structuredClone(state.turnHistory),
+    openingFullLife: state.openingFullLife ? [...state.openingFullLife] : null,
     actors,
     controls:
       "replay" in state

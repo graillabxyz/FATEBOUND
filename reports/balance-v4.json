@@ -1,0 +1,1213 @@
+{
+  "mechanicalVersion": 4,
+  "generatedAt": "2026-09-07T11:02:40.099Z",
+  "method": "Normal AI; paired swapped seats AND RNG streams; all Legend matchups including mirrors. Wilson 95% opening-initiative interval; balance estimate, not a human-play claim.",
+  "byDiceSize": {
+    "6": {
+      "games": 1330,
+      "wins": 718
+    },
+    "8": {
+      "games": 1342,
+      "wins": 564
+    },
+    "10": {
+      "games": 1328,
+      "wins": 706
+    },
+    "12": {
+      "games": 666,
+      "wins": 368
+    }
+  },
+  "independentOpeningGames": 498,
+  "initiativeWins": [
+    622,
+    374
+  ],
+  "initiativeGames": 1000,
+  "openingRate": 0.6244979919678715,
+  "openingConfidence": [
+    0.5811656142648661,
+    0.6659243041476369
+  ],
+  "initiativeSignificant": true,
+  "held": 1324,
+  "expired": 48,
+  "rolls": 14592,
+  "reactions": 1208,
+  "reactionWindows": 9992,
+  "reactionSuccess": 1108,
+  "turns": 5864,
+  "byClass": {
+    "Guardian": {
+      "games": 336,
+      "wins": 192
+    },
+    "Trickster": {
+      "games": 336,
+      "wins": 98
+    },
+    "Duelist": {
+      "games": 336,
+      "wins": 94
+    },
+    "Shapeshifter": {
+      "games": 334,
+      "wins": 180
+    },
+    "Mystic": {
+      "games": 330,
+      "wins": 176
+    },
+    "Hero / Trickster": {
+      "games": 328,
+      "wins": 256
+    }
+  },
+  "byInitiativeBonus": {
+    "0": {
+      "games": 336,
+      "openings": 138,
+      "wins": 192
+    },
+    "1": {
+      "games": 334,
+      "openings": 156,
+      "wins": 180
+    },
+    "2": {
+      "games": 658,
+      "openings": 324,
+      "wins": 432
+    },
+    "3": {
+      "games": 336,
+      "openings": 180,
+      "wins": 98
+    },
+    "4": {
+      "games": 336,
+      "openings": 202,
+      "wins": 94
+    }
+  },
+  "damageByRound": {
+    "1": {
+      "games": 1000,
+      "damage": 9698
+    },
+    "2": {
+      "games": 1000,
+      "damage": 15218
+    },
+    "3": {
+      "games": 906,
+      "damage": 7910
+    },
+    "4": {
+      "games": 264,
+      "damage": 1394
+    },
+    "5": {
+      "games": 46,
+      "damage": 240
+    },
+    "6": {
+      "games": 8,
+      "damage": 36
+    },
+    "7": {
+      "games": 2,
+      "damage": 12
+    }
+  },
+  "games": 1000,
+  "seatWins": [
+    498,
+    498
+  ],
+  "draws": 4,
+  "averageRounds": 3.226,
+  "averageDurationMs": null,
+  "damage": 34508,
+  "guard": 4784,
+  "control": 7110,
+  "unused": 48,
+  "byLegend": {
+    "basajaun": {
+      "games": 336,
+      "wins": 192,
+      "draws": 0,
+      "rounds": 1198,
+      "damage": 5930,
+      "taken": 5626,
+      "guard": 2000,
+      "control": 1180,
+      "revealed": 674,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "basajaun-crush": 222,
+        "basajaun-herensuge": 938,
+        "basajaun-ancient-root": 220,
+        "basajaun-barkskin": 30
+      },
+      "dice": {
+        "standard-d12": 336,
+        "standard-d8": 336,
+        "standard-d6": 336
+      }
+    },
+    "anansi": {
+      "games": 336,
+      "wins": 98,
+      "draws": 6,
+      "rounds": 1106,
+      "damage": 4794,
+      "taken": 6234,
+      "guard": 104,
+      "control": 1358,
+      "revealed": 564,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "anansi-silken-cut": 1734,
+        "anansi-spider-s-patience": 222,
+        "anansi-read-the-thread": 100
+      },
+      "dice": {
+        "anansi-d8-0": 336,
+        "standard-d8": 672
+      }
+    },
+    "tengu": {
+      "games": 336,
+      "wins": 94,
+      "draws": 2,
+      "rounds": 1056,
+      "damage": 5412,
+      "taken": 5688,
+      "guard": 610,
+      "control": 1202,
+      "revealed": 676,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "tengu-gale-cut": 296,
+        "tengu-sky-sever": 736,
+        "tengu-feather-guard": 170
+      },
+      "dice": {
+        "standard-d10": 336,
+        "standard-d8": 336,
+        "standard-d6": 336
+      }
+    },
+    "leshy": {
+      "games": 334,
+      "wins": 180,
+      "draws": 0,
+      "rounds": 1172,
+      "damage": 6308,
+      "taken": 6468,
+      "guard": 1088,
+      "control": 1504,
+      "revealed": 650,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "leshy-wolf-shape": 1864,
+        "leshy-branch-lash": 272,
+        "leshy-moss-mantle": 264
+      },
+      "dice": {
+        "standard-d10": 334,
+        "standard-d8": 668
+      }
+    },
+    "quetzalcoatl": {
+      "games": 330,
+      "wins": 176,
+      "draws": 0,
+      "rounds": 1016,
+      "damage": 5840,
+      "taken": 5488,
+      "guard": 568,
+      "control": 902,
+      "revealed": 774,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "quetzalcoatl-sun-lance": 360,
+        "quetzalcoatl-solar-ascent": 766,
+        "quetzalcoatl-feather-aegis": 172,
+        "quetzalcoatl-first-light": 84
+      },
+      "dice": {
+        "standard-d12": 330,
+        "standard-d10": 330,
+        "standard-d6": 330
+      }
+    },
+    "maui": {
+      "games": 328,
+      "wins": 256,
+      "draws": 0,
+      "rounds": 904,
+      "damage": 6224,
+      "taken": 5004,
+      "guard": 414,
+      "control": 964,
+      "revealed": 588,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "maui-daring-feint": 1386,
+        "maui-hook-strike": 244,
+        "maui-ocean-shelter": 76
+      },
+      "dice": {
+        "standard-d10": 656,
+        "standard-d6": 328
+      }
+    }
+  },
+  "byCard": {
+    "basajaun-crush": {
+      "equipped": 336,
+      "equippedWins": 192,
+      "usedMatches": 178,
+      "usedWins": 136,
+      "uses": 222,
+      "firstRevealRound": 226,
+      "reveals": 178
+    },
+    "basajaun-ancient-root": {
+      "equipped": 336,
+      "equippedWins": 192,
+      "usedMatches": 134,
+      "usedWins": 84,
+      "uses": 220,
+      "firstRevealRound": 330,
+      "reveals": 134
+    },
+    "basajaun-barkskin": {
+      "equipped": 336,
+      "equippedWins": 192,
+      "usedMatches": 26,
+      "usedWins": 24,
+      "uses": 30,
+      "firstRevealRound": 66,
+      "reveals": 26
+    },
+    "basajaun-herensuge": {
+      "equipped": 336,
+      "equippedWins": 192,
+      "usedMatches": 336,
+      "usedWins": 192,
+      "uses": 938,
+      "firstRevealRound": 484,
+      "reveals": 336
+    },
+    "anansi-silken-cut": {
+      "equipped": 336,
+      "equippedWins": 98,
+      "usedMatches": 336,
+      "usedWins": 98,
+      "uses": 1734,
+      "firstRevealRound": 336,
+      "reveals": 336
+    },
+    "anansi-read-the-thread": {
+      "equipped": 336,
+      "equippedWins": 98,
+      "usedMatches": 78,
+      "usedWins": 40,
+      "uses": 100,
+      "firstRevealRound": 196,
+      "reveals": 78
+    },
+    "anansi-web-shift": {
+      "equipped": 336,
+      "equippedWins": 98,
+      "usedMatches": 0,
+      "usedWins": 0,
+      "uses": 0,
+      "firstRevealRound": 0,
+      "reveals": 0
+    },
+    "anansi-spider-s-patience": {
+      "equipped": 336,
+      "equippedWins": 98,
+      "usedMatches": 150,
+      "usedWins": 32,
+      "uses": 222,
+      "firstRevealRound": 298,
+      "reveals": 150
+    },
+    "tengu-gale-cut": {
+      "equipped": 336,
+      "equippedWins": 94,
+      "usedMatches": 204,
+      "usedWins": 68,
+      "uses": 296,
+      "firstRevealRound": 272,
+      "reveals": 204
+    },
+    "tengu-feather-guard": {
+      "equipped": 336,
+      "equippedWins": 94,
+      "usedMatches": 136,
+      "usedWins": 42,
+      "uses": 170,
+      "firstRevealRound": 328,
+      "reveals": 136
+    },
+    "tengu-perfect-riposte": {
+      "equipped": 336,
+      "equippedWins": 94,
+      "usedMatches": 0,
+      "usedWins": 0,
+      "uses": 0,
+      "firstRevealRound": 0,
+      "reveals": 0
+    },
+    "tengu-sky-sever": {
+      "equipped": 336,
+      "equippedWins": 94,
+      "usedMatches": 336,
+      "usedWins": 94,
+      "uses": 736,
+      "firstRevealRound": 546,
+      "reveals": 336
+    },
+    "leshy-branch-lash": {
+      "equipped": 334,
+      "equippedWins": 180,
+      "usedMatches": 180,
+      "usedWins": 106,
+      "uses": 272,
+      "firstRevealRound": 372,
+      "reveals": 180
+    },
+    "leshy-moss-mantle": {
+      "equipped": 334,
+      "equippedWins": 180,
+      "usedMatches": 136,
+      "usedWins": 86,
+      "uses": 264,
+      "firstRevealRound": 332,
+      "reveals": 136
+    },
+    "leshy-wolf-shape": {
+      "equipped": 334,
+      "equippedWins": 180,
+      "usedMatches": 334,
+      "usedWins": 180,
+      "uses": 1864,
+      "firstRevealRound": 352,
+      "reveals": 334
+    },
+    "leshy-lost-path": {
+      "equipped": 334,
+      "equippedWins": 180,
+      "usedMatches": 0,
+      "usedWins": 0,
+      "uses": 0,
+      "firstRevealRound": 0,
+      "reveals": 0
+    },
+    "quetzalcoatl-sun-lance": {
+      "equipped": 330,
+      "equippedWins": 176,
+      "usedMatches": 250,
+      "usedWins": 160,
+      "uses": 360,
+      "firstRevealRound": 368,
+      "reveals": 250
+    },
+    "quetzalcoatl-feather-aegis": {
+      "equipped": 330,
+      "equippedWins": 176,
+      "usedMatches": 116,
+      "usedWins": 66,
+      "uses": 172,
+      "firstRevealRound": 266,
+      "reveals": 116
+    },
+    "quetzalcoatl-first-light": {
+      "equipped": 330,
+      "equippedWins": 176,
+      "usedMatches": 78,
+      "usedWins": 22,
+      "uses": 84,
+      "firstRevealRound": 158,
+      "reveals": 78
+    },
+    "quetzalcoatl-solar-ascent": {
+      "equipped": 330,
+      "equippedWins": 176,
+      "usedMatches": 330,
+      "usedWins": 176,
+      "uses": 766,
+      "firstRevealRound": 484,
+      "reveals": 330
+    },
+    "maui-hook-strike": {
+      "equipped": 328,
+      "equippedWins": 256,
+      "usedMatches": 188,
+      "usedWins": 148,
+      "uses": 244,
+      "firstRevealRound": 268,
+      "reveals": 188
+    },
+    "maui-ocean-shelter": {
+      "equipped": 328,
+      "equippedWins": 256,
+      "usedMatches": 72,
+      "usedWins": 66,
+      "uses": 76,
+      "firstRevealRound": 156,
+      "reveals": 72
+    },
+    "maui-daring-feint": {
+      "equipped": 328,
+      "equippedWins": 256,
+      "usedMatches": 328,
+      "usedWins": 256,
+      "uses": 1386,
+      "firstRevealRound": 384,
+      "reveals": 328
+    },
+    "maui-turnabout": {
+      "equipped": 328,
+      "equippedWins": 256,
+      "usedMatches": 0,
+      "usedWins": 0,
+      "uses": 0,
+      "firstRevealRound": 0,
+      "reveals": 0
+    }
+  },
+  "byDie": {
+    "standard-d12": {
+      "equipped": 666,
+      "wins": 368,
+      "slots": 666,
+      "controls": 772,
+      "faces": {
+        "standard-d12:10:11": 174,
+        "standard-d12:8:9": 144,
+        "standard-d12:3:4": 222,
+        "standard-d12:2:3": 178,
+        "standard-d12:6:7": 156,
+        "standard-d12:9:10": 168,
+        "standard-d12:4:5": 182,
+        "standard-d12:7:8": 152,
+        "standard-d12:5:6": 180,
+        "standard-d12:11:12": 164,
+        "standard-d12:1:2": 132,
+        "standard-d12:0:1": 158
+      }
+    },
+    "standard-d8": {
+      "equipped": 1342,
+      "wins": 564,
+      "slots": 2012,
+      "controls": 1442,
+      "faces": {
+        "standard-d8:1:2": 676,
+        "standard-d8:4:5": 636,
+        "standard-d8:6:7": 658,
+        "standard-d8:5:6": 634,
+        "standard-d8:3:4": 574,
+        "standard-d8:2:3": 674,
+        "standard-d8:0:1": 606,
+        "standard-d8:7:8": 662
+      }
+    },
+    "standard-d6": {
+      "equipped": 1330,
+      "wins": 718,
+      "slots": 1330,
+      "controls": 540,
+      "faces": {
+        "standard-d6:4:5": 412,
+        "standard-d6:1:2": 432,
+        "standard-d6:3:4": 400,
+        "standard-d6:0:1": 386,
+        "standard-d6:2:3": 454,
+        "standard-d6:5:6": 406
+      }
+    },
+    "anansi-d8-0": {
+      "equipped": 336,
+      "wins": 98,
+      "slots": 336,
+      "controls": 236,
+      "faces": {
+        "anansi-d8-0:1:2": 66,
+        "anansi-d8-0:6:0": 72,
+        "anansi-d8-0:2:3": 94,
+        "anansi-d8-0:5:6": 94,
+        "anansi-d8-0:7:swap": 64,
+        "anansi-d8-0:4:5": 88,
+        "anansi-d8-0:3:4": 86,
+        "anansi-d8-0:0:0": 74
+      }
+    },
+    "standard-d10": {
+      "equipped": 1328,
+      "wins": 706,
+      "slots": 1656,
+      "controls": 1634,
+      "faces": {
+        "standard-d10:7:8": 432,
+        "standard-d10:8:9": 432,
+        "standard-d10:3:4": 448,
+        "standard-d10:4:5": 414,
+        "standard-d10:5:6": 426,
+        "standard-d10:6:7": 448,
+        "standard-d10:0:1": 470,
+        "standard-d10:2:3": 380,
+        "standard-d10:1:2": 464,
+        "standard-d10:9:10": 420
+      }
+    }
+  },
+  "byLoadout": {
+    "[\"basajaun\",[\"basajaun-crush\",\"basajaun-ancient-root\",\"basajaun-barkskin\",\"basajaun-herensuge\"],[\"standard-d12\",\"standard-d8\",\"standard-d6\"]]": {
+      "games": 336,
+      "wins": 192,
+      "draws": 0,
+      "rounds": 1198,
+      "damage": 5930,
+      "taken": 5626,
+      "guard": 2000,
+      "control": 1180,
+      "revealed": 674,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "basajaun-crush": 222,
+        "basajaun-herensuge": 938,
+        "basajaun-ancient-root": 220,
+        "basajaun-barkskin": 30
+      },
+      "dice": {
+        "standard-d12": 336,
+        "standard-d8": 336,
+        "standard-d6": 336
+      }
+    },
+    "[\"anansi\",[\"anansi-silken-cut\",\"anansi-read-the-thread\",\"anansi-web-shift\",\"anansi-spider-s-patience\"],[\"anansi-d8-0\",\"standard-d8\",\"standard-d8\"]]": {
+      "games": 336,
+      "wins": 98,
+      "draws": 6,
+      "rounds": 1106,
+      "damage": 4794,
+      "taken": 6234,
+      "guard": 104,
+      "control": 1358,
+      "revealed": 564,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "anansi-silken-cut": 1734,
+        "anansi-spider-s-patience": 222,
+        "anansi-read-the-thread": 100
+      },
+      "dice": {
+        "anansi-d8-0": 336,
+        "standard-d8": 672
+      }
+    },
+    "[\"tengu\",[\"tengu-gale-cut\",\"tengu-feather-guard\",\"tengu-perfect-riposte\",\"tengu-sky-sever\"],[\"standard-d10\",\"standard-d8\",\"standard-d6\"]]": {
+      "games": 336,
+      "wins": 94,
+      "draws": 2,
+      "rounds": 1056,
+      "damage": 5412,
+      "taken": 5688,
+      "guard": 610,
+      "control": 1202,
+      "revealed": 676,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "tengu-gale-cut": 296,
+        "tengu-sky-sever": 736,
+        "tengu-feather-guard": 170
+      },
+      "dice": {
+        "standard-d10": 336,
+        "standard-d8": 336,
+        "standard-d6": 336
+      }
+    },
+    "[\"leshy\",[\"leshy-branch-lash\",\"leshy-moss-mantle\",\"leshy-wolf-shape\",\"leshy-lost-path\"],[\"standard-d10\",\"standard-d8\",\"standard-d8\"]]": {
+      "games": 334,
+      "wins": 180,
+      "draws": 0,
+      "rounds": 1172,
+      "damage": 6308,
+      "taken": 6468,
+      "guard": 1088,
+      "control": 1504,
+      "revealed": 650,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "leshy-wolf-shape": 1864,
+        "leshy-branch-lash": 272,
+        "leshy-moss-mantle": 264
+      },
+      "dice": {
+        "standard-d10": 334,
+        "standard-d8": 668
+      }
+    },
+    "[\"quetzalcoatl\",[\"quetzalcoatl-sun-lance\",\"quetzalcoatl-feather-aegis\",\"quetzalcoatl-first-light\",\"quetzalcoatl-solar-ascent\"],[\"standard-d12\",\"standard-d10\",\"standard-d6\"]]": {
+      "games": 330,
+      "wins": 176,
+      "draws": 0,
+      "rounds": 1016,
+      "damage": 5840,
+      "taken": 5488,
+      "guard": 568,
+      "control": 902,
+      "revealed": 774,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "quetzalcoatl-sun-lance": 360,
+        "quetzalcoatl-solar-ascent": 766,
+        "quetzalcoatl-feather-aegis": 172,
+        "quetzalcoatl-first-light": 84
+      },
+      "dice": {
+        "standard-d12": 330,
+        "standard-d10": 330,
+        "standard-d6": 330
+      }
+    },
+    "[\"maui\",[\"maui-hook-strike\",\"maui-ocean-shelter\",\"maui-daring-feint\",\"maui-turnabout\"],[\"standard-d10\",\"standard-d10\",\"standard-d6\"]]": {
+      "games": 328,
+      "wins": 256,
+      "draws": 0,
+      "rounds": 904,
+      "damage": 6224,
+      "taken": 5004,
+      "guard": 414,
+      "control": 964,
+      "revealed": 588,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "maui-daring-feint": 1386,
+        "maui-hook-strike": 244,
+        "maui-ocean-shelter": 76
+      },
+      "dice": {
+        "standard-d10": 656,
+        "standard-d6": 328
+      }
+    }
+  },
+  "matchups": {
+    "basajaun:basajaun": {
+      "games": 96,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 392
+    },
+    "basajaun:anansi": {
+      "games": 48,
+      "wins": 36,
+      "draws": 0,
+      "rounds": 160
+    },
+    "anansi:basajaun": {
+      "games": 48,
+      "wins": 12,
+      "draws": 0,
+      "rounds": 160
+    },
+    "basajaun:tengu": {
+      "games": 48,
+      "wins": 46,
+      "draws": 0,
+      "rounds": 148
+    },
+    "tengu:basajaun": {
+      "games": 48,
+      "wins": 2,
+      "draws": 0,
+      "rounds": 148
+    },
+    "basajaun:leshy": {
+      "games": 48,
+      "wins": 26,
+      "draws": 0,
+      "rounds": 180
+    },
+    "leshy:basajaun": {
+      "games": 48,
+      "wins": 22,
+      "draws": 0,
+      "rounds": 180
+    },
+    "basajaun:quetzalcoatl": {
+      "games": 48,
+      "wins": 28,
+      "draws": 0,
+      "rounds": 172
+    },
+    "quetzalcoatl:basajaun": {
+      "games": 48,
+      "wins": 20,
+      "draws": 0,
+      "rounds": 172
+    },
+    "basajaun:maui": {
+      "games": 48,
+      "wins": 8,
+      "draws": 0,
+      "rounds": 146
+    },
+    "maui:basajaun": {
+      "games": 48,
+      "wins": 40,
+      "draws": 0,
+      "rounds": 146
+    },
+    "anansi:anansi": {
+      "games": 96,
+      "wins": 46,
+      "draws": 4,
+      "rounds": 316
+    },
+    "anansi:tengu": {
+      "games": 48,
+      "wins": 16,
+      "draws": 2,
+      "rounds": 170
+    },
+    "tengu:anansi": {
+      "games": 48,
+      "wins": 30,
+      "draws": 2,
+      "rounds": 170
+    },
+    "anansi:leshy": {
+      "games": 48,
+      "wins": 8,
+      "draws": 0,
+      "rounds": 188
+    },
+    "leshy:anansi": {
+      "games": 48,
+      "wins": 40,
+      "draws": 0,
+      "rounds": 188
+    },
+    "anansi:quetzalcoatl": {
+      "games": 48,
+      "wins": 14,
+      "draws": 0,
+      "rounds": 142
+    },
+    "quetzalcoatl:anansi": {
+      "games": 48,
+      "wins": 34,
+      "draws": 0,
+      "rounds": 142
+    },
+    "anansi:maui": {
+      "games": 48,
+      "wins": 2,
+      "draws": 0,
+      "rounds": 130
+    },
+    "maui:anansi": {
+      "games": 48,
+      "wins": 46,
+      "draws": 0,
+      "rounds": 130
+    },
+    "tengu:tengu": {
+      "games": 96,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 308
+    },
+    "tengu:leshy": {
+      "games": 48,
+      "wins": 10,
+      "draws": 0,
+      "rounds": 162
+    },
+    "leshy:tengu": {
+      "games": 48,
+      "wins": 38,
+      "draws": 0,
+      "rounds": 162
+    },
+    "tengu:quetzalcoatl": {
+      "games": 48,
+      "wins": 4,
+      "draws": 0,
+      "rounds": 138
+    },
+    "quetzalcoatl:tengu": {
+      "games": 48,
+      "wins": 44,
+      "draws": 0,
+      "rounds": 138
+    },
+    "tengu:maui": {
+      "games": 48,
+      "wins": 0,
+      "draws": 0,
+      "rounds": 130
+    },
+    "maui:tengu": {
+      "games": 48,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 130
+    },
+    "leshy:leshy": {
+      "games": 96,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 352
+    },
+    "leshy:quetzalcoatl": {
+      "games": 48,
+      "wins": 24,
+      "draws": 0,
+      "rounds": 160
+    },
+    "quetzalcoatl:leshy": {
+      "games": 48,
+      "wins": 24,
+      "draws": 0,
+      "rounds": 160
+    },
+    "leshy:maui": {
+      "games": 46,
+      "wins": 8,
+      "draws": 0,
+      "rounds": 130
+    },
+    "maui:leshy": {
+      "games": 46,
+      "wins": 38,
+      "draws": 0,
+      "rounds": 130
+    },
+    "quetzalcoatl:quetzalcoatl": {
+      "games": 92,
+      "wins": 46,
+      "draws": 0,
+      "rounds": 268
+    },
+    "quetzalcoatl:maui": {
+      "games": 46,
+      "wins": 8,
+      "draws": 0,
+      "rounds": 136
+    },
+    "maui:quetzalcoatl": {
+      "games": 46,
+      "wins": 38,
+      "draws": 0,
+      "rounds": 136
+    },
+    "maui:maui": {
+      "games": 92,
+      "wins": 46,
+      "draws": 0,
+      "rounds": 232
+    }
+  },
+  "lethalRounds": {
+    "2": 94,
+    "3": 642,
+    "4": 218,
+    "5": 38,
+    "6": 6
+  },
+  "daily": {
+    "2026-09-07": 1000
+  },
+  "paired": 500,
+  "mismatches": 0,
+  "opening": {
+    "roles": [
+      {
+        "games": 1000,
+        "wins": 622,
+        "draws": 4,
+        "turn1Damage": 3306,
+        "turn2Damage": 8136,
+        "turn1Samples": 1000,
+        "turn2Samples": 1000,
+        "held": 0,
+        "reactions": 0
+      },
+      {
+        "games": 1000,
+        "wins": 374,
+        "draws": 4,
+        "turn1Damage": 6392,
+        "turn2Damage": 6838,
+        "turn1Samples": 1000,
+        "turn2Samples": 1000,
+        "held": 24,
+        "reactions": 0
+      }
+    ],
+    "choices": {
+      "[0,\"basajaun\",[\"standard-d12\"]]": {
+        "role": 0,
+        "name": "Basajaun · Old Root",
+        "games": 138,
+        "wins": 112,
+        "draws": 0
+      },
+      "[1,\"basajaun\",[\"standard-d12\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Basajaun · Old Root + Mountain Wind",
+        "games": 198,
+        "wins": 80,
+        "draws": 0
+      },
+      "[0,\"anansi\",[\"standard-d8\"]]": {
+        "role": 0,
+        "name": "Anansi · Mountain Wind",
+        "games": 180,
+        "wins": 80,
+        "draws": 4
+      },
+      "[0,\"tengu\",[\"standard-d10\"]]": {
+        "role": 0,
+        "name": "Tengu · Sun Coil",
+        "games": 202,
+        "wins": 72,
+        "draws": 0
+      },
+      "[1,\"leshy\",[\"standard-d10\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Leshy · Sun Coil + Mountain Wind",
+        "games": 178,
+        "wins": 68,
+        "draws": 0
+      },
+      "[0,\"quetzalcoatl\",[\"standard-d12\"]]": {
+        "role": 0,
+        "name": "Quetzalcoatl · Old Root",
+        "games": 154,
+        "wins": 100,
+        "draws": 0
+      },
+      "[1,\"maui\",[\"standard-d10\",\"standard-d10\"]]": {
+        "role": 1,
+        "name": "Māui · Sun Coil + Sun Coil",
+        "games": 158,
+        "wins": 110,
+        "draws": 0
+      },
+      "[1,\"anansi\",[\"standard-d8\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Anansi · Mountain Wind + Mountain Wind",
+        "games": 156,
+        "wins": 18,
+        "draws": 2
+      },
+      "[1,\"tengu\",[\"standard-d10\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Tengu · Sun Coil + Mountain Wind",
+        "games": 134,
+        "wins": 22,
+        "draws": 2
+      },
+      "[0,\"leshy\",[\"standard-d10\"]]": {
+        "role": 0,
+        "name": "Leshy · Sun Coil",
+        "games": 156,
+        "wins": 112,
+        "draws": 0
+      },
+      "[0,\"maui\",[\"standard-d10\"]]": {
+        "role": 0,
+        "name": "Māui · Sun Coil",
+        "games": 170,
+        "wins": 146,
+        "draws": 0
+      },
+      "[1,\"quetzalcoatl\",[\"standard-d10\",\"standard-d12\"]]": {
+        "role": 1,
+        "name": "Quetzalcoatl · Sun Coil + Old Root",
+        "games": 176,
+        "wins": 76,
+        "draws": 0
+      }
+    },
+    "fullTurnSamples": 1000,
+    "openingTurnSamples": 2000,
+    "averageLifeDifferential": 4.864
+  },
+  "dieBudgets": [
+    {
+      "id": "standard-d4",
+      "mean": 1.25,
+      "variance": 0.3125,
+      "blankShare": 0,
+      "oppositeGain": 1.5
+    },
+    {
+      "id": "standard-d6",
+      "mean": 1.75,
+      "variance": 0.7291666666666666,
+      "blankShare": 0,
+      "oppositeGain": 2.5
+    },
+    {
+      "id": "standard-d8",
+      "mean": 2.25,
+      "variance": 1.3125,
+      "blankShare": 0,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "standard-d10",
+      "mean": 2.75,
+      "variance": 2.0625,
+      "blankShare": 0,
+      "oppositeGain": 4.5
+    },
+    {
+      "id": "standard-d12",
+      "mean": 3.25,
+      "variance": 2.9791666666666665,
+      "blankShare": 0,
+      "oppositeGain": 5.5
+    },
+    {
+      "id": "standard-d20",
+      "mean": 5.25,
+      "variance": 8.3125,
+      "blankShare": 0,
+      "oppositeGain": 9.5
+    },
+    {
+      "id": "basajaun-d12-0",
+      "mean": 2.5,
+      "variance": 2.5,
+      "blankShare": 0.16666666666666666,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "basajaun-d8-1",
+      "mean": 1.625,
+      "variance": 1.296875,
+      "blankShare": 0.25,
+      "oppositeGain": 3
+    },
+    {
+      "id": "anansi-d8-0",
+      "mean": 1.625,
+      "variance": 1.296875,
+      "blankShare": 0.25,
+      "oppositeGain": 3
+    },
+    {
+      "id": "anansi-d8-1",
+      "mean": 1.625,
+      "variance": 1.296875,
+      "blankShare": 0.25,
+      "oppositeGain": 3
+    },
+    {
+      "id": "tengu-d10-0",
+      "mean": 2.05,
+      "variance": 1.7725000000000002,
+      "blankShare": 0.2,
+      "oppositeGain": 3
+    },
+    {
+      "id": "tengu-d8-1",
+      "mean": 1.625,
+      "variance": 1.296875,
+      "blankShare": 0.25,
+      "oppositeGain": 3
+    },
+    {
+      "id": "leshy-d10-0",
+      "mean": 2.05,
+      "variance": 1.7725000000000002,
+      "blankShare": 0.2,
+      "oppositeGain": 3
+    },
+    {
+      "id": "leshy-d8-1",
+      "mean": 1.625,
+      "variance": 1.296875,
+      "blankShare": 0.25,
+      "oppositeGain": 3
+    },
+    {
+      "id": "quetzalcoatl-d12-0",
+      "mean": 2.5,
+      "variance": 2.5,
+      "blankShare": 0.16666666666666666,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "quetzalcoatl-d10-1",
+      "mean": 2.05,
+      "variance": 1.7725000000000002,
+      "blankShare": 0.2,
+      "oppositeGain": 3
+    },
+    {
+      "id": "maui-d10-0",
+      "mean": 2.05,
+      "variance": 1.7725000000000002,
+      "blankShare": 0.2,
+      "oppositeGain": 3
+    },
+    {
+      "id": "maui-d10-1",
+      "mean": 2.05,
+      "variance": 1.7725000000000002,
+      "blankShare": 0.2,
+      "oppositeGain": 3
+    },
+    {
+      "id": "guardian-d6",
+      "mean": 1.25,
+      "variance": 1.1458333333333333,
+      "blankShare": 0.3333333333333333,
+      "oppositeGain": 3
+    },
+    {
+      "id": "trickster-d8",
+      "mean": 1.5,
+      "variance": 1.4375,
+      "blankShare": 0.25,
+      "oppositeGain": 3
+    },
+    {
+      "id": "giant-d12",
+      "mean": 2.5,
+      "variance": 3,
+      "blankShare": 0.25,
+      "oppositeGain": 4
+    }
+  ]
+}

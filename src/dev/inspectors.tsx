@@ -708,6 +708,40 @@ export function PhaseControls({ lab, run }: { lab: LabController; run: Run }) {
           {lab.resolving ? " · SUSPENDED" : ""}
         </b>
       </div>
+      <p>
+        A turns: {lab.state.players[0].playerTurnCount} · B turns:{" "}
+        {lab.state.players[1].playerTurnCount} · Roll allowance:{" "}
+        {lab.state.omenRollCount}
+      </p>
+      {lab.state.phase === "OMEN_CHOICE" && (
+        <div>
+          <p>Choose {lab.state.omenRollCount} equipped Omens</p>
+          {lab.state.players[lab.state.activePlayer].loadout.dice.map(
+            (id, slot) => (
+              <label className="dev-toggle" key={slot}>
+                <input
+                  type="checkbox"
+                  checked={
+                    lab.drafts[lab.state.activePlayer].omenSlots?.includes(
+                      slot,
+                    ) ?? false
+                  }
+                  onChange={() =>
+                    run(() => {
+                      const draft = lab.drafts[lab.state.activePlayer];
+                      const slots = draft.omenSlots ?? [];
+                      draft.omenSlots = slots.includes(slot)
+                        ? slots.filter((i) => i !== slot)
+                        : [...slots, slot];
+                    })
+                  }
+                />
+                {omenById[id].name}
+              </label>
+            ),
+          )}
+        </div>
+      )}
       <div className="dev-actions">
         <Button primary onClick={() => run(() => lab.next())}>
           Next phase
@@ -875,7 +909,7 @@ export function AIPanel({
           {diagnostics.alternatives.map((v, i) => (
             <Section
               key={i}
-              title={`${i + 1}. ${v.plan.assignments.map((a) => cardById[a.target]?.name ?? rulesLabel(a.target)).join(" + ") || "Hold"} · ${v.score.toFixed(2)}`}
+              title={`${i + 1}. ${v.plan.omenSlots ? "Roll " + v.plan.omenSlots.map((slot) => omenById[lab.state.players[actor].loadout.dice[slot]].name).join(" + ") : v.plan.assignments.map((a) => cardById[a.target]?.name ?? rulesLabel(a.target)).join(" + ") || "Hold"} · ${v.score.toFixed(2)}`}
               open={i === 0}
             >
               <Json value={v.details} />

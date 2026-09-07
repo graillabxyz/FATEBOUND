@@ -28,9 +28,9 @@ export function simulateGame(
   });
   let steps = 0;
   while (s.phase !== "MATCH_END" && steps++ < 3000) {
-    if (["MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
+    if (["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
       const actor =
-        s.phase === "MAIN_ACTION" ? s.activePlayer : 1 - s.activePlayer;
+        s.phase !== "REACTION_WINDOW" ? s.activePlayer : 1 - s.activePlayer;
       lockPlan(
         s,
         actor,

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   createMatch,
-  advance,
+  advance as engineAdvance,
   lockPlan,
   pass,
   decisionContext,
@@ -222,3 +222,14 @@ describe("turn edge cases and data integrity", () => {
     expect(a.paired).toBe(1);
   });
 });
+
+// Explicit opening choices for deterministic rule fixtures, never a production fallback.
+function advance(s: import("../src/engine/types").MatchState, now = 0) {
+  if (s.phase === "OMEN_CHOICE")
+    lockPlan(s, s.activePlayer, {
+      controls: [],
+      assignments: [],
+      omenSlots: [0, 1, 2].slice(0, s.omenRollCount),
+    });
+  else engineAdvance(s, now);
+}

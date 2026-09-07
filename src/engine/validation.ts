@@ -1,3 +1,4 @@
+import { copyTurnHistory } from "./opening";
 import { GAME } from "../content/config";
 import { cardById } from "../content/cards";
 import { omenById } from "../content/omens";
@@ -19,40 +20,31 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
     s.players.length !== 2
   )
     throw new Error("Unsupported saved battle version or phase.");
+  copyTurnHistory(s.turnHistory);
+  if (
+    s.openingFullLife !== null &&
+    (!Array.isArray(s.openingFullLife) ||
+      s.openingFullLife.length !== 2 ||
+      s.openingFullLife.some((n) => !Number.isFinite(n) || n < 0 || n > 1000))
+  )
+    throw new Error("Invalid first full-turn Life sample.");
   integer(s.seed, 0, 0xffffffff, "seed");
   integer(s.round, 0, 99, "round");
   integer(s.turn, 0, 198, "turn");
   integer(s.omenRollCount, 1, 3, "Omen roll count");
   if (
-    s.config.openingOmenCounts !== null &&
-    (!Array.isArray(s.config.openingOmenCounts) ||
-      s.config.openingOmenCounts.length !== 2 ||
-      s.config.openingOmenCounts.some(
-        (n) => !Number.isInteger(n) || n < 1 || n > 3,
-      ))
+    !s.config ||
+    !Array.isArray(s.config.openingOmenCounts) ||
+    s.config.openingOmenCounts.length !== 2 ||
+    s.config.openingOmenCounts.some(
+      (n) => !Number.isInteger(n) || n < 1 || n > 3,
+    )
   )
     throw new Error("Invalid opening Omen counts.");
   integer(s.activePlayer, 0, 1, "active player");
   integer(s.initiative, 0, 1, "initiative");
   integer(s.turnInRound, 0, 1, "turn order");
-  if (
-    !s.config ||
-    !Array.isArray(s.config.ramp) ||
-    !s.config.ramp.length ||
-    s.config.ramp.length > 99
-  )
-    throw new Error("Missing battle rules configuration.");
   integer(s.config.maxRounds, 1, 99, "round cap");
-  for (const slots of s.config.ramp) {
-    if (
-      !Array.isArray(slots) ||
-      !slots.length ||
-      slots.length > 3 ||
-      new Set(slots).size !== slots.length
-    )
-      throw new Error("Invalid saved Omens ramp.");
-    slots.forEach((i) => integer(i, 0, 2, "ramp slot"));
-  }
   if (
     !Array.isArray(s.config.rngSeats) ||
     s.config.rngSeats.length !== 2 ||
@@ -74,6 +66,7 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
     )
       throw new Error("Invalid saved loadout.");
     if (!allowIncompatible) validateLoadout(p.loadout);
+    integer(p.playerTurnCount, 0, 198, "player turn count");
     integer(p.hp, 0, 1000, "Life");
     integer(p.guard, 0, 1000, "Ward");
     integer(p.control, 0, 6, "Focus");

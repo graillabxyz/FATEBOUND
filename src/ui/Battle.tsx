@@ -68,7 +68,9 @@ export default function Battle({
   const { profile, inspect } = useGame();
   const [view, setView] = useState(() => service.view()),
     [selection, setSelection] = useState<number[]>(
-      presentation?.draft?.assignments[0]?.dice ?? [],
+      presentation?.draft?.omenSlots ??
+        presentation?.draft?.assignments[0]?.dice ??
+        [],
     ),
     [target, setTarget] = useState(
       presentation?.draft?.assignments[0]?.target ?? "",
@@ -152,7 +154,11 @@ export default function Battle({
   const refresh = () => setView(service.view());
   useEffect(() => {
     refresh();
-    setSelection(presentation?.draft?.assignments[0]?.dice ?? []);
+    setSelection(
+      presentation?.draft?.omenSlots ??
+        presentation?.draft?.assignments[0]?.dice ??
+        [],
+    );
     setTarget(presentation?.draft?.assignments[0]?.target ?? "");
     setDraftControls(presentation?.draft?.controls ?? []);
   }, [presentation?.syncKey, service]);
@@ -230,7 +236,8 @@ export default function Battle({
   const dieState = (side: 0 | 1, slot: number) => {
     const p = view.players[side],
       d = p.dice[slot];
-    if (d.state === "HELD") return `${reaction && view.activePlayer !== side ? "HELD · REACT" : "HELD"}${d.modified ? " · FOCUS" : ""}`;
+    if (d.state === "HELD")
+      return `${reaction && view.activePlayer !== side ? "HELD · REACT" : "HELD"}${d.modified ? " · FOCUS" : ""}`;
     if (d.modified && ["AVAILABLE", "HELD"].includes(d.state))
       return "FOCUS MODIFIED";
     if (
@@ -422,7 +429,9 @@ export default function Battle({
             ) : (
               <p>d20 + Legend initiative bonus</p>
             )}
-            <small>Initiative alternates each round.</small>
+            <small>
+              Opening Initiative sets the turn order: A → B → A → B.
+            </small>
           </div>
         )}
         {showLog ? (
@@ -526,6 +535,9 @@ export default function Battle({
         </div>
       </div>
       <div className="battle-controls turn-controls">
+        <div className="battle-section-label">
+          MATCH TURN {view.turn} · OPENING 1 → 2 → 3 → 3
+        </div>
         <div className="turn-resource-heading">
           <span>
             {myDecision
@@ -559,7 +571,7 @@ export default function Battle({
                 selected={selection.includes(i)}
                 rolling={me.dice[i].state === "ROLLING"}
                 onClick={() => {
-                  if (presentation?.inspectDie) {
+                  if (presentation?.inspectDie && !choosingOmens) {
                     presentation.inspectDie(0, i);
                     return;
                   }
@@ -569,6 +581,7 @@ export default function Battle({
                       : [...selection, i];
                     setSelection(next);
                     presentation?.onDraft?.({
+                      ...(choosingOmens ? { omenSlots: next } : {}),
                       controls: draftControls,
                       assignments: target ? [{ target, dice: next }] : [],
                     });

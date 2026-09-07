@@ -40,7 +40,7 @@ export const GLOSSARY = [
   ],
   [
     "Initiative",
-    "Opening d20 + Legend Bonus determines who leads Round 1. Initiative alternates each Round.",
+    "Opening d20 + Legend Bonus determines who leads Round 1. The winner acts first, then Turns alternate A → B for the Match.",
   ],
   ["Action", "An ability normally used during your own Turn."],
   [

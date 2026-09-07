@@ -216,8 +216,7 @@ export type Declaration = {
 };
 export type MatchConfig = {
   maxRounds: number;
-  ramp: number[][];
-  openingOmenCounts: [number, number] | null;
+  openingOmenCounts: [number, number];
   initiativeRolls?: [number, number];
   initiativeWinner?: 0 | 1;
   initiativeBonuses?: [number, number];
@@ -231,6 +230,7 @@ export type Status = {
   expiresRound: number;
 };
 export type PlayerState = {
+  playerTurnCount: number;
   loadout: Loadout;
   hp: number;
   guard: number;
@@ -276,7 +276,23 @@ export type ReplayTurn = {
   kind: "plan" | "pass";
   plan?: Plan;
 };
+export type TurnRecord = {
+  turn: number;
+  round: number;
+  actor: 0 | 1;
+  playerTurnCount: number;
+  slots: number[];
+  lifeAtStart: number[];
+  damageAtStart: number[];
+  reactionsAtStart: number[];
+  damage: number[];
+  reactions: number[];
+  held: number;
+  completed: boolean;
+};
 export type MatchState = {
+  turnHistory: TurnRecord[];
+  openingFullLife: number[] | null;
   id: string;
   version: number;
   seed: number;

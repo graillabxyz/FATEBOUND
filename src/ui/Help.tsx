@@ -19,7 +19,7 @@ export const TUTORIAL_STEPS = [
   ],
   [
     "Roll",
-    "Roll your Omens. The opening player chooses 1, the second chooses 2. Each player rolls all 3 on later Turns.",
+    "Roll your Omens. The opening player chooses 1, the second chooses 2. All 3 from your second Turn. Initiative winner always goes first.",
   ],
   [
     "Act",

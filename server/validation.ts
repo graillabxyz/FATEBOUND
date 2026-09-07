@@ -1,3 +1,4 @@
+import { copyTurnHistory } from "../src/engine/opening";
 import { GAME } from "../src/content/config";
 import type { MatchRecord } from "../src/metrics/data";
 import { validateLoadout } from "../src/engine/rules";
@@ -136,6 +137,13 @@ export function validateRecord(
       number(v, key === "rolls" ? 1 : 0, key === "rolls" ? 20 : 40),
     );
   }
+  const turnHistory = copyTurnHistory(raw.turnHistory);
+  if (
+    raw.openingFullLife !== null &&
+    (!Array.isArray(raw.openingFullLife) || raw.openingFullLife.length !== 2)
+  )
+    throw new Error("Invalid opening Life sample.");
+  raw.openingFullLife?.forEach((n) => number(n, 0, 1000));
   // Only anonymous content identifiers and numeric outcomes are persisted; no profile or authored build names.
   return {
     id: raw.id,
@@ -153,6 +161,8 @@ export function validateRecord(
       id: `${l.legend}-build`,
       name: `${l.legend} build`,
     })) as MatchRecord["loadouts"],
+    turnHistory,
+    openingFullLife: raw.openingFullLife ? [...raw.openingFullLife] : null,
     hp: raw.hp,
     known: raw.known,
     stats: raw.stats.map((r) => ({

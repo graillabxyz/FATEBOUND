@@ -154,17 +154,12 @@ export function inspectAI(
   limit = 20,
 ) {
   if (ctx.phase === "OMEN_CHOICE") {
-    const chosen: Plan = {
-      controls: [],
-      assignments: [],
-      omenSlots: [0, 1, 2].slice(0, ctx.omenRollCount ?? 1),
-    };
+    const ranked = scoreOpeningChoices(ctx),
+      alternatives = ranked.slice(0, limit);
     return {
-      chosen,
-      evaluated: 1,
-      alternatives: [
-        { plan: chosen, score: 0, details: scorePlanDetails(ctx, chosen) },
-      ],
+      chosen: clone(ranked[0]?.plan ?? EMPTY_PLAN),
+      evaluated: ranked.length,
+      alternatives,
     };
   }
 
@@ -250,4 +245,101 @@ export function choosePlan(
   difficulty: Difficulty = "Normal",
 ) {
   return inspectAI(ctx, difficulty, 1).chosen;
+}
+
+/** Expected ability utility over fixed face distributions. Never reads a seed or hidden enemy Hand. */
+export function scoreOpeningChoices(ctx: DecisionContext) {
+  const count = ctx.omenRollCount ?? 1;
+  const abilities = [
+    ...ctx.self.loadout.cards.map((id) => cardById[id]),
+    legendById[ctx.self.loadout.legend].active,
+  ];
+  const choices = [1, 2, 3, 4, 5, 6, 7].filter(
+    (mask) => [0, 1, 2].filter((i) => mask & (1 << i)).length === count,
+  );
+  return choices
+    .map((mask) => {
+      const slots = [0, 1, 2].filter((i) => mask & (1 << i));
+      const omens = slots.map((i) => omenById[ctx.self.loadout.dice[i]]);
+      let utility = 0,
+        observations = 0;
+      const sample: import("./types").Face[] = [];
+      const visit = (index: number) => {
+        if (index < omens.length) {
+          for (const face of omens[index].faces) {
+            sample[index] = face;
+            visit(index + 1);
+          }
+          return;
+        }
+        const best = Array(1 << count).fill(0) as number[];
+        for (let subset = 1; subset < best.length; subset++) {
+          const indices = slots
+            .map((_, i) => i)
+            .filter((i) => subset & (1 << i));
+          const faces = indices.map((i) => sample[i]),
+            sizes = indices.map((i) => omens[i].size);
+          if (indices.length === 1) best[subset] = guardValue(faces[0]) * 0.45;
+          for (const ability of abilities) {
+            const r = ability.requirement;
+            if (
+              (r.minRound && ctx.round < r.minRound) ||
+              (r.maxRound && ctx.round > r.maxRound) ||
+              (r.control && ctx.self.control < r.control) ||
+              (r.initiative !== undefined &&
+                r.initiative !== (ctx.actor === ctx.initiative))
+            )
+              continue;
+            if (!meetsRequirement(r, faces, sizes)) continue;
+            const v = values(ability.effects);
+            const score =
+              v.damage * 1.5 +
+              v.guard * 0.75 +
+              v.disrupt * 0.9 +
+              Math.min(
+                v.heal,
+                Math.max(
+                  0,
+                  legendById[ctx.self.loadout.legend].hp - ctx.self.hp,
+                ),
+              ) *
+                0.8;
+            best[subset] = Math.max(
+              best[subset],
+              score * (ability.timing === "REACTION" ? 0.9 : 1),
+            );
+          }
+          for (
+            let split = (subset - 1) & subset;
+            split;
+            split = (split - 1) & subset
+          )
+            best[subset] = Math.max(
+              best[subset],
+              best[split] + best[subset ^ split],
+            );
+        }
+        utility += best.at(-1)!;
+        observations++;
+      };
+      visit(0);
+      const score = utility / observations;
+      const plan: Plan = { controls: [], assignments: [], omenSlots: slots };
+      const details = {
+        ...scorePlanDetails(ctx, plan),
+        resourceValue: score,
+        overall: score,
+      };
+      return { plan, score, details };
+    })
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.plan
+          .omenSlots!.map((i) => ctx.self.loadout.dice[i])
+          .join("|")
+          .localeCompare(
+            b.plan.omenSlots!.map((i) => ctx.self.loadout.dice[i]).join("|"),
+          ),
+    );
 }

@@ -1,7 +1,7 @@
 export const GAME = {
   title: "OMNIPATH",
   subtitle: "Read the moment. Shape your fate.",
-  version: 3,
+  version: 4,
   maxRounds: 7,
   focusPerRound: 2,
   controlPerRound: 2, // Legacy persisted resource name.
@@ -11,7 +11,6 @@ export const GAME = {
   masteryMax: 50,
   introMs: 800,
   reactionMs: 5000,
-  diceRamp: [[0, 1, 2]],
   phaseMs: {
     MATCH_INTRO: 600,
     INITIATIVE_ROLL: 900,

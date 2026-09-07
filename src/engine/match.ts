@@ -1,3 +1,5 @@
+import { choosePlan } from "./ai";
+import { rollAllowance, finishTurnMetrics } from "./opening";
 import { GAME } from "../content/config";
 import { legendById } from "../content/legends";
 import { cardById } from "../content/cards";
@@ -37,31 +39,20 @@ export function createMatch(
   loadouts.forEach((l) => validateLoadout(l));
   const rules: MatchConfig = {
     maxRounds: GAME.maxRounds,
-    ramp: GAME.diceRamp.map((r) => [...r]),
     rngSeats: [0, 1],
-    openingOmenCounts: config.ramp ? null : [...GAME.openingOmenCounts],
+    openingOmenCounts: [...GAME.openingOmenCounts],
     ...clone(config),
   };
   if (
     !Number.isInteger(rules.maxRounds) ||
     rules.maxRounds < 1 ||
-    rules.maxRounds > 99 ||
-    !rules.ramp.length ||
-    rules.ramp.some(
-      (r) =>
-        !r.length ||
-        new Set(r).size !== r.length ||
-        r.some((i) => !Number.isInteger(i) || i < 0 || i > 2),
-    )
+    rules.maxRounds > 99
   )
     throw new Error("Invalid match configuration.");
   if (
-    rules.openingOmenCounts !== null &&
-    (!Array.isArray(rules.openingOmenCounts) ||
-      rules.openingOmenCounts.length !== 2 ||
-      rules.openingOmenCounts.some(
-        (n) => !Number.isInteger(n) || n < 1 || n > 3,
-      ))
+    !Array.isArray(rules.openingOmenCounts) ||
+    rules.openingOmenCounts.length !== 2 ||
+    rules.openingOmenCounts.some((n) => !Number.isInteger(n) || n < 1 || n > 3)
   )
     throw new Error("Opening Omen counts must be 1–3 for both players.");
   if (
@@ -92,6 +83,8 @@ export function createMatch(
     throw new Error("Initiative bonuses must be 0–20.");
   return {
     id,
+    turnHistory: [],
+    openingFullLife: null,
     version: GAME.version,
     seed,
     config: rules,
@@ -109,6 +102,7 @@ export function createMatch(
     fate: [0, 0, 0],
     players: loadouts.map((loadout) => ({
       loadout: clone(loadout),
+      playerTurnCount: 0,
       hp: legendById[loadout.legend].hp,
       guard: 0,
       control: GAME.focusPerRound,
@@ -257,10 +251,7 @@ export function beginRound(s: MatchState, _now = 0, forcedFate?: number[]) {
   rollInitiative(s);
   s.round++;
   s.turnInRound = 0;
-  s.initiative =
-    s.round % 2
-      ? s.openingInitiative!.winner
-      : other(s.openingInitiative!.winner);
+  s.initiative = s.openingInitiative!.winner;
   s.activePlayer = s.initiative;
   s.roundFate = forcedFate ? clone(forcedFate) : null;
   s.pending = null;
@@ -287,6 +278,27 @@ export function beginTurn(s: MatchState) {
   const p = s.players[s.activePlayer],
     stats = s.stats.at(-1)!;
   s.turn++;
+  p.playerTurnCount++;
+  s.omenRollCount = rollAllowance(
+    p,
+    s.openingInitiative!.winner,
+    s.activePlayer,
+    s.config.openingOmenCounts,
+  );
+  s.turnHistory.push({
+    turn: s.turn,
+    round: s.round,
+    actor: s.activePlayer,
+    playerTurnCount: p.playerTurnCount,
+    slots: [],
+    lifeAtStart: s.players.map((p) => p.hp),
+    damageAtStart: s.players.map((p) => p.damageDealt),
+    reactionsAtStart: [...stats.reactions],
+    damage: [0, 0],
+    reactions: [0, 0],
+    held: 0,
+    completed: false,
+  });
   const expired = p.dice.filter((d) =>
     ["AVAILABLE", "HELD"].includes(d.state),
   ).length;
@@ -314,11 +326,22 @@ export function rollOmens(s: MatchState, selectedSlots?: number[]) {
   if (!["TURN_START", "OMEN_CHOICE"].includes(s.phase))
     throw new Error("Omens roll requires TURN_START.");
   const p = s.players[s.activePlayer],
-    slots =
-      selectedSlots ??
-      s.config.ramp[Math.min(s.round - 1, s.config.ramp.length - 1)];
+    slots = selectedSlots ?? [0, 1, 2];
+  if (
+    !Array.isArray(slots) ||
+    slots.length !== s.omenRollCount ||
+    new Set(slots).size !== slots.length ||
+    slots.some((i) => !Number.isInteger(i) || i < 0 || i > 2)
+  )
+    throw new Error(
+      `Choose exactly ${s.omenRollCount} distinct equipped Omens.`,
+    );
+  if (s.omenRollCount < 3 && !selectedSlots)
+    throw new Error("Choose equipped Omens before rolling.");
+  s.turnHistory.at(-1)!.slots = [...slots];
   s.fate =
-    s.roundFate ?? turnFate(s.seed, s.round, s.config.rngSeats[s.activePlayer]);
+    s.roundFate ??
+    turnFate(s.seed, p.playerTurnCount, s.config.rngSeats[s.activePlayer]);
   slots.forEach((slot) => {
     const d = omenById[p.loadout.dice[slot]],
       face = facePosition(s.fate[slot], d.size);
@@ -353,6 +376,16 @@ export function rollOmens(s: MatchState, selectedSlots?: number[]) {
     s.stats.at(-1)!.damage[other(s.activePlayer)] += dmg;
     log(s, other(s.activePlayer), "poison", `${dmg} poison damage`, dmg);
   }
+  if (
+    !s.openingFullLife &&
+    [0, 1].every((actor) =>
+      s.turnHistory.some(
+        (t) =>
+          t.actor === actor && t.playerTurnCount === 2 && t.slots.length === 3,
+      ),
+    )
+  )
+    s.openingFullLife = s.players.map((p) => p.hp);
   decideWinner(s, false);
   s.phase = s.winner === null ? "DICE_ROLL" : "MATCH_END";
   s.revision++;
@@ -506,19 +539,23 @@ export function pass(s: MatchState, actor: number) {
         rule.amount,
       );
     }
+    finishTurnMetrics(s);
     s.phase = "TURN_END";
   }
   s.revision++;
 }
 export function timeoutPlan(s: MatchState, actor: number, _draft?: Plan) {
-  if (s.phase === "OMEN_CHOICE")
-    lockPlan(s, actor, {
-      controls: [],
-      assignments: [],
-      omenSlots: [0, 1, 2].slice(0, s.omenRollCount),
-    });
+  const choosing = s.phase === "OMEN_CHOICE";
+  if (choosing) lockPlan(s, actor, choosePlan(decisionContext(s, actor)));
   else pass(s, actor);
-  log(s, actor, "timeout", "Timeout: pass without spending resources.");
+  log(
+    s,
+    actor,
+    "timeout",
+    choosing
+      ? "Opening choice timed out: selected equipped Omens using expected ability utility."
+      : "Timeout: pass without spending resources.",
+  );
 }
 export function reveal(s: MatchState) {
   if (s.phase === "ACTION_DECLARED") advance(s);
@@ -552,6 +589,7 @@ export function decideWinner(
       ? s.round >= atRoundLimit
       : atRoundLimit && s.round >= s.config.maxRounds);
   if (!ended) return;
+  finishTurnMetrics(s);
   const [a, b] = s.players;
   s.winner =
     a.hp !== b.hp
@@ -586,26 +624,16 @@ export function advance(s: MatchState, now = 0) {
     case "ROUND_START":
       beginTurn(s);
       break;
-    case "TURN_START": {
-      const counts = s.config.openingOmenCounts;
-      s.omenRollCount =
-        s.round === 1 && counts
-          ? counts[s.activePlayer === s.openingInitiative!.winner ? 0 : 1]
-          : 3;
-      if (s.round === 1 && counts && s.omenRollCount < 3) {
+    case "TURN_START":
+      if (s.omenRollCount < 3) {
         s.phase = "OMEN_CHOICE";
         s.deadline = now + GAME.decisionMs;
       } else rollOmens(s);
       break;
-    }
     case "OMEN_CHOICE":
-      // Deterministic default for simulations/manual phase advance; clients submit explicit choices.
-      lockPlan(s, s.activePlayer, {
-        controls: [],
-        assignments: [],
-        omenSlots: [0, 1, 2].slice(0, s.omenRollCount),
-      });
-      break;
+      throw new Error(
+        `Choose ${s.omenRollCount} equipped Omens before advancing.`,
+      );
     case "DICE_ROLL":
       s.players[s.activePlayer].dice.forEach((d) => {
         if (d.state === "ROLLING") d.state = "AVAILABLE";
