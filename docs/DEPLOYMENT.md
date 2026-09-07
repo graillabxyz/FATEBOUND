@@ -4,6 +4,7 @@ The product is OMNIPATH. `graillabxyz/FATEBOUND` is the requested legacy reposit
 
 ## GitHub → Vercel → Supabase
 
+- Production: `https://omnipath-chi.vercel.app`; developer dashboard: `/metrics`; account sign-in: `/account`.
 - Vercel project: `omnipath`, scope `graillabxyzs-projects`.
 - Git integration publishes `main` to production and branches/PRs to previews. GitHub Actions independently runs the engine tests, type checking and full web build.
 - `npm run build:vercel` builds the public game, verifies that it contains no Dev Lab, then builds a separate developer metrics entry at `/metrics`. Data access is checked again on the server; hiding the dashboard is not the access boundary.

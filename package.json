@@ -21,7 +21,7 @@
     "build:internal": "tsc -b && vite build --mode internal --outDir dist-internal",
     "build:site": "tsc -b && node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && vite build --mode internal --outDir dist/client && node tooling/sites/node_modules/vite/bin/vite.js build --config vite.site.config.ts",
     "db:generate": "node tooling/sites/node_modules/drizzle-kit/bin.cjs generate --config drizzle.config.ts",
-    "build:vercel": "npm run build && vite build --config vite.metrics.config.ts",
+    "build:vercel": "node scripts/build-vercel-api.mjs && node scripts/check-vercel-api.mjs && npm run build && vite build --config vite.metrics.config.ts",
     "build:edge": "node scripts/build-edge.mjs",
     "seed:catalog": "node --import tsx scripts/seed-catalog.ts"
   },

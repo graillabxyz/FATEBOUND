@@ -1,5 +1,9 @@
 # OMNIPATH
 
+Live game: https://omnipath-chi.vercel.app · Developer metrics: https://omnipath-chi.vercel.app/metrics
+
+GitHub `main` automatically deploys the public game and server API to Vercel. Supabase provides accounts, asset storage and multiplayer authority. See [deployment and backend setup](docs/DEPLOYMENT.md).
+
 A playable, portrait-first mobile strategy game foundation. Six folklore Legends. Four hidden, reusable cards. Three fixed collectible dice. Alternating initiative and meaningful reactions.
 
 ## Run the game
