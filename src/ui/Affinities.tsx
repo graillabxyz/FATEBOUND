@@ -15,10 +15,12 @@ export function AffinityLine({
   ids,
   requirement,
   compact = false,
+  symbolsOnly = false,
 }: {
   ids?: AffinityId[];
   requirement?: AffinityRequirement | null;
   compact?: boolean;
+  symbolsOnly?: boolean;
 }) {
   const list = ids ?? affinityIds(requirement ?? null),
     label = ids
@@ -26,7 +28,7 @@ export function AffinityLine({
       : affinityText(requirement ?? null);
   return (
     <span
-      className={`affinity-line ${compact ? "compact-affinity" : ""}`}
+      className={`affinity-line ${compact ? "compact-affinity" : ""} ${symbolsOnly ? "affinity-symbols-only" : ""}`}
       title={label}
       aria-label={label}
     >
@@ -35,9 +37,11 @@ export function AffinityLine({
           ? list.length
             ? list.map((id) => affinityById[id].symbol).join(" ")
             : "◇"
-          : requirementSymbols(requirement ?? null)}
+          : symbolsOnly
+            ? requirementSymbols(requirement ?? null).replaceAll(" ", "")
+            : requirementSymbols(requirement ?? null)}
       </span>
-      <span>{label}</span>
+      {!symbolsOnly && <span>{label}</span>}
     </span>
   );
 }

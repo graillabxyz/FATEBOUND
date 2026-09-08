@@ -1,3 +1,4 @@
+import { affinityIds } from "../content/affinities";
 import { CARD_ART } from "../content/card-art";
 import "./card-geometry.css";
 import { WARD_RULE } from "../content/card-rules";
@@ -532,7 +533,6 @@ export function GameplayCard({
   disabled?: boolean;
   onInspect?: () => void;
 }) {
-  const icon = CARD_ICONS[card.category];
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null),
     held = useRef(false);
   const cancelHold = () => {
@@ -543,6 +543,11 @@ export function GameplayCard({
   return (
     <div
       className={`gameplay-card ${compact ? "compact" : ""} ${selected ? "selected" : ""} ${disabled ? "unavailable" : ""}`}
+      style={
+        {
+          "--affinity-width": `${Math.max(1, affinityIds(card.affinityRequirements).length) * 14 + 8}%`,
+        } as CSSProperties
+      }
       data-card-target={card.id}
       data-category={card.category}
       data-rarity={card.rarity}
@@ -577,10 +582,16 @@ export function GameplayCard({
       >
         <div className="card-top">
           <span>{card.name}</span>
-          <Icon name={icon} size={12} />
+          {!onInspect && (
+            <AffinityLine requirement={card.affinityRequirements} symbolsOnly />
+          )}
         </div>
         <div className="card-affinity">
-          <AffinityLine requirement={card.affinityRequirements} compact />
+          {compact ? (
+            <span className="card-timing">{card.timing}</span>
+          ) : (
+            <AffinityLine requirement={card.affinityRequirements} compact />
+          )}
         </div>
         <CardArt card={card} className="card-illustration" />
         <div className="card-rules">
@@ -599,7 +610,7 @@ export function GameplayCard({
           onClick={onInspect}
           aria-label={`Inspect ${card.name}`}
         >
-          <Icon name="search" size={13} />
+          <AffinityLine requirement={card.affinityRequirements} symbolsOnly />
         </button>
       )}
     </div>
@@ -624,7 +635,7 @@ export function CardBack({
     >
       {known ? (
         <>
-          <Icon name="eye" size={12} />
+          <AffinityLine requirement={known.affinityRequirements} symbolsOnly />
           <span>{known.name}</span>
           <small>{known.requirementLabel}</small>
         </>
