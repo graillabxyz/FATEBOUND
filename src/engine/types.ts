@@ -244,7 +244,6 @@ export type Declaration = {
   heldDice?: number;
 };
 export type MatchConfig = {
-  maxRounds: number;
   openingOmenCounts: [number, number];
   initiativeRolls?: [number, number];
   initiativeWinner?: 0 | 1;

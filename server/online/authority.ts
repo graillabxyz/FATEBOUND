@@ -61,6 +61,8 @@ export function applyOnline(
   return settle(next, now);
 }
 export function expireOnline(state: MatchState, now: number) {
+  if (state.version !== GAME.version)
+    throw new Error("Unsupported battle version. Start a new match.");
   const next = structuredClone(state);
   if (
     ["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW"].includes(next.phase) &&

@@ -20,7 +20,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 0,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       affinity: "might",
@@ -57,7 +57,7 @@ export const ALPHA_CARDS = [
     archetype: "Ward",
     artIndex: 0,
     tags: ["ward", "reaction", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -111,7 +111,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 0,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -154,7 +154,7 @@ export const ALPHA_CARDS = [
     archetype: "Finisher",
     artIndex: 0,
     tags: ["finisher", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -198,7 +198,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 0,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -247,7 +247,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 0,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       allOf: [
@@ -302,7 +302,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 0,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -355,7 +355,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 0,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -401,7 +401,7 @@ export const ALPHA_CARDS = [
     archetype: "Ward",
     artIndex: 0,
     tags: ["ward", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -444,7 +444,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 1,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -488,7 +488,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 1,
     tags: ["prediction", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -530,7 +530,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 1,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -584,7 +584,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 1,
     tags: ["prediction", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       affinity: "guile",
@@ -622,7 +622,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 1,
     tags: ["manipulation", "reaction", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       allOf: [
@@ -675,7 +675,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 1,
     tags: ["setup", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -719,7 +719,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 1,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -772,7 +772,7 @@ export const ALPHA_CARDS = [
     archetype: "Finisher",
     artIndex: 1,
     tags: ["finisher", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -839,7 +839,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 1,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -874,7 +874,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -923,7 +923,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 2,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -966,7 +966,7 @@ export const ALPHA_CARDS = [
     archetype: "Finisher",
     artIndex: 2,
     tags: ["finisher", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "mythic",
     affinityRequirements: {
       allOf: [
@@ -1010,7 +1010,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -1048,7 +1048,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 2,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1092,7 +1092,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 2,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -1135,7 +1135,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -1184,7 +1184,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 2,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -1220,7 +1220,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 2,
     tags: ["prediction", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -1263,7 +1263,7 @@ export const ALPHA_CARDS = [
     archetype: "Ward",
     artIndex: 2,
     tags: ["ward", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1307,7 +1307,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1351,7 +1351,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 3,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       affinity: "wild",
@@ -1392,7 +1392,7 @@ export const ALPHA_CARDS = [
     archetype: "Ward",
     artIndex: 3,
     tags: ["ward", "reaction", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1452,7 +1452,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 3,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1497,7 +1497,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 3,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1544,7 +1544,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 3,
     tags: ["recovery", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1599,7 +1599,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 3,
     tags: ["counter", "reaction", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1646,7 +1646,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 3,
     tags: ["recovery", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -1693,7 +1693,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 3,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1744,7 +1744,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 3,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -1790,7 +1790,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 4,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1840,7 +1840,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 4,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1886,7 +1886,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 4,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "mythic",
     affinityRequirements: {
       anyOf: [
@@ -1939,7 +1939,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 4,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1988,7 +1988,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 4,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2032,7 +2032,7 @@ export const ALPHA_CARDS = [
     archetype: "Finisher",
     artIndex: 4,
     tags: ["finisher", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "mythic",
     affinityRequirements: {
       anyOf: [
@@ -2099,7 +2099,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 4,
     tags: ["prediction", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -2160,7 +2160,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 5,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2214,7 +2214,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 5,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2268,7 +2268,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 5,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -2311,7 +2311,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 5,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -2357,7 +2357,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 5,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2412,7 +2412,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 5,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -2479,7 +2479,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 5,
     tags: ["prediction", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -2523,7 +2523,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 0,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -2557,7 +2557,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 1,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -2602,7 +2602,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -2646,7 +2646,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 0,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -2686,7 +2686,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 4,
     tags: ["setup", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     rarity: "mythic",
     affinityRequirements: {
       anyOf: [
@@ -2748,7 +2748,7 @@ export const ALPHA_CARDS = [
     priority: 40,
     artIndex: 1,
     tags: ["omen", "utility", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     balanceMetadata: {
       intent: "Gain 1 Focus.",
       complexity: 1,
@@ -2792,7 +2792,7 @@ export const ALPHA_CARDS = [
     priority: 40,
     artIndex: 1,
     tags: ["omen", "utility", "action"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     balanceMetadata: {
       intent: "Flip your first other available or Held Omen.",
       complexity: 3,
@@ -2830,7 +2830,7 @@ export const ALPHA_CARDS = [
     priority: 20,
     artIndex: 1,
     tags: ["omen", "utility", "reaction"],
-    mechanicalVersion: 7,
+    mechanicalVersion: 8,
     balanceMetadata: {
       intent:
         "Shift the first Omen paying for the enemy Action down by 1. Recheck its requirement.",

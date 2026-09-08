@@ -29,8 +29,8 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
   )
     throw new Error("Invalid first full-turn Life sample.");
   integer(s.seed, 0, 0xffffffff, "seed");
-  integer(s.round, 0, 99, "round");
-  integer(s.turn, 0, 198, "turn");
+  integer(s.round, 0, Number.MAX_SAFE_INTEGER, "round");
+  integer(s.turn, 0, Number.MAX_SAFE_INTEGER, "turn");
   integer(s.omenRollCount, 1, 3, "Omen roll count");
   if (
     !s.config ||
@@ -44,7 +44,6 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
   integer(s.activePlayer, 0, 1, "active player");
   integer(s.initiative, 0, 1, "initiative");
   integer(s.turnInRound, 0, 1, "turn order");
-  integer(s.config.maxRounds, 1, 99, "round cap");
   if (
     !Array.isArray(s.config.rngSeats) ||
     s.config.rngSeats.length !== 2 ||
@@ -66,7 +65,7 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
     )
       throw new Error("Invalid saved loadout.");
     if (!allowIncompatible) validateLoadout(p.loadout);
-    integer(p.playerTurnCount, 0, 198, "player turn count");
+    integer(p.playerTurnCount, 0, Number.MAX_SAFE_INTEGER, "player turn count");
     integer(p.hp, 0, 1000, "Life");
     integer(p.guard, 0, 1000, "Ward");
     integer(p.control, 0, 6, "Focus");
@@ -94,7 +93,7 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
         typeof d.modified !== "boolean"
       )
         throw new Error("Invalid saved Omen resource.");
-      integer(d.rolledTurn, 0, 198, "roll turn");
+      integer(d.rolledTurn, 0, Number.MAX_SAFE_INTEGER, "roll turn");
       integer(
         d.originalFace,
         0,
@@ -119,11 +118,21 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
       )
         throw new Error("Invalid saved status.");
       integer(st.amount, 0, 1000, "status value");
-      integer(st.expiresRound, 0, 199, "status expiry");
+      integer(st.expiresRound, 0, Number.MAX_SAFE_INTEGER, "status expiry");
       if (st.expiresOwnerTurn !== undefined)
-        integer(st.expiresOwnerTurn, 0, 199, "owner-turn expiry");
+        integer(
+          st.expiresOwnerTurn,
+          0,
+          Number.MAX_SAFE_INTEGER,
+          "owner-turn expiry",
+        );
       if (st.tickOwnerTurn !== undefined)
-        integer(st.tickOwnerTurn, 0, 199, "Poison trigger turn");
+        integer(
+          st.tickOwnerTurn,
+          0,
+          Number.MAX_SAFE_INTEGER,
+          "Poison trigger turn",
+        );
     });
   });
   const effects = (es: Effect[], depth = 0) => {
@@ -170,11 +179,11 @@ export function validateSavedState(s: MatchState, allowIncompatible = false) {
     throw new Error("Saved exchange actor disagrees with turn.");
   if (
     !Array.isArray(s.stats) ||
-    s.stats.length > 99 ||
+    s.stats.length > 10000 ||
     !Array.isArray(s.replay) ||
-    s.replay.length > 3000 ||
+    s.replay.length > 100000 ||
     !Array.isArray(s.events) ||
-    s.events.length > 10000
+    s.events.length > 200000
   )
     throw new Error("Invalid saved history.");
   for (const st of s.stats)

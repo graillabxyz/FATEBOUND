@@ -1,4 +1,4 @@
-# OMNIPATH authoritative combat · mechanical version 7
+# OMNIPATH authoritative combat · mechanical version 8
 
 ## Runtime and boundaries
 
@@ -46,7 +46,7 @@ REACTION_DECLARED or reaction PASS → RESOLUTION. The exact production iterator
 
 There is one reaction window per action and no recursive response stack. Redirect exchanges the action's player targets, including beneficial self-target effects; conversion costs still belong to the original caster. A round can contain multiple exchanges. Legend passives are stable actor-local rules. Composite effect frames follow their child frames and show before/after state.
 
-Both zero Life: compare effective damage, then draw. Round cap defaults to seven: Life, then effective damage, then draw. No random match tiebreak.
+Both zero Life: compare effective damage, then draw. There is no round limit and no Life-lead victory at a round boundary. Rounds continue until lethal (or an explicit concession/end command). No random match tiebreak.
 
 ## Information and client behavior
 
@@ -56,7 +56,7 @@ Battle renders the authoritative turn/phase, initiative contest/marker, ACTION/R
 
 ## Replay, reconnect and lab snapshots
 
-Mechanical version 4 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Versions 1–3 replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
+Mechanical version 8 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Versions 1–7 replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
 
 Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local profile, Loadout and snapshot container keys remain compatible; embedded mechanical versions are validated. Version 6 telemetry uses a separate outbox.
 
@@ -93,3 +93,11 @@ Each Card has a distinct cosmetic illustration in `src/content/card-art.ts`, sha
 ## Collection acquisition · 8 September 2026
 
 Legend purchases/choices grant one Legend and create a legal Loadout using existing ownership. They no longer bundle four Cards and three Omens. Typed acquisition receipts record individual Legend, Omen, Card or two-Card booster grants. Signature Omens have an independent earned choice path; an authored earned Legend milestone may include one bonus signature. Existing entitlements remain owned. See STARTER_ECONOMY_AUDIT.md for economy rates and testing. These changes do not alter mechanical version 7.
+
+## Uncapped combat · version 8
+
+Removed maxRounds from production config, Dev Lab setup and battle display. A round counter still tracks Focus resets, effects and turn order. Held resource expiry and Ward timing are unchanged. Simulation has a separate 100-round watchdog: an unfinished run is reported with its seed and Loadouts, never awarded a win/draw or ingested as a completed result. Serialized-history size limits protect imports and are not gameplay victory conditions. Historical v7 balance panels describe capped combat and are not current balance evidence.
+
+Card frames keep Affinity symbols at top-right with accessible labels/tooltips. The redundant Affinity name strip and its container are removed; Action/Reaction timing stays in the rules area and detailed compatibility remains in Inspect.
+
+Version 8 verification: 1,000 paired Normal-AI attempts across all six Legends (including mirrors), 954 completed and 46 unfinished at the 100-round simulation watchdog. Completed games averaged 7.73 rounds. Both completed and stalled reversed-seat checks had zero mismatches. These data expose stalling; completed-only win rates are selection-biased until stalled builds are addressed. See reports/balance-v8.json.

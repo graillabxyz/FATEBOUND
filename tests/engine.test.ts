@@ -79,7 +79,7 @@ function exchange(s: MatchState, p: Plan, r: Plan = EMPTY_PLAN) {
   until(s, "RESOLUTION");
   advance(s);
 }
-function finish(s: MatchState) {
+function finish(s: MatchState, allowStall = false) {
   let n = 0;
   while (s.phase !== "MATCH_END" && n++ < 3000) {
     if (["MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
@@ -87,7 +87,7 @@ function finish(s: MatchState) {
       lockPlan(s, a, choosePlan(decisionContext(s, a)));
     } else advance(s);
   }
-  expect(s.phase).toBe("MATCH_END");
+  if (!allowStall) expect(s.phase).toBe("MATCH_END");
   return s;
 }
 function build(base: Loadout, card: string) {
@@ -179,7 +179,7 @@ describe("authoritative initiative, turns and resource lifetime", () => {
       initiativeWinner: 0,
     });
     const rolls: { round: number; actor: number; slots: number[] }[] = [];
-    while (s.phase !== "MATCH_END") {
+    for (let step = 0; s.round < 9 && step < 1000; step++) {
       if (s.phase === "MAIN_ACTION") {
         rolls.push({
           round: s.round,
@@ -191,7 +191,9 @@ describe("authoritative initiative, turns and resource lifetime", () => {
         pass(s, s.activePlayer);
       } else advance(s);
     }
-    for (let r = 1; r <= 7; r++) {
+    expect(s.round).toBe(9);
+    expect(s.winner).toBeNull();
+    for (let r = 1; r <= 8; r++) {
       const rows = rolls.filter((x) => x.round === r);
       expect(rows.map((x) => x.actor)).toEqual([0, 1]);
       for (const row of rows)
@@ -476,16 +478,30 @@ describe("requirements, Control and deterministic verification", () => {
     expect(() => lockPlan(s, 0, command("crush"))).toThrow("STUNNED");
     expect(s.players[0].dice[0].state).toBe("AVAILABLE");
   });
-  it("all 36 matchups finish and their command replays reproduce exact state", () => {
+  it("all 36 matchups replay exactly or retain a deterministic unfinished state", () => {
     for (const a of LEGENDS)
       for (const b of LEGENDS) {
-        const s = finish(createMatch(131, [STARTERS[a.id], STARTERS[b.id]]));
+        const s = finish(
+          createMatch(131, [STARTERS[a.id], STARTERS[b.id]]),
+          true,
+        );
+        if (s.phase !== "MATCH_END") {
+          expect(s.winner).toBeNull();
+          expect(s.players.every((p) => p.hp > 0)).toBe(true);
+          const again = finish(
+            createMatch(131, [STARTERS[a.id], STARTERS[b.id]]),
+            true,
+          );
+          expect(again).toEqual(s);
+          expect(() => exportReplay(s)).toThrow("Live seed");
+          continue;
+        }
         const replay = verifyReplay(exportReplay(s));
         expect(replay.players).toEqual(s.players);
         expect(replay.events).toEqual(s.events);
         expect(replay.stats).toEqual(s.stats);
       }
-  }, 20000);
+  }, 60000);
   it("swapped seats and RNG streams preserve outcomes in paired simulations", () => {
     for (const a of LEGENDS) {
       const s = finish(createMatch(44, [STARTERS[a.id], STARTERS.anansi]));
@@ -512,17 +528,30 @@ describe("requirements, Control and deterministic verification", () => {
     r.version = 1;
     expect(() => verifyReplay(r)).toThrow("version");
   });
-  it("uses HP then effective damage and deterministic draw at round cap", () => {
+  it("never awards victory from round number or a Life lead", () => {
     const s = ready();
-    s.round = 7;
+    for (const round of [7, 8, 100, 1000]) {
+      s.round = round;
+      s.players[0].hp = 20;
+      s.players[1].hp = 1;
+      s.players[0].damageDealt = 100;
+      decideWinner(s);
+      expect(s.winner).toBeNull();
+    }
+    s.players[1].hp = 0;
+    decideWinner(s);
+    expect(s.winner).toBe(0);
+  });
+  it("keeps deterministic simultaneous-lethal scoring", () => {
+    const s = ready();
     s.players.forEach((p) => {
-      p.hp = 10;
+      p.hp = 0;
       p.damageDealt = 2;
     });
-    decideWinner(s, true);
+    decideWinner(s);
     expect(s.winner).toBe("draw");
     s.players[1].damageDealt++;
-    decideWinner(s, true);
+    decideWinner(s);
     expect(s.winner).toBe(1);
   });
   it("service rejects stale decisions and idempotently acknowledges duplicates", () => {

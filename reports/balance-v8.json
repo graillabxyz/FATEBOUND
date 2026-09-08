@@ -1,0 +1,3374 @@
+{
+  "mechanicalVersion": 8,
+  "generatedAt": "2026-09-08T02:25:12.742Z",
+  "method": "Normal AI; paired swapped seats AND RNG streams; all Legend matchups including mirrors. Wilson 95% opening-initiative interval; balance estimate, not a human-play claim.",
+  "byDiceSize": {
+    "4": {
+      "games": 336,
+      "wins": 172
+    },
+    "6": {
+      "games": 1908,
+      "wins": 950
+    },
+    "8": {
+      "games": 1908,
+      "wins": 950
+    },
+    "10": {
+      "games": 612,
+      "wins": 260
+    },
+    "12": {
+      "games": 290,
+      "wins": 158
+    }
+  },
+  "independentOpeningGames": 475,
+  "initiativeWins": [
+    514,
+    436
+  ],
+  "initiativeGames": 954,
+  "openingRate": 0.5410526315789473,
+  "openingConfidence": [
+    0.4960885236734335,
+    0.5853580340191312
+  ],
+  "initiativeSignificant": false,
+  "held": 19090,
+  "expired": 5742,
+  "rolls": 39876,
+  "reactions": 13192,
+  "reactionWindows": 20008,
+  "reactionSuccess": 13192,
+  "turns": 14246,
+  "byClass": {
+    "Guardian": {
+      "games": 290,
+      "wins": 158
+    },
+    "Trickster": {
+      "games": 336,
+      "wins": 172
+    },
+    "Duelist": {
+      "games": 336,
+      "wins": 172
+    },
+    "Shapeshifter": {
+      "games": 334,
+      "wins": 188
+    },
+    "Mystic": {
+      "games": 330,
+      "wins": 128
+    },
+    "Hero / Trickster": {
+      "games": 282,
+      "wins": 132
+    }
+  },
+  "byInitiativeBonus": {
+    "0": {
+      "games": 290,
+      "openings": 116,
+      "wins": 158
+    },
+    "1": {
+      "games": 334,
+      "openings": 156,
+      "wins": 188
+    },
+    "2": {
+      "games": 612,
+      "openings": 300,
+      "wins": 260
+    },
+    "3": {
+      "games": 336,
+      "openings": 180,
+      "wins": 172
+    },
+    "4": {
+      "games": 336,
+      "openings": 202,
+      "wins": 172
+    }
+  },
+  "damageByRound": {
+    "1": {
+      "games": 954,
+      "damage": 6752
+    },
+    "2": {
+      "games": 954,
+      "damage": 6488
+    },
+    "3": {
+      "games": 946,
+      "damage": 5400
+    },
+    "4": {
+      "games": 870,
+      "damage": 4608
+    },
+    "5": {
+      "games": 652,
+      "damage": 3024
+    },
+    "6": {
+      "games": 458,
+      "damage": 1982
+    },
+    "7": {
+      "games": 332,
+      "damage": 1376
+    },
+    "8": {
+      "games": 258,
+      "damage": 1002
+    },
+    "9": {
+      "games": 220,
+      "damage": 866
+    },
+    "10": {
+      "games": 190,
+      "damage": 810
+    },
+    "11": {
+      "games": 170,
+      "damage": 640
+    },
+    "12": {
+      "games": 154,
+      "damage": 634
+    },
+    "13": {
+      "games": 138,
+      "damage": 554
+    },
+    "14": {
+      "games": 118,
+      "damage": 518
+    },
+    "15": {
+      "games": 98,
+      "damage": 342
+    },
+    "16": {
+      "games": 92,
+      "damage": 372
+    },
+    "17": {
+      "games": 78,
+      "damage": 262
+    },
+    "18": {
+      "games": 78,
+      "damage": 292
+    },
+    "19": {
+      "games": 72,
+      "damage": 220
+    },
+    "20": {
+      "games": 60,
+      "damage": 176
+    },
+    "21": {
+      "games": 58,
+      "damage": 148
+    },
+    "22": {
+      "games": 56,
+      "damage": 170
+    },
+    "23": {
+      "games": 52,
+      "damage": 164
+    },
+    "24": {
+      "games": 46,
+      "damage": 132
+    },
+    "25": {
+      "games": 46,
+      "damage": 166
+    },
+    "26": {
+      "games": 38,
+      "damage": 88
+    },
+    "27": {
+      "games": 28,
+      "damage": 64
+    },
+    "28": {
+      "games": 26,
+      "damage": 88
+    },
+    "29": {
+      "games": 20,
+      "damage": 52
+    },
+    "30": {
+      "games": 18,
+      "damage": 42
+    },
+    "31": {
+      "games": 18,
+      "damage": 48
+    },
+    "32": {
+      "games": 16,
+      "damage": 60
+    },
+    "33": {
+      "games": 14,
+      "damage": 36
+    },
+    "34": {
+      "games": 10,
+      "damage": 48
+    },
+    "35": {
+      "games": 8,
+      "damage": 8
+    },
+    "36": {
+      "games": 8,
+      "damage": 22
+    },
+    "37": {
+      "games": 4,
+      "damage": 8
+    },
+    "38": {
+      "games": 2,
+      "damage": 8
+    },
+    "39": {
+      "games": 2,
+      "damage": 0
+    },
+    "40": {
+      "games": 2,
+      "damage": 8
+    },
+    "41": {
+      "games": 2,
+      "damage": 0
+    },
+    "42": {
+      "games": 2,
+      "damage": 8
+    },
+    "43": {
+      "games": 2,
+      "damage": 0
+    },
+    "44": {
+      "games": 2,
+      "damage": 6
+    }
+  },
+  "games": 954,
+  "seatWins": [
+    475,
+    475
+  ],
+  "draws": 4,
+  "averageRounds": 7.727463312368973,
+  "averageDurationMs": null,
+  "damage": 37692,
+  "guard": 39912,
+  "control": 17622,
+  "unused": 5742,
+  "byLegend": {
+    "basajaun": {
+      "games": 290,
+      "wins": 158,
+      "draws": 0,
+      "rounds": 2150,
+      "damage": 5252,
+      "taken": 5020,
+      "guard": 7522,
+      "control": 2908,
+      "revealed": 766,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "sun-lance": 2832,
+        "root-ward": 1080,
+        "quick-strike": 164,
+        "moss-mantle": 426
+      },
+      "dice": {
+        "standard-d12": 290,
+        "standard-d8": 290,
+        "guardian-d6": 290
+      }
+    },
+    "anansi": {
+      "games": 336,
+      "wins": 172,
+      "draws": 4,
+      "rounds": 1792,
+      "damage": 3136,
+      "taken": 4302,
+      "guard": 2448,
+      "control": 2304,
+      "revealed": 1116,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "silken-cut": 512,
+        "daring-feint": 1814,
+        "hidden-meaning": 408,
+        "web-turn": 604
+      },
+      "dice": {
+        "trickster-d8": 336,
+        "standard-d6": 336,
+        "standard-d4": 336
+      }
+    },
+    "tengu": {
+      "games": 336,
+      "wins": 172,
+      "draws": 2,
+      "rounds": 1944,
+      "damage": 7592,
+      "taken": 5718,
+      "guard": 4608,
+      "control": 3342,
+      "revealed": 1024,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "quick-strike": 764,
+        "perfect-riposte": 1800,
+        "precision-cut": 864,
+        "gale-cut": 144
+      },
+      "dice": {
+        "tengu-d6-0": 336,
+        "standard-d8": 336,
+        "standard-d6": 336
+      }
+    },
+    "leshy": {
+      "games": 334,
+      "wins": 188,
+      "draws": 0,
+      "rounds": 1788,
+      "damage": 7362,
+      "taken": 6598,
+      "guard": 2850,
+      "control": 2614,
+      "revealed": 1010,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "wolf-shape": 1198,
+        "branch-lash": 1652,
+        "moss-mantle": 1224,
+        "windstep": 80
+      },
+      "dice": {
+        "leshy-d8-0": 334,
+        "standard-d8": 334,
+        "standard-d6": 334
+      }
+    },
+    "quetzalcoatl": {
+      "games": 330,
+      "wins": 128,
+      "draws": 2,
+      "rounds": 2120,
+      "damage": 6732,
+      "taken": 5952,
+      "guard": 5808,
+      "control": 2696,
+      "revealed": 986,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "sun-lance": 2526,
+        "root-ward": 1502,
+        "quick-strike": 314,
+        "first-light": 424
+      },
+      "dice": {
+        "quetzalcoatl-d10-0": 330,
+        "standard-d8": 330,
+        "standard-d6": 330
+      }
+    },
+    "maui": {
+      "games": 282,
+      "wins": 132,
+      "draws": 0,
+      "rounds": 4950,
+      "damage": 7618,
+      "taken": 10102,
+      "guard": 16676,
+      "control": 3758,
+      "revealed": 962,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "silken-cut": 1694,
+        "daring-feint": 1662,
+        "turnabout": 1128,
+        "root-ward": 1196
+      },
+      "dice": {
+        "maui-d10-0": 282,
+        "standard-d8": 282,
+        "standard-d6": 282
+      }
+    }
+  },
+  "byCard": {
+    "sun-lance": {
+      "equipped": 620,
+      "equippedWins": 286,
+      "usedMatches": 620,
+      "usedWins": 286,
+      "uses": 5358,
+      "firstRevealRound": 636,
+      "reveals": 620
+    },
+    "root-ward": {
+      "equipped": 902,
+      "equippedWins": 418,
+      "usedMatches": 780,
+      "usedWins": 362,
+      "uses": 3778,
+      "firstRevealRound": 2556,
+      "reveals": 780
+    },
+    "moss-mantle": {
+      "equipped": 624,
+      "equippedWins": 346,
+      "usedMatches": 440,
+      "usedWins": 248,
+      "uses": 1650,
+      "firstRevealRound": 1238,
+      "reveals": 440
+    },
+    "quick-strike": {
+      "equipped": 956,
+      "equippedWins": 458,
+      "usedMatches": 622,
+      "usedWins": 342,
+      "uses": 1242,
+      "firstRevealRound": 2442,
+      "reveals": 622
+    },
+    "silken-cut": {
+      "equipped": 618,
+      "equippedWins": 304,
+      "usedMatches": 542,
+      "usedWins": 262,
+      "uses": 2206,
+      "firstRevealRound": 1780,
+      "reveals": 542
+    },
+    "daring-feint": {
+      "equipped": 618,
+      "equippedWins": 304,
+      "usedMatches": 578,
+      "usedWins": 292,
+      "uses": 3476,
+      "firstRevealRound": 1948,
+      "reveals": 578
+    },
+    "web-turn": {
+      "equipped": 336,
+      "equippedWins": 172,
+      "usedMatches": 292,
+      "usedWins": 168,
+      "uses": 604,
+      "firstRevealRound": 800,
+      "reveals": 292
+    },
+    "hidden-meaning": {
+      "equipped": 336,
+      "equippedWins": 172,
+      "usedMatches": 216,
+      "usedWins": 88,
+      "uses": 408,
+      "firstRevealRound": 726,
+      "reveals": 216
+    },
+    "gale-cut": {
+      "equipped": 336,
+      "equippedWins": 172,
+      "usedMatches": 108,
+      "usedWins": 82,
+      "uses": 144,
+      "firstRevealRound": 494,
+      "reveals": 108
+    },
+    "perfect-riposte": {
+      "equipped": 336,
+      "equippedWins": 172,
+      "usedMatches": 336,
+      "usedWins": 172,
+      "uses": 1800,
+      "firstRevealRound": 674,
+      "reveals": 336
+    },
+    "precision-cut": {
+      "equipped": 336,
+      "equippedWins": 172,
+      "usedMatches": 270,
+      "usedWins": 146,
+      "uses": 864,
+      "firstRevealRound": 796,
+      "reveals": 270
+    },
+    "branch-lash": {
+      "equipped": 334,
+      "equippedWins": 188,
+      "usedMatches": 326,
+      "usedWins": 184,
+      "uses": 1652,
+      "firstRevealRound": 466,
+      "reveals": 326
+    },
+    "wolf-shape": {
+      "equipped": 334,
+      "equippedWins": 188,
+      "usedMatches": 310,
+      "usedWins": 166,
+      "uses": 1198,
+      "firstRevealRound": 536,
+      "reveals": 310
+    },
+    "windstep": {
+      "equipped": 334,
+      "equippedWins": 188,
+      "usedMatches": 66,
+      "usedWins": 32,
+      "uses": 80,
+      "firstRevealRound": 226,
+      "reveals": 66
+    },
+    "first-light": {
+      "equipped": 330,
+      "equippedWins": 128,
+      "usedMatches": 160,
+      "usedWins": 60,
+      "uses": 424,
+      "firstRevealRound": 576,
+      "reveals": 160
+    },
+    "turnabout": {
+      "equipped": 282,
+      "equippedWins": 132,
+      "usedMatches": 198,
+      "usedWins": 100,
+      "uses": 1128,
+      "firstRevealRound": 1318,
+      "reveals": 198
+    }
+  },
+  "byDie": {
+    "standard-d12": {
+      "equipped": 290,
+      "wins": 158,
+      "slots": 290,
+      "controls": 600,
+      "faces": {
+        "standard-d12:10:11": 156,
+        "standard-d12:8:9": 148,
+        "standard-d12:3:4": 184,
+        "standard-d12:4:5": 186,
+        "standard-d12:1:2": 158,
+        "standard-d12:9:10": 176,
+        "standard-d12:11:12": 186,
+        "standard-d12:0:1": 182,
+        "standard-d12:7:8": 178,
+        "standard-d12:6:7": 168,
+        "standard-d12:2:3": 182,
+        "standard-d12:5:6": 174
+      }
+    },
+    "standard-d8": {
+      "equipped": 1572,
+      "wins": 778,
+      "slots": 1572,
+      "controls": 3708,
+      "faces": {
+        "standard-d8:1:2": 1582,
+        "standard-d8:6:7": 1514,
+        "standard-d8:7:8": 1518,
+        "standard-d8:4:5": 1520,
+        "standard-d8:5:6": 1478,
+        "standard-d8:2:3": 1548,
+        "standard-d8:3:4": 1458,
+        "standard-d8:0:1": 1476
+      }
+    },
+    "guardian-d6": {
+      "equipped": 290,
+      "wins": 158,
+      "slots": 290,
+      "controls": 686,
+      "faces": {
+        "guardian-d6:4:0": 284,
+        "guardian-d6:5:guard": 310,
+        "guardian-d6:1:2": 328,
+        "guardian-d6:3:4": 266,
+        "guardian-d6:2:3": 304,
+        "guardian-d6:0:0": 296
+      }
+    },
+    "trickster-d8": {
+      "equipped": 336,
+      "wins": 172,
+      "slots": 336,
+      "controls": 246,
+      "faces": {
+        "trickster-d8:1:2": 160,
+        "trickster-d8:6:0": 190,
+        "trickster-d8:2:0": 198,
+        "trickster-d8:4:5": 204,
+        "trickster-d8:5:swap": 206,
+        "trickster-d8:7:8": 184,
+        "trickster-d8:3:4": 210,
+        "trickster-d8:0:1": 156
+      }
+    },
+    "standard-d6": {
+      "equipped": 1618,
+      "wins": 792,
+      "slots": 1618,
+      "controls": 4264,
+      "faces": {
+        "standard-d6:1:2": 1844,
+        "standard-d6:4:5": 1976,
+        "standard-d6:0:1": 1912,
+        "standard-d6:5:6": 1922,
+        "standard-d6:2:3": 1910,
+        "standard-d6:3:4": 1834
+      }
+    },
+    "standard-d4": {
+      "equipped": 336,
+      "wins": 172,
+      "slots": 336,
+      "controls": 362,
+      "faces": {
+        "standard-d4:0:1": 332,
+        "standard-d4:1:2": 354,
+        "standard-d4:2:3": 326,
+        "standard-d4:3:4": 340
+      }
+    },
+    "tengu-d6-0": {
+      "equipped": 336,
+      "wins": 172,
+      "slots": 336,
+      "controls": 574,
+      "faces": {
+        "tengu-d6-0:4:5": 252,
+        "tengu-d6-0:1:2": 270,
+        "tengu-d6-0:3:5": 268,
+        "tengu-d6-0:2:3": 260,
+        "tengu-d6-0:0:1": 256,
+        "tengu-d6-0:5:redirect": 226
+      }
+    },
+    "leshy-d8-0": {
+      "equipped": 334,
+      "wins": 188,
+      "slots": 334,
+      "controls": 728,
+      "faces": {
+        "leshy-d8-0:3:4": 198,
+        "leshy-d8-0:4:5": 164,
+        "leshy-d8-0:6:0": 196,
+        "leshy-d8-0:7:8": 212,
+        "leshy-d8-0:0:0": 174,
+        "leshy-d8-0:1:2": 228,
+        "leshy-d8-0:5:6": 188,
+        "leshy-d8-0:2:3": 182
+      }
+    },
+    "quetzalcoatl-d10-0": {
+      "equipped": 330,
+      "wins": 128,
+      "slots": 330,
+      "controls": 698,
+      "faces": {
+        "quetzalcoatl-d10-0:1:2": 170,
+        "quetzalcoatl-d10-0:3:4": 166,
+        "quetzalcoatl-d10-0:7:8": 164,
+        "quetzalcoatl-d10-0:6:7": 154,
+        "quetzalcoatl-d10-0:9:guard": 162,
+        "quetzalcoatl-d10-0:5:6": 180,
+        "quetzalcoatl-d10-0:2:3": 182,
+        "quetzalcoatl-d10-0:4:5": 176,
+        "quetzalcoatl-d10-0:0:0": 156,
+        "quetzalcoatl-d10-0:8:0": 200
+      }
+    },
+    "maui-d10-0": {
+      "equipped": 282,
+      "wins": 132,
+      "slots": 282,
+      "controls": 866,
+      "faces": {
+        "maui-d10-0:3:4": 516,
+        "maui-d10-0:4:5": 522,
+        "maui-d10-0:1:2": 464,
+        "maui-d10-0:7:8": 472,
+        "maui-d10-0:5:6": 450,
+        "maui-d10-0:0:1": 520,
+        "maui-d10-0:8:4": 424,
+        "maui-d10-0:9:5": 530,
+        "maui-d10-0:2:3": 450,
+        "maui-d10-0:6:7": 526
+      }
+    }
+  },
+  "byLoadout": {
+    "[\"basajaun\",[\"sun-lance\",\"root-ward\",\"moss-mantle\",\"quick-strike\"],[\"standard-d12\",\"standard-d8\",\"guardian-d6\"]]": {
+      "games": 290,
+      "wins": 158,
+      "draws": 0,
+      "rounds": 2150,
+      "damage": 5252,
+      "taken": 5020,
+      "guard": 7522,
+      "control": 2908,
+      "revealed": 766,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "sun-lance": 2832,
+        "root-ward": 1080,
+        "quick-strike": 164,
+        "moss-mantle": 426
+      },
+      "dice": {
+        "standard-d12": 290,
+        "standard-d8": 290,
+        "guardian-d6": 290
+      }
+    },
+    "[\"anansi\",[\"silken-cut\",\"daring-feint\",\"web-turn\",\"hidden-meaning\"],[\"trickster-d8\",\"standard-d6\",\"standard-d4\"]]": {
+      "games": 336,
+      "wins": 172,
+      "draws": 4,
+      "rounds": 1792,
+      "damage": 3136,
+      "taken": 4302,
+      "guard": 2448,
+      "control": 2304,
+      "revealed": 1116,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "silken-cut": 512,
+        "daring-feint": 1814,
+        "hidden-meaning": 408,
+        "web-turn": 604
+      },
+      "dice": {
+        "trickster-d8": 336,
+        "standard-d6": 336,
+        "standard-d4": 336
+      }
+    },
+    "[\"tengu\",[\"gale-cut\",\"perfect-riposte\",\"precision-cut\",\"quick-strike\"],[\"tengu-d6-0\",\"standard-d8\",\"standard-d6\"]]": {
+      "games": 336,
+      "wins": 172,
+      "draws": 2,
+      "rounds": 1944,
+      "damage": 7592,
+      "taken": 5718,
+      "guard": 4608,
+      "control": 3342,
+      "revealed": 1024,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "quick-strike": 764,
+        "perfect-riposte": 1800,
+        "precision-cut": 864,
+        "gale-cut": 144
+      },
+      "dice": {
+        "tengu-d6-0": 336,
+        "standard-d8": 336,
+        "standard-d6": 336
+      }
+    },
+    "[\"leshy\",[\"branch-lash\",\"moss-mantle\",\"wolf-shape\",\"windstep\"],[\"leshy-d8-0\",\"standard-d8\",\"standard-d6\"]]": {
+      "games": 334,
+      "wins": 188,
+      "draws": 0,
+      "rounds": 1788,
+      "damage": 7362,
+      "taken": 6598,
+      "guard": 2850,
+      "control": 2614,
+      "revealed": 1010,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "wolf-shape": 1198,
+        "branch-lash": 1652,
+        "moss-mantle": 1224,
+        "windstep": 80
+      },
+      "dice": {
+        "leshy-d8-0": 334,
+        "standard-d8": 334,
+        "standard-d6": 334
+      }
+    },
+    "[\"quetzalcoatl\",[\"sun-lance\",\"root-ward\",\"first-light\",\"quick-strike\"],[\"quetzalcoatl-d10-0\",\"standard-d8\",\"standard-d6\"]]": {
+      "games": 330,
+      "wins": 128,
+      "draws": 2,
+      "rounds": 2120,
+      "damage": 6732,
+      "taken": 5952,
+      "guard": 5808,
+      "control": 2696,
+      "revealed": 986,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "sun-lance": 2526,
+        "root-ward": 1502,
+        "quick-strike": 314,
+        "first-light": 424
+      },
+      "dice": {
+        "quetzalcoatl-d10-0": 330,
+        "standard-d8": 330,
+        "standard-d6": 330
+      }
+    },
+    "[\"maui\",[\"silken-cut\",\"root-ward\",\"daring-feint\",\"turnabout\"],[\"maui-d10-0\",\"standard-d8\",\"standard-d6\"]]": {
+      "games": 282,
+      "wins": 132,
+      "draws": 0,
+      "rounds": 4950,
+      "damage": 7618,
+      "taken": 10102,
+      "guard": 16676,
+      "control": 3758,
+      "revealed": 962,
+      "durationMs": 0,
+      "timedGames": 0,
+      "cards": {
+        "silken-cut": 1694,
+        "daring-feint": 1662,
+        "turnabout": 1128,
+        "root-ward": 1196
+      },
+      "dice": {
+        "maui-d10-0": 282,
+        "standard-d8": 282,
+        "standard-d6": 282
+      }
+    }
+  },
+  "matchups": {
+    "basajaun:basajaun": {
+      "games": 96,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 956
+    },
+    "basajaun:anansi": {
+      "games": 48,
+      "wins": 20,
+      "draws": 0,
+      "rounds": 296
+    },
+    "anansi:basajaun": {
+      "games": 48,
+      "wins": 28,
+      "draws": 0,
+      "rounds": 296
+    },
+    "basajaun:tengu": {
+      "games": 48,
+      "wins": 36,
+      "draws": 0,
+      "rounds": 262
+    },
+    "tengu:basajaun": {
+      "games": 48,
+      "wins": 12,
+      "draws": 0,
+      "rounds": 262
+    },
+    "basajaun:leshy": {
+      "games": 48,
+      "wins": 18,
+      "draws": 0,
+      "rounds": 244
+    },
+    "leshy:basajaun": {
+      "games": 48,
+      "wins": 30,
+      "draws": 0,
+      "rounds": 244
+    },
+    "basajaun:quetzalcoatl": {
+      "games": 48,
+      "wins": 34,
+      "draws": 0,
+      "rounds": 324
+    },
+    "quetzalcoatl:basajaun": {
+      "games": 48,
+      "wins": 14,
+      "draws": 0,
+      "rounds": 324
+    },
+    "anansi:anansi": {
+      "games": 96,
+      "wins": 46,
+      "draws": 4,
+      "rounds": 496
+    },
+    "anansi:tengu": {
+      "games": 48,
+      "wins": 10,
+      "draws": 0,
+      "rounds": 210
+    },
+    "tengu:anansi": {
+      "games": 48,
+      "wins": 38,
+      "draws": 0,
+      "rounds": 210
+    },
+    "anansi:leshy": {
+      "games": 48,
+      "wins": 36,
+      "draws": 0,
+      "rounds": 206
+    },
+    "leshy:anansi": {
+      "games": 48,
+      "wins": 12,
+      "draws": 0,
+      "rounds": 206
+    },
+    "anansi:quetzalcoatl": {
+      "games": 48,
+      "wins": 34,
+      "draws": 0,
+      "rounds": 234
+    },
+    "quetzalcoatl:anansi": {
+      "games": 48,
+      "wins": 14,
+      "draws": 0,
+      "rounds": 234
+    },
+    "anansi:maui": {
+      "games": 48,
+      "wins": 18,
+      "draws": 0,
+      "rounds": 350
+    },
+    "maui:anansi": {
+      "games": 48,
+      "wins": 30,
+      "draws": 0,
+      "rounds": 350
+    },
+    "tengu:tengu": {
+      "games": 96,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 436
+    },
+    "tengu:leshy": {
+      "games": 48,
+      "wins": 20,
+      "draws": 0,
+      "rounds": 208
+    },
+    "leshy:tengu": {
+      "games": 48,
+      "wins": 28,
+      "draws": 0,
+      "rounds": 208
+    },
+    "tengu:quetzalcoatl": {
+      "games": 48,
+      "wins": 20,
+      "draws": 2,
+      "rounds": 214
+    },
+    "quetzalcoatl:tengu": {
+      "games": 48,
+      "wins": 26,
+      "draws": 2,
+      "rounds": 214
+    },
+    "tengu:maui": {
+      "games": 48,
+      "wins": 34,
+      "draws": 0,
+      "rounds": 614
+    },
+    "maui:tengu": {
+      "games": 48,
+      "wins": 14,
+      "draws": 0,
+      "rounds": 614
+    },
+    "leshy:leshy": {
+      "games": 96,
+      "wins": 48,
+      "draws": 0,
+      "rounds": 372
+    },
+    "leshy:quetzalcoatl": {
+      "games": 48,
+      "wins": 42,
+      "draws": 0,
+      "rounds": 198
+    },
+    "quetzalcoatl:leshy": {
+      "games": 48,
+      "wins": 6,
+      "draws": 0,
+      "rounds": 198
+    },
+    "leshy:maui": {
+      "games": 46,
+      "wins": 28,
+      "draws": 0,
+      "rounds": 560
+    },
+    "maui:leshy": {
+      "games": 46,
+      "wins": 18,
+      "draws": 0,
+      "rounds": 560
+    },
+    "quetzalcoatl:quetzalcoatl": {
+      "games": 92,
+      "wins": 46,
+      "draws": 0,
+      "rounds": 436
+    },
+    "quetzalcoatl:maui": {
+      "games": 46,
+      "wins": 22,
+      "draws": 0,
+      "rounds": 714
+    },
+    "maui:quetzalcoatl": {
+      "games": 46,
+      "wins": 24,
+      "draws": 0,
+      "rounds": 714
+    },
+    "maui:maui": {
+      "games": 92,
+      "wins": 46,
+      "draws": 0,
+      "rounds": 2644
+    },
+    "basajaun:maui": {
+      "games": 2,
+      "wins": 2,
+      "draws": 0,
+      "rounds": 68
+    },
+    "maui:basajaun": {
+      "games": 2,
+      "wins": 0,
+      "draws": 0,
+      "rounds": 68
+    }
+  },
+  "lethalRounds": {
+    "2": 8,
+    "3": 76,
+    "4": 218,
+    "5": 194,
+    "6": 126,
+    "7": 74,
+    "8": 38,
+    "9": 30,
+    "10": 20,
+    "11": 16,
+    "12": 16,
+    "13": 20,
+    "14": 20,
+    "15": 6,
+    "16": 14,
+    "18": 6,
+    "19": 12,
+    "20": 2,
+    "21": 2,
+    "22": 4,
+    "23": 6,
+    "25": 8,
+    "26": 10,
+    "27": 2,
+    "28": 6,
+    "29": 2,
+    "31": 2,
+    "32": 2,
+    "33": 4,
+    "34": 2,
+    "36": 4,
+    "37": 2,
+    "44": 2
+  },
+  "daily": {
+    "2026-09-08": 954
+  },
+  "paired": 477,
+  "mismatches": 0,
+  "attempted": 1000,
+  "stalled": [
+    {
+      "seed": 12005,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        19,
+        20
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12005,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        20,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12026,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        15,
+        15
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12026,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        15,
+        15
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12047,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        14,
+        15
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12047,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        15,
+        14
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12068,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        21,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12068,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        21
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12089,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        18,
+        15
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12089,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        15,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12110,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        18,
+        17
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12110,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        17,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12131,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        21,
+        17
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12131,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        17,
+        21
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12173,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        18,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12173,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        18,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12194,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        10,
+        10
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12194,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        10,
+        10
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12215,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        18,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12215,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        18,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12236,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        20,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12236,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        20
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12257,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        19,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12257,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12278,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        21,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12278,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        21
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12299,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        19,
+        20
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12299,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        20,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12320,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        18,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12320,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12341,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        14,
+        13
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12341,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        13,
+        14
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12362,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        10,
+        12
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12362,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        12,
+        10
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12383,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        21,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12383,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        21
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12404,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        16,
+        16
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12404,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        16,
+        16
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12425,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        15,
+        16
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12425,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        16,
+        15
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12446,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        21,
+        19
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12446,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        19,
+        21
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12467,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        18,
+        20
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12467,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        20,
+        18
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12488,
+      "index": 0,
+      "rounds": 100,
+      "hp": [
+        13,
+        15
+      ],
+      "loadouts": [
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        },
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    },
+    {
+      "seed": 12488,
+      "index": 1,
+      "rounds": 100,
+      "hp": [
+        15,
+        13
+      ],
+      "loadouts": [
+        {
+          "id": "starter-maui",
+          "name": "Against the Tide",
+          "legend": "maui",
+          "cards": [
+            "silken-cut",
+            "root-ward",
+            "daring-feint",
+            "turnabout"
+          ],
+          "dice": [
+            "maui-d10-0",
+            "standard-d8",
+            "standard-d6"
+          ]
+        },
+        {
+          "id": "starter-basajaun",
+          "name": "The Quiet Guardian",
+          "legend": "basajaun",
+          "cards": [
+            "sun-lance",
+            "root-ward",
+            "moss-mantle",
+            "quick-strike"
+          ],
+          "dice": [
+            "standard-d12",
+            "standard-d8",
+            "guardian-d6"
+          ]
+        }
+      ],
+      "reason": "round-watchdog"
+    }
+  ],
+  "opening": {
+    "roles": [
+      {
+        "games": 954,
+        "wins": 514,
+        "draws": 4,
+        "turn1Damage": 2822,
+        "turn2Damage": 3008,
+        "turn1Samples": 954,
+        "turn2Samples": 954,
+        "held": 210,
+        "reactions": 118
+      },
+      {
+        "games": 954,
+        "wins": 436,
+        "draws": 4,
+        "turn1Damage": 3846,
+        "turn2Damage": 2304,
+        "turn1Samples": 954,
+        "turn2Samples": 954,
+        "held": 728,
+        "reactions": 0
+      }
+    ],
+    "choices": {
+      "[0,\"basajaun\",[\"standard-d12\"]]": {
+        "role": 0,
+        "name": "Basajaun \u00b7 Old Root",
+        "games": 116,
+        "wins": 68,
+        "draws": 0
+      },
+      "[1,\"basajaun\",[\"standard-d12\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Basajaun \u00b7 Old Root + Mountain Wind",
+        "games": 174,
+        "wins": 90,
+        "draws": 0
+      },
+      "[0,\"anansi\",[\"standard-d6\"]]": {
+        "role": 0,
+        "name": "Anansi \u00b7 Iron Path",
+        "games": 180,
+        "wins": 102,
+        "draws": 2
+      },
+      "[0,\"tengu\",[\"standard-d6\"]]": {
+        "role": 0,
+        "name": "Tengu \u00b7 Iron Path",
+        "games": 202,
+        "wins": 106,
+        "draws": 2
+      },
+      "[1,\"leshy\",[\"leshy-d8-0\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Leshy \u00b7 Shifting Bark + Mountain Wind",
+        "games": 178,
+        "wins": 76,
+        "draws": 0
+      },
+      "[0,\"quetzalcoatl\",[\"standard-d8\"]]": {
+        "role": 0,
+        "name": "Quetzalcoatl \u00b7 Mountain Wind",
+        "games": 154,
+        "wins": 48,
+        "draws": 0
+      },
+      "[1,\"anansi\",[\"standard-d6\",\"trickster-d8\"]]": {
+        "role": 1,
+        "name": "Anansi \u00b7 Iron Path + Spider\u2019s Gambit",
+        "games": 156,
+        "wins": 70,
+        "draws": 2
+      },
+      "[1,\"tengu\",[\"standard-d6\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Tengu \u00b7 Iron Path + Mountain Wind",
+        "games": 134,
+        "wins": 66,
+        "draws": 0
+      },
+      "[0,\"leshy\",[\"standard-d8\"]]": {
+        "role": 0,
+        "name": "Leshy \u00b7 Mountain Wind",
+        "games": 156,
+        "wins": 112,
+        "draws": 0
+      },
+      "[0,\"maui\",[\"maui-d10-0\"]]": {
+        "role": 0,
+        "name": "M\u0101ui \u00b7 Voyager\u2019s Knot",
+        "games": 146,
+        "wins": 78,
+        "draws": 0
+      },
+      "[1,\"quetzalcoatl\",[\"standard-d6\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "Quetzalcoatl \u00b7 Iron Path + Mountain Wind",
+        "games": 176,
+        "wins": 80,
+        "draws": 2
+      },
+      "[1,\"maui\",[\"maui-d10-0\",\"standard-d8\"]]": {
+        "role": 1,
+        "name": "M\u0101ui \u00b7 Voyager\u2019s Knot + Mountain Wind",
+        "games": 136,
+        "wins": 54,
+        "draws": 0
+      }
+    },
+    "fullTurnSamples": 954,
+    "openingTurnSamples": 1908,
+    "averageLifeDifferential": 1.3459119496855345
+  },
+  "dieBudgets": [
+    {
+      "id": "standard-d4",
+      "mean": 1.25,
+      "variance": 0.3125,
+      "blankShare": 0,
+      "oppositeGain": 1.5
+    },
+    {
+      "id": "standard-d6",
+      "mean": 1.75,
+      "variance": 0.7291666666666666,
+      "blankShare": 0,
+      "oppositeGain": 2.5
+    },
+    {
+      "id": "standard-d8",
+      "mean": 2.25,
+      "variance": 1.3125,
+      "blankShare": 0,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "standard-d10",
+      "mean": 2.75,
+      "variance": 2.0625,
+      "blankShare": 0,
+      "oppositeGain": 4.5
+    },
+    {
+      "id": "standard-d12",
+      "mean": 3.25,
+      "variance": 2.9791666666666665,
+      "blankShare": 0,
+      "oppositeGain": 5.5
+    },
+    {
+      "id": "standard-d20",
+      "mean": 5.25,
+      "variance": 8.3125,
+      "blankShare": 0,
+      "oppositeGain": 9.5
+    },
+    {
+      "id": "guardian-d6",
+      "mean": 1.25,
+      "variance": 1.1458333333333333,
+      "blankShare": 0.3333333333333333,
+      "oppositeGain": 3
+    },
+    {
+      "id": "trickster-d8",
+      "mean": 1.625,
+      "variance": 1.921875,
+      "blankShare": 0.25,
+      "oppositeGain": 3.5
+    },
+    {
+      "id": "tengu-d6-0",
+      "mean": 1.8333333333333333,
+      "variance": 0.8055555555555557,
+      "blankShare": 0,
+      "oppositeGain": 2.5
+    },
+    {
+      "id": "leshy-d8-0",
+      "mean": 1.75,
+      "variance": 1.75,
+      "blankShare": 0.25,
+      "oppositeGain": 4
+    },
+    {
+      "id": "quetzalcoatl-d10-0",
+      "mean": 2.05,
+      "variance": 1.7725000000000002,
+      "blankShare": 0.2,
+      "oppositeGain": 3
+    },
+    {
+      "id": "maui-d10-0",
+      "mean": 2.25,
+      "variance": 1.0625,
+      "blankShare": 0,
+      "oppositeGain": 2.5
+    }
+  ],
+  "stalledSeatMismatches": 0
+}

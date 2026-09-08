@@ -27,7 +27,7 @@ export function finishTurnMetrics(s: MatchState) {
 
 /** Validate and sanitize turn telemetry for checkpoints and authenticated ingestion. */
 export function copyTurnHistory(value: unknown): MatchState["turnHistory"] {
-  if (!Array.isArray(value) || value.length > 198)
+  if (!Array.isArray(value) || value.length > 20000)
     throw new Error("Invalid turn history.");
   const integer = (n: unknown, max: number) =>
     typeof n === "number" && Number.isInteger(n) && n >= 0 && n <= max;
@@ -35,11 +35,11 @@ export function copyTurnHistory(value: unknown): MatchState["turnHistory"] {
     if (
       !r ||
       ![0, 1].includes(r.actor) ||
-      !integer(r.turn, 198) ||
+      !integer(r.turn, Number.MAX_SAFE_INTEGER) ||
       r.turn < 1 ||
-      !integer(r.round, 99) ||
+      !integer(r.round, Number.MAX_SAFE_INTEGER) ||
       r.round < 1 ||
-      !integer(r.playerTurnCount, 198) ||
+      !integer(r.playerTurnCount, Number.MAX_SAFE_INTEGER) ||
       r.playerTurnCount < 1 ||
       !Array.isArray(r.slots) ||
       r.slots.length > 3 ||

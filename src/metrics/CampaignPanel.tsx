@@ -41,6 +41,10 @@ export default function CampaignPanel() {
       }
   return (
     <Section title="Rules audit · full matchup campaigns">
+      <p>
+        Historical capped-combat results. Run new simulations for current
+        uncapped rules.
+      </p>
       <p>{results.method}</p>
       <div className="dev-actions">
         {results.passes.map((x) => (

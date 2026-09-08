@@ -20,23 +20,6 @@
   font-size: 11px;
   letter-spacing: 1px;
 }
-.card-affinity {
-  min-height: 20px;
-  flex: 0 0 20px;
-  padding: 2px 6px;
-  border-bottom: 1px solid #bcaa7633;
-  overflow: hidden;
-  background: #192721;
-}
-.card-affinity .affinity-line {
-  display: flex;
-  white-space: nowrap;
-  font-size: 9px;
-}
-.card-affinity .affinity-line > span:last-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .card-pool-art {
   position: relative;
   display: grid;
@@ -233,18 +216,6 @@
 .participant-affinities .affinity-line > span:first-child {
   display: none;
 }
-.premium-table .card-affinity {
-  min-height: 15px;
-  flex-basis: 15px;
-  padding: 0 3px;
-}
-.premium-table .card-affinity .affinity-line {
-  font-size: 7px;
-  line-height: 15px;
-}
-.premium-table .card-affinity .affinity-line > span:first-child {
-  display: none;
-}
 .premium-table .gameplay-card.compact .card-illustration {
   flex-basis: 30px;
   height: 30px !important;
@@ -321,17 +292,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.card-affinity {
-  height: auto;
-  min-height: 24px;
-  flex-basis: auto;
-}
-.card-affinity .affinity-line {
-  white-space: normal;
-}
-.card-affinity .affinity-line > span:last-child {
-  overflow: visible;
-}
 .pack-revealed .gameplay-card {
   height: 280px;
 }
@@ -351,26 +311,4 @@
 .premium-table .modal {
   max-height: 82dvh;
   overflow: auto;
-}
-
-.loadout-page .active-hand .card-affinity {
-  height: 36px;
-  min-height: 36px;
-  max-height: 36px;
-  flex: 0 0 36px;
-  display: flex;
-  align-items: center;
-}
-.loadout-page .active-hand .card-affinity .affinity-line {
-  font-size: 8px;
-  line-height: 10px;
-}
-.loadout-page .active-hand .card-affinity .affinity-line > span:first-child {
-  display: none;
-}
-.loadout-page .active-hand .card-affinity .affinity-line > span:last-child {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
 }

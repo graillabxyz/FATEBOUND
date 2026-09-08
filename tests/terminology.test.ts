@@ -1,3 +1,4 @@
+import { choosePlan } from "../src/engine/ai";
 import { describe, it, expect } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
@@ -13,6 +14,7 @@ import {
   requirementText,
 } from "../src/content/terminology";
 import {
+  decisionContext,
   createMatch,
   advance,
   lockPlan,
@@ -177,9 +179,18 @@ describe("authoritative opening Omen choices", () => {
       expect(
         s.players[s.activePlayer].dice.every((d) => d.rolledTurn === s.turn),
       ).toBe(true);
-      while (String(s.phase) !== "MATCH_END") {
-        if (String(s.phase) === "MAIN_ACTION") timeoutPlan(s, s.activePlayer);
-        else advance(s);
+      for (
+        let step = 0;
+        String(s.phase) !== "MATCH_END" && step < 10000;
+        step++
+      ) {
+        if (["MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
+          const actor =
+            String(s.phase) === "MAIN_ACTION"
+              ? s.activePlayer
+              : 1 - s.activePlayer;
+          lockPlan(s, actor, choosePlan(decisionContext(s, actor)));
+        } else advance(s);
       }
       const restored = verifyReplay(exportReplay(s));
       expect(restored.players).toEqual(s.players);

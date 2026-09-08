@@ -38,17 +38,10 @@ export function createMatch(
     throw new Error("Two locked loadouts required.");
   loadouts.forEach((l) => validateLoadout(l));
   const rules: MatchConfig = {
-    maxRounds: GAME.maxRounds,
     rngSeats: [0, 1],
     openingOmenCounts: [...GAME.openingOmenCounts],
     ...clone(config),
   };
-  if (
-    !Number.isInteger(rules.maxRounds) ||
-    rules.maxRounds < 1 ||
-    rules.maxRounds > 99
-  )
-    throw new Error("Invalid match configuration.");
   if (
     !Array.isArray(rules.openingOmenCounts) ||
     rules.openingOmenCounts.length !== 2 ||
@@ -401,7 +394,7 @@ export function rollOmens(s: MatchState, selectedSlots?: number[]) {
     )
   )
     s.openingFullLife = s.players.map((p) => p.hp);
-  decideWinner(s, false);
+  decideWinner(s);
   s.phase = s.winner === null ? "DICE_ROLL" : "MATCH_END";
   s.revision++;
 }
@@ -609,23 +602,15 @@ export function recordResolution(
   s: MatchState,
   _result: { damage: number[]; guard: number[] },
 ) {
-  decideWinner(s, false);
+  decideWinner(s);
   s.pending = null;
   s.reaction = null;
   s.players.forEach((p) => (p.plan = null));
   s.phase = s.winner === null ? "MAIN_ACTION" : "MATCH_END";
   s.revision++;
 }
-export function decideWinner(
-  s: MatchState,
-  atRoundLimit: boolean | number = false,
-) {
-  const ended =
-    s.players.some((p) => p.hp <= 0) ||
-    (typeof atRoundLimit === "number"
-      ? s.round >= atRoundLimit
-      : atRoundLimit && s.round >= s.config.maxRounds);
-  if (!ended) return;
+export function decideWinner(s: MatchState) {
+  if (!s.players.some((p) => p.hp <= 0)) return;
   finishTurnMetrics(s);
   const [a, b] = s.players;
   s.winner =
@@ -639,7 +624,7 @@ export function decideWinner(
           : 1
         : "draw";
 }
-export function cleanup(s: MatchState, maxRounds = s.config.maxRounds) {
+export function cleanup(s: MatchState) {
   if (s.phase !== "ROUND_END")
     throw new Error("Cleanup is a round-end operation.");
   s.players.forEach((p) => {
@@ -650,7 +635,7 @@ export function cleanup(s: MatchState, maxRounds = s.config.maxRounds) {
         x.expiresRound > s.round,
     );
   });
-  decideWinner(s, s.round >= maxRounds);
+  decideWinner(s);
   if (s.winner !== null) s.phase = "MATCH_END";
   s.revision++;
 }
@@ -736,7 +721,10 @@ export function verifyReplay(r: Replay) {
   const s = createMatch(r.seed, r.loadouts, undefined, r.config);
   let cursor = 0,
     steps = 0;
-  while (s.phase !== "MATCH_END" && steps++ < 3000) {
+  while (
+    s.phase !== "MATCH_END" &&
+    steps++ < Math.max(100, r.turns.length * 20 + 100)
+  ) {
     if (["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
       const c = r.turns[cursor++];
       if (!c || c.round !== s.round || c.turn !== s.turn)

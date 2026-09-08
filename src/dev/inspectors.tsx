@@ -699,9 +699,7 @@ export function PhaseControls({ lab, run }: { lab: LabController; run: Run }) {
   return (
     <div className="dev-stack">
       <div className="dev-phase-heading">
-        <strong>
-          ROUND {lab.state.round}/{lab.setup.maxRounds}
-        </strong>
+        <strong>ROUND {lab.state.round}</strong>
         <b>
           {rulesLabel(lab.state.phase)} · Active{" "}
           {lab.state.activePlayer ? "B" : "A"} · Initiative{" "}

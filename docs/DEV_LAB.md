@@ -34,7 +34,7 @@ The floating DEV sheet pauses timers and auto-advance. **Hide all Dev UI** prese
 
 ## Controls and validation
 
-- Setup supports default/random/mirrored/swapped loadouts, known cards, status JSON, round limits, seed, rank labels, timer durations and prior effective damage. Setup also forces initiative bonuses, opening d20 rolls/winner and held-Omen faces. Held resources survive only until owner turn start. Previous-card context is recorded in reports.
+- Setup supports default/random/mirrored/swapped loadouts, known cards, status JSON, starting round, seed, rank labels, timer durations and prior effective damage. Setup also forces initiative bonuses, opening d20 rolls/winner and held-Omen faces. Held resources survive only until owner turn start. Previous-card context is recorded in reports.
 - Ignore Restrictions bypasses Legend/card/Omen compatibility only. Four distinct existing cards and three existing Omens are still required because production targets use card IDs. Planning, Focus costs and effect rules are never bypassed silently.
 - Fate supports random, fixed and multiround sequences with repeat/random/stop endings. Current/next Fate, individual faces and Sigils can be changed. Sequence exhaustion stops at the round boundary with a clear message.
 - Omens inspection exposes ordered face indices, values, opposites, balance weights and compatibility. Shift/Flip use production Focus rules; Set Face is an explicit audited override.

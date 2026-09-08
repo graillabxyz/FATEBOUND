@@ -576,7 +576,6 @@ export default function DevLab({ onExit }: { onExit: () => void }) {
                   viewOnly: lab.options.view === "Spectator",
                   syncKey: lab.epoch,
                   draft: lab.drafts[lab.actor],
-                  maxRounds: lab.setup.maxRounds,
                   onDraft: (p) => {
                     if (!lab.state.players[lab.actor].locked)
                       lab.drafts[lab.actor] = structuredClone(p);

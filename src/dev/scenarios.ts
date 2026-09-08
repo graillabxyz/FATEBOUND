@@ -147,8 +147,8 @@ export const SCENARIOS: Scenario[] = [
   ),
   scenario(
     "tie",
-    "Round 7 tie",
-    "Mirror Life and damage; empty plans yield deterministic draw.",
+    "Round 7 continues",
+    "Equal Life and damage. Pass both turns: the match continues into Round 8.",
     (s) => {
       s.round = 7;
       s.players[1] = defaultPlayer("basajaun", false);

@@ -586,15 +586,9 @@ export function GameplayCard({
             <AffinityLine requirement={card.affinityRequirements} symbolsOnly />
           )}
         </div>
-        <div className="card-affinity">
-          {compact ? (
-            <span className="card-timing">{card.timing}</span>
-          ) : (
-            <AffinityLine requirement={card.affinityRequirements} compact />
-          )}
-        </div>
         <CardArt card={card} className="card-illustration" />
         <div className="card-rules">
+          <span className="card-timing">{card.timing}</span>
           <strong>{card.requirementLabel}</strong>
           <p>{card.text}</p>
         </div>

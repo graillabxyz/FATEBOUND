@@ -427,13 +427,6 @@ export default function Setup({
             onChange={(v) => change((s) => (s.round = v))}
           />
           <NumberField
-            label="Maximum round"
-            min={1}
-            max={99}
-            value={setup.maxRounds}
-            onChange={(v) => change((s) => (s.maxRounds = v))}
-          />
-          <NumberField
             label="Decision seconds (0 disables)"
             max={300}
             value={setup.timerMs / 1000}

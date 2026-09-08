@@ -1,3 +1,4 @@
+import type { StalledSimulation } from "../dev/simulation";
 import StarterEconomyPanel from "./StarterEconomyPanel";
 import CampaignPanel from "./CampaignPanel";
 import CardPoolPanel from "./CardPoolPanel";
@@ -32,6 +33,7 @@ export default function SimulationPanel({
     [progress, setProgress] = useState(0),
     [running, setRunning] = useState(false),
     [records, setRecords] = useState<MatchRecord[]>([]),
+    [stalled, setStalled] = useState<StalledSimulation[]>([]),
     [error, setError] = useState(""),
     [saving, setSaving] = useState(false),
     [saved, setSaved] = useState(false);
@@ -61,6 +63,7 @@ export default function SimulationPanel({
     worker.current?.terminate();
     setError("");
     setRecords([]);
+    setStalled([]);
     setProgress(0);
     setRunning(true);
     setSaved(false);
@@ -74,6 +77,7 @@ export default function SimulationPanel({
       if (e.data.type === "progress") setProgress(e.data.done);
       else if (e.data.type === "complete") {
         setRecords(e.data.records);
+        setStalled(e.data.stalled ?? []);
         setRunning(false);
         w.terminate();
       } else {
@@ -268,6 +272,22 @@ export default function SimulationPanel({
           {error}
         </p>
       )}
+      {stalled.length > 0 && (
+        <Section title="Stalled simulations" open>
+          <p role="alert">
+            {stalled.length} unfinished games reached the simulation watchdog.
+            They are excluded from win rates and draws; completed-game rates may
+            be biased when builds stall.
+          </p>
+          <Button
+            onClick={() =>
+              downloadJSON("omnipath-stalled-simulations.json", stalled)
+            }
+          >
+            Export stalled seeds and Loadouts
+          </Button>
+        </Section>
+      )}
       {records.length > 0 && (
         <>
           <h3>
@@ -284,6 +304,7 @@ export default function SimulationPanel({
               onClick={() =>
                 downloadJSON("omnipath-simulation.json", {
                   records,
+                  stalled,
                   metrics: aggregate(records),
                 })
               }

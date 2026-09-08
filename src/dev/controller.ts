@@ -80,7 +80,6 @@ export class LabController {
       ],
       `lab-${setup.seed}`,
       {
-        maxRounds: setup.maxRounds,
         initiativeBonuses: setup.players.map((p) => p.initiativeBonus) as [
           number,
           number,
@@ -385,7 +384,7 @@ export class LabController {
       this.startResolution();
       if (!this.options.step) while (this.resolving) this.nextEffect();
     } else {
-      if (phase === "ROUND_END" && this.state.round < this.setup.maxRounds) {
+      if (phase === "ROUND_END") {
         const fate = this.fateForRound(this.state.round + 1);
         advance(this.state, 0);
         this.state.roundFate = fate ?? null;
@@ -622,7 +621,7 @@ export class LabController {
     this.addStatus(actor, {
       id: "stun",
       amount: disable ? 1000 : 1,
-      expiresRound: disable ? this.setup.maxRounds : this.state.round,
+      expiresRound: disable ? Number.MAX_SAFE_INTEGER : this.state.round,
       cardId: card,
     });
   }
@@ -839,7 +838,7 @@ function validateState(state: MatchState, setup: LabSetup) {
   )
     throw new Error("Unsupported match state.");
   int(state.seed, 0, 0xffffffff, "Seed");
-  int(state.round, 0, 99, "Round");
+  int(state.round, 0, Number.MAX_SAFE_INTEGER, "Round");
   int(state.revision, 0, 1e9, "Revision");
   if (
     ![
@@ -877,11 +876,11 @@ function validateState(state: MatchState, setup: LabSetup) {
   });
   if (
     !Array.isArray(state.events) ||
-    state.events.length > 10000 ||
+    state.events.length > 200000 ||
     !Array.isArray(state.stats) ||
-    state.stats.length > 100 ||
+    state.stats.length > 10000 ||
     !Array.isArray(state.replay) ||
-    state.replay.length > 3000
+    state.replay.length > 100000
   )
     throw new Error("Invalid or excessive match history.");
   if (![0, 1, "draw", null].includes(state.winner))

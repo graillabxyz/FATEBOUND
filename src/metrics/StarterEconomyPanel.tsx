@@ -6,7 +6,11 @@ const pct = (v: number) => (v * 100).toFixed(1) + "%";
 export default function StarterEconomyPanel() {
   const [tab, setTab] = useState("Matchups");
   return (
-    <Section title="Latest starter + economy audit · 8 Sep 2026" open>
+    <Section title="Historical starter + economy audit · v7" open>
+      <p>
+        Combat results below used the retired seven-round cap. They do not
+        describe current uncapped balance.
+      </p>
       <p>
         <strong>
           {(report.games + report.accessGames).toLocaleString()}{" "}

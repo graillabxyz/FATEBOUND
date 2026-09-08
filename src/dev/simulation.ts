@@ -13,7 +13,24 @@ export type SimulationConfig = {
   difficulty: Difficulty;
   seed: number;
   paired: boolean;
+  /** Harness watchdog only; never a combat victory condition. */
+  stallRounds?: number;
 };
+export type StalledSimulation = {
+  seed: number;
+  index: number;
+  rounds: number;
+  hp: number[];
+  loadouts: [Loadout, Loadout];
+  reason: string;
+};
+export class SimulationStalledError extends Error {
+  constructor(public readonly detail: StalledSimulation) {
+    super(
+      `Simulation stalled after ${detail.rounds} rounds (seed ${detail.seed}). No win or draw awarded.`,
+    );
+  }
+}
 export function simulateGame(
   config: SimulationConfig,
   index: number,
@@ -26,8 +43,12 @@ export function simulateGame(
   const s = createMatch(seed, loadouts, `sim-${config.seed}-${index}`, {
     rngSeats: reversed ? [1, 0] : [0, 1],
   });
+  const stallRounds = config.stallRounds ?? 100;
+  if (!Number.isInteger(stallRounds) || stallRounds < 1 || stallRounds > 1000)
+    throw new Error("Simulation watchdog must be 1–1,000 rounds.");
   let steps = 0;
-  while (s.phase !== "MATCH_END" && steps++ < 3000) {
+  while (s.phase !== "MATCH_END" && steps++ < stallRounds * 200) {
+    if (s.round > stallRounds) break;
     if (["OMEN_CHOICE", "MAIN_ACTION", "REACTION_WINDOW"].includes(s.phase)) {
       const actor =
         s.phase !== "REACTION_WINDOW" ? s.activePlayer : 1 - s.activePlayer;
@@ -39,7 +60,14 @@ export function simulateGame(
     } else advance(s);
   }
   if (s.phase !== "MATCH_END")
-    throw new Error("Simulation exceeded deterministic transition limit.");
+    throw new SimulationStalledError({
+      seed,
+      index,
+      rounds: Math.min(s.round, stallRounds),
+      hp: s.players.map((p) => p.hp),
+      loadouts,
+      reason: s.round > stallRounds ? "round-watchdog" : "transition-watchdog",
+    });
   const record = recordMatch(s, "simulation", config.difficulty, null, [
     "ai",
     "ai",

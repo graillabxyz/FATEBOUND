@@ -50,7 +50,6 @@ export type BattlePresentation = {
   syncKey?: number;
   draft?: Plan;
   onDraft?: (p: Plan) => void;
-  maxRounds?: number;
   names?: [string, string];
   ranks?: [string, string];
   inspectDie?: (side: 0 | 1, slot: number) => void;
@@ -372,10 +371,7 @@ export default function Battle({
         <button aria-label="Leave battle" onClick={onExit}>
           <Icon name="exit" size={18} />
         </button>
-        <span>
-          ROUND {view.round || 1}
-          <small> / {presentation?.maxRounds ?? GAME.maxRounds}</small>
-        </span>
+        <span>ROUND {view.round || 1}</span>
         <button aria-label="Battle rules" onClick={() => setShowRules(true)}>
           <Icon name="book" size={18} />
         </button>

@@ -10,7 +10,11 @@ import {
   applyControls,
 } from "../engine/rules";
 import { randomSource } from "../engine/fate";
-import { simulateGame } from "./simulation";
+import {
+  SimulationStalledError,
+  type StalledSimulation,
+  simulateGame,
+} from "./simulation";
 import { aggregate, type MatchRecord } from "../metrics/data";
 import type { CardDef, Effect, LegendId, Loadout } from "../engine/types";
 /** Diagnostic weights, deliberately independent of rarity. */
@@ -354,34 +358,45 @@ export function prepareHandAudit(config: HandAuditConfig) {
 }
 export function evaluateHand(job: AuditJob, pairs: number) {
   const records: MatchRecord[] = [];
-  for (let i = 0; i < pairs * 2; i++)
-    records.push(
-      simulateGame(
-        {
-          loadouts: [job.loadout, job.opponent],
-          seed: job.seed,
-          games: pairs * 2,
-          paired: true,
-          difficulty: "Normal",
-        },
-        i,
-      ),
-    );
+  const stalled: StalledSimulation[] = [];
+  for (let i = 0; i < pairs * 2; i++) {
+    try {
+      records.push(
+        simulateGame(
+          {
+            loadouts: [job.loadout, job.opponent],
+            seed: job.seed,
+            games: pairs * 2,
+            paired: true,
+            difficulty: "Normal",
+          },
+          i,
+        ),
+      );
+    } catch (e) {
+      if (e instanceof SimulationStalledError) stalled.push(e.detail);
+      else throw e;
+    }
+  }
   const summary = aggregate(records);
-  const candidateWins = records.filter((r, i) => r.winner === i % 2).length;
+  const candidateWins = records.filter(
+    (r) => r.winner === (r.pair?.reversed ? 1 : 0),
+  ).length;
   const used: Record<string, number> = {};
-  for (const [i, r] of records.entries())
+  for (const r of records)
     for (const stats of r.stats)
-      for (const id of stats.cards[i % 2]) used[id] = (used[id] ?? 0) + 1;
+      for (const id of stats.cards[r.pair?.reversed ? 1 : 0])
+        used[id] = (used[id] ?? 0) + 1;
   return {
     legend: job.legend,
     cards: job.loadout.cards,
     dice: job.loadout.dice,
     opponent: job.opponent.legend,
     games: records.length,
+    stalled,
     wins: candidateWins,
     draws: summary.draws,
-    winRate: candidateWins / records.length,
+    winRate: records.length ? candidateWins / records.length : 0,
     uses: used,
     damage: summary.damage,
     ward: summary.guard,
@@ -467,6 +482,11 @@ export function finishHandAudit(
     }
   }
   const flags: string[] = structuralCardFlags();
+  const stalledCount = hands.reduce((n, h) => n + h.stalled.length, 0);
+  if (stalledCount)
+    flags.push(
+      `${stalledCount} sampled games stalled: excluded from outcome rates. Completed-game win rates may be biased; inspect stalled seeds before ranking these Hands.`,
+    );
   for (const c of CARDS) {
     const u = usage[c.id];
     if (!u.uses)
@@ -483,24 +503,37 @@ export function finishHandAudit(
       );
   }
   const starter = [];
-  for (let i = 0; i < 200; i++)
-    starter.push(
-      simulateGame(
-        {
-          loadouts: [STARTERS.basajaun, STARTERS.anansi],
-          seed: config.seed,
-          games: 200,
-          paired: true,
-          difficulty: "Normal",
-        },
-        i,
-      ),
+  const starterStalls: StalledSimulation[] = [];
+  for (let i = 0; i < 200; i++) {
+    try {
+      starter.push(
+        simulateGame(
+          {
+            loadouts: [STARTERS.basajaun, STARTERS.anansi],
+            seed: config.seed,
+            games: 200,
+            paired: true,
+            difficulty: "Normal",
+          },
+          i,
+        ),
+      );
+    } catch (e) {
+      if (e instanceof SimulationStalledError) starterStalls.push(e.detail);
+      else throw e;
+    }
+  }
+  if (starterStalls.length)
+    flags.push(
+      `${starterStalls.length} starter games stalled; unfinished games excluded.`,
     );
   const starterStats = aggregate(starter),
-    basajaunWins = starter.filter((r, i) => r.winner === i % 2).length;
-  if (Math.abs(basajaunWins / 200 - 0.5) > 0.08)
+    basajaunWins = starter.filter(
+      (r) => r.winner === (r.pair?.reversed ? 1 : 0),
+    ).length;
+  if (Math.abs(basajaunWins / Math.max(1, starter.length) - 0.5) > 0.08)
     flags.push(
-      `Starter mismatch: Basajaun ${(basajaunWins / 2).toFixed(1)}% wins; do not claim even starter balance.`,
+      `Starter mismatch: Basajaun ${((100 * basajaunWins) / Math.max(1, starter.length)).toFixed(1)}% wins; do not claim even starter balance.`,
     );
   return {
     version: GAME.version,
@@ -537,14 +570,16 @@ export function finishHandAudit(
     usage,
     flags,
     starter: {
-      games: 200,
+      games: starter.length,
+      attempted: 200,
+      stalled: starterStalls,
       basajaunWins,
-      anansiWins: 200 - basajaunWins - starterStats.draws,
+      anansiWins: starter.length - basajaunWins - starterStats.draws,
       draws: starterStats.draws,
       openingRate: starterStats.openingRate,
       mismatches: starterStats.mismatches,
     },
-    games: hands.reduce((n, h) => n + h.games, 200),
+    games: hands.reduce((n, h) => n + h.games, starter.length),
     mismatches: hands.reduce(
       (n, h) => n + h.mismatches,
       starterStats.mismatches,

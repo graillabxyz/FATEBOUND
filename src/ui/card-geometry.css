@@ -18,11 +18,10 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-rows: 15% 10% 30% minmax(0, 1fr);
+  grid-template-rows: 15% 30% minmax(0, 1fr);
   overflow: hidden;
 }
 #root .gameplay-card .card-top,
-#root .gameplay-card .card-affinity,
 #root .gameplay-card .card-illustration,
 #root .gameplay-card .card-rules {
   height: auto !important;
@@ -36,21 +35,6 @@
 }
 #root .gameplay-card .card-top > span:first-child {
   font: 600 9cqw/1.02 var(--serif);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-#root .gameplay-card .card-affinity {
-  display: flex;
-  align-items: center;
-  padding: 1cqw 4cqw;
-}
-#root .gameplay-card .card-affinity .affinity-line {
-  font-size: max(8px, 5cqw);
-  line-height: 1.15;
-}
-#root .gameplay-card .card-affinity .affinity-line > span:last-child {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -75,17 +59,10 @@
 /* Four-across Hands are thumbnails: emphasize name and activation cost.
    Preserve readable full rules in the existing tap/hold inspector. */
 #root .gameplay-card.compact .card-select {
-  grid-template-rows: 24% 13% 19% minmax(0, 1fr);
+  grid-template-rows: 24% 25% minmax(0, 1fr);
 }
 #root .gameplay-card.compact .card-top > span:first-child {
   font-size: max(10px, 13cqw);
-}
-#root .gameplay-card.compact .card-affinity .affinity-line > span:first-child {
-  display: none;
-}
-#root .gameplay-card.compact .card-affinity .affinity-line {
-  font-size: 8px;
-  line-height: 1.1;
 }
 #root .gameplay-card.compact .card-rules > strong {
   font-size: max(10px, 12cqw);
@@ -105,7 +82,7 @@
    instead of cutting an effect sentence halfway through. Inspect carries rules. */
 @container (max-width: 100px) {
   #root .gameplay-card.compact .card-select {
-    grid-template-rows: 24% 13% 15% minmax(0, 1fr);
+    grid-template-rows: 24% 24% minmax(0, 1fr);
   }
   #root .gameplay-card.compact .card-rules p {
     display: none;
@@ -133,7 +110,7 @@
 }
 @container (max-width: 100px) {
   #root .gameplay-card.compact .card-select {
-    grid-template-rows: 24% 12% 24% minmax(0, 1fr);
+    grid-template-rows: 24% 28% minmax(0, 1fr);
   }
   #root .gameplay-card.compact .card-rules {
     padding: 3cqw 5cqw;
@@ -194,12 +171,6 @@
 #root .gameplay-card.compact .affinity-symbols-only {
   font-size: clamp(7px, 10cqw, 10px);
 }
-#root .gameplay-card .card-affinity .affinity-line > span:first-child {
-  display: none;
-}
-#root .gameplay-card .card-affinity .affinity-line > span:last-child {
-  display: -webkit-box;
-}
 #root .gameplay-card .card-timing {
   font-size: 8px;
   letter-spacing: 0.4px;
@@ -221,4 +192,10 @@
 #root .card-back.known > .affinity-symbols-only > span {
   font: 10px/1 var(--sans);
   white-space: nowrap;
+}
+
+#root .gameplay-card .card-timing {
+  display: block;
+  margin-bottom: 2cqw;
+  font-size: max(8px, 4.5cqw);
 }

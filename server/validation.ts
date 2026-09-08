@@ -26,7 +26,7 @@ export function validateRecord(
     ![0, 1, "draw"].includes(raw.winner) ||
     !Number.isInteger(raw.rounds) ||
     raw.rounds < 1 ||
-    raw.rounds > 99
+    raw.rounds > Number.MAX_SAFE_INTEGER
   )
     throw new Error("Invalid result.");
   const timestamp = Date.parse(raw.timestamp);
@@ -69,10 +69,10 @@ export function validateRecord(
     throw new Error("Invalid actor kinds.");
   if (source === "simulation" && raw.actors.some((a) => a !== "ai"))
     throw new Error("Simulation actors must be AI.");
-  if (!Array.isArray(raw.stats) || raw.stats.length > 99)
+  if (!Array.isArray(raw.stats) || raw.stats.length > 10000)
     throw new Error("Invalid round metrics.");
   raw.stats.forEach((r) => {
-    number(r.round, 1, 99);
+    number(r.round, 1, Number.MAX_SAFE_INTEGER);
     for (const key of [
       "damage",
       "guard",
