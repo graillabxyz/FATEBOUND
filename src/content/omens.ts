@@ -22,7 +22,7 @@ const symbol = (id: SymbolId, weight: number): Face => ({
     smash: "✦",
   }[id],
   balanceWeight: weight,
-  guardValue: id === "guard" ? 3 : undefined,
+  guardValue: id === "guard" ? 2 : undefined,
   tags: [id === "guard" ? "Ward" : SIGILS[id].name],
 });
 const blank: Face = {

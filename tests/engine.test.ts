@@ -32,9 +32,12 @@ import { LocalMatchService } from "../src/services/match-service";
 import type { Loadout, MatchState, Plan, Effect } from "../src/engine/types";
 const combatBasajaun: Loadout = {
   ...STARTERS.basajaun,
-  cards: ["crush", "root-ward", "barkskin", "herensuge"],
+  cards: ["crush", "root-ward", "quick-strike", "herensuge"],
 };
-const command = (target: string, dice = [0]): Plan => ({
+const command = (
+  target: string,
+  dice = target === "crush" ? [0, 1] : [0],
+): Plan => ({
   controls: [],
   assignments: [{ target, dice }],
 });
@@ -92,7 +95,7 @@ function finish(s: MatchState, allowStall = false) {
 }
 function build(base: Loadout, card: string) {
   const l = clone(base);
-  l.cards[0] = card;
+  l.cards = [card, ...l.cards.filter((id) => id !== card).slice(0, 3)];
   return l;
 }
 describe("v2 content and locked loadouts", () => {
@@ -261,6 +264,7 @@ describe("authoritative initiative, turns and resource lifetime", () => {
   it("passes on timeout without spending or revealing the draft", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     timeoutPlan(s, 0, command("crush"));
     expect(s.players[0].dice[0].state).toBe("HELD");
     expect(s.players[0].known).toEqual([]);
@@ -271,13 +275,14 @@ describe("deterministic action and reaction resolution", () => {
   it("Attack → Guard Reaction pays held die and absorbs damage first", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 1, 0, 6, true);
     exchange(s, command("crush"), command("guard"));
-    expect(s.players[1].hp).toBe(17);
+    expect(s.players[1].hp).toBe(11);
     expect(s.events.find((e) => e.type === "damage")).toMatchObject({
       target: 1,
-      wardAbsorbed: 3,
-      amount: 1,
+      wardAbsorbed: 1,
+      amount: 3,
     });
     expect(s.players[1].guard).toBe(0);
     expect(s.players[1].dice[0].state).toBe("SPENT");
@@ -286,27 +291,30 @@ describe("deterministic action and reaction resolution", () => {
   it("opens a reaction window before damage and never auto-spends on timeout", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     lockPlan(s, 0, command("crush"));
-    expect(s.players[1].hp).toBe(18);
+    expect(s.players[1].hp).toBe(14);
     advance(s, 100);
     expect(s.phase).toBe("REACTION_WINDOW");
     expect(s.deadline).toBe(5100);
     timeoutPlan(s, 1);
     advance(s);
-    expect(s.players[1].hp).toBe(14);
+    expect(s.players[1].hp).toBe(10);
   });
   it("Attack → Redirect returns damage to the acting Legend", () => {
-    const s = ready(combatBasajaun, STARTERS.anansi);
+    const s = ready(combatBasajaun, build(STARTERS.anansi, "web-turn"));
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 1, 0, 6, true);
     exchange(s, command("crush"), command("web-turn"));
-    expect(s.players[0].hp).toBe(17);
-    expect(s.players[1].hp).toBe(18);
+    expect(s.players[0].hp).toBe(10);
+    expect(s.players[1].hp).toBe(14);
     expect(s.players[1].known).toContain("web-turn");
   });
   it("Attack → Counterstrike resolves retaliation after actual damage, including lethal", () => {
     const s = ready(combatBasajaun, build(STARTERS.basajaun, "counterstrike"));
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 1, 0, 8, true);
     s.players[0].hp = 2;
     s.players[1].hp = 4;
@@ -318,10 +326,11 @@ describe("deterministic action and reaction resolution", () => {
   it("does not counterstrike when Guard prevents all attack damage", () => {
     const s = ready(combatBasajaun, build(STARTERS.basajaun, "counterstrike"));
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 1, 0, 8, true);
     s.players[1].guard = 10;
     exchange(s, command("crush"), command("counterstrike"));
-    expect(s.players[0].hp).toBe(21);
+    expect(s.players[0].hp).toBe(14);
   });
   it("Heal → disruption cancels healing while retaining paid costs and reveal", () => {
     const s = ready(
@@ -342,10 +351,11 @@ describe("deterministic action and reaction resolution", () => {
     try {
       c.effects = [{ type: "SHIFT_DIE", direction: -1 }];
       const s = ready(combatBasajaun, build(STARTERS.anansi, c.id));
-      face(s, 0, 0, 7);
+      face(s, 0, 0, 5);
+      face(s, 0, 1, 1);
       face(s, 1, 0, 3, true);
       exchange(s, command("crush"), command(c.id));
-      expect(s.players[1].hp).toBe(18);
+      expect(s.players[1].hp).toBe(14);
       expect(s.events.some((e) => e.type === "fizzle")).toBe(true);
     } finally {
       c.effects = old;
@@ -354,16 +364,18 @@ describe("deterministic action and reaction resolution", () => {
   it("allows the same permanent card again in the same round using different dice", () => {
     const s = ready(combatBasajaun, STARTERS.anansi, 5);
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 0, 1, 8);
-    exchange(s, command("crush"));
-    exchange(s, command("crush", [1]));
-    expect(s.players[1].hp).toBe(10);
-    expect(s.players[0].known).toEqual(["crush"]);
-    expect(s.stats.at(-1)!.cards[0]).toEqual(["crush", "crush"]);
+    exchange(s, command("quick-strike"));
+    exchange(s, command("quick-strike", [1]));
+    expect(s.players[1].hp).toBe(12);
+    expect(s.players[0].known).toEqual(["quick-strike"]);
+    expect(s.stats.at(-1)!.cards[0]).toEqual(["quick-strike", "quick-strike"]);
   });
   it("rejects duplicate die payment and second activation using a spent die", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     expect(() => lockPlan(s, 0, command("herensuge", [0, 0]))).toThrow();
     exchange(s, command("crush"));
     expect(() => lockPlan(s, 0, command("crush"))).toThrow("spent");
@@ -371,6 +383,7 @@ describe("deterministic action and reaction resolution", () => {
   it("never opens another window for the reaction", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 1, 0, 6, true);
     lockPlan(s, 0, command("crush"));
     advance(s);
@@ -383,6 +396,7 @@ describe("deterministic action and reaction resolution", () => {
   it("exposes exactly the same result when stepped effect by effect", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     face(s, 1, 0, 6, true);
     lockPlan(s, 0, command("crush"));
     advance(s);
@@ -403,15 +417,16 @@ describe("deterministic action and reaction resolution", () => {
     const s = ready(build(STARTERS.basajaun, "deep-roots"));
     face(s, 0, 0, 3);
     exchange(s, command("deep-roots"));
-    expect(s.players[0].hp).toBe(21);
+    expect(s.players[0].hp).toBe(14);
     const c = cardById["crush"],
       old = clone(c.effects);
     try {
       c.effects = [{ type: "DAMAGE", amount: -5 }];
       const t = ready();
       face(t, 0, 0, 8);
+      face(t, 0, 1, 1);
       exchange(t, command(c.id));
-      expect(t.players[1].hp).toBe(18);
+      expect(t.players[1].hp).toBe(14);
     } finally {
       c.effects = old;
     }
@@ -428,11 +443,11 @@ describe("requirements, Control and deterministic verification", () => {
     expect(meetsRequirement({ count: 1, size: 4 }, [f(2)], [20])).toBe(false);
     expect(meetsRequirement({ count: 1, min: 1, max: 3 }, [f(20)])).toBe(false);
   });
-  it("universal Guard is floor(n/2), symbols need an explicit conversion", () => {
+  it("universal Ward is 1 per numbered Omen, symbols need an explicit conversion", () => {
     expect(
       [2, 5, 8].map((n) => guardValue(dieById["standard-d20"].faces[n - 1])),
-    ).toEqual([1, 2, 4]);
-    expect(guardValue(dieById["guardian-d6"].faces[5])).toBe(3);
+    ).toEqual([1, 1, 1]);
+    expect(guardValue(dieById["guardian-d6"].faces[5])).toBe(2);
     expect(guardValue(dieById["trickster-d8"].faces[5])).toBe(0);
   });
   it("Control changes numeric result by exactly one and respects boundaries", () => {
@@ -455,7 +470,8 @@ describe("requirements, Control and deterministic verification", () => {
   });
   it("forbids Control on reaction windows and pays it before activation validation", () => {
     const s = ready();
-    face(s, 0, 0, 6);
+    face(s, 0, 0, 4);
+    face(s, 0, 1, 1);
     const p = command("crush");
     p.controls = [{ slot: 0, kind: "shift", direction: 1 }];
     lockPlan(s, 0, p);
@@ -472,6 +488,7 @@ describe("requirements, Control and deterministic verification", () => {
   it("stun blocks a card with a clear validation error", () => {
     const s = ready();
     face(s, 0, 0, 8);
+    face(s, 0, 1, 1);
     s.players[0].statuses = [
       { id: "stun", cardId: "crush", amount: 1, expiresRound: 1 },
     ];

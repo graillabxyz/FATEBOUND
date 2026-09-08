@@ -1,0 +1,2016 @@
+{
+  "note": "Intermediate tuning candidates, not the final release. Raw match rows are in intermediate-panels.tar.gz. Candidate labels are historical identifiers, not balance claims.",
+  "panels": [
+    {
+      "label": "balanced-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 6.188095238095238,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.061093247588424,
+      "utilityShare": 0.5914609469850263,
+      "reactionsPerGame": 6.4523809523809526,
+      "wardPerGame": 17.257142857142856,
+      "absorbedPerGame": 11.173809523809524,
+      "damagePerGame": 22.673809523809524,
+      "focusPerGame": 8.138095238095238,
+      "heldShare": 0.3623474384272455,
+      "expiredShare": 0.1581524519476723,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.55
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.3142857142857143
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.5035714285714286
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6214285714285714
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5464285714285714
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.4642857142857143
+        }
+      ]
+    },
+    {
+      "label": "release-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 950000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 5.795238095238095,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.208887934735937,
+      "utilityShare": 0.6669775152833903,
+      "reactionsPerGame": 5.571428571428571,
+      "wardPerGame": 13.7,
+      "absorbedPerGame": 8.519047619047619,
+      "damagePerGame": 22.25,
+      "focusPerGame": 7.935714285714286,
+      "heldShare": 0.3481062391953481,
+      "expiredShare": 0.15747289014615748,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.5214285714285715
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.6142857142857143
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.4357142857142857
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5285714285714286
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.42857142857142855
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.4714285714285714
+        }
+      ]
+    },
+    {
+      "label": "release-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 950000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 7.76984126984127,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.591380686352753,
+      "utilityShare": 0.6532279314888011,
+      "reactionsPerGame": 9.253968253968255,
+      "wardPerGame": 18.333333333333332,
+      "absorbedPerGame": 7.761904761904762,
+      "damagePerGame": 22.011904761904763,
+      "focusPerGame": 15.753968253968255,
+      "heldShare": 0.3898690950483779,
+      "expiredShare": 0.165243786757731,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5119047619047619
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.5119047619047619
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.4166666666666667
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.4880952380952381
+        }
+      ]
+    },
+    {
+      "label": "candidate-e",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 730000,
+      "seeds": 6,
+      "attempted": 252,
+      "completed": 252,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 5.309523809523809,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.031496062992126,
+      "utilityShare": 0.6469072164948454,
+      "reactionsPerGame": 5.142857142857143,
+      "wardPerGame": 12.738095238095237,
+      "absorbedPerGame": 7.7936507936507935,
+      "damagePerGame": 21.26984126984127,
+      "focusPerGame": 7.174603174603175,
+      "heldShare": 0.3173076923076923,
+      "expiredShare": 0.12441724941724942,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 84,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "anansi",
+          "games": 84,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "tengu",
+          "games": 84,
+          "score": 0.5
+        },
+        {
+          "legend": "leshy",
+          "games": 84,
+          "score": 0.47619047619047616
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 84,
+          "score": 0.5
+        },
+        {
+          "legend": "maui",
+          "games": 84,
+          "score": 0.4523809523809524
+        }
+      ]
+    },
+    {
+      "label": "v9-final-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1260,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.885714285714286,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.627440904419322,
+      "utilityShare": 0.5140928270042194,
+      "reactionsPerGame": 5.14920634920635,
+      "wardPerGame": 8.642857142857142,
+      "absorbedPerGame": 5.923809523809524,
+      "damagePerGame": 22.223809523809525,
+      "focusPerGame": 5.268253968253968,
+      "heldShare": 0.3164427383237364,
+      "expiredShare": 0.09782469609724888,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.24285714285714285
+        },
+        {
+          "legend": "anansi",
+          "games": 420,
+          "score": 0.2714285714285714
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.5761904761904761
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.6047619047619047
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.7571428571428571
+        }
+      ]
+    },
+    {
+      "label": "shipped-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.292857142857143,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.76219870664315,
+      "utilityShare": 0.4592375366568915,
+      "reactionsPerGame": 4.042857142857143,
+      "wardPerGame": 7.264285714285714,
+      "absorbedPerGame": 4.9904761904761905,
+      "damagePerGame": 22.26904761904762,
+      "focusPerGame": 4.3,
+      "heldShare": 0.28672032193158953,
+      "expiredShare": 0.08551307847082495,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.24285714285714285
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.32142857142857145
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.575
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5107142857142857
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "label": "baseline-holdout",
+      "version": 8,
+      "root": "work/skill-balance-v9/baseline",
+      "policy": false,
+      "seedBase": 910000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 480,
+      "stalled": 24,
+      "mismatches": 0,
+      "averageRounds": 7.795833333333333,
+      "rawDeadRate": 0.026381284221005476,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 7.189148830263813,
+      "utilityShare": 0.5337847369163493,
+      "reactionsPerGame": 23.726190476190474,
+      "wardPerGame": 78.76984126984127,
+      "absorbedPerGame": 64.79761904761905,
+      "damagePerGame": 46.37698412698413,
+      "focusPerGame": 27.74206349206349,
+      "heldShare": 0.5155555555555555,
+      "expiredShare": 0.1668109668109668,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 144,
+          "score": 0.5
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.5833333333333334
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.40476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 144,
+          "score": 0.5416666666666666
+        }
+      ]
+    },
+    {
+      "label": "shipped-baseline",
+      "version": 8,
+      "root": "work/skill-balance-v9/baseline",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 800,
+      "stalled": 40,
+      "mismatches": 0,
+      "averageRounds": 7.8675,
+      "rawDeadRate": 0.027741999405528583,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 7.224016645199644,
+      "utilityShare": 0.532394366197183,
+      "reactionsPerGame": 23.90714285714286,
+      "wardPerGame": 78.70238095238095,
+      "absorbedPerGame": 65.20238095238095,
+      "damagePerGame": 46.654761904761905,
+      "focusPerGame": 28.25,
+      "heldShare": 0.5147661876701471,
+      "expiredShare": 0.16513318860057205,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 240,
+          "score": 0.475
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.5357142857142857
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.45
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5428571428571428
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.4785714285714286
+        },
+        {
+          "legend": "maui",
+          "games": 240,
+          "score": 0.5166666666666667
+        }
+      ]
+    },
+    {
+      "label": "candidate-d",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seeds": 6,
+      "attempted": 252,
+      "completed": 252,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 4.992063492063492,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.89282700421941,
+      "utilityShare": 0.6476496584973885,
+      "reactionsPerGame": 4.619047619047619,
+      "wardPerGame": 11.492063492063492,
+      "absorbedPerGame": 6.992063492063492,
+      "damagePerGame": 20.142857142857142,
+      "focusPerGame": 6.825396825396825,
+      "heldShare": 0.3122641509433962,
+      "expiredShare": 0.12169811320754717,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 84,
+          "score": 0.5
+        },
+        {
+          "legend": "anansi",
+          "games": 84,
+          "score": 0.6428571428571429
+        },
+        {
+          "legend": "tengu",
+          "games": 84,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 84,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 84,
+          "score": 0.40476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 84,
+          "score": 0.38095238095238093
+        }
+      ]
+    },
+    {
+      "label": "candidate-c",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seeds": 6,
+      "attempted": 252,
+      "completed": 252,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 4.992063492063492,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.89282700421941,
+      "utilityShare": 0.6476496584973885,
+      "reactionsPerGame": 4.619047619047619,
+      "wardPerGame": 11.492063492063492,
+      "absorbedPerGame": 6.992063492063492,
+      "damagePerGame": 20.142857142857142,
+      "focusPerGame": 6.825396825396825,
+      "heldShare": 0.3122641509433962,
+      "expiredShare": 0.12169811320754717,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 84,
+          "score": 0.5
+        },
+        {
+          "legend": "anansi",
+          "games": 84,
+          "score": 0.6428571428571429
+        },
+        {
+          "legend": "tengu",
+          "games": 84,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 84,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 84,
+          "score": 0.40476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 84,
+          "score": 0.38095238095238093
+        }
+      ]
+    },
+    {
+      "label": "balanced-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 8.694444444444445,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.58196915776987,
+      "utilityShare": 0.6633569739952718,
+      "reactionsPerGame": 10.503968253968255,
+      "wardPerGame": 20.666666666666668,
+      "absorbedPerGame": 8.78968253968254,
+      "damagePerGame": 22.17063492063492,
+      "focusPerGame": 17.432539682539684,
+      "heldShare": 0.40152851263962375,
+      "expiredShare": 0.17645082724447803,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.4880952380952381
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.4166666666666667
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.5238095238095238
+        }
+      ]
+    },
+    {
+      "label": "verified-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 7.892857142857143,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.61411332633788,
+      "utilityShare": 0.6504650858116074,
+      "reactionsPerGame": 9.246031746031745,
+      "wardPerGame": 18.646825396825395,
+      "absorbedPerGame": 7.9523809523809526,
+      "damagePerGame": 21.63888888888889,
+      "focusPerGame": 15.53968253968254,
+      "heldShare": 0.39074333800841515,
+      "expiredShare": 0.1691444600280505,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5595238095238095
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.47619047619047616
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.38095238095238093
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.5119047619047619
+        }
+      ]
+    },
+    {
+      "label": "final-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 950000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.357142857142857,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.85994802194629,
+      "utilityShare": 0.49313593539703904,
+      "reactionsPerGame": 4.59047619047619,
+      "wardPerGame": 7.838095238095238,
+      "absorbedPerGame": 5.519047619047619,
+      "damagePerGame": 22.3,
+      "focusPerGame": 5.564285714285714,
+      "heldShare": 0.30113885238720983,
+      "expiredShare": 0.07774857643451599,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.22857142857142856
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.3357142857142857
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.55
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6214285714285714
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5214285714285715
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.7428571428571429
+        }
+      ]
+    },
+    {
+      "label": "verified-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 6.1380952380952385,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.104043893517577,
+      "utilityShare": 0.5892360037117229,
+      "reactionsPerGame": 6.4904761904761905,
+      "wardPerGame": 17.09285714285714,
+      "absorbedPerGame": 10.833333333333334,
+      "damagePerGame": 21.742857142857144,
+      "focusPerGame": 7.514285714285714,
+      "heldShare": 0.36841326228537596,
+      "expiredShare": 0.16044997039668443,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.4857142857142857
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.6357142857142857
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.43214285714285716
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5357142857142857
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.48928571428571427
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.42142857142857143
+        }
+      ]
+    },
+    {
+      "label": "v9-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 8.694444444444445,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.58196915776987,
+      "utilityShare": 0.6633569739952718,
+      "reactionsPerGame": 10.503968253968255,
+      "wardPerGame": 20.666666666666668,
+      "absorbedPerGame": 8.78968253968254,
+      "damagePerGame": 22.17063492063492,
+      "focusPerGame": 17.432539682539684,
+      "heldShare": 0.40152851263962375,
+      "expiredShare": 0.17645082724447803,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.4880952380952381
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.4166666666666667
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.5238095238095238
+        }
+      ]
+    },
+    {
+      "label": "counterplay-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 6.307142857142857,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.087438180019783,
+      "utilityShare": 0.6017531626656042,
+      "reactionsPerGame": 6.652380952380953,
+      "wardPerGame": 17.516666666666666,
+      "absorbedPerGame": 11.14047619047619,
+      "damagePerGame": 22.107142857142858,
+      "focusPerGame": 7.809523809523809,
+      "heldShare": 0.371200689803837,
+      "expiredShare": 0.1639721204282532,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.4928571428571429
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.5785714285714286
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.4392857142857143
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5714285714285714
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.49642857142857144
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.42142857142857143
+        }
+      ]
+    },
+    {
+      "label": "policy-comparison",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 910000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.2976190476190474,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.77450980392157,
+      "utilityShare": 0.4949748743718593,
+      "reactionsPerGame": 4.380952380952381,
+      "wardPerGame": 7.388888888888889,
+      "absorbedPerGame": 5.134920634920635,
+      "damagePerGame": 22.11111111111111,
+      "focusPerGame": 5.448412698412699,
+      "heldShare": 0.2931098696461825,
+      "expiredShare": 0.0750465549348231,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.27380952380952384
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.34523809523809523
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.4642857142857143
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.6428571428571429
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.7261904761904762
+        }
+      ]
+    },
+    {
+      "label": "candidate-b",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seeds": 6,
+      "attempted": 252,
+      "completed": 252,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 4.531746031746032,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.62406015037594,
+      "utilityShare": 0.6072980017376195,
+      "reactionsPerGame": 4.753968253968254,
+      "wardPerGame": 8.46031746031746,
+      "absorbedPerGame": 5.476190476190476,
+      "damagePerGame": 19.984126984126984,
+      "focusPerGame": 6.4603174603174605,
+      "heldShare": 0.3006396588486141,
+      "expiredShare": 0.08173418621179815,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 84,
+          "score": 0.5714285714285714
+        },
+        {
+          "legend": "anansi",
+          "games": 84,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "tengu",
+          "games": 84,
+          "score": 0.5952380952380952
+        },
+        {
+          "legend": "leshy",
+          "games": 84,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 84,
+          "score": 0.40476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 84,
+          "score": 0.2619047619047619
+        }
+      ]
+    },
+    {
+      "label": "release-baseline",
+      "version": 8,
+      "root": "work/skill-balance-v9/baseline",
+      "policy": false,
+      "seedBase": 950000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 800,
+      "stalled": 40,
+      "mismatches": 0,
+      "averageRounds": 7.885,
+      "rawDeadRate": 0.025336500395882817,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 7.216349960411718,
+      "utilityShare": 0.5355276466621712,
+      "reactionsPerGame": 23.72142857142857,
+      "wardPerGame": 78.39761904761905,
+      "absorbedPerGame": 64.90238095238095,
+      "damagePerGame": 47.27857142857143,
+      "focusPerGame": 27.99047619047619,
+      "heldShare": 0.5139405204460966,
+      "expiredShare": 0.16687319289549774,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 240,
+          "score": 0.6083333333333333
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.5214285714285715
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.5
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5071428571428571
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.4142857142857143
+        },
+        {
+          "legend": "maui",
+          "games": 240,
+          "score": 0.4583333333333333
+        }
+      ]
+    },
+    {
+      "label": "candidate-a",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seeds": 6,
+      "attempted": 252,
+      "completed": 252,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 4.095238095238095,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.452282157676349,
+      "utilityShare": 0.6005361930294906,
+      "reactionsPerGame": 2.5793650793650795,
+      "wardPerGame": 5.825396825396825,
+      "absorbedPerGame": 3.2063492063492065,
+      "damagePerGame": 20.944444444444443,
+      "focusPerGame": 5.809523809523809,
+      "heldShare": 0.14956245027844073,
+      "expiredShare": 0.018297533810660304,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 84,
+          "score": 0.6666666666666666
+        },
+        {
+          "legend": "anansi",
+          "games": 84,
+          "score": 0.5952380952380952
+        },
+        {
+          "legend": "tengu",
+          "games": 84,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 84,
+          "score": 0.19047619047619047
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 84,
+          "score": 0.6428571428571429
+        },
+        {
+          "legend": "maui",
+          "games": 84,
+          "score": 0.38095238095238093
+        }
+      ]
+    },
+    {
+      "label": "baseline",
+      "version": 8,
+      "root": "work/skill-balance-v9/baseline",
+      "policy": false,
+      "seeds": 6,
+      "attempted": 252,
+      "completed": 240,
+      "stalled": 12,
+      "mismatches": 0,
+      "averageRounds": 7.425,
+      "rawDeadRate": 0.030489893799246316,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 7.168550873586844,
+      "utilityShare": 0.5312682641729982,
+      "reactionsPerGame": 23.11904761904762,
+      "wardPerGame": 75.57936507936508,
+      "absorbedPerGame": 62.22222222222222,
+      "damagePerGame": 45.26984126984127,
+      "focusPerGame": 27.08730158730159,
+      "heldShare": 0.5171261487050961,
+      "expiredShare": 0.16601026375462466,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 72,
+          "score": 0.6111111111111112
+        },
+        {
+          "legend": "anansi",
+          "games": 84,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "tengu",
+          "games": 84,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 84,
+          "score": 0.5
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 84,
+          "score": 0.42857142857142855
+        },
+        {
+          "legend": "maui",
+          "games": 72,
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "label": "life-control",
+      "version": 9,
+      "root": "work/skill-balance-v9/life-control",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 6.704761904761905,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.176263654878726,
+      "utilityShare": 0.5801996827470374,
+      "reactionsPerGame": 7.261904761904762,
+      "wardPerGame": 18.92142857142857,
+      "absorbedPerGame": 12.183333333333334,
+      "damagePerGame": 24.48095238095238,
+      "focusPerGame": 8.326190476190476,
+      "heldShare": 0.37125468164794007,
+      "expiredShare": 0.16104868913857678,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.5571428571428572
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.5714285714285714
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.36428571428571427
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5642857142857143
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.44285714285714284
+        }
+      ]
+    },
+    {
+      "label": "v9-final-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 8.694444444444445,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.58196915776987,
+      "utilityShare": 0.6633569739952718,
+      "reactionsPerGame": 10.503968253968255,
+      "wardPerGame": 20.666666666666668,
+      "absorbedPerGame": 8.78968253968254,
+      "damagePerGame": 22.17063492063492,
+      "focusPerGame": 17.432539682539684,
+      "heldShare": 0.40152851263962375,
+      "expiredShare": 0.17645082724447803,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.4523809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.4880952380952381
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.4166666666666667
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.5238095238095238
+        }
+      ]
+    },
+    {
+      "label": "shipped-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 5.983333333333333,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.090225563909774,
+      "utilityShare": 0.5769724182168057,
+      "reactionsPerGame": 6.188095238095238,
+      "wardPerGame": 16.752380952380953,
+      "absorbedPerGame": 10.228571428571428,
+      "damagePerGame": 21.78095238095238,
+      "focusPerGame": 7.488095238095238,
+      "heldShare": 0.36482159194876485,
+      "expiredShare": 0.1596523330283623,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.4857142857142857
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.6571428571428571
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.43214285714285716
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.55
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.475
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "label": "release-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 950000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.335714285714285,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.865021770682148,
+      "utilityShare": 0.49357152524022196,
+      "reactionsPerGame": 4.485714285714286,
+      "wardPerGame": 7.652380952380953,
+      "absorbedPerGame": 5.3428571428571425,
+      "damagePerGame": 22.354761904761904,
+      "focusPerGame": 5.542857142857143,
+      "heldShare": 0.29797312183300284,
+      "expiredShare": 0.07799074686054197,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.22857142857142856
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.3357142857142857
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.55
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6214285714285714
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5214285714285715
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.7428571428571429
+        }
+      ]
+    },
+    {
+      "label": "final-holdout",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 910000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 5.630952380952381,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.113200589970502,
+      "utilityShare": 0.6695529245449726,
+      "reactionsPerGame": 5.511904761904762,
+      "wardPerGame": 13.301587301587302,
+      "absorbedPerGame": 8.194444444444445,
+      "damagePerGame": 21.543650793650794,
+      "focusPerGame": 7.773809523809524,
+      "heldShare": 0.33711967545638943,
+      "expiredShare": 0.14104124408384044,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.5119047619047619
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.6190476190476191
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.36904761904761907
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.5952380952380952
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.5
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.40476190476190477
+        }
+      ]
+    },
+    {
+      "label": "starter-control",
+      "version": 9,
+      "root": "work/skill-balance-v9/starter-control",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 5.780952380952381,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.05098293367898,
+      "utilityShare": 0.56989129241243,
+      "reactionsPerGame": 5.440476190476191,
+      "wardPerGame": 15.957142857142857,
+      "absorbedPerGame": 10.383333333333333,
+      "damagePerGame": 22.914285714285715,
+      "focusPerGame": 5.826190476190476,
+      "heldShare": 0.3366571699905033,
+      "expiredShare": 0.14996834441278886,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.6142857142857143
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.2
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.49642857142857144
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6357142857142857
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5535714285714286
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "label": "v9-final-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1246,
+      "stalled": 14,
+      "mismatches": 0,
+      "averageRounds": 9.571428571428571,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.890841813135985,
+      "utilityShare": 0.6867677181482998,
+      "reactionsPerGame": 13.631746031746031,
+      "wardPerGame": 25.487301587301587,
+      "absorbedPerGame": 13.614285714285714,
+      "damagePerGame": 22.14920634920635,
+      "focusPerGame": 18.52857142857143,
+      "heldShare": 0.4969643001699992,
+      "expiredShare": 0.26001780943900266,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.5190476190476191
+        },
+        {
+          "legend": "anansi",
+          "games": 406,
+          "score": 0.458128078817734
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.4642857142857143
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.6047619047619047
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 406,
+          "score": 0.5492610837438424
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.40476190476190477
+        }
+      ]
+    },
+    {
+      "label": "final-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 950000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 5.9,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.13217062408069,
+      "utilityShare": 0.6501270971021861,
+      "reactionsPerGame": 6.271428571428571,
+      "wardPerGame": 14.933333333333334,
+      "absorbedPerGame": 10.073809523809524,
+      "damagePerGame": 22.045238095238094,
+      "focusPerGame": 8.552380952380952,
+      "heldShare": 0.3667280822969446,
+      "expiredShare": 0.1575310916628282,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.5285714285714286
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.6214285714285714
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.44285714285714284
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.5857142857142857
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.42857142857142855
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.39285714285714285
+        }
+      ]
+    },
+    {
+      "label": "starter-setup",
+      "version": 9,
+      "root": "work/skill-balance-v9/starter-setup",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1200,
+      "stalled": 60,
+      "mismatches": 0,
+      "averageRounds": 7.203333333333333,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.023736386484222,
+      "utilityShare": 0.7875450334534225,
+      "reactionsPerGame": 7.276190476190476,
+      "wardPerGame": 40.58412698412698,
+      "absorbedPerGame": 12.226984126984126,
+      "damagePerGame": 21.81111111111111,
+      "focusPerGame": 18.576190476190476,
+      "heldShare": 0.3449968411333042,
+      "expiredShare": 0.22889634057442776,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.580952380952381
+        },
+        {
+          "legend": "anansi",
+          "games": 300,
+          "score": 0.5
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.5023809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.44761904761904764
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.5595238095238095
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.4095238095238095
+        }
+      ]
+    },
+    {
+      "label": "v9-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1260,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.371428571428571,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.73341049382716,
+      "utilityShare": 0.47232788132369724,
+      "reactionsPerGame": 4.103174603174603,
+      "wardPerGame": 7.358730158730158,
+      "absorbedPerGame": 5.450793650793651,
+      "damagePerGame": 22.3015873015873,
+      "focusPerGame": 4.226984126984127,
+      "heldShare": 0.28255779923909863,
+      "expiredShare": 0.08289435177055897,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.2523809523809524
+        },
+        {
+          "legend": "anansi",
+          "games": 420,
+          "score": 0.2619047619047619
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.5761904761904761
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.6047619047619047
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.7571428571428571
+        }
+      ]
+    },
+    {
+      "label": "final-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 950000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 7.76984126984127,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.591380686352753,
+      "utilityShare": 0.6532279314888011,
+      "reactionsPerGame": 9.253968253968255,
+      "wardPerGame": 18.333333333333332,
+      "absorbedPerGame": 7.761904761904762,
+      "damagePerGame": 22.011904761904763,
+      "focusPerGame": 15.753968253968255,
+      "heldShare": 0.3898690950483779,
+      "expiredShare": 0.165243786757731,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.5476190476190477
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5119047619047619
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.5119047619047619
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.4166666666666667
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.4880952380952381
+        }
+      ]
+    },
+    {
+      "label": "v9-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1260,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 6.203174603174603,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.089094319399786,
+      "utilityShare": 0.591893354987143,
+      "reactionsPerGame": 6.4222222222222225,
+      "wardPerGame": 16.876190476190477,
+      "absorbedPerGame": 10.957142857142857,
+      "damagePerGame": 22.663492063492065,
+      "focusPerGame": 7.768253968253968,
+      "heldShare": 0.36630143657170683,
+      "expiredShare": 0.16289262235208182,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.5095238095238095
+        },
+        {
+          "legend": "anansi",
+          "games": 420,
+          "score": 0.38095238095238093
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.48333333333333334
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.6142857142857143
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.55
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.46190476190476193
+        }
+      ]
+    },
+    {
+      "label": "verified-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.414285714285715,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.751284980011421,
+      "utilityShare": 0.4786889857926572,
+      "reactionsPerGame": 4.280952380952381,
+      "wardPerGame": 7.533333333333333,
+      "absorbedPerGame": 5.59047619047619,
+      "damagePerGame": 22.13095238095238,
+      "focusPerGame": 4.169047619047619,
+      "heldShare": 0.29028769197490806,
+      "expiredShare": 0.0854423534501406,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.24285714285714285
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.2857142857142857
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.575
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6071428571428571
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5392857142857143
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "label": "balanced-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 1000000,
+      "seeds": 20,
+      "attempted": 840,
+      "completed": 840,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.438095238095238,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.735527809307605,
+      "utilityShare": 0.4811044484730163,
+      "reactionsPerGame": 4.261904761904762,
+      "wardPerGame": 7.507142857142857,
+      "absorbedPerGame": 5.652380952380953,
+      "damagePerGame": 22.414285714285715,
+      "focusPerGame": 4.288095238095238,
+      "heldShare": 0.28790807560137455,
+      "expiredShare": 0.085803264604811,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 280,
+          "score": 0.2857142857142857
+        },
+        {
+          "legend": "anansi",
+          "games": 280,
+          "score": 0.24285714285714285
+        },
+        {
+          "legend": "tengu",
+          "games": 280,
+          "score": 0.575
+        },
+        {
+          "legend": "leshy",
+          "games": 280,
+          "score": 0.6071428571428571
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 280,
+          "score": 0.5392857142857143
+        },
+        {
+          "legend": "maui",
+          "games": 280,
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "label": "custom-hands",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 920000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 8.182539682539682,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.534495830174375,
+      "utilityShare": 0.6686112872542803,
+      "reactionsPerGame": 9.706349206349206,
+      "wardPerGame": 19.543650793650794,
+      "absorbedPerGame": 7.531746031746032,
+      "damagePerGame": 21.023809523809526,
+      "focusPerGame": 16.71825396825397,
+      "heldShare": 0.408364746006103,
+      "expiredShare": 0.1860527732902531,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.6428571428571429
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5952380952380952
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.38095238095238093
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.40476190476190477
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.4523809523809524
+        }
+      ]
+    }
+  ]
+}

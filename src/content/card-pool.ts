@@ -1,13 +1,13 @@
 import type { CardDef } from "../engine/types";
-export const ALPHA_CARDS = [
+export const ALPHA_CARDS: Omit<CardDef, "requirementLabel">[] = [
   {
     id: "crush",
     name: "Crush",
     category: "Attack",
     timing: "ACTION",
     requirement: {
-      count: 1,
-      min: 7,
+      count: 2,
+      min: 6,
     },
     text: "Deal 4 damage.",
     effects: [
@@ -20,7 +20,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 0,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       affinity: "might",
@@ -32,7 +32,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -44,20 +44,20 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 1,
-      max: 3,
+      max: 4,
     },
-    text: "Gain 3 Ward.",
+    text: "Gain 2 Ward.",
     effects: [
       {
         type: "GUARD",
-        amount: 3,
+        amount: 2,
       },
     ],
     priority: 20,
     archetype: "Ward",
     artIndex: 0,
     tags: ["ward", "reaction", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -76,7 +76,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -87,31 +87,25 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 3,
       max: 6,
     },
-    text: "Gain 3 Ward. If this attack then damages your Life, deal 2 damage back.",
+    text: "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
     effects: [
       {
         type: "GUARD",
-        amount: 3,
+        amount: 1,
       },
       {
-        type: "CONDITIONAL",
-        condition: "enemyAttacking",
-        effects: [
-          {
-            type: "COUNTERSTRIKE",
-            amount: 2,
-          },
-        ],
+        type: "COUNTERSTRIKE",
+        amount: 1,
       },
     ],
     priority: 20,
     archetype: "Counter",
     artIndex: 0,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -130,7 +124,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -140,21 +134,21 @@ export const ALPHA_CARDS = [
     category: "Finisher",
     timing: "ACTION",
     requirement: {
-      count: 2,
-      min: 12,
+      count: 3,
+      min: 9,
     },
-    text: "Deal 7 damage.",
+    text: "Deal 5 damage.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 7,
+        amount: 5,
       },
     ],
     priority: 40,
     archetype: "Finisher",
     artIndex: 0,
     tags: ["finisher", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -173,7 +167,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -184,21 +178,24 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 2,
+      min: 1,
       max: 4,
     },
-    text: "Heal 3 Life.",
+    text: "Heal 1 Life and cleanse negative statuses.",
     effects: [
       {
         type: "HEAL",
-        amount: 3,
+        amount: 1,
+      },
+      {
+        type: "CLEANSE",
       },
     ],
     priority: 40,
     archetype: "Recovery",
     artIndex: 0,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -217,7 +214,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -228,18 +225,18 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 4,
+      any: true,
     },
-    text: "Gain 2 Ward. Empower your next damage effect by 2. Expires at the end of your next turn.",
+    text: "Gain 1 Ward. Empower your next damage effect by 1, until the end of your next turn.",
     effects: [
       {
         type: "GUARD",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "STATUS",
         status: "power",
-        amount: 2,
+        amount: 1,
         duration: 1,
       },
     ],
@@ -247,7 +244,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 0,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       allOf: [
@@ -266,7 +263,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -278,31 +275,21 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 3,
-      max: 5,
+      max: 6,
       condition: "enemyAttacking",
     },
-    text: "Against an attack: gain 2 Ward. If it then damages your Life, deal 3 damage back.",
+    text: "If this attack damages your Life, deal 2 damage back.",
     effects: [
       {
-        type: "CONDITIONAL",
-        condition: "enemyAttacking",
-        effects: [
-          {
-            type: "GUARD",
-            amount: 2,
-          },
-          {
-            type: "COUNTERSTRIKE",
-            amount: 3,
-          },
-        ],
+        type: "COUNTERSTRIKE",
+        amount: 2,
       },
     ],
     priority: 20,
     archetype: "Counter",
     artIndex: 0,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -321,7 +308,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -332,13 +319,13 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 5,
+      min: 1,
     },
-    text: "Deal 3 damage. If you have Ward, deal 1 more.",
+    text: "Deal 1 damage. If you had Ward before this ability resolved, deal 2 more.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 3,
+        amount: 1,
       },
       {
         type: "CONDITIONAL",
@@ -346,7 +333,7 @@ export const ALPHA_CARDS = [
         effects: [
           {
             type: "DAMAGE",
-            amount: 1,
+            amount: 2,
           },
         ],
       },
@@ -355,7 +342,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 0,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -374,7 +361,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -387,11 +374,11 @@ export const ALPHA_CARDS = [
       count: 1,
       symbol: "guard",
     },
-    text: "Gain 6 Ward and cleanse all negative statuses.",
+    text: "Gain 2 Ward and cleanse negative statuses.",
     effects: [
       {
         type: "GUARD",
-        amount: 6,
+        amount: 2,
       },
       {
         type: "CLEANSE",
@@ -401,7 +388,7 @@ export const ALPHA_CARDS = [
     archetype: "Ward",
     artIndex: 0,
     tags: ["ward", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -420,7 +407,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Specialist access requires every listed Affinity. Activation cost and effect efficiency are unchanged; rarity is not a power multiplier.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -431,22 +418,41 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 5,
+      min: 1,
     },
-    text: "Deal 3 damage.",
+    text: "Deal 1 damage. If this is your first ability this round, the enemy loses 1 Focus.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 3,
+        amount: 1,
+      },
+      {
+        type: "CONDITIONAL",
+        condition: "firstAction",
+        effects: [
+          {
+            type: "LOSE_CONTROL",
+            amount: 1,
+          },
+        ],
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 1,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
-    affinityRequirements: null,
+    affinityRequirements: {
+      anyOf: [
+        {
+          affinity: "guile",
+        },
+        {
+          affinity: "shadow",
+        },
+      ],
+    },
     set: "first-light",
     collectorNumber: 10,
     balanceMetadata: {
@@ -454,7 +460,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -462,33 +468,26 @@ export const ALPHA_CARDS = [
     id: "read-the-thread",
     name: "Read the Thread",
     category: "Prediction",
-    timing: "REACTION",
+    timing: "ACTION",
     requirement: {
       count: 1,
-      min: 4,
+      any: true,
     },
-    text: "Deal 2 damage. If the enemy attacks, deal 2 more.",
+    text: "Reveal the first unknown Card in the enemy Hand. Gain 1 Focus.",
     effects: [
       {
-        type: "DAMAGE",
-        amount: 2,
+        type: "REVEAL_CARD",
       },
       {
-        type: "CONDITIONAL",
-        condition: "enemyAttacking",
-        effects: [
-          {
-            type: "DAMAGE",
-            amount: 2,
-          },
-        ],
+        type: "GAIN_CONTROL",
+        amount: 1,
       },
     ],
     priority: 20,
     archetype: "Prediction",
     artIndex: 1,
     tags: ["prediction", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -507,7 +506,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -530,7 +529,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 1,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -549,7 +548,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -561,13 +560,13 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 3,
-      max: 5,
+      max: 6,
     },
-    text: "Deal 1 damage. If the enemy has Ward, deal 4 more.",
+    text: "Remove up to 2 enemy Ward. If the enemy had Ward before this ability resolved, deal 1 damage.",
     effects: [
       {
-        type: "DAMAGE",
-        amount: 1,
+        type: "REMOVE_WARD",
+        amount: 2,
       },
       {
         type: "CONDITIONAL",
@@ -575,7 +574,7 @@ export const ALPHA_CARDS = [
         effects: [
           {
             type: "DAMAGE",
-            amount: 4,
+            amount: 1,
           },
         ],
       },
@@ -584,7 +583,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 1,
     tags: ["prediction", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       affinity: "guile",
@@ -596,7 +595,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -607,9 +606,8 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      exact: 3,
       min: 3,
-      max: 3,
+      max: 4,
       control: 1,
     },
     text: "Cancel this Action. Its Omens stay spent.",
@@ -622,7 +620,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 1,
     tags: ["manipulation", "reaction", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       allOf: [
@@ -644,7 +642,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Specialist access requires every listed Affinity. Activation cost and effect efficiency are unchanged; rarity is not a power multiplier.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -655,27 +653,24 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 2,
-      max: 4,
+      any: true,
     },
-    text: "Gain 2 Ward. Empower your next damage effect by 1. Expires at the end of your next turn.",
+    text: "Gain 1 Focus and 1 Ward.",
     effects: [
       {
-        type: "GUARD",
-        amount: 2,
+        type: "GAIN_CONTROL",
+        amount: 1,
       },
       {
-        type: "STATUS",
-        status: "power",
+        type: "GUARD",
         amount: 1,
-        duration: 1,
       },
     ],
     priority: 40,
     archetype: "Setup",
     artIndex: 1,
     tags: ["setup", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -694,7 +689,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -706,20 +701,24 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 1,
-      max: 2,
+      max: 4,
     },
-    text: "Heal 3 Life.",
+    text: "Heal 1 Life and gain 1 Focus.",
     effects: [
       {
         type: "HEAL",
-        amount: 3,
+        amount: 1,
+      },
+      {
+        type: "GAIN_CONTROL",
+        amount: 1,
       },
     ],
     priority: 40,
     archetype: "Recovery",
     artIndex: 1,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -738,7 +737,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -748,14 +747,14 @@ export const ALPHA_CARDS = [
     category: "Finisher",
     timing: "ACTION",
     requirement: {
-      count: 2,
-      min: 11,
+      count: 3,
+      min: 12,
     },
-    text: "Deal 6 damage. Deal 1 more if an enemy card is known.",
+    text: "Deal 4 damage. If an enemy Card is known, deal 1 more.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 6,
+        amount: 4,
       },
       {
         type: "CONDITIONAL",
@@ -772,7 +771,7 @@ export const ALPHA_CARDS = [
     archetype: "Finisher",
     artIndex: 1,
     tags: ["finisher", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -805,7 +804,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -818,7 +817,7 @@ export const ALPHA_CARDS = [
       count: 1,
       any: true,
     },
-    text: "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
+    text: "Gain 1 Ward. If an enemy Card is known, gain 1 Focus.",
     effects: [
       {
         type: "GUARD",
@@ -826,10 +825,10 @@ export const ALPHA_CARDS = [
       },
       {
         type: "CONDITIONAL",
-        condition: "enemyAttacking",
+        condition: "knownEnemy",
         effects: [
           {
-            type: "COUNTERSTRIKE",
+            type: "GAIN_CONTROL",
             amount: 1,
           },
         ],
@@ -839,7 +838,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 1,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -849,7 +848,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -860,21 +859,25 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 3,
       max: 6,
     },
-    text: "Deal 3 damage.",
+    text: "Deal 1 damage and gain 1 Focus.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 3,
+        amount: 1,
+      },
+      {
+        type: "GAIN_CONTROL",
+        amount: 1,
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -893,7 +896,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -904,26 +907,26 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 3,
       max: 6,
       condition: "enemyAttacking",
     },
-    text: "Against an attack: gain 2 Ward and deal 2 damage before it resolves.",
+    text: "Against an attack: gain 1 Ward and deal 1 damage before it resolves.",
     effects: [
       {
         type: "GUARD",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "DAMAGE",
-        amount: 2,
+        amount: 1,
       },
     ],
     priority: 20,
     archetype: "Counter",
     artIndex: 2,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -942,7 +945,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -952,21 +955,21 @@ export const ALPHA_CARDS = [
     category: "Finisher",
     timing: "ACTION",
     requirement: {
-      count: 2,
-      min: 11,
+      count: 3,
+      min: 12,
     },
-    text: "Deal 6 damage.",
+    text: "Deal 5 damage.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 6,
+        amount: 5,
       },
     ],
     priority: 40,
     archetype: "Finisher",
     artIndex: 2,
     tags: ["finisher", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "mythic",
     affinityRequirements: {
       allOf: [
@@ -985,7 +988,7 @@ export const ALPHA_CARDS = [
       complexity: 4,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -996,21 +999,31 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 2,
+      min: 1,
       max: 4,
     },
-    text: "Deal 2 damage.",
+    text: "Deal 1 damage. If this is your first ability this round, gain 1 Focus.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 2,
+        amount: 1,
+      },
+      {
+        type: "CONDITIONAL",
+        condition: "firstAction",
+        effects: [
+          {
+            type: "GAIN_CONTROL",
+            amount: 1,
+          },
+        ],
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -1020,7 +1033,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1031,14 +1044,13 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 2,
-      max: 3,
+      any: true,
     },
-    text: "Heal 2 Life and cleanse negative statuses.",
+    text: "Gain 1 Focus and cleanse negative statuses.",
     effects: [
       {
-        type: "HEAL",
-        amount: 2,
+        type: "GAIN_CONTROL",
+        amount: 1,
       },
       {
         type: "CLEANSE",
@@ -1048,7 +1060,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 2,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1067,7 +1079,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1081,18 +1093,18 @@ export const ALPHA_CARDS = [
       symbol: "redirect",
       condition: "enemyAttacking",
     },
-    text: "Prevent up to 4 damage from this Action.",
+    text: "Prevent up to 3 damage from this Action.",
     effects: [
       {
         type: "BLOCK_EFFECT",
-        amount: 4,
+        amount: 3,
       },
     ],
     priority: 20,
     archetype: "Manipulation",
     artIndex: 2,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -1111,7 +1123,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1121,21 +1133,22 @@ export const ALPHA_CARDS = [
     category: "Attack",
     timing: "ACTION",
     requirement: {
-      count: 1,
-      min: 7,
+      count: 2,
+      min: 8,
     },
-    text: "Deal 4 damage.",
+    text: "Deal 4 damage; ignore 1 Ward.",
     effects: [
       {
         type: "DAMAGE",
         amount: 4,
+        guardPierce: 1,
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -1154,7 +1167,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1167,10 +1180,10 @@ export const ALPHA_CARDS = [
       count: 1,
       any: true,
     },
-    text: "Gain 1 Ward. Empower your next damage effect by 1. Expires at the end of your next turn.",
+    text: "Gain 1 Focus. Empower your next damage effect by 1, until the end of your next turn.",
     effects: [
       {
-        type: "GUARD",
+        type: "GAIN_CONTROL",
         amount: 1,
       },
       {
@@ -1184,7 +1197,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 2,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -1194,7 +1207,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1204,23 +1217,22 @@ export const ALPHA_CARDS = [
     category: "Prediction",
     timing: "REACTION",
     requirement: {
-      count: 1,
-      min: 5,
-      max: 7,
+      count: 2,
+      min: 6,
       condition: "enemyAttacking",
     },
-    text: "Against an attack: deal 4 damage before it resolves.",
+    text: "Against an attack: deal 3 damage before it resolves.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 4,
+        amount: 3,
       },
     ],
     priority: 20,
     archetype: "Prediction",
     artIndex: 2,
     tags: ["prediction", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -1239,7 +1251,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Specialist access requires every listed Affinity. Activation cost and effect efficiency are unchanged; rarity is not a power multiplier.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1250,20 +1262,20 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 8,
+      min: 6,
     },
-    text: "Gain 5 Ward.",
+    text: "Gain 2 Ward.",
     effects: [
       {
         type: "GUARD",
-        amount: 5,
+        amount: 2,
       },
     ],
     priority: 20,
     archetype: "Ward",
     artIndex: 2,
     tags: ["ward", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1282,7 +1294,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1307,7 +1319,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1326,7 +1338,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1337,21 +1349,30 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 6,
-      max: 8,
+      min: 1,
     },
-    text: "Deal 4 damage.",
+    text: "Deal 1 damage. If an Omen paying for this Card was Shifted or Flipped, deal 1 more.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 4,
+        amount: 1,
+      },
+      {
+        type: "CONDITIONAL",
+        condition: "modifiedOmen",
+        effects: [
+          {
+            type: "DAMAGE",
+            amount: 1,
+          },
+        ],
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 3,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       affinity: "wild",
@@ -1363,7 +1384,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1375,13 +1396,13 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 1,
-      max: 3,
+      max: 4,
     },
-    text: "Gain 2 Ward and heal 1 Life.",
+    text: "Gain 1 Ward and heal 1 Life.",
     effects: [
       {
         type: "GUARD",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "HEAL",
@@ -1392,7 +1413,7 @@ export const ALPHA_CARDS = [
     archetype: "Ward",
     artIndex: 3,
     tags: ["ward", "reaction", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1418,7 +1439,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1428,10 +1449,10 @@ export const ALPHA_CARDS = [
     category: "Attack",
     timing: "ACTION",
     requirement: {
-      count: 1,
+      count: 2,
       min: 7,
     },
-    text: "Deal 3 damage. If you were behind in Life, deal 2 more.",
+    text: "Deal 3 damage. If you were behind in Life, deal 1 more.",
     effects: [
       {
         type: "DAMAGE",
@@ -1443,7 +1464,7 @@ export const ALPHA_CARDS = [
         effects: [
           {
             type: "DAMAGE",
-            amount: 2,
+            amount: 1,
           },
         ],
       },
@@ -1452,7 +1473,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 3,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1471,7 +1492,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1482,22 +1503,21 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 3,
       max: 6,
-      condition: "enemyAttacking",
     },
-    text: "Prevent up to 3 damage from this Action.",
+    text: "Prevent up to 2 damage from this Action.",
     effects: [
       {
         type: "BLOCK_EFFECT",
-        amount: 3,
+        amount: 2,
       },
     ],
     priority: 20,
     archetype: "Manipulation",
     artIndex: 3,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1516,7 +1536,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1527,14 +1547,13 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 3,
-      max: 5,
+      any: true,
     },
-    text: "Heal 3 Life and cleanse negative statuses.",
+    text: "Heal 1 Life and cleanse negative statuses.",
     effects: [
       {
         type: "HEAL",
-        amount: 3,
+        amount: 1,
       },
       {
         type: "CLEANSE",
@@ -1544,7 +1563,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 3,
     tags: ["recovery", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1563,7 +1582,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1574,32 +1593,26 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 2,
+      min: 1,
       max: 4,
       condition: "enemyAttacking",
     },
-    text: "Against an attack: gain 2 Ward. If this attack then damages your Life, deal 2 damage back.",
+    text: "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
     effects: [
       {
-        type: "CONDITIONAL",
-        condition: "enemyAttacking",
-        effects: [
-          {
-            type: "GUARD",
-            amount: 2,
-          },
-          {
-            type: "COUNTERSTRIKE",
-            amount: 2,
-          },
-        ],
+        type: "GUARD",
+        amount: 1,
+      },
+      {
+        type: "COUNTERSTRIKE",
+        amount: 1,
       },
     ],
     priority: 20,
     archetype: "Counter",
     artIndex: 3,
     tags: ["counter", "reaction", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -1618,7 +1631,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1631,22 +1644,22 @@ export const ALPHA_CARDS = [
       count: 1,
       symbol: "guard",
     },
-    text: "Heal 4 Life and gain 2 Ward.",
+    text: "Heal 2 Life and gain 1 Ward.",
     effects: [
       {
         type: "HEAL",
-        amount: 4,
+        amount: 2,
       },
       {
         type: "GUARD",
-        amount: 2,
+        amount: 1,
       },
     ],
     priority: 40,
     archetype: "Recovery",
     artIndex: 3,
     tags: ["recovery", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -1668,7 +1681,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Specialist access requires every listed Affinity. Activation cost and effect efficiency are unchanged; rarity is not a power multiplier.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1679,21 +1692,32 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 3,
+      control: 1,
+      min: 1,
       max: 4,
     },
-    text: "Deal 3 damage.",
+    text: "Deal 1 damage. If an Omen paying for this Card was Shifted or Flipped, deal 2 more.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 3,
+        amount: 1,
+      },
+      {
+        type: "CONDITIONAL",
+        condition: "modifiedOmen",
+        effects: [
+          {
+            type: "DAMAGE",
+            amount: 2,
+          },
+        ],
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 3,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1712,7 +1736,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1723,20 +1747,20 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 3,
       max: 6,
     },
-    text: "Poison: at the start of the enemy’s next turn, they lose 2 Life once. Gain 1 Ward.",
+    text: "Poison: the enemy loses 1 Life at their next turn start. Gain 1 Focus.",
     effects: [
       {
         type: "STATUS",
         status: "poison",
         target: "enemy",
-        amount: 2,
+        amount: 1,
         duration: 1,
       },
       {
-        type: "GUARD",
+        type: "GAIN_CONTROL",
         amount: 1,
       },
     ],
@@ -1744,7 +1768,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 3,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       allOf: [
@@ -1766,7 +1790,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Specialist access requires every listed Affinity. Activation cost and effect efficiency are unchanged; rarity is not a power multiplier.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1776,8 +1800,8 @@ export const ALPHA_CARDS = [
     category: "Attack",
     timing: "ACTION",
     requirement: {
-      count: 1,
-      min: 6,
+      count: 2,
+      min: 7,
     },
     text: "Deal 4 damage.",
     effects: [
@@ -1790,7 +1814,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 4,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1809,7 +1833,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1820,10 +1844,9 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 2,
-      max: 5,
+      any: true,
     },
-    text: "Heal 1 Life. Empower your next damage effect by 2. Expires at the end of your next turn.",
+    text: "Heal 1 Life. Empower your next damage effect by 1, until the end of your next turn.",
     effects: [
       {
         type: "HEAL",
@@ -1832,7 +1855,7 @@ export const ALPHA_CARDS = [
       {
         type: "STATUS",
         status: "power",
-        amount: 2,
+        amount: 1,
         duration: 1,
       },
     ],
@@ -1840,7 +1863,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 4,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1859,7 +1882,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1871,14 +1894,14 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       any: true,
-      life: 2,
+      life: 1,
     },
-    text: "Spend 2 Life. Empower your next damage effect by 3. Expires at the end of your next turn.",
+    text: "Spend 1 Life. Empower your next damage effect by 2, until the end of your next turn.",
     effects: [
       {
         type: "STATUS",
         status: "power",
-        amount: 3,
+        amount: 2,
         duration: 1,
       },
     ],
@@ -1886,7 +1909,7 @@ export const ALPHA_CARDS = [
     archetype: "Setup",
     artIndex: 4,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "mythic",
     affinityRequirements: {
       anyOf: [
@@ -1905,7 +1928,7 @@ export const ALPHA_CARDS = [
       complexity: 4,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1916,30 +1939,24 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 1,
     },
-    text: "Gain 2 Ward. If this attack then damages your Life, deal 1 damage back.",
+    text: "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
     effects: [
       {
         type: "GUARD",
-        amount: 2,
+        amount: 1,
       },
       {
-        type: "CONDITIONAL",
-        condition: "enemyAttacking",
-        effects: [
-          {
-            type: "COUNTERSTRIKE",
-            amount: 1,
-          },
-        ],
+        type: "COUNTERSTRIKE",
+        amount: 1,
       },
     ],
     priority: 20,
     archetype: "Counter",
     artIndex: 4,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -1958,7 +1975,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -1969,18 +1986,17 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 5,
-      max: 7,
-      condition: "enemyAttacking",
+      min: 3,
+      max: 6,
     },
-    text: "Prevent up to 2 damage from this Action. Gain 1 Ward.",
+    text: "Prevent up to 1 damage from this Action. Gain 1 Focus.",
     effects: [
       {
         type: "BLOCK_EFFECT",
-        amount: 2,
+        amount: 1,
       },
       {
-        type: "GUARD",
+        type: "GAIN_CONTROL",
         amount: 1,
       },
     ],
@@ -1988,7 +2004,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 4,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2007,7 +2023,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2017,22 +2033,22 @@ export const ALPHA_CARDS = [
     category: "Finisher",
     timing: "ACTION",
     requirement: {
-      count: 1,
+      count: 3,
       min: 10,
-      life: 2,
+      life: 1,
     },
-    text: "Spend 2 Life to deal 7 damage.",
+    text: "Spend 1 Life to deal 6 damage.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 7,
+        amount: 6,
       },
     ],
     priority: 40,
     archetype: "Finisher",
     artIndex: 4,
     tags: ["finisher", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "mythic",
     affinityRequirements: {
       anyOf: [
@@ -2065,7 +2081,7 @@ export const ALPHA_CARDS = [
       complexity: 4,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2076,13 +2092,13 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 5,
+      min: 1,
     },
-    text: "Deal 2 damage. If this is your third ability or later this round, deal 2 more.",
+    text: "Deal 1 damage. If this is your third ability or later this round, deal 2 more.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "CONDITIONAL",
@@ -2099,7 +2115,7 @@ export const ALPHA_CARDS = [
     archetype: "Prediction",
     artIndex: 4,
     tags: ["prediction", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -2125,7 +2141,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2136,14 +2152,13 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 3,
-      max: 5,
+      min: 1,
     },
-    text: "Deal 2 damage. If another Omen is unused, deal 1 more.",
+    text: "Deal 1 damage. If another Omen is unused, deal 1 more.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "CONDITIONAL",
@@ -2160,7 +2175,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 5,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2179,7 +2194,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2191,13 +2206,13 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 3,
-      max: 5,
+      max: 6,
     },
-    text: "Gain 2 Ward. If you were behind in Life and this attack damages your Life, deal 3 damage back.",
+    text: "Gain 1 Ward. If you were behind in Life and this attack damages your Life, deal 1 damage back.",
     effects: [
       {
         type: "GUARD",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "CONDITIONAL",
@@ -2205,7 +2220,7 @@ export const ALPHA_CARDS = [
         effects: [
           {
             type: "COUNTERSTRIKE",
-            amount: 3,
+            amount: 1,
           },
         ],
       },
@@ -2214,7 +2229,7 @@ export const ALPHA_CARDS = [
     archetype: "Counter",
     artIndex: 5,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2233,7 +2248,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2244,21 +2259,21 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 2,
+      min: 1,
       max: 4,
     },
-    text: "Heal 2 Life. If you were behind in Life, heal 1 more.",
+    text: "Heal 1 Life. If you were behind in Life, gain 1 Focus.",
     effects: [
       {
         type: "HEAL",
-        amount: 2,
+        amount: 1,
       },
       {
         type: "CONDITIONAL",
         condition: "behind",
         effects: [
           {
-            type: "HEAL",
+            type: "GAIN_CONTROL",
             amount: 1,
           },
         ],
@@ -2268,7 +2283,7 @@ export const ALPHA_CARDS = [
     archetype: "Recovery",
     artIndex: 5,
     tags: ["recovery", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -2287,7 +2302,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2297,11 +2312,15 @@ export const ALPHA_CARDS = [
     category: "Attack",
     timing: "ACTION",
     requirement: {
-      count: 1,
-      min: 8,
+      count: 3,
+      min: 12,
     },
-    text: "Deal 5 damage.",
+    text: "Remove up to 2 enemy Ward, then deal 5 damage.",
     effects: [
+      {
+        type: "REMOVE_WARD",
+        amount: 2,
+      },
       {
         type: "DAMAGE",
         amount: 5,
@@ -2311,7 +2330,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 5,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -2330,7 +2349,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Specialist access requires every listed Affinity. Activation cost and effect efficiency are unchanged; rarity is not a power multiplier.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2344,7 +2363,7 @@ export const ALPHA_CARDS = [
       any: true,
       life: 1,
     },
-    text: "Spend 1 Life. Empower your next damage effect by 2. Expires at the end of your next turn.",
+    text: "Spend 1 Life. Gain 1 Focus. Empower your next damage effect by 2, until the end of your next turn.",
     effects: [
       {
         type: "STATUS",
@@ -2352,12 +2371,16 @@ export const ALPHA_CARDS = [
         amount: 2,
         duration: 1,
       },
+      {
+        type: "GAIN_CONTROL",
+        amount: 1,
+      },
     ],
     priority: 40,
     archetype: "Setup",
     artIndex: 5,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "uncommon",
     affinityRequirements: {
       anyOf: [
@@ -2376,7 +2399,7 @@ export const ALPHA_CARDS = [
       complexity: 2,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2386,16 +2409,15 @@ export const ALPHA_CARDS = [
     category: "Attack",
     timing: "ACTION",
     requirement: {
-      count: 1,
+      count: 2,
       min: 5,
-      max: 6,
     },
-    text: "Convert up to 3 Ward into damage, then deal 2 damage.",
+    text: "Spend up to 2 Ward to deal that much damage, then deal 2 damage.",
     effects: [
       {
         type: "CONVERT",
         from: "guard",
-        amount: 3,
+        amount: 2,
         effects: [
           {
             type: "DAMAGE",
@@ -2412,7 +2434,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 5,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "rare",
     affinityRequirements: {
       anyOf: [
@@ -2445,7 +2467,7 @@ export const ALPHA_CARDS = [
       complexity: 3,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2456,30 +2478,24 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
-      min: 4,
+      min: 1,
     },
-    text: "Deal 2 damage. If the enemy has Ward, deal 2 more.",
+    text: "Remove up to 1 enemy Ward, then deal 1 damage.",
     effects: [
       {
-        type: "DAMAGE",
-        amount: 2,
+        type: "REMOVE_WARD",
+        amount: 1,
       },
       {
-        type: "CONDITIONAL",
-        condition: "enemyGuarding",
-        effects: [
-          {
-            type: "DAMAGE",
-            amount: 2,
-          },
-        ],
+        type: "DAMAGE",
+        amount: 1,
       },
     ],
     priority: 40,
     archetype: "Prediction",
     artIndex: 5,
     tags: ["prediction", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -2498,7 +2514,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2510,20 +2526,19 @@ export const ALPHA_CARDS = [
     requirement: {
       count: 1,
       min: 1,
-      max: 3,
     },
-    text: "Deal 2 damage.",
+    text: "Deal 1 damage.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 2,
+        amount: 1,
       },
     ],
     priority: 40,
     archetype: "Attack",
     artIndex: 0,
     tags: ["attack", "action", "low-value"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -2533,7 +2548,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2546,8 +2561,9 @@ export const ALPHA_CARDS = [
       count: 1,
       min: 6,
       max: 6,
+      control: 1,
     },
-    text: "Redirect the declared enemy action back to its user.",
+    text: "Spend 1 Focus to redirect this enemy Action back to its user.",
     effects: [
       {
         type: "REDIRECT",
@@ -2557,7 +2573,7 @@ export const ALPHA_CARDS = [
     archetype: "Manipulation",
     artIndex: 1,
     tags: ["manipulation", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       anyOf: [
@@ -2576,7 +2592,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2587,14 +2603,15 @@ export const ALPHA_CARDS = [
     timing: "ACTION",
     requirement: {
       count: 1,
+      exact: 5,
       min: 5,
       max: 5,
     },
-    text: "Deal 3 damage; ignore 1 Ward.",
+    text: "Deal 2 damage; ignore 1 Ward.",
     effects: [
       {
         type: "DAMAGE",
-        amount: 3,
+        amount: 2,
         guardPierce: 1,
       },
     ],
@@ -2602,7 +2619,7 @@ export const ALPHA_CARDS = [
     archetype: "Attack",
     artIndex: 2,
     tags: ["attack", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: {
       allOf: [
@@ -2621,7 +2638,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2632,21 +2649,21 @@ export const ALPHA_CARDS = [
     timing: "REACTION",
     requirement: {
       count: 1,
-      min: 8,
+      min: 6,
       condition: "enemyAttacking",
     },
-    text: "If this attack damages your Life, deal 4 damage back.",
+    text: "If this attack damages your Life, deal 2 damage back.",
     effects: [
       {
         type: "COUNTERSTRIKE",
-        amount: 4,
+        amount: 2,
       },
     ],
     priority: 20,
     archetype: "Counter",
     artIndex: 0,
     tags: ["counter", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "common",
     affinityRequirements: null,
     set: "first-light",
@@ -2656,7 +2673,7 @@ export const ALPHA_CARDS = [
       complexity: 1,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2671,22 +2688,22 @@ export const ALPHA_CARDS = [
       min: 10,
       max: 10,
     },
-    text: "Heal 5 Life and gain 3 Ward.",
+    text: "Heal 2 Life and gain 2 Ward.",
     effects: [
       {
         type: "HEAL",
-        amount: 5,
+        amount: 2,
       },
       {
         type: "GUARD",
-        amount: 3,
+        amount: 2,
       },
     ],
     priority: 40,
     archetype: "Setup",
     artIndex: 4,
     tags: ["setup", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     rarity: "mythic",
     affinityRequirements: {
       anyOf: [
@@ -2719,7 +2736,7 @@ export const ALPHA_CARDS = [
       complexity: 4,
       repeatability: "resource-limited",
       reviewNotes:
-        "Prototype; measured per legal Legend and Omen profile, not rarity-scaled.",
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2729,14 +2746,13 @@ export const ALPHA_CARDS = [
     affinityRequirements: null,
     requirement: {
       count: 1,
-      min: 2,
-      max: 5,
+      any: true,
     },
-    text: "Gain 1 Focus.",
+    text: "Gain 2 Focus (maximum 6).",
     effects: [
       {
         type: "GAIN_CONTROL",
-        amount: 1,
+        amount: 2,
       },
     ],
     timing: "ACTION",
@@ -2748,12 +2764,13 @@ export const ALPHA_CARDS = [
     priority: 40,
     artIndex: 1,
     tags: ["omen", "utility", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     balanceMetadata: {
       intent: "Gain 1 Focus.",
       complexity: 1,
       repeatability: "resource-limited",
-      reviewNotes: "Consumes an Omen; no free reusable activation.",
+      reviewNotes:
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2775,12 +2792,16 @@ export const ALPHA_CARDS = [
       void: true,
       unused: 1,
     },
-    text: "Flip your first other available or Held Omen.",
+    text: "Flip your first other available or Held Omen. Gain 1 Focus.",
     effects: [
       {
         type: "FLIP_DIE",
         target: "self",
         omenTarget: "unspent",
+      },
+      {
+        type: "GAIN_CONTROL",
+        amount: 1,
       },
     ],
     timing: "ACTION",
@@ -2792,12 +2813,13 @@ export const ALPHA_CARDS = [
     priority: 40,
     artIndex: 1,
     tags: ["omen", "utility", "action"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     balanceMetadata: {
       intent: "Flip your first other available or Held Omen.",
       complexity: 3,
       repeatability: "resource-limited",
-      reviewNotes: "Consumes an Omen; no free reusable activation.",
+      reviewNotes:
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
@@ -2830,14 +2852,15 @@ export const ALPHA_CARDS = [
     priority: 20,
     artIndex: 1,
     tags: ["omen", "utility", "reaction"],
-    mechanicalVersion: 8,
+    mechanicalVersion: 9,
     balanceMetadata: {
       intent:
         "Shift the first Omen paying for the enemy Action down by 1. Recheck its requirement.",
       complexity: 1,
       repeatability: "resource-limited",
-      reviewNotes: "Consumes an Omen; no free reusable activation.",
+      reviewNotes:
+        "v9 candidate: low burst, resource commitment and interaction audit; reusable shared-pool Card.",
     },
     persistence: "none",
   },
-] satisfies Omit<CardDef, "requirementLabel">[];
+];

@@ -39,6 +39,18 @@ export function cardRuleDetails(card: CardDef) {
     details.push(
       "Redirect swaps this Action’s player targets, including healing. Its original user still pays its costs.",
     );
+  if (effects.some((e) => e.condition === "modifiedOmen"))
+    details.push(
+      "The bonus requires an Omen paid for this ability to have been Shifted or Flipped since its roll. Modifying a different Omen does not count.",
+    );
+  if (effects.some((e) => e.type === "REVEAL_CARD"))
+    details.push(
+      "Reveals the first unknown Card in the enemy Hand, from left to right. It stays known for this match. If all are known, this part does nothing.",
+    );
+  if (effects.some((e) => e.type === "REMOVE_WARD"))
+    details.push(
+      "Removes up to the stated Ward before this ability’s damage. Removing Ward never reduces Life by itself.",
+    );
   return details;
 }
 export function statusExplanation(s: Status) {

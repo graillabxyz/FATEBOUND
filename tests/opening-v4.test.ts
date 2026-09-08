@@ -123,9 +123,11 @@ describe("fixed opening order and owner-turn roll allowance", () => {
   });
   it("AI chooses by probability and hand utility, independent of slot order or hidden enemy cards", () => {
     const s = start();
+    const before = choosePlan(decisionContext(s, 0));
+    const chosenId = s.players[0].loadout.dice[before.omenSlots![0]];
     s.players[0].loadout.dice.reverse();
     const p = choosePlan(decisionContext(s, 0));
-    expect(p.omenSlots).toEqual([2]);
+    expect(s.players[0].loadout.dice[p.omenSlots![0]]).toBe(chosenId);
     s.players[1].loadout.cards.reverse();
     s.seed = 900;
     expect(choosePlan(decisionContext(s, 0))).toEqual(p);
@@ -136,7 +138,12 @@ describe("fixed opening order and owner-turn roll allowance", () => {
       { initiativeWinner: 0 },
     );
     until(anansi, "OMEN_CHOICE");
-    expect(choosePlan(decisionContext(anansi, 0)).omenSlots).toEqual([1]);
+    const selected = choosePlan(decisionContext(anansi, 0)).omenSlots!;
+    expect(selected).toHaveLength(1);
+    const omenId = anansi.players[0].loadout.dice[selected[0]];
+    anansi.players[0].loadout.dice.reverse();
+    const reversed = choosePlan(decisionContext(anansi, 0)).omenSlots!;
+    expect(anansi.players[0].loadout.dice[reversed[0]]).toBe(omenId);
   });
   it("records actual opening resources, groups choices by opening role and omits unreached Life samples", () => {
     const s = start(1);

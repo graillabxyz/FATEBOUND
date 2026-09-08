@@ -26,7 +26,7 @@ const report = finishHandAudit(config, evaluation, rows);
 mkdirSync("reports", { recursive: true });
 writeFileSync(
   `reports/card-pool-v${report.version}.json`,
-  JSON.stringify(report, null, 2),
+  JSON.stringify(report),
 );
 console.log(
   JSON.stringify(

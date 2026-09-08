@@ -536,3 +536,10 @@
   color: #d6bf86;
   min-height: 44px;
 }
+
+.rules-audit table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.rules-audit th, .rules-audit td { text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(180,200,196,.12); }
+.rules-audit td { font-variant-numeric: tabular-nums; }
+.rules-audit summary { padding: 10px 0; cursor: pointer; }
+.rules-audit p { line-height: 1.6; }
+@media(max-width:600px) { .rules-audit th, .rules-audit td { padding: 9px 4px; font-size: 12px; } }

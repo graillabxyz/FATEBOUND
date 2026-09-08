@@ -45,6 +45,12 @@ export function effectUtility(es: Effect[]): number {
       case "GUARD":
         v = n * 0.7;
         break;
+      case "REMOVE_WARD":
+        v = n * 0.5;
+        break;
+      case "REVEAL_CARD":
+        v = 0.8;
+        break;
       case "HEAL":
         v = n * 0.8;
         break;
@@ -451,9 +457,9 @@ export function structuralCardFlags() {
       !c.requirement.max
     ) {
       const n = c.effects[0].amount ?? 0;
-      if (2 * n <= 20)
+      if (n <= GAME.universalWard)
         flags.push(
-          `${c.name}: universal Ward matches or exceeds this effect at Value ${2 * n}+. Review the useful activation band and opportunity cost of a Hand slot.`,
+          `${c.name}: universal Ward grants ${GAME.universalWard} per numbered Omen and matches or exceeds this effect. Review the useful activation band and opportunity cost of a Hand slot.`,
         );
     }
   return flags;

@@ -139,9 +139,7 @@ export function timingFor(l: Loadout, target: string) {
       : cardById[target]?.timing;
 }
 export function guardValue(face: Face) {
-  return face.type === "number"
-    ? Math.floor(face.value / 2)
-    : (face.guardValue ?? 0);
+  return face.type === "number" ? GAME.universalWard : (face.guardValue ?? 0);
 }
 export function assignmentValid(
   l: Loadout,
@@ -189,6 +187,13 @@ export function conditionMatches(
   return (
     (
       {
+        modifiedOmen: plan.assignments.some((a) =>
+          a.dice.some(
+            (i) =>
+              ctx.self.dice[i]?.modified ||
+              plan.controls.some((c) => c.slot === i),
+          ),
+        ),
         behind: ctx.self.hp < ctx.enemy.hp,
         guarding: ctx.self.guard > 0,
         enemyAttacking:

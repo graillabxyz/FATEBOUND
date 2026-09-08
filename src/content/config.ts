@@ -1,7 +1,8 @@
 export const GAME = {
   title: "OMNIPATH",
   subtitle: "Read the moment. Shape your fate.",
-  version: 8,
+  version: 9,
+  universalWard: 1,
   focusPerRound: 2,
   controlPerRound: 2, // Legacy persisted resource name.
   openingOmenCounts: [1, 2],

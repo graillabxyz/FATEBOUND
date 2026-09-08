@@ -702,7 +702,7 @@ export default function Battle({
                   >
                     <Icon name="guard" size={14} />
                     <span>
-                      Ward<small>½ Value ↓</small>
+                      Ward<small>1 per Value Omen</small>
                     </span>
                   </button>
                 </div>

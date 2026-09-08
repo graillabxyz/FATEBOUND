@@ -53,9 +53,11 @@ describe("turn edge cases and data integrity", () => {
   it("does not count your own attack as an enemy attack", () => {
     const s = ready();
     s.players[0].faces[0] = 7;
+    s.players[0].faces[1] = 0;
+    s.players[0].dice[1].state = "AVAILABLE";
     lockPlan(s, 0, {
       controls: [],
-      assignments: [{ target: "crush", dice: [0] }],
+      assignments: [{ target: "crush", dice: [0, 1] }],
     });
     expect(conditionMatches("enemyAttacking", decisionContext(s, 0))).toBe(
       false,

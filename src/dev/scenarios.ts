@@ -49,7 +49,7 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "question",
     "Round 6 · flipped two-Omen attack",
-    "Basajaun 4 Life, Anansi 2 Ward, Web Shift known, D12 flipped; Herensuge assigned.",
+    "Basajaun 4 Life, Anansi 2 Ward, Web Shift known, D12 flipped; Crush assigned.",
     (s) => {
       s.round = 6;
       s.initiativeWinner = 1;
@@ -61,8 +61,8 @@ export const SCENARIOS: Scenario[] = [
     },
     (c) => {
       c.control(0, { slot: 0, kind: "flip" });
-      c.assign(0, 0, c.state.players[0].loadout.cards[3]);
-      c.assign(0, 1, c.state.players[0].loadout.cards[3]);
+      c.assign(0, 0, c.state.players[0].loadout.cards[0]);
+      c.assign(0, 1, c.state.players[0].loadout.cards[0]);
     },
   ),
   scenario(
@@ -90,14 +90,14 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "two",
     "Two-Omens card test",
-    "Herensuge has exactly 12 total: D12 7 + D8 5.",
+    "Crush spends D12 7 + D8 5 for 4 damage.",
     (s) => {
       s.round = 3;
       s.fate.fixed = [60, 60, 40];
     },
     (c) => {
-      c.assign(0, 0, c.state.players[0].loadout.cards[3]);
-      c.assign(0, 1, c.state.players[0].loadout.cards[3]);
+      c.assign(0, 0, c.state.players[0].loadout.cards[0]);
+      c.assign(0, 1, c.state.players[0].loadout.cards[0]);
     },
   ),
   scenario(
@@ -117,13 +117,17 @@ export const SCENARIOS: Scenario[] = [
     "Both can reach zero in one exchange; retaliation resolves after damage.",
     (s) => {
       s.players[1] = defaultPlayer("basajaun", false);
+      s.round = 3;
       s.players[0].hp = 2;
       s.players[1].hp = 4;
       s.players[1].loadout.cards[0] = "counterstrike";
       s.players[1].heldFaces[0] = 7;
       s.fate.fixed[0] = 80;
     },
-    (c) => c.assign(0, 0, "crush"),
+    (c) => {
+      c.assign(0, 0, "crush");
+      c.assign(0, 1, "crush");
+    },
   ),
   scenario(
     "reaction",
@@ -137,13 +141,17 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "redirect",
     "Attack → Web Turn",
-    "Anansi holds an exact 6; redirect Crush back to Basajaun.",
+    "Anansi holds an exact 6 and Focus; redirect Crush back to Basajaun.",
     (s) => {
-      s.players[1].loadout.cards[2] = "web-turn";
+      s.round = 3;
+      s.players[1].loadout.cards[3] = "web-turn";
       s.players[1].heldFaces[0] = 5;
       s.fate.fixed[0] = 80;
     },
-    (c) => c.assign(0, 0, "crush"),
+    (c) => {
+      c.assign(0, 0, "crush");
+      c.assign(0, 1, "crush");
+    },
   ),
   scenario(
     "tie",
@@ -189,7 +197,7 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "stun",
     "Card stun test",
-    "Crush specifically stunned; other cards remain usable.",
+    "First Card specifically stunned; other cards remain usable.",
     (s) => {
       s.fate.fixed = [80, 60, 40];
       s.players[0].statuses = [
@@ -217,7 +225,7 @@ export const SCENARIOS: Scenario[] = [
   scenario(
     "heal",
     "Healing above max Life",
-    "Basajaun starts at 20 Life with Deep Roots assigned.",
+    "Basajaun starts at full Life with Deep Roots assigned.",
     (s) => {
       s.players[0].loadout.cards[0] = CARDS.find(
         (c) => c.id === "deep-roots",

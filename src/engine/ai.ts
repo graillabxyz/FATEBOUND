@@ -155,6 +155,12 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
     )
       v.disrupt =
         incoming + Math.min(values(ctx.pending?.effects ?? []).heal, 3);
+    v.damage += Math.min(
+      ctx.enemy.guard,
+      flat
+        .filter((e) => e.type === "REMOVE_WARD")
+        .reduce((n, e) => n + (e.amount ?? 0), 0),
+    );
     const pierce = flat.reduce((n, e) => Math.max(n, e.guardPierce ?? 0), 0);
     if (reacting && flat.some((e) => e.type === "REDIRECT"))
       v.damage += incoming;
@@ -174,6 +180,10 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
     const flatten = (es: Effect[]): Effect[] =>
       es.flatMap((e) => [e, ...flatten(e.effects ?? [])]);
     for (const effect of flatten(effects)) {
+      if (effect.type === "REVEAL_CARD" && ctx.enemy.known.length < 4)
+        setupValue += 0.8;
+      if (effect.type === "REMOVE_WARD")
+        setupValue += Math.min(effect.amount ?? 0, ctx.enemy.guard) * 0.4;
       if (effect.type === "GAIN_CONTROL")
         setupValue += Math.min(effect.amount ?? 0, 6 - ctx.self.control) * 0.65;
       if (effect.type === "STATUS")
@@ -278,7 +288,7 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
               (ability.effects.some((e) => e.type === "REDIRECT") ? 1.3 : 0.8),
         );
       }
-    return total + response * 1.15;
+    return total + response * 0.95;
   }, 0);
   const holdRule = legendById[ctx.self.loadout.legend].passiveRule;
   if (
@@ -288,6 +298,38 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
       .length === 1
   )
     setupValue += holdRule.amount * 0.8;
+  // Public counterplay only: a known redirect plus a matching held Omen is a
+  // credible threat. Favor a cheaper bait over committing several Omens into it.
+  const visibleRedirect =
+    !reacting &&
+    expectedDamage > 0 &&
+    [
+      legendById[ctx.enemy.loadout.legend].active,
+      ...ctx.enemy.known.map((id) => cardById[id]).filter(Boolean),
+    ].some(
+      (ability) =>
+        ability.timing === "REACTION" &&
+        ability.effects.some((effect) => effect.type === "REDIRECT") &&
+        (ability.requirement.control ?? 0) <= ctx.enemy.control &&
+        ctx.enemy.dice.some(
+          (die, slot) =>
+            ["HELD", "AVAILABLE"].includes(die.state) &&
+            meetsRequirement(
+              ability.requirement,
+              [
+                omenById[ctx.enemy.loadout.dice[slot]].faces[
+                  ctx.enemy.faces[slot]
+                ],
+              ],
+              [omenById[ctx.enemy.loadout.dice[slot]].size],
+            ),
+        ),
+    );
+  const knownReactionRisk = visibleRedirect
+    ? expectedDamage * (used.size > 1 ? 0.65 : 0.25) +
+      lethalPotential +
+      (expectedDamage >= ctx.self.hp + ctx.self.guard ? 10 : 0)
+    : 0;
   // Holding has a concrete opportunity value. Guard on an empty incoming action has low value.
   let overall =
     expectedDamage * (reacting ? 1.2 : 1.5) +
@@ -298,13 +340,15 @@ export function scorePlanDetails(ctx: DecisionContext, plan: Plan) {
     lethalPotential +
     resourceValue -
     controlSpent * 0.3 -
-    cardRevealCost;
+    cardRevealCost -
+    knownReactionRisk;
   if (reacting && plan.assignments.length) {
     overall -= 0.5;
     if (opponentLethalRisk && blocked + predictionValue > 0) overall += 5;
   }
   return {
     expectedDamage,
+    knownReactionRisk,
     expectedDefense,
     expectedHealing,
     offense: expectedDamage,

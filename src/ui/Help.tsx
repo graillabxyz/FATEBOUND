@@ -39,7 +39,7 @@ export const TUTORIAL_STEPS = [
   ],
   [
     "Ward",
-    "5 Ward blocks 5 damage, then is gone. An 8-damage attack removes 5 Ward and 3 Life. Leftover Ward expires at your next turn start.",
+    "2 Ward blocks 2 damage, then is gone. A 3-damage attack removes 2 Ward and 1 Life. Leftover Ward expires at your next turn start.",
   ],
 ] as const;
 export function TutorialSteps() {
@@ -127,8 +127,10 @@ export function BattleRules({ onClose }: { onClose: () => void }) {
         </p>
         <h3>Ward absorbs damage point for point</h3>
         <p>
-          With 5 Ward, an 8-damage attack consumes all 5 Ward and removes 3
-          Life. Remaining Ward expires at the start of that Legend’s next turn.
+          Spend a numbered Omen for 1 Ward, regardless of its Value. A Ward
+          Sigil grants its printed amount. With 2 Ward, a 3-damage attack
+          consumes both Ward and removes 1 Life. Remaining Ward expires at the
+          start of that Legend’s next turn.
         </p>
         <h3>Held Omens are your response</h3>
         <p>

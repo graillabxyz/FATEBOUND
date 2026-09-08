@@ -78,7 +78,7 @@ describe("OMNIPATH vocabulary and compatibility", () => {
       renderToStaticMarkup(
         createElement(FaceExplanation, { face: omen.faces[5] }),
       ),
-    ).toContain("gain 3 Ward");
+    ).toContain("gain 2 Ward");
     expect(
       renderToStaticMarkup(
         createElement(Omen, { definition: omen, face: omen.faces[0] }),

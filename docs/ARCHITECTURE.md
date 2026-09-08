@@ -1,4 +1,4 @@
-# OMNIPATH authoritative combat · mechanical version 8
+# OMNIPATH authoritative combat · mechanical version 9
 
 ## Runtime and boundaries
 
@@ -34,7 +34,7 @@ Each seat has a seeded independent stream for its owner's rolls; initiative is s
 
 A MAIN_ACTION command may pay Focus and declare one action, or pay only Focus, or end the turn. Multiple sequential uses of the same card are legal when separate available Omens pay each cost. SHIFT costs 1 and selects an authored numeric face exactly one value above/below the current result; missing values and boundaries fail. FLIP costs 2 and follows the authored opposite map. Only available unspent resources on the owner's turn may use Focus.
 
-Declaration validates timing, status, ownership, resource availability and requirements atomically, then pays Focus/Omens and permanently reveals the card. ACTION_DECLARED → REACTION_WINDOW. The defender may spend eligible held/available resources on one reaction or universal Ward, or PASS. Universal Ward spends one numbered Omen for floor(value/2); Sigils require explicit guardValue metadata. A reaction has no reaction-time Focus permission in this version.
+Declaration validates timing, status, ownership, resource availability and requirements atomically, then pays Focus/Omens and permanently reveals the card. ACTION_DECLARED → REACTION_WINDOW. The defender may spend eligible held/available resources on one reaction or universal Ward, or PASS. Universal Ward spends one numbered Omen for 1 Ward regardless of Value; Sigils require explicit guardValue metadata. A reaction has no reaction-time Focus permission in this version.
 
 REACTION_DECLARED or reaction PASS → RESOLUTION. The exact production iterator provides these ordered stages:
 
@@ -56,7 +56,7 @@ Battle renders the authoritative turn/phase, initiative contest/marker, ACTION/R
 
 ## Replay, reconnect and lab snapshots
 
-Mechanical version 8 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Versions 1–7 replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
+Mechanical version 9 uses a command stream recording round, turn, actor and each paid action/pass. Seed + loadouts + versioned config + commands reproduce all rolls and outcomes. Exporting a live competitive seed is forbidden. Versions 1–8 replays/checkpoints are rejected rather than reinterpreted. Commands require match ID, sequence, round and revision; retries are idempotent, stale decisions fail.
 
 Local versioned checkpoints validate resource/state shape before restoration. Dev snapshots also include setup, precise resource states, AI configuration, reveal memory, forced rolls, logs and a suspended resolver's baseline/cursor. Restoring a suspended resolver replays the same iterator and compares its state before resuming. Manual state edits require a safe rewind while an effect is suspended. Imports are bounded and validated. Local profile, Loadout and snapshot container keys remain compatible; embedded mechanical versions are validated. Version 6 telemetry uses a separate outbox.
 
@@ -101,3 +101,9 @@ Removed maxRounds from production config, Dev Lab setup and battle display. A ro
 Card frames keep Affinity symbols at top-right with accessible labels/tooltips. The redundant Affinity name strip and its container are removed; Action/Reaction timing stays in the rules area and detailed compatibility remains in Inspect.
 
 Version 8 verification: 1,000 paired Normal-AI attempts across all six Legends (including mirrors), 954 completed and 46 unfinished at the 100-round simulation watchdog. Completed games averaged 7.73 rounds. Both completed and stalled reversed-seat checks had zero mismatches. These data expose stalling; completed-only win rates are selection-biased until stalled builds are addressed. See reports/balance-v8.json.
+
+## Tactical balance · version 9
+
+The full 60-Card pool and all six starter recipes were repriced for smaller damage and paid setup. Universal numbered Ward is 1, Ward Sigils 2; Ward lifetime is unchanged. REMOVE_WARD and REVEAL_CARD are authoritative primitives; modifiedOmen checks the Omens actually paid for an ability. Focus costs on reaction Cards are paid at declaration; this does not permit reaction-time Shift/Flip. Known redirect threats now influence AI commitment using public data only. Read the Thread exposes the first unknown enemy Card; it does not remove it. Card requirements remain generated from structured data.
+
+The version rejects older match checkpoints/replays. Catalog updates preserve existing inventory and saved Hands. Starter recipes do not grant players all recommended content retroactively. See reports/skill-balance-v9/README.md for the matched audit, uncertainty and remaining starter-matchup problems. This is an alpha balance revision, not competitive certification.

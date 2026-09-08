@@ -17,6 +17,7 @@ function lab() {
     "herensuge",
   ];
   setup.initiativeWinner = 0;
+  setup.round = 3;
   setup.players.forEach((p) => (p.ai = false));
   setup.fate.fixed = [80, 60, 40];
   return new LabController(setup);
@@ -24,6 +25,7 @@ function lab() {
 function resolving() {
   const c = lab();
   c.assign(0, 0, "crush");
+  c.assign(0, 1, "crush");
   c.lock(0);
   c.next();
   c.lock(1, EMPTY_PLAN);
@@ -171,6 +173,7 @@ describe("v2 production Battle Lab", () => {
   });
   it("consumes fixed and sequence Fate with repeat, random and stop endings", () => {
     const c = lab();
+    c.setup.round = 1;
     c.setup.fate.mode = "sequence";
     expect(c.fateForRound(1)).toEqual(c.setup.fate.sequence[0]);
     expect(c.fateForRound(4)).toEqual(c.setup.fate.sequence[0]);

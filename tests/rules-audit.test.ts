@@ -75,13 +75,13 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
     reach(s, 0, 1);
     value(s, 0, 0, 7);
     value(s, 0, 1, 5);
-    use(s, "herensuge", [0, 1]);
+    use(s, "crush", [0, 1]);
     expect(s.players[0].dice.slice(0, 2).map((d) => d.state)).toEqual([
       "SPENT",
       "SPENT",
     ]);
-    expect(s.players[0].known).toContain("herensuge");
-    expect(s.players[0].loadout.cards).toContain("herensuge");
+    expect(s.players[0].known).toContain("crush");
+    expect(s.players[0].loadout.cards).toContain("crush");
     expect(() =>
       lockPlan(s, 0, {
         controls: [],
@@ -96,10 +96,10 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
     reach(s, 0, 1);
     value(s, 0, 0, 4);
     use(s, "guard");
-    expect(s.players[0].guard).toBe(2);
+    expect(s.players[0].guard).toBe(1);
     pass(s, 0);
     reach(s, 1, 1);
-    expect(s.players[0].guard).toBe(2);
+    expect(s.players[0].guard).toBe(1);
     pass(s, 1);
     reach(s, 0, 2);
     expect(s.players[0].guard).toBe(0);
@@ -115,11 +115,12 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
       );
       reach(s, 0, 1);
       value(s, 0, 0, 8);
+      value(s, 0, 1, 1);
       value(s, 1, 0, 3);
-      if (blocked) s.players[1].guard = 2;
-      use(s, "crush", [0], "bramble-trap");
-      expect(s.players[1].hp).toBe(blocked ? 20 : 18);
-      expect(s.players[0].hp).toBe(blocked ? 21 : 19);
+      if (blocked) s.players[1].guard = 3;
+      use(s, "crush", [0, 1], "bramble-trap");
+      expect(s.players[1].hp).toBe(blocked ? 16 : 13);
+      expect(s.players[0].hp).toBe(blocked ? 14 : 13);
       expect(s.players[1].statuses).toEqual([]);
       expect(s.players[1].loadout.cards).toContain("bramble-trap");
       expect(s.players[1].known).toContain("bramble-trap");
@@ -135,9 +136,10 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
     reach(s, 0, 1);
     s.players[0].hp = 10;
     s.players[1].hp = 11;
-    value(s, 0, 0, 7);
-    use(s, "wolf-shape");
-    expect(s.players[1].hp).toBe(6);
+    value(s, 0, 0, 6);
+    value(s, 0, 1, 1);
+    use(s, "wolf-shape", [0, 1]);
+    expect(s.players[1].hp).toBe(7);
   });
   it.each([0, 1])(
     "Poison ticks exactly once at the next owner turn, with caster seat %i",
@@ -156,19 +158,25 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
       expect(s.players[target].hp).toBe(before);
       pass(s, caster);
       reach(s, target, next);
-      expect(s.players[target].hp).toBe(before - 2);
+      expect(s.players[target].hp).toBe(before - 1);
       expect(
         s.players[target].statuses.filter((x) => x.id === "poison"),
       ).toHaveLength(0);
       pass(s, target);
       reach(s, target, next + 1);
-      expect(s.players[target].hp).toBe(before - 2);
+      expect(s.players[target].hp).toBe(before - 1);
     },
   );
   it("consumes Empowered on the next damage effect and expires unused at next owner-turn end", () => {
     const s = createMatch(
       6,
-      [build("tengu", "windstep"), build("anansi")],
+      [
+        {
+          ...build("tengu"),
+          cards: ["windstep", "gale-cut", "precision-cut", "still-mind"],
+        },
+        build("anansi"),
+      ],
       undefined,
       { initiativeWinner: 0 },
     );
@@ -178,7 +186,7 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
     expect(s.players[0].statuses[0].expiresOwnerTurn).toBe(2);
     value(s, 0, 1, 4);
     use(s, "gale-cut", [1]);
-    expect(s.players[1].hp).toBe(14);
+    expect(s.players[1].hp).toBe(12);
     expect(s.players[0].statuses).toHaveLength(0);
     value(s, 0, 2, 1);
     use(s, "windstep", [2]);
@@ -196,13 +204,15 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
       { initiativeWinner: 0 },
     );
     reach(s, 0, 1);
-    value(s, 0, 0, 10);
+    value(s, 0, 0, 8);
+    value(s, 0, 1, 1);
+    value(s, 0, 2, 1);
     value(s, 1, 0, 3);
     lockPlan(s, 0, {
       controls: [],
-      assignments: [{ target: "burning-crown", dice: [0] }],
+      assignments: [{ target: "burning-crown", dice: [0, 1, 2] }],
     });
-    expect(s.players[0].hp).toBe(18);
+    expect(s.players[0].hp).toBe(13);
     advance(s);
     lockPlan(s, 1, {
       controls: [],
@@ -210,15 +220,17 @@ describe("explicit OMNIPATH Card and resource semantics", () => {
     });
     advance(s);
     advance(s);
-    expect(s.players[0].hp).toBe(18);
-    expect(s.players[1].hp).toBe(18);
+    expect(s.players[0].hp).toBe(13);
+    expect(s.players[1].hp).toBe(14);
     expect(s.players[1].control).toBe(1);
-    s.players[0].hp = 2;
-    value(s, 0, 0, 10);
+    s.players[0].hp = 1;
+    value(s, 0, 0, 8);
+    value(s, 0, 1, 1);
+    value(s, 0, 2, 1);
     expect(() =>
       lockPlan(s, 0, {
         controls: [],
-        assignments: [{ target: "burning-crown", dice: [0] }],
+        assignments: [{ target: "burning-crown", dice: [0, 1, 2] }],
       }),
     ).toThrow("LIFE INVALID");
     expect(s.players[0].dice[0].state).toBe("AVAILABLE");

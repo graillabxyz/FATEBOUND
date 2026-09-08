@@ -49,6 +49,7 @@ export type Category =
   | "Finisher"
   | "Prediction";
 export type Predicate =
+  | "modifiedOmen"
   | "behind"
   | "guarding"
   | "enemyAttacking"
@@ -62,6 +63,8 @@ export type Predicate =
   | "heldDie"
   | "firstAction";
 export type Primitive =
+  | "REMOVE_WARD"
+  | "REVEAL_CARD"
   | "DAMAGE"
   | "HEAL"
   | "GUARD"

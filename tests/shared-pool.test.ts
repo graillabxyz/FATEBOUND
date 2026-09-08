@@ -114,7 +114,7 @@ describe("global alpha pool and Affinity authority", () => {
         } else expect(() => validateLoadout(build)).toThrow("Requires");
       }
     }
-    expect(pairs).toBe(201);
+    expect(pairs).toBe(198);
   });
   it("shares Root Ward across compatible Legends and keeps exact dual Affinity constraints", () => {
     expect(cardsFor("basajaun")).toContain(cardById["root-ward"]);
@@ -153,12 +153,12 @@ describe("global alpha pool and Affinity authority", () => {
     expect(new Set(hands.map((h) => h.join("|"))).size).toBe(hands.length);
   });
   it("evaluates exact Omen probabilities without rarity bonuses", () => {
-    const p = activationProfile(cardById["quick-strike"], "anansi", [
+    const p = activationProfile(cardById["falling-leaf"], "anansi", [
       "standard-d4",
       "standard-d4",
       "standard-d4",
     ]);
-    expect(p.raw).toBeCloseTo(1 - 1 / 64);
+    expect(p.raw).toBeCloseTo(1 - 1 / 8);
     expect(effectUtility([{ type: "DAMAGE", amount: 3 }])).toBe(3);
     expect(
       meetsRequirement({ count: 1, void: true }, [
@@ -410,13 +410,15 @@ describe("shared-pool Omen interactions use production resolution", () => {
       { initiativeWinner: 0 },
     );
     start(s);
-    s.players[0].faces[0] = 6;
+    s.players[0].faces[0] = 4;
+    s.players[0].faces[1] = 0;
+    s.players[0].dice[1].state = "AVAILABLE";
     s.players[0].dice[0].state = "AVAILABLE";
     s.players[1].faces[0] = 4;
     s.players[1].dice[0].state = "HELD";
     lockPlan(s, 0, {
       controls: [],
-      assignments: [{ target: "crush", dice: [0] }],
+      assignments: [{ target: "crush", dice: [0, 1] }],
     });
     advance(s);
     expect(decisionContext(s, 1).phase).toBe("REACTION_WINDOW");
@@ -426,8 +428,8 @@ describe("shared-pool Omen interactions use production resolution", () => {
     });
     advance(s);
     advance(s);
-    expect(s.players[0].faces[0]).toBe(5);
-    expect(s.players[1].hp).toBe(18);
+    expect(s.players[0].faces[0]).toBe(3);
+    expect(s.players[1].hp).toBe(14);
     expect(s.players[0].dice[0].state).toBe("SPENT");
   });
 });

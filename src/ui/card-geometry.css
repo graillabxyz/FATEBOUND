@@ -199,3 +199,20 @@
   margin-bottom: 2cqw;
   font-size: max(8px, 4.5cqw);
 }
+
+.starter-strategy {
+  margin: 12px 0;
+  padding: 12px;
+  background: rgba(174, 153, 105, 0.07);
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.starter-strategy summary {
+  cursor: pointer;
+  min-height: 32px;
+  color: var(--gold, #c4a36f);
+}
+.starter-strategy p {
+  margin: 8px 0;
+}

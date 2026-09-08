@@ -1,3 +1,4 @@
+import RulesAudit from "./RulesAudit";
 import { OpeningMetrics } from "./OpeningMetrics";
 import { GAME } from "../content/config";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -113,6 +114,7 @@ export default function Dashboard() {
             ["Matchups", "attack"],
             ["Content performance", "loadout"],
             ["Simulation", "target"],
+            ["Rules audit", "book"],
             ["Live activity", "sparkles"],
           ].map(([name, icon]) => (
             <button
@@ -154,7 +156,9 @@ export default function Dashboard() {
                   : "Updates every 10s"}
           </span>
         </header>
-        {page === "Simulation" ? (
+        {page === "Rules audit" ? (
+          <RulesAudit />
+        ) : page === "Simulation" ? (
           <section className="metrics-panel">
             <SimulationPanel onSaved={() => void refresh()} />
           </section>

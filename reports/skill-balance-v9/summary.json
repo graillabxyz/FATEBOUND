@@ -1,0 +1,1989 @@
+{
+  "version": 9,
+  "baselineCommit": "6f4231398a7ea7868cdae1196eeb35ccf5c30461",
+  "summaries": [
+    {
+      "label": "v8-baseline",
+      "version": 8,
+      "root": "work/skill-balance-v9/baseline",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1200,
+      "stalled": 60,
+      "mismatches": 0,
+      "averageRounds": 7.866666666666666,
+      "rawDeadRate": 0.029310800105624504,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 7.227620808027463,
+      "utilityShare": 0.5326985016104188,
+      "reactionsPerGame": 23.93015873015873,
+      "wardPerGame": 78.84285714285714,
+      "absorbedPerGame": 65.25238095238095,
+      "damagePerGame": 46.76984126984127,
+      "focusPerGame": 28.17142857142857,
+      "heldShare": 0.5144877623180419,
+      "expiredShare": 0.16476098636175782,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 360,
+          "score": 0.48333333333333334
+        },
+        {
+          "legend": "anansi",
+          "games": 420,
+          "score": 0.5142857142857142
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.46904761904761905
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.5714285714285714
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.4357142857142857
+        },
+        {
+          "legend": "maui",
+          "games": 360,
+          "score": 0.5277777777777778
+        }
+      ],
+      "uniqueSeeds": 630,
+      "openingWinRate": 0.495,
+      "opening95CI": [
+        0.4551529268390802,
+        0.534910692494202
+      ],
+      "completedOnlyReactions": 14.11,
+      "completedOnlyWard": 42.541666666666664,
+      "burst90": 10
+    },
+    {
+      "label": "release-v9-starters",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1260,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 6.696825396825397,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 9.034069867917541,
+      "utilityShare": 0.6268996492955147,
+      "reactionsPerGame": 7.317460317460317,
+      "wardPerGame": 18.177777777777777,
+      "absorbedPerGame": 11.922222222222222,
+      "damagePerGame": 23.090476190476192,
+      "focusPerGame": 9.255555555555556,
+      "heldShare": 0.375545462641375,
+      "expiredShare": 0.16412859560067683,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.5714285714285714
+        },
+        {
+          "legend": "anansi",
+          "games": 420,
+          "score": 0.5095238095238095
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.5023809523809524
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.40476190476190477
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.5642857142857143
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.44761904761904764
+        }
+      ],
+      "uniqueSeeds": 630,
+      "openingWinRate": 0.5428571428571428,
+      "opening95CI": [
+        0.5038141443065418,
+        0.5813806425297907
+      ],
+      "completedOnlyReactions": 7.317460317460317,
+      "completedOnlyWard": 18.177777777777777,
+      "burst90": 7
+    },
+    {
+      "label": "release-v9-custom",
+      "version": 9,
+      "root": ".",
+      "policy": false,
+      "seedBase": 1000000,
+      "seeds": 12,
+      "attempted": 504,
+      "completed": 504,
+      "stalled": 0,
+      "mismatches": 0,
+      "averageRounds": 9.261904761904763,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.538751943149013,
+      "utilityShare": 0.6928872147130511,
+      "reactionsPerGame": 11.115079365079366,
+      "wardPerGame": 21.67063492063492,
+      "absorbedPerGame": 8.936507936507937,
+      "damagePerGame": 22.333333333333332,
+      "focusPerGame": 19.166666666666668,
+      "heldShare": 0.40581749941355855,
+      "expiredShare": 0.18437719915552428,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 168,
+          "score": 0.6547619047619048
+        },
+        {
+          "legend": "anansi",
+          "games": 168,
+          "score": 0.5714285714285714
+        },
+        {
+          "legend": "tengu",
+          "games": 168,
+          "score": 0.5238095238095238
+        },
+        {
+          "legend": "leshy",
+          "games": 168,
+          "score": 0.25
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 168,
+          "score": 0.5
+        },
+        {
+          "legend": "maui",
+          "games": 168,
+          "score": 0.5
+        }
+      ],
+      "uniqueSeeds": 252,
+      "openingWinRate": 0.5873015873015873,
+      "opening95CI": [
+        0.5256486677441045,
+        0.6463327457554985
+      ],
+      "completedOnlyReactions": 11.115079365079366,
+      "completedOnlyWard": 21.67063492063492,
+      "burst90": 7
+    },
+    {
+      "label": "release-v9-policy",
+      "version": 9,
+      "root": ".",
+      "policy": true,
+      "seedBase": 1000000,
+      "seeds": 30,
+      "attempted": 1260,
+      "completed": 1260,
+      "stalled": 0,
+      "mismatches": null,
+      "averageRounds": 4.976190476190476,
+      "rawDeadRate": 0,
+      "focusedDeadRate": 0,
+      "choicesPerRoll": 8.758301028147649,
+      "utilityShare": 0.5216995949408945,
+      "reactionsPerGame": 5.146031746031746,
+      "wardPerGame": 8.880952380952381,
+      "absorbedPerGame": 6.819047619047619,
+      "damagePerGame": 23.26984126984127,
+      "focusPerGame": 5.801587301587301,
+      "heldShare": 0.3207298720842739,
+      "expiredShare": 0.10647103085026335,
+      "byLegend": [
+        {
+          "legend": "basajaun",
+          "games": 420,
+          "score": 0.28095238095238095
+        },
+        {
+          "legend": "anansi",
+          "games": 420,
+          "score": 0.29523809523809524
+        },
+        {
+          "legend": "tengu",
+          "games": 420,
+          "score": 0.6142857142857143
+        },
+        {
+          "legend": "leshy",
+          "games": 420,
+          "score": 0.49047619047619045
+        },
+        {
+          "legend": "quetzalcoatl",
+          "games": 420,
+          "score": 0.5857142857142857
+        },
+        {
+          "legend": "maui",
+          "games": 420,
+          "score": 0.7333333333333333
+        }
+      ],
+      "uniqueSeeds": 630,
+      "openingWinRate": 0.5095238095238095,
+      "opening95CI": [
+        0.4705474715943116,
+        0.5483847032582065
+      ],
+      "completedOnlyReactions": 5.146031746031746,
+      "completedOnlyWard": 8.880952380952381,
+      "burst90": 7
+    }
+  ],
+  "policyResult": {
+    "focalNormalWins": 342,
+    "focalGreedyWins": 179,
+    "games": 630,
+    "changedOutcomes": 215,
+    "note": "The first named Legend changes policy on both seat copies. Mirrors included. Same legal candidates and RNG; this is a heuristic ablation, not evidence of human skill or optimal play."
+  },
+  "starters": {
+    "basajaun": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "fell-the-axe",
+        "oakheart",
+        "root-ward",
+        "crush"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "anansi": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "read-the-thread",
+        "false-promise",
+        "web-turn"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "tengu": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "falling-leaf",
+        "peak-strike",
+        "watchful-blade",
+        "meditate"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "leshy": {
+      "id": "starter-leshy",
+      "name": "Into the Wild",
+      "legend": "leshy",
+      "cards": [
+        "crooked-bough",
+        "hollow-sign",
+        "night-spores",
+        "bramble-trap"
+      ],
+      "dice": [
+        "leshy-d8-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "quetzalcoatl": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "first-light",
+        "horizon",
+        "dawn-shield",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "maui": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "wavebreaker",
+        "oakheart",
+        "bramble-trap",
+        "daring-feint"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    }
+  },
+  "strategies": {
+    "basajaun": {
+      "name": "Ward into pressure",
+      "sequence": "Oakheart prepares Ward and Empowered. Fell the Axe rewards keeping Ward; Crush commits two Omens. Hold a low Value for Root Ward.",
+      "counterplay": "Strip Ward before the payoff, or redirect the committed attack."
+    },
+    "anansi": {
+      "name": "Information and disruption",
+      "sequence": "Read the Thread exposes an unknown Card and restores Focus. Silken Cut pressures enemy Focus; False Promise breaks Ward. Reserve an exact 6 and 1 Focus for Web Turn. Your signature Swap Sigil offers another route through your Legend.",
+      "counterplay": "Use small attacks to bait the held response before committing multiple Omens."
+    },
+    "tengu": {
+      "name": "Precision and counters",
+      "sequence": "Meditate restores Focus. Low Values power Falling Leaf; combine Omens for Peak Strike or hold two for Watchful Blade. Shift toward a total of 5 for your Passive.",
+      "counterplay": "Pressure Focus and avoid committing your biggest attack into a held counter."
+    },
+    "leshy": {
+      "name": "Change the result",
+      "sequence": "Shift or Flip an Omen before paying Crooked Bough for its bonus. Hollow Sign converts a Void into a Flip and Focus. Hold a low Value for Bramble Counter.",
+      "counterplay": "Deny Focus or stop the modified-Omen payoff. Cleanse Poison before it ticks."
+    },
+    "quetzalcoatl": {
+      "name": "Sequence and momentum",
+      "sequence": "First Light prepares Empowered. Change ability categories for your Passive, then use Horizon as your third ability of the round. Dawn Shield keeps a response available.",
+      "counterplay": "Interrupt the prepared payoff; each setup spends an Omen that cannot defend."
+    },
+    "maui": {
+      "name": "Pressure while holding",
+      "sequence": "Daring Feint rewards leaving an Omen unused. Oakheart prepares Ward; Wavebreaker spends that protection for pressure. End with one held Omen for 2 Ward, and respond with Bramble Counter.",
+      "counterplay": "Break the Ward or pass a small attack to make the held resource expire."
+    }
+  },
+  "audit": [
+    {
+      "id": "crush",
+      "name": "Crush",
+      "affinity": "Might",
+      "legalLegends": [
+        "basajaun",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "2 Values totaling 6+",
+      "text": "Deal 4 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 4
+        }
+      ],
+      "diagnosticUtility": 4,
+      "baseDamage": 4,
+      "omenCost": 2
+    },
+    {
+      "id": "root-ward",
+      "name": "Root Ward",
+      "affinity": "Wild OR Spirit",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 1–4",
+      "text": "Gain 2 Ward.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 1.4,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "barkskin",
+      "name": "Barkskin",
+      "affinity": "Wild OR Order",
+      "legalLegends": [
+        "basajaun",
+        "tengu",
+        "leshy",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–6",
+      "text": "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "COUNTERSTRIKE",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.7,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "herensuge",
+      "name": "Herensuge",
+      "affinity": "Might AND Wild",
+      "legalLegends": [
+        "basajaun",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "3 Values totaling 9+",
+      "text": "Deal 5 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 5
+        }
+      ],
+      "diagnosticUtility": 5,
+      "baseDamage": 5,
+      "omenCost": 3
+    },
+    {
+      "id": "deep-roots",
+      "name": "Deep Roots",
+      "affinity": "Wild OR Spirit",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1–4",
+      "text": "Heal 1 Life and cleanse negative statuses.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 1
+        },
+        {
+          "type": "CLEANSE"
+        }
+      ],
+      "diagnosticUtility": 1.4,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "oakheart",
+      "name": "Oakheart",
+      "affinity": "Wild AND Might",
+      "legalLegends": [
+        "basajaun",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Gain 1 Ward. Empower your next damage effect by 1, until the end of your next turn.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "STATUS",
+          "status": "power",
+          "amount": 1,
+          "duration": 1
+        }
+      ],
+      "diagnosticUtility": 1.5,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "thorn-return",
+      "name": "Thorn Return",
+      "affinity": "Wild OR Shadow",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–6 · Against an attack",
+      "text": "If this attack damages your Life, deal 2 damage back.",
+      "effects": [
+        {
+          "type": "COUNTERSTRIKE",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 2,
+      "omenCost": 1
+    },
+    {
+      "id": "fell-the-axe",
+      "name": "Fell the Axe",
+      "affinity": "Might OR Order",
+      "legalLegends": [
+        "basajaun",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Deal 1 damage. If you had Ward before this ability resolved, deal 2 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "guarding",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 2
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "sanctuary",
+      "name": "Sanctuary",
+      "affinity": "Spirit AND Wisdom",
+      "legalLegends": [
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "Ward Sigil",
+      "text": "Gain 2 Ward and cleanse negative statuses.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 2
+        },
+        {
+          "type": "CLEANSE"
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "silken-cut",
+      "name": "Silken Cut",
+      "affinity": "Guile OR Shadow",
+      "legalLegends": [
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Deal 1 damage. If this is your first ability this round, the enemy loses 1 Focus.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "firstAction",
+          "effects": [
+            {
+              "type": "LOSE_CONTROL",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.325,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "read-the-thread",
+      "name": "Read the Thread",
+      "affinity": "Guile OR Wisdom",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Reveal the first unknown Card in the enemy Hand. Gain 1 Focus.",
+      "effects": [
+        {
+          "type": "REVEAL_CARD"
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.4500000000000002,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "web-shift",
+      "name": "Web Shift",
+      "affinity": "Guile OR Chaos",
+      "legalLegends": [
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Shift Sigil",
+      "text": "Redirect the declared enemy action back to its user.",
+      "effects": [
+        {
+          "type": "REDIRECT"
+        }
+      ],
+      "diagnosticUtility": 2.6,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "false-promise",
+      "name": "False Promise",
+      "affinity": "Guile",
+      "legalLegends": [
+        "anansi",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 3–6",
+      "text": "Remove up to 2 enemy Ward. If the enemy had Ward before this ability resolved, deal 1 damage.",
+      "effects": [
+        {
+          "type": "REMOVE_WARD",
+          "amount": 2
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "enemyGuarding",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.5,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "unravel",
+      "name": "Unravel",
+      "affinity": "Guile AND Wisdom AND Chaos",
+      "legalLegends": [
+        "anansi"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–4 · 1 Focus",
+      "text": "Cancel this Action. Its Omens stay spent.",
+      "effects": [
+        {
+          "type": "CANCEL"
+        }
+      ],
+      "diagnosticUtility": 2.5,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "borrowed-time",
+      "name": "Borrowed Time",
+      "affinity": "Guile OR Order",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Gain 1 Focus and 1 Ward.",
+      "effects": [
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        },
+        {
+          "type": "GUARD",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.35,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "spider-s-patience",
+      "name": "Spider’s Patience",
+      "affinity": "Guile OR Shadow",
+      "legalLegends": [
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1–4",
+      "text": "Heal 1 Life and gain 1 Focus.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 1
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.4500000000000002,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "story-s-end",
+      "name": "Story’s End",
+      "affinity": "(Guile AND Might) OR (Guile AND Wisdom)",
+      "legalLegends": [
+        "anansi",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "3 Values totaling 12+",
+      "text": "Deal 4 damage. If an enemy Card is known, deal 1 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 4
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "knownEnemy",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 4.5,
+      "baseDamage": 4,
+      "omenCost": 3
+    },
+    {
+      "id": "hidden-meaning",
+      "name": "Hidden Meaning",
+      "affinity": "Unbound",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Any Omen face",
+      "text": "Gain 1 Ward. If an enemy Card is known, gain 1 Focus.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "knownEnemy",
+          "effects": [
+            {
+              "type": "GAIN_CONTROL",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.025,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "gale-cut",
+      "name": "Gale Cut",
+      "affinity": "Might OR Wisdom",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 3–6",
+      "text": "Deal 1 damage and gain 1 Focus.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.65,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "perfect-riposte",
+      "name": "Perfect Riposte",
+      "affinity": "Wisdom OR Order",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–6 · Against an attack",
+      "text": "Against an attack: gain 1 Ward and deal 1 damage before it resolves.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.7,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "sky-sever",
+      "name": "Sky Sever",
+      "affinity": "Might AND Wisdom",
+      "legalLegends": [
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "3 Values totaling 12+",
+      "text": "Deal 5 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 5
+        }
+      ],
+      "diagnosticUtility": 5,
+      "baseDamage": 5,
+      "omenCost": 3
+    },
+    {
+      "id": "first-wind",
+      "name": "First Wind",
+      "affinity": "Unbound",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1–4",
+      "text": "Deal 1 damage. If this is your first ability this round, gain 1 Focus.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "firstAction",
+          "effects": [
+            {
+              "type": "GAIN_CONTROL",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.325,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "still-mind",
+      "name": "Still Mind",
+      "affinity": "Wisdom OR Spirit",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Gain 1 Focus and cleanse negative statuses.",
+      "effects": [
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        },
+        {
+          "type": "CLEANSE"
+        }
+      ],
+      "diagnosticUtility": 1.25,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "raven-wing",
+      "name": "Raven Wing",
+      "affinity": "Guile OR Order",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Redirect Sigil · Against an attack",
+      "text": "Prevent up to 3 damage from this Action.",
+      "effects": [
+        {
+          "type": "BLOCK_EFFECT",
+          "amount": 3
+        }
+      ],
+      "diagnosticUtility": 2.0999999999999996,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "peak-strike",
+      "name": "Peak Strike",
+      "affinity": "Might AND Wisdom",
+      "legalLegends": [
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "2 Values totaling 8+",
+      "text": "Deal 4 damage; ignore 1 Ward.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 4,
+          "guardPierce": 1
+        }
+      ],
+      "diagnosticUtility": 4,
+      "baseDamage": 4,
+      "omenCost": 2
+    },
+    {
+      "id": "windstep",
+      "name": "Windstep",
+      "affinity": "Unbound",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Gain 1 Focus. Empower your next damage effect by 1, until the end of your next turn.",
+      "effects": [
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        },
+        {
+          "type": "STATUS",
+          "status": "power",
+          "amount": 1,
+          "duration": 1
+        }
+      ],
+      "diagnosticUtility": 1.4500000000000002,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "watchful-blade",
+      "name": "Watchful Blade",
+      "affinity": "Might AND Wisdom",
+      "legalLegends": [
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "2 Values totaling 6+ · Against an attack",
+      "text": "Against an attack: deal 3 damage before it resolves.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 3
+        }
+      ],
+      "diagnosticUtility": 3,
+      "baseDamage": 3,
+      "omenCost": 2
+    },
+    {
+      "id": "mountain-silence",
+      "name": "Mountain Silence",
+      "affinity": "Spirit OR Order",
+      "legalLegends": [
+        "basajaun",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 6+",
+      "text": "Gain 2 Ward.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 1.4,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "falling-leaf",
+      "name": "Falling Leaf",
+      "affinity": "Wild OR Wisdom",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1–2",
+      "text": "Deal 2 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 2,
+      "omenCost": 1
+    },
+    {
+      "id": "branch-lash",
+      "name": "Branch Lash",
+      "affinity": "Wild",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Deal 1 damage. If an Omen paying for this Card was Shifted or Flipped, deal 1 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "modifiedOmen",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.5,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "moss-mantle",
+      "name": "Moss Mantle",
+      "affinity": "(Wild AND Spirit) OR Shadow",
+      "legalLegends": [
+        "basajaun",
+        "leshy"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 1–4",
+      "text": "Gain 1 Ward and heal 1 Life.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "HEAL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.5,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "wolf-shape",
+      "name": "Wolf Shape",
+      "affinity": "Wild OR Shadow",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "2 Values totaling 7+",
+      "text": "Deal 3 damage. If you were behind in Life, deal 1 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 3
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "behind",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 3.5,
+      "baseDamage": 3,
+      "omenCost": 2
+    },
+    {
+      "id": "lost-path",
+      "name": "Lost Path",
+      "affinity": "Chaos OR Order",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "leshy"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–6",
+      "text": "Prevent up to 2 damage from this Action.",
+      "effects": [
+        {
+          "type": "BLOCK_EFFECT",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 1.4,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "new-skin",
+      "name": "New Skin",
+      "affinity": "Wild OR Chaos",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Heal 1 Life and cleanse negative statuses.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 1
+        },
+        {
+          "type": "CLEANSE"
+        }
+      ],
+      "diagnosticUtility": 1.4,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "bramble-trap",
+      "name": "Bramble Counter",
+      "affinity": "Wild OR Guile",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 1–4 · Against an attack",
+      "text": "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "COUNTERSTRIKE",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.7,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "wild-bloom",
+      "name": "Wild Bloom",
+      "affinity": "Wild AND Might AND Spirit",
+      "legalLegends": [
+        "basajaun"
+      ],
+      "timing": "ACTION",
+      "cost": "Ward Sigil",
+      "text": "Heal 2 Life and gain 1 Ward.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 2
+        },
+        {
+          "type": "GUARD",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 2.3,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "crooked-bough",
+      "name": "Crooked Bough",
+      "affinity": "Wild OR Chaos",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1–4 · 1 Focus",
+      "text": "Deal 1 damage. If an Omen paying for this Card was Shifted or Flipped, deal 2 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "modifiedOmen",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 2
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "night-spores",
+      "name": "Night Spores",
+      "affinity": "Wild AND Shadow AND Chaos",
+      "legalLegends": [
+        "leshy"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 3–6",
+      "text": "Poison: the enemy loses 1 Life at their next turn start. Gain 1 Focus.",
+      "effects": [
+        {
+          "type": "STATUS",
+          "status": "poison",
+          "target": "enemy",
+          "amount": 1,
+          "duration": 1
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.55,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "sun-lance",
+      "name": "Sun Lance",
+      "affinity": "Might OR Spirit",
+      "legalLegends": [
+        "basajaun",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "2 Values totaling 7+",
+      "text": "Deal 4 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 4
+        }
+      ],
+      "diagnosticUtility": 4,
+      "baseDamage": 4,
+      "omenCost": 2
+    },
+    {
+      "id": "first-light",
+      "name": "First Light",
+      "affinity": "Spirit OR Wisdom",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Heal 1 Life. Empower your next damage effect by 1, until the end of your next turn.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 1
+        },
+        {
+          "type": "STATUS",
+          "status": "power",
+          "amount": 1,
+          "duration": 1
+        }
+      ],
+      "diagnosticUtility": 1.6,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "offering",
+      "name": "Offering",
+      "affinity": "Shadow OR Spirit",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face · 1 Life",
+      "text": "Spend 1 Life. Empower your next damage effect by 2, until the end of your next turn.",
+      "effects": [
+        {
+          "type": "STATUS",
+          "status": "power",
+          "amount": 2,
+          "duration": 1
+        }
+      ],
+      "diagnosticUtility": 1.6,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "dawn-shield",
+      "name": "Dawn Shield",
+      "affinity": "Spirit OR Order",
+      "legalLegends": [
+        "basajaun",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 1+",
+      "text": "Gain 1 Ward. If this attack then damages your Life, deal 1 damage back.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "COUNTERSTRIKE",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.7,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "open-sky",
+      "name": "Open Sky",
+      "affinity": "Wisdom OR Order",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–6",
+      "text": "Prevent up to 1 damage from this Action. Gain 1 Focus.",
+      "effects": [
+        {
+          "type": "BLOCK_EFFECT",
+          "amount": 1
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.35,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "burning-crown",
+      "name": "Burning Crown",
+      "affinity": "(Might AND Spirit) OR (Might AND Chaos)",
+      "legalLegends": [
+        "basajaun",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "3 Values totaling 10+ · 1 Life",
+      "text": "Spend 1 Life to deal 6 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 6
+        }
+      ],
+      "diagnosticUtility": 6,
+      "baseDamage": 6,
+      "omenCost": 3
+    },
+    {
+      "id": "horizon",
+      "name": "Horizon",
+      "affinity": "(Might AND Wisdom) OR Guile",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Deal 1 damage. If this is your third ability or later this round, deal 2 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "threeActions",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 2
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "daring-feint",
+      "name": "Daring Feint",
+      "affinity": "Guile OR Might",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Deal 1 damage. If another Omen is unused, deal 1 more.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "unusedDie",
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.5,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "turnabout",
+      "name": "Turnabout",
+      "affinity": "Guile OR Shadow",
+      "legalLegends": [
+        "anansi",
+        "leshy",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 3–6",
+      "text": "Gain 1 Ward. If you were behind in Life and this attack damages your Life, deal 1 damage back.",
+      "effects": [
+        {
+          "type": "GUARD",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "behind",
+          "effects": [
+            {
+              "type": "COUNTERSTRIKE",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.2,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "rising-tide",
+      "name": "Rising Tide",
+      "affinity": "Spirit OR Wild",
+      "legalLegends": [
+        "basajaun",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1–4",
+      "text": "Heal 1 Life. If you were behind in Life, gain 1 Focus.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 1
+        },
+        {
+          "type": "CONDITIONAL",
+          "condition": "behind",
+          "effects": [
+            {
+              "type": "GAIN_CONTROL",
+              "amount": 1
+            }
+          ]
+        }
+      ],
+      "diagnosticUtility": 1.125,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "island-pull",
+      "name": "Island Pull",
+      "affinity": "Might AND Wild",
+      "legalLegends": [
+        "basajaun",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "3 Values totaling 12+",
+      "text": "Remove up to 2 enemy Ward, then deal 5 damage.",
+      "effects": [
+        {
+          "type": "REMOVE_WARD",
+          "amount": 2
+        },
+        {
+          "type": "DAMAGE",
+          "amount": 5
+        }
+      ],
+      "diagnosticUtility": 6,
+      "baseDamage": 5,
+      "omenCost": 3
+    },
+    {
+      "id": "bold-wager",
+      "name": "Bold Wager",
+      "affinity": "Shadow OR Chaos",
+      "legalLegends": [
+        "anansi",
+        "leshy"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face · 1 Life",
+      "text": "Spend 1 Life. Gain 1 Focus. Empower your next damage effect by 2, until the end of your next turn.",
+      "effects": [
+        {
+          "type": "STATUS",
+          "status": "power",
+          "amount": 2,
+          "duration": 1
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 2.25,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "wavebreaker",
+      "name": "Wavebreaker",
+      "affinity": "(Might AND Spirit) OR (Might AND Guile)",
+      "legalLegends": [
+        "basajaun",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "2 Values totaling 5+",
+      "text": "Spend up to 2 Ward to deal that much damage, then deal 2 damage.",
+      "effects": [
+        {
+          "type": "CONVERT",
+          "from": "guard",
+          "amount": 2,
+          "effects": [
+            {
+              "type": "DAMAGE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "type": "DAMAGE",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 1.4000000000000001,
+      "baseDamage": 2,
+      "omenCost": 2
+    },
+    {
+      "id": "against-the-current",
+      "name": "Against the Current",
+      "affinity": "Guile OR Order",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Remove up to 1 enemy Ward, then deal 1 damage.",
+      "effects": [
+        {
+          "type": "REMOVE_WARD",
+          "amount": 1
+        },
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.5,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "quick-strike",
+      "name": "Quick Strike",
+      "affinity": "Unbound",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Value 1+",
+      "text": "Deal 1 damage.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1,
+      "baseDamage": 1,
+      "omenCost": 1
+    },
+    {
+      "id": "web-turn",
+      "name": "Web Turn",
+      "affinity": "Guile OR Wisdom",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value exactly 6 · 1 Focus",
+      "text": "Spend 1 Focus to redirect this enemy Action back to its user.",
+      "effects": [
+        {
+          "type": "REDIRECT"
+        }
+      ],
+      "diagnosticUtility": 2.6,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "precision-cut",
+      "name": "Precision Cut",
+      "affinity": "Might AND Wisdom",
+      "legalLegends": [
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "Value exactly 5",
+      "text": "Deal 2 damage; ignore 1 Ward.",
+      "effects": [
+        {
+          "type": "DAMAGE",
+          "amount": 2,
+          "guardPierce": 1
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 2,
+      "omenCost": 1
+    },
+    {
+      "id": "counterstrike",
+      "name": "Counterstrike",
+      "affinity": "Unbound",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "REACTION",
+      "cost": "Value 6+ · Against an attack",
+      "text": "If this attack damages your Life, deal 2 damage back.",
+      "effects": [
+        {
+          "type": "COUNTERSTRIKE",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 2,
+      "baseDamage": 2,
+      "omenCost": 1
+    },
+    {
+      "id": "ritual",
+      "name": "Ritual",
+      "affinity": "(Spirit AND Wisdom) OR (Wild AND Chaos)",
+      "legalLegends": [
+        "leshy",
+        "quetzalcoatl"
+      ],
+      "timing": "ACTION",
+      "cost": "2 Values totaling exactly 10",
+      "text": "Heal 2 Life and gain 2 Ward.",
+      "effects": [
+        {
+          "type": "HEAL",
+          "amount": 2
+        },
+        {
+          "type": "GUARD",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 3,
+      "baseDamage": 0,
+      "omenCost": 2
+    },
+    {
+      "id": "meditate",
+      "name": "Meditate",
+      "affinity": "Unbound",
+      "legalLegends": [
+        "basajaun",
+        "anansi",
+        "tengu",
+        "leshy",
+        "quetzalcoatl",
+        "maui"
+      ],
+      "timing": "ACTION",
+      "cost": "Any Omen face",
+      "text": "Gain 2 Focus (maximum 6).",
+      "effects": [
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 2
+        }
+      ],
+      "diagnosticUtility": 1.3,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "hollow-sign",
+      "name": "Hollow Sign",
+      "affinity": "Chaos OR Shadow",
+      "legalLegends": [
+        "anansi",
+        "leshy"
+      ],
+      "timing": "ACTION",
+      "cost": "Void · 1 other unused Omen",
+      "text": "Flip your first other available or Held Omen. Gain 1 Focus.",
+      "effects": [
+        {
+          "type": "FLIP_DIE",
+          "target": "self",
+          "omenTarget": "unspent"
+        },
+        {
+          "type": "GAIN_CONTROL",
+          "amount": 1
+        }
+      ],
+      "diagnosticUtility": 1.65,
+      "baseDamage": 0,
+      "omenCost": 1
+    },
+    {
+      "id": "thread-the-path",
+      "name": "Thread the Path",
+      "affinity": "Wisdom",
+      "legalLegends": [
+        "anansi",
+        "tengu",
+        "quetzalcoatl"
+      ],
+      "timing": "REACTION",
+      "cost": "Value exactly 5",
+      "text": "Shift the first Omen paying for the enemy Action down by 1. Recheck its requirement.",
+      "effects": [
+        {
+          "type": "SHIFT_DIE",
+          "target": "enemy",
+          "direction": -1
+        }
+      ],
+      "diagnosticUtility": 0.8,
+      "baseDamage": 0,
+      "omenCost": 1
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { STARTER_STRATEGIES } from "../content/starter-strategies";
 import { STARTERS } from "../content/loadouts";
 import { AffinityLine } from "./Affinities";
 import { CardBrowser } from "./CardBrowser";
@@ -118,6 +119,14 @@ export default function Loadout() {
       >
         Use starter kit · 1 signature + 2 numbered Omens
       </SecondaryButton>
+      <details className="starter-strategy">
+        <summary>Starter direction · {STARTER_STRATEGIES[l.id].name}</summary>
+        <p>{STARTER_STRATEGIES[l.id].sequence}</p>
+        <p>
+          <strong>Play around it:</strong>{" "}
+          {STARTER_STRATEGIES[l.id].counterplay}
+        </p>
+      </details>
       <div className="active-build">
         <SectionLabel right={<span>4 / 4 EQUIPPED</span>}>HAND</SectionLabel>
         <div className="active-hand">

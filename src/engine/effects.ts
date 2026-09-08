@@ -33,6 +33,8 @@ export type EffectFrame = {
   healing?: number[];
 };
 export const supportedPrimitives: Primitive[] = [
+  "REMOVE_WARD",
+  "REVEAL_CARD",
   "DAMAGE",
   "HEAL",
   "GUARD",
@@ -163,6 +165,8 @@ export function* resolutionSteps(
       const before = inspect ? clone(state.players) : [],
         p = state.players[d.actor];
       const hostile = [
+        "REMOVE_WARD",
+        "REVEAL_CARD",
         "DAMAGE",
         "SHIFT_DIE",
         "FLIP_DIE",
@@ -258,6 +262,23 @@ export function* resolutionSteps(
             target,
             wardAbsorbed: blocked,
           });
+          break;
+        }
+        case "REMOVE_WARD": {
+          const removed = Math.min(t.guard, n);
+          t.guard -= removed;
+          result = `Removed ${removed} Ward`;
+          log(state, d.actor, "ward-remove", result, removed);
+          if (d === reaction && removed > 0) reactionEffective = true;
+          break;
+        }
+        case "REVEAL_CARD": {
+          const id = t.loadout.cards.find((id) => !t.known.includes(id));
+          if (id) t.known.push(id);
+          result = id
+            ? `Revealed ${cardById[id].name}`
+            : "All Cards already known";
+          log(state, d.actor, "reveal", result);
           break;
         }
         case "HEAL": {
