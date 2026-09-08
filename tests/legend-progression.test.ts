@@ -57,7 +57,10 @@ describe("Legend Journey and early unlocks", () => {
       expect(n.legendUnlocks.tengu).toEqual({ source: "journey", milestone });
       expect(n.legendJourneyClaims).toContain(milestone);
       expect(() =>
-        validateLoadout(STARTERS.tengu, svc.ownedGameplay(n)),
+        validateLoadout(
+          n.loadouts.find((l) => l.legend === "tengu")!,
+          svc.ownedGameplay(n),
+        ),
       ).not.toThrow();
       expect(svc.load().ownedLegends).toContain("tengu");
       expect(svc.claimLegendMilestone(p, milestone, "leshy")).toEqual(n);
@@ -76,7 +79,7 @@ describe("Legend Journey and early unlocks", () => {
     expect(legendJourney(n).available).toEqual([5]);
     expect(svc.claimMatch(p, view, "Training")).toEqual(n);
   });
-  it("Coins and Gems grant identical playable kits and preserve free choices", () => {
+  it("Coins and Gems unlock only the Legend and preserve free choices", () => {
     const p = { ...freshProfile(), coins: 2000, gems: 1000, matches: 5 };
     const coinService = service(),
       gemService = service();

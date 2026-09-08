@@ -1,0 +1,488 @@
+[
+  {
+    "legend": "basajaun",
+    "opponent": "basajaun",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 98,
+    "draws": 12,
+    "mismatches": 0,
+    "rounds": 1380,
+    "damage": 2654
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "anansi",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 94,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1192,
+    "damage": 2736
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "tengu",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 146,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1068,
+    "damage": 3826
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "leshy",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 90,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1078,
+    "damage": 4106
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "quetzalcoatl",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 118,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1162,
+    "damage": 3562
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "maui",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 118,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1770
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "basajaun",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "Basajaun · Your collection",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 98,
+    "draws": 12,
+    "mismatches": 0,
+    "rounds": 1380,
+    "damage": 2654
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "anansi",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "Basajaun · Your collection",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 94,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1192,
+    "damage": 2736
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "tengu",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "Basajaun · Your collection",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 146,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1068,
+    "damage": 3826
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "leshy",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "Basajaun · Your collection",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 90,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1078,
+    "damage": 4106
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "quetzalcoatl",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "Basajaun · Your collection",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 118,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1162,
+    "damage": 3562
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "maui",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "Basajaun · Your collection",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "guardian-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 118,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1770
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "basajaun",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 140,
+    "draws": 10,
+    "mismatches": 0,
+    "rounds": 1220,
+    "damage": 3564
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "anansi",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 122,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1106,
+    "damage": 2960
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "tengu",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 178,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 866,
+    "damage": 3924
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "leshy",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 150,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 898,
+    "damage": 4380
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "quetzalcoatl",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 156,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 944,
+    "damage": 3902
+  },
+  {
+    "legend": "basajaun",
+    "opponent": "maui",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-basajaun",
+      "name": "The Quiet Guardian",
+      "legend": "basajaun",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "moss-mantle",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d12",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 108,
+    "draws": 4,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 2498
+  }
+]

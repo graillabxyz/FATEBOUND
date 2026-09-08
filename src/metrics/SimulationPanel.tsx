@@ -1,3 +1,4 @@
+import StarterEconomyPanel from "./StarterEconomyPanel";
 import CampaignPanel from "./CampaignPanel";
 import CardPoolPanel from "./CardPoolPanel";
 import { cardCompatible } from "../content/affinities";
@@ -91,6 +92,7 @@ export default function SimulationPanel({
   return (
     <div className="dev-stack">
       <h2>Run a matchup</h2>
+      <StarterEconomyPanel />
       <CampaignPanel />
       <CardPoolPanel />
       <fieldset disabled={running || saving} className="simulation-config">

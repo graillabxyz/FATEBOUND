@@ -89,3 +89,7 @@ Fresh local profiles receive two Legends, sixteen Cards and six Omens. Ownership
 ## Card art and specialization · version 7
 
 Each Card has a distinct cosmetic illustration in `src/content/card-art.ts`, shared by collection, Hand, pack, battle and inspectors. Art has no effect on match rules. Three specialist Cards now require all three listed Affinities (Wild Bloom, Unravel, Night Spores); Sanctuary, Watchful Blade and Island Pull now require two. These remain global Cards evaluated by the recursive Affinity validator, not Legend-specific pools. Costs, effects and starter Hands are unchanged. Version 7 rejects earlier command replays because loadout legality changed. Local profile migration keeps ownership and repairs incompatible equipped Hands using owned legal Cards.
+
+## Collection acquisition · 8 September 2026
+
+Legend purchases/choices grant one Legend and create a legal Loadout using existing ownership. They no longer bundle four Cards and three Omens. Typed acquisition receipts record individual Legend, Omen, Card or two-Card booster grants. Signature Omens have an independent earned choice path; an authored earned Legend milestone may include one bonus signature. Existing entitlements remain owned. See STARTER_ECONOMY_AUDIT.md for economy rates and testing. These changes do not alter mechanical version 7.

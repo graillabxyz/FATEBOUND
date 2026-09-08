@@ -1,0 +1,2922 @@
+{
+  "games": 21600,
+  "method": "200 games per directed matchup and variant; 100 independent reversed-seat pairs. Change only focal player build. Identical seeds across curated, entry and numbered variants; exploratory AI comparisons.",
+  "rows": [
+    {
+      "legend": "basajaun",
+      "opponent": "basajaun",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 98,
+      "draws": 12,
+      "mismatches": 0,
+      "rounds": 1380,
+      "damage": 2654
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "anansi",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 94,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1192,
+      "damage": 2736
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "tengu",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 146,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1068,
+      "damage": 3826
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "leshy",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 90,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1078,
+      "damage": 4106
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "quetzalcoatl",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 118,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1162,
+      "damage": 3562
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "maui",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 118,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1770
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "basajaun",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "Basajaun · Your collection",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 98,
+      "draws": 12,
+      "mismatches": 0,
+      "rounds": 1380,
+      "damage": 2654
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "anansi",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "Basajaun · Your collection",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 94,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1192,
+      "damage": 2736
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "tengu",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "Basajaun · Your collection",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 146,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1068,
+      "damage": 3826
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "leshy",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "Basajaun · Your collection",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 90,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1078,
+      "damage": 4106
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "quetzalcoatl",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "Basajaun · Your collection",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 118,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1162,
+      "damage": 3562
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "maui",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "Basajaun · Your collection",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "guardian-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 118,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1770
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "basajaun",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 140,
+      "draws": 10,
+      "mismatches": 0,
+      "rounds": 1220,
+      "damage": 3564
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "anansi",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 122,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1106,
+      "damage": 2960
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "tengu",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 178,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 866,
+      "damage": 3924
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "leshy",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 150,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 898,
+      "damage": 4380
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "quetzalcoatl",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 156,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 944,
+      "damage": 3902
+    },
+    {
+      "legend": "basajaun",
+      "opponent": "maui",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-basajaun",
+        "name": "The Quiet Guardian",
+        "legend": "basajaun",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "moss-mantle",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d12",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 108,
+      "draws": 4,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 2498
+    },
+    {
+      "legend": "anansi",
+      "opponent": "basajaun",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 128,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1204,
+      "damage": 1938
+    },
+    {
+      "legend": "anansi",
+      "opponent": "anansi",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 82,
+      "draws": 10,
+      "mismatches": 0,
+      "rounds": 1028,
+      "damage": 1646
+    },
+    {
+      "legend": "anansi",
+      "opponent": "tengu",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 64,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 896,
+      "damage": 2154
+    },
+    {
+      "legend": "anansi",
+      "opponent": "leshy",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 126,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 850,
+      "damage": 2298
+    },
+    {
+      "legend": "anansi",
+      "opponent": "quetzalcoatl",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 130,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 978,
+      "damage": 1664
+    },
+    {
+      "legend": "anansi",
+      "opponent": "maui",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 68,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1332,
+      "damage": 1670
+    },
+    {
+      "legend": "anansi",
+      "opponent": "basajaun",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Anansi · Your collection",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 128,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1204,
+      "damage": 1938
+    },
+    {
+      "legend": "anansi",
+      "opponent": "anansi",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Anansi · Your collection",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 82,
+      "draws": 10,
+      "mismatches": 0,
+      "rounds": 1028,
+      "damage": 1646
+    },
+    {
+      "legend": "anansi",
+      "opponent": "tengu",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Anansi · Your collection",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 64,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 896,
+      "damage": 2154
+    },
+    {
+      "legend": "anansi",
+      "opponent": "leshy",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Anansi · Your collection",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 126,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 850,
+      "damage": 2298
+    },
+    {
+      "legend": "anansi",
+      "opponent": "quetzalcoatl",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Anansi · Your collection",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 130,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 978,
+      "damage": 1664
+    },
+    {
+      "legend": "anansi",
+      "opponent": "maui",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Anansi · Your collection",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "trickster-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 68,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1332,
+      "damage": 1670
+    },
+    {
+      "legend": "anansi",
+      "opponent": "basajaun",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 184,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1268,
+      "damage": 1748
+    },
+    {
+      "legend": "anansi",
+      "opponent": "anansi",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 140,
+      "draws": 8,
+      "mismatches": 0,
+      "rounds": 1062,
+      "damage": 1514
+    },
+    {
+      "legend": "anansi",
+      "opponent": "tengu",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 106,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 922,
+      "damage": 2038
+    },
+    {
+      "legend": "anansi",
+      "opponent": "leshy",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 162,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 828,
+      "damage": 2174
+    },
+    {
+      "legend": "anansi",
+      "opponent": "quetzalcoatl",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 168,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 996,
+      "damage": 1566
+    },
+    {
+      "legend": "anansi",
+      "opponent": "maui",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-anansi",
+        "name": "Threads of Fate",
+        "legend": "anansi",
+        "cards": [
+          "silken-cut",
+          "daring-feint",
+          "web-turn",
+          "hidden-meaning"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 104,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1290,
+      "damage": 1792
+    },
+    {
+      "legend": "tengu",
+      "opponent": "basajaun",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "tengu-d6-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 32,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1064,
+      "damage": 4010
+    },
+    {
+      "legend": "tengu",
+      "opponent": "anansi",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "tengu-d6-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 132,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 898,
+      "damage": 3396
+    },
+    {
+      "legend": "tengu",
+      "opponent": "tengu",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "tengu-d6-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 86,
+      "draws": 8,
+      "mismatches": 0,
+      "rounds": 894,
+      "damage": 3630
+    },
+    {
+      "legend": "tengu",
+      "opponent": "leshy",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "tengu-d6-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 72,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 896,
+      "damage": 4008
+    },
+    {
+      "legend": "tengu",
+      "opponent": "quetzalcoatl",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "tengu-d6-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 90,
+      "draws": 4,
+      "mismatches": 0,
+      "rounds": 914,
+      "damage": 3710
+    },
+    {
+      "legend": "tengu",
+      "opponent": "maui",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "tengu-d6-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 142,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 4874
+    },
+    {
+      "legend": "tengu",
+      "opponent": "basajaun",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Tengu · Your collection",
+        "legend": "tengu",
+        "cards": [
+          "quick-strike",
+          "crush",
+          "barkskin",
+          "silken-cut"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 180,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1190,
+      "damage": 4694
+    },
+    {
+      "legend": "tengu",
+      "opponent": "anansi",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Tengu · Your collection",
+        "legend": "tengu",
+        "cards": [
+          "quick-strike",
+          "crush",
+          "barkskin",
+          "silken-cut"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 22,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1322,
+      "damage": 1674
+    },
+    {
+      "legend": "tengu",
+      "opponent": "tengu",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Tengu · Your collection",
+        "legend": "tengu",
+        "cards": [
+          "quick-strike",
+          "crush",
+          "barkskin",
+          "silken-cut"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 100,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1104,
+      "damage": 3332
+    },
+    {
+      "legend": "tengu",
+      "opponent": "leshy",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Tengu · Your collection",
+        "legend": "tengu",
+        "cards": [
+          "quick-strike",
+          "crush",
+          "barkskin",
+          "silken-cut"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 168,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 932,
+      "damage": 4456
+    },
+    {
+      "legend": "tengu",
+      "opponent": "quetzalcoatl",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Tengu · Your collection",
+        "legend": "tengu",
+        "cards": [
+          "quick-strike",
+          "crush",
+          "barkskin",
+          "silken-cut"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 176,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 946,
+      "damage": 4052
+    },
+    {
+      "legend": "tengu",
+      "opponent": "maui",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Tengu · Your collection",
+        "legend": "tengu",
+        "cards": [
+          "quick-strike",
+          "crush",
+          "barkskin",
+          "silken-cut"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 40,
+      "draws": 18,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 652
+    },
+    {
+      "legend": "tengu",
+      "opponent": "basajaun",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 68,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1064,
+      "damage": 4260
+    },
+    {
+      "legend": "tengu",
+      "opponent": "anansi",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 142,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 882,
+      "damage": 3448
+    },
+    {
+      "legend": "tengu",
+      "opponent": "tengu",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 120,
+      "draws": 8,
+      "mismatches": 0,
+      "rounds": 902,
+      "damage": 3778
+    },
+    {
+      "legend": "tengu",
+      "opponent": "leshy",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 100,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 888,
+      "damage": 4186
+    },
+    {
+      "legend": "tengu",
+      "opponent": "quetzalcoatl",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 112,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 916,
+      "damage": 3802
+    },
+    {
+      "legend": "tengu",
+      "opponent": "maui",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-tengu",
+        "name": "Edge of the Wind",
+        "legend": "tengu",
+        "cards": [
+          "gale-cut",
+          "perfect-riposte",
+          "precision-cut",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d6",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 172,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 5308
+    },
+    {
+      "legend": "leshy",
+      "opponent": "basajaun",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "leshy-d8-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 116,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1060,
+      "damage": 3836
+    },
+    {
+      "legend": "leshy",
+      "opponent": "anansi",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "leshy-d8-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 96,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 820,
+      "damage": 2868
+    },
+    {
+      "legend": "leshy",
+      "opponent": "tengu",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "leshy-d8-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 156,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 854,
+      "damage": 3922
+    },
+    {
+      "legend": "leshy",
+      "opponent": "leshy",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "leshy-d8-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 100,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 776,
+      "damage": 4092
+    },
+    {
+      "legend": "leshy",
+      "opponent": "quetzalcoatl",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "leshy-d8-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 130,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 860,
+      "damage": 3900
+    },
+    {
+      "legend": "leshy",
+      "opponent": "maui",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "leshy-d8-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 86,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1390,
+      "damage": 4756
+    },
+    {
+      "legend": "leshy",
+      "opponent": "basajaun",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Leshy · Your collection",
+        "legend": "leshy",
+        "cards": [
+          "moss-mantle",
+          "root-ward",
+          "barkskin",
+          "deep-roots"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 188,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 2894
+    },
+    {
+      "legend": "leshy",
+      "opponent": "anansi",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Leshy · Your collection",
+        "legend": "leshy",
+        "cards": [
+          "moss-mantle",
+          "root-ward",
+          "barkskin",
+          "deep-roots"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 142,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 0
+    },
+    {
+      "legend": "leshy",
+      "opponent": "tengu",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Leshy · Your collection",
+        "legend": "leshy",
+        "cards": [
+          "moss-mantle",
+          "root-ward",
+          "barkskin",
+          "deep-roots"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 170,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 1398,
+      "damage": 1796
+    },
+    {
+      "legend": "leshy",
+      "opponent": "leshy",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Leshy · Your collection",
+        "legend": "leshy",
+        "cards": [
+          "moss-mantle",
+          "root-ward",
+          "barkskin",
+          "deep-roots"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 158,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 1384,
+      "damage": 3388
+    },
+    {
+      "legend": "leshy",
+      "opponent": "quetzalcoatl",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Leshy · Your collection",
+        "legend": "leshy",
+        "cards": [
+          "moss-mantle",
+          "root-ward",
+          "barkskin",
+          "deep-roots"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 182,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1392,
+      "damage": 2948
+    },
+    {
+      "legend": "leshy",
+      "opponent": "maui",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Leshy · Your collection",
+        "legend": "leshy",
+        "cards": [
+          "moss-mantle",
+          "root-ward",
+          "barkskin",
+          "deep-roots"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 0,
+      "draws": 200,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 0
+    },
+    {
+      "legend": "leshy",
+      "opponent": "basajaun",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 144,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 958,
+      "damage": 3970
+    },
+    {
+      "legend": "leshy",
+      "opponent": "anansi",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 128,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 762,
+      "damage": 3112
+    },
+    {
+      "legend": "leshy",
+      "opponent": "tengu",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 158,
+      "draws": 6,
+      "mismatches": 0,
+      "rounds": 760,
+      "damage": 3928
+    },
+    {
+      "legend": "leshy",
+      "opponent": "leshy",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 118,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 718,
+      "damage": 4112
+    },
+    {
+      "legend": "leshy",
+      "opponent": "quetzalcoatl",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 138,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 802,
+      "damage": 3900
+    },
+    {
+      "legend": "leshy",
+      "opponent": "maui",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-leshy",
+        "name": "Into the Wild",
+        "legend": "leshy",
+        "cards": [
+          "branch-lash",
+          "moss-mantle",
+          "wolf-shape",
+          "windstep"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 112,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1384,
+      "damage": 5422
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "basajaun",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "quetzalcoatl-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 56,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1146,
+      "damage": 3280
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "anansi",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "quetzalcoatl-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 72,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 982,
+      "damage": 2548
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "tengu",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "quetzalcoatl-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 104,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 928,
+      "damage": 3646
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "leshy",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "quetzalcoatl-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 82,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 860,
+      "damage": 3934
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "quetzalcoatl",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "quetzalcoatl-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 88,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 940,
+      "damage": 3552
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "maui",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "quetzalcoatl-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 72,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1398,
+      "damage": 3730
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "basajaun",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Quetzalcoatl · Your collection",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "quick-strike",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 34,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1342,
+      "damage": 2504
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "anansi",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Quetzalcoatl · Your collection",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "quick-strike",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 62,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1052,
+      "damage": 2390
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "tengu",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Quetzalcoatl · Your collection",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "quick-strike",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 120,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1058,
+      "damage": 3600
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "leshy",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Quetzalcoatl · Your collection",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "quick-strike",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 48,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 996,
+      "damage": 3636
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "quetzalcoatl",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Quetzalcoatl · Your collection",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "quick-strike",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 72,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1102,
+      "damage": 3364
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "maui",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Quetzalcoatl · Your collection",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "quick-strike",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 82,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1720
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "basajaun",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 98,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1048,
+      "damage": 3630
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "anansi",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 92,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 888,
+      "damage": 2598
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "tengu",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 142,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 820,
+      "damage": 3812
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "leshy",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 104,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 774,
+      "damage": 4046
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "quetzalcoatl",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 108,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 830,
+      "damage": 3698
+    },
+    {
+      "legend": "quetzalcoatl",
+      "opponent": "maui",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-quetzalcoatl",
+        "name": "Dawn Ascending",
+        "legend": "quetzalcoatl",
+        "cards": [
+          "sun-lance",
+          "root-ward",
+          "first-light",
+          "quick-strike"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 78,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1392,
+      "damage": 4116
+    },
+    {
+      "legend": "maui",
+      "opponent": "basajaun",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "maui-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 80,
+      "draws": 6,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1400
+    },
+    {
+      "legend": "maui",
+      "opponent": "anansi",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "maui-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 128,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1338,
+      "damage": 3372
+    },
+    {
+      "legend": "maui",
+      "opponent": "tengu",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "maui-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 52,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1392,
+      "damage": 1598
+    },
+    {
+      "legend": "maui",
+      "opponent": "leshy",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "maui-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 108,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 1384,
+      "damage": 3104
+    },
+    {
+      "legend": "maui",
+      "opponent": "quetzalcoatl",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "maui-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 116,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1998
+    },
+    {
+      "legend": "maui",
+      "opponent": "maui",
+      "variant": "curated",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "maui-d10-0",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 88,
+      "draws": 26,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1240
+    },
+    {
+      "legend": "maui",
+      "opponent": "basajaun",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Māui · Your collection",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 112,
+      "draws": 6,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1740
+    },
+    {
+      "legend": "maui",
+      "opponent": "anansi",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Māui · Your collection",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 54,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1308,
+      "damage": 2214
+    },
+    {
+      "legend": "maui",
+      "opponent": "tengu",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Māui · Your collection",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 44,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1282,
+      "damage": 2866
+    },
+    {
+      "legend": "maui",
+      "opponent": "leshy",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Māui · Your collection",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 154,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 1230,
+      "damage": 4586
+    },
+    {
+      "legend": "maui",
+      "opponent": "quetzalcoatl",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Māui · Your collection",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 154,
+      "draws": 2,
+      "mismatches": 0,
+      "rounds": 1310,
+      "damage": 3878
+    },
+    {
+      "legend": "maui",
+      "opponent": "maui",
+      "variant": "entry",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Māui · Your collection",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "crush"
+        ],
+        "dice": [
+          "standard-d8",
+          "standard-d6",
+          "standard-d4"
+        ]
+      },
+      "games": 200,
+      "wins": 88,
+      "draws": 36,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1662
+    },
+    {
+      "legend": "maui",
+      "opponent": "basajaun",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 74,
+      "draws": 6,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1382
+    },
+    {
+      "legend": "maui",
+      "opponent": "anansi",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 112,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1350,
+      "damage": 3362
+    },
+    {
+      "legend": "maui",
+      "opponent": "tengu",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 38,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1394,
+      "damage": 1478
+    },
+    {
+      "legend": "maui",
+      "opponent": "leshy",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 114,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1382,
+      "damage": 3092
+    },
+    {
+      "legend": "maui",
+      "opponent": "quetzalcoatl",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 112,
+      "draws": 0,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 1972
+    },
+    {
+      "legend": "maui",
+      "opponent": "maui",
+      "variant": "numbered",
+      "loadout": {
+        "id": "starter-maui",
+        "name": "Against the Tide",
+        "legend": "maui",
+        "cards": [
+          "silken-cut",
+          "root-ward",
+          "daring-feint",
+          "turnabout"
+        ],
+        "dice": [
+          "standard-d10",
+          "standard-d8",
+          "standard-d6"
+        ]
+      },
+      "games": 200,
+      "wins": 118,
+      "draws": 28,
+      "mismatches": 0,
+      "rounds": 1400,
+      "damage": 942
+    }
+  ]
+}

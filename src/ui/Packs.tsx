@@ -20,10 +20,10 @@ export function Packs() {
       <h2>Two Cards. New possibilities.</h2>
       <p>
         Expand your Hand options. Every rarity can compete. Choose specific
-        Cards with Coins from the collection, or open a two-Card pack.
+        Cards with Coins from the collection, or open a two-Card booster.
       </p>
       <p>
-        {profile.packs} earned packs · {profile.coins} Coins
+        {profile.packs} earned boosters · {profile.coins} Coins
       </p>
       <PrimaryButton
         disabled={
@@ -42,11 +42,11 @@ export function Packs() {
         {receipt
           ? "Continue opening"
           : profile.packs
-            ? "Open earned pack"
-            : `Open 2-Card pack · ${PACK_CONFIG.price} Coins`}
+            ? "Open earned booster"
+            : `Open 2-Card booster · ${PACK_CONFIG.price} Coins`}
       </PrimaryButton>
       <details>
-        <summary>Pack contents and odds</summary>
+        <summary>Booster contents and odds</summary>
         <p>
           Exactly 2 Cards. Each slot has separate rarity odds; no guaranteed
           Rare.
@@ -62,14 +62,14 @@ export function Packs() {
         <p>
           Unowned Cards are preferred within the rolled rarity. If that rarity
           is complete, a duplicate grants {PACK_CONFIG.duplicateCoins} Coins.
-          The two Cards in a pack are different. Outcomes are saved before
+          The two Cards in a booster are different. Outcomes are saved before
           revealing.
         </p>
       </details>
       <p className="helper-text">
-        Earn packs with your first win, every 5 matches, each 400 Legend Mastery
-        XP and the free Season Path. Device-local alpha economy; no real-money
-        pack sales.
+        Earn boosters with your first win, every 10 matches, each 800 Legend
+        Mastery XP and the free Season Path. Device-local alpha economy; no
+        real-money booster sales.
       </p>
       {receipt && !closed && (
         <Modal

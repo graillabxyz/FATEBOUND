@@ -1,0 +1,392 @@
+[
+  {
+    "legend": "anansi",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 2230,
+    "losses": 1770,
+    "draws": 0,
+    "openingGames": 2442,
+    "openingWins": 1456,
+    "secondGames": 1558,
+    "secondWins": 774,
+    "rounds": 23718,
+    "damage": 38344,
+    "ward": 31232,
+    "focus": 32976,
+    "held": 26336,
+    "expired": 6916,
+    "reactions": 18116,
+    "reactionSuccess": 18116,
+    "turns": 22910,
+    "initiativeWins": 2240,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 5242,
+    "totalRolls": 62288,
+    "fullHoldTurns": 468,
+    "openingChoices": {
+      "standard-d6": {
+        "games": 2442,
+        "wins": 1456
+      },
+      "standard-d6 + trickster-d8": {
+        "games": 1558,
+        "wins": 774
+      }
+    },
+    "openingDamage": [
+      11334,
+      10014
+    ],
+    "mismatches": 0,
+    "cards": {
+      "web-turn": 8146,
+      "daring-feint": 27472,
+      "silken-cut": 8242,
+      "hidden-meaning": 5322
+    },
+    "opponentCards": {
+      "sun-lance": 26952,
+      "moss-mantle": 17260,
+      "root-ward": 968,
+      "quick-strike": 1054
+    },
+    "byHand": {
+      "silken-cut / daring-feint / web-turn / hidden-meaning": {
+        "games": 4000,
+        "wins": 2230,
+        "draws": 0,
+        "damage": 38344,
+        "ward": 31232,
+        "reactions": 18116
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "anansi",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 1922,
+    "losses": 1958,
+    "draws": 120,
+    "openingGames": 1880,
+    "openingWins": 1000,
+    "secondGames": 2120,
+    "secondWins": 922,
+    "rounds": 20616,
+    "damage": 32748,
+    "ward": 31568,
+    "focus": 24600,
+    "held": 26472,
+    "expired": 8350,
+    "reactions": 17348,
+    "reactionSuccess": 17348,
+    "turns": 19568,
+    "initiativeWins": 2146,
+    "openingDraws": 68,
+    "secondDraws": 52,
+    "blankRolls": 4338,
+    "totalRolls": 52824,
+    "fullHoldTurns": 440,
+    "openingChoices": {
+      "standard-d6 + trickster-d8": {
+        "games": 2120,
+        "wins": 922
+      },
+      "standard-d6": {
+        "games": 1880,
+        "wins": 1000
+      }
+    },
+    "openingDamage": [
+      10464,
+      5872
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 4638,
+      "web-turn": 6500,
+      "daring-feint": 18728,
+      "hidden-meaning": 4854
+    },
+    "opponentCards": {
+      "web-turn": 6640,
+      "daring-feint": 18688,
+      "hidden-meaning": 4762,
+      "silken-cut": 4890
+    },
+    "byHand": {
+      "silken-cut / daring-feint / web-turn / hidden-meaning": {
+        "games": 4000,
+        "wins": 1922,
+        "draws": 120,
+        "damage": 32748,
+        "ward": 31568,
+        "reactions": 17348
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "anansi",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 1216,
+    "losses": 2784,
+    "draws": 0,
+    "openingGames": 1888,
+    "openingWins": 698,
+    "secondGames": 2112,
+    "secondWins": 518,
+    "rounds": 17912,
+    "damage": 40570,
+    "ward": 21772,
+    "focus": 22846,
+    "held": 17390,
+    "expired": 4350,
+    "reactions": 12882,
+    "reactionSuccess": 12882,
+    "turns": 16418,
+    "initiativeWins": 2292,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 3592,
+    "totalRolls": 43366,
+    "fullHoldTurns": 460,
+    "openingChoices": {
+      "standard-d6 + trickster-d8": {
+        "games": 2112,
+        "wins": 518
+      },
+      "standard-d6": {
+        "games": 1888,
+        "wins": 698
+      }
+    },
+    "openingDamage": [
+      11176,
+      9250
+    ],
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 18820,
+      "web-turn": 5746,
+      "hidden-meaning": 3844,
+      "silken-cut": 5880
+    },
+    "opponentCards": {
+      "perfect-riposte": 15378,
+      "quick-strike": 8466,
+      "precision-cut": 5668,
+      "gale-cut": 2160
+    },
+    "byHand": {
+      "silken-cut / daring-feint / web-turn / hidden-meaning": {
+        "games": 4000,
+        "wins": 1216,
+        "draws": 0,
+        "damage": 40570,
+        "ward": 21772,
+        "reactions": 12882
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "anansi",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 2286,
+    "losses": 1712,
+    "draws": 2,
+    "openingGames": 2230,
+    "openingWins": 1358,
+    "secondGames": 1770,
+    "secondWins": 928,
+    "rounds": 16776,
+    "damage": 45640,
+    "ward": 20662,
+    "focus": 21536,
+    "held": 15922,
+    "expired": 2744,
+    "reactions": 12612,
+    "reactionSuccess": 12612,
+    "turns": 15450,
+    "initiativeWins": 2200,
+    "openingDraws": 2,
+    "secondDraws": 0,
+    "blankRolls": 3302,
+    "totalRolls": 40120,
+    "fullHoldTurns": 450,
+    "openingChoices": {
+      "standard-d6": {
+        "games": 2230,
+        "wins": 1358
+      },
+      "standard-d6 + trickster-d8": {
+        "games": 1770,
+        "wins": 928
+      }
+    },
+    "openingDamage": [
+      11610,
+      13732
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 6172,
+      "daring-feint": 17106,
+      "hidden-meaning": 4388,
+      "web-turn": 5292
+    },
+    "opponentCards": {
+      "wolf-shape": 8142,
+      "moss-mantle": 8926,
+      "branch-lash": 15600,
+      "windstep": 626
+    },
+    "byHand": {
+      "silken-cut / daring-feint / web-turn / hidden-meaning": {
+        "games": 4000,
+        "wins": 2286,
+        "draws": 2,
+        "damage": 45640,
+        "ward": 20662,
+        "reactions": 12612
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "anansi",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 2580,
+    "losses": 1420,
+    "draws": 0,
+    "openingGames": 2056,
+    "openingWins": 1412,
+    "secondGames": 1944,
+    "secondWins": 1168,
+    "rounds": 19692,
+    "damage": 34538,
+    "ward": 23942,
+    "focus": 25914,
+    "held": 19686,
+    "expired": 4750,
+    "reactions": 14236,
+    "reactionSuccess": 14236,
+    "turns": 18332,
+    "initiativeWins": 2188,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 4108,
+    "totalRolls": 48940,
+    "fullHoldTurns": 454,
+    "openingChoices": {
+      "standard-d6": {
+        "games": 2056,
+        "wins": 1412
+      },
+      "standard-d6 + trickster-d8": {
+        "games": 1944,
+        "wins": 1168
+      }
+    },
+    "openingDamage": [
+      11550,
+      7928
+    ],
+    "mismatches": 0,
+    "cards": {
+      "web-turn": 6224,
+      "daring-feint": 21394,
+      "silken-cut": 7154,
+      "hidden-meaning": 4568
+    },
+    "opponentCards": {
+      "sun-lance": 21328,
+      "root-ward": 12860,
+      "first-light": 1672,
+      "quick-strike": 1730
+    },
+    "byHand": {
+      "silken-cut / daring-feint / web-turn / hidden-meaning": {
+        "games": 4000,
+        "wins": 2580,
+        "draws": 0,
+        "damage": 34538,
+        "ward": 23942,
+        "reactions": 14236
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "anansi",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 1550,
+    "losses": 2442,
+    "draws": 8,
+    "openingGames": 2030,
+    "openingWins": 878,
+    "secondGames": 1970,
+    "secondWins": 672,
+    "rounds": 26740,
+    "damage": 34740,
+    "ward": 39606,
+    "focus": 33964,
+    "held": 38568,
+    "expired": 14544,
+    "reactions": 21938,
+    "reactionSuccess": 21938,
+    "turns": 26058,
+    "initiativeWins": 2174,
+    "openingDraws": 6,
+    "secondDraws": 2,
+    "blankRolls": 6108,
+    "totalRolls": 72144,
+    "fullHoldTurns": 4270,
+    "openingChoices": {
+      "standard-d6 + trickster-d8": {
+        "games": 1970,
+        "wins": 672
+      },
+      "standard-d6": {
+        "games": 2030,
+        "wins": 878
+      }
+    },
+    "openingDamage": [
+      4968,
+      2736
+    ],
+    "mismatches": 0,
+    "cards": {
+      "daring-feint": 25386,
+      "silken-cut": 6220,
+      "web-turn": 9120,
+      "hidden-meaning": 6542
+    },
+    "opponentCards": {
+      "silken-cut": 13804,
+      "daring-feint": 7426,
+      "root-ward": 7232,
+      "turnabout": 11572
+    },
+    "byHand": {
+      "silken-cut / daring-feint / web-turn / hidden-meaning": {
+        "games": 4000,
+        "wins": 1550,
+        "draws": 8,
+        "damage": 34740,
+        "ward": 39606,
+        "reactions": 21938
+      }
+    },
+    "version": 7
+  }
+]

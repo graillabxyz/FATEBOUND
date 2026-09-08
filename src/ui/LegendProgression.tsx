@@ -1,3 +1,5 @@
+import { LEGEND_BONUS_MILESTONES } from "../content/collection-progression";
+import { AcquisitionNotice } from "./OmenProgression";
 import { LEGENDS, legendById } from "../content/legends";
 import { LEGEND_COIN_PRICE } from "../content/acquisition";
 import { LEGEND_JOURNEY, legendJourney } from "../content/legend-progression";
@@ -89,7 +91,9 @@ export function LegendJourney({
                       ? "Claimed"
                       : ready
                         ? "Choose reward"
-                        : "Legend choice"}
+                        : LEGEND_BONUS_MILESTONES.includes(m)
+                          ? "Legend + gift"
+                          : "Legend choice"}
                   </small>
                 </li>
               );
@@ -141,7 +145,8 @@ export function LegendUnlockOptions({ id }: { id: LegendId }) {
   const { profile, service, update, toast } = useGame();
   const { available, next } = legendJourney(profile);
   const kit = STARTERS[id];
-  if (profile.ownedLegends.includes(id)) return null;
+  if (profile.ownedLegends.includes(id))
+    return <AcquisitionNotice forLegend={id} />;
   const unlock = (source: "journey" | "coins" | "gems") => {
     try {
       const nextProfile =
@@ -150,7 +155,7 @@ export function LegendUnlockOptions({ id }: { id: LegendId }) {
           : service.unlockLegend(profile, id, source);
       update(nextProfile);
       toast(
-        `${legendById[id].name} unlocked. Your Hand and three Omens are ready.`,
+        `${legendById[id].name} unlocked. A Loadout was assembled from items you already own.`,
       );
     } catch (e) {
       toast((e as Error).message);
@@ -161,21 +166,21 @@ export function LegendUnlockOptions({ id }: { id: LegendId }) {
       className="legend-unlock"
       aria-label={`Unlock ${legendById[id].name}`}
     >
-      <small>UNLOCK THE LEGEND + STARTER LOADOUT</small>
+      <small>UNLOCK ONE LEGEND</small>
       <h3>A new way to play</h3>
       <p>
-        Every route includes the same Legend, four shared Cards and three Omens.
-        Permanent ownership.
+        Unlock this Legend permanently. Build their Hand and Omens from your
+        collection. Cards and Omens are acquired separately.
       </p>
       <details>
-        <summary>Preview the included Loadout</summary>
+        <summary>Recommended starter recipe · items sold separately</summary>
         <strong>HAND</strong>
         <p>{kit.cards.map((c) => cardById[c].name).join(" · ")}</p>
         <strong>OMENS</strong>
         <p>{kit.dice.map((d) => omenById[d].name).join(" · ")}</p>
         <small>
-          One signature Omen + two numbered Omens. Items you already own are
-          kept; no duplicates.
+          This recipe is a build goal, not an included bundle. Your first
+          playable Loadout uses only items you already own.
         </small>
       </details>
       {available.length ? (

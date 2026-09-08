@@ -1,0 +1,392 @@
+[
+  {
+    "legend": "maui",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 1682,
+    "losses": 2224,
+    "draws": 94,
+    "openingGames": 2318,
+    "openingWins": 900,
+    "secondGames": 1682,
+    "secondWins": 782,
+    "rounds": 28000,
+    "damage": 28116,
+    "ward": 92336,
+    "focus": 25628,
+    "held": 38936,
+    "expired": 13842,
+    "reactions": 21458,
+    "reactionSuccess": 21458,
+    "turns": 28000,
+    "initiativeWins": 1768,
+    "openingDraws": 62,
+    "secondDraws": 32,
+    "blankRolls": 0,
+    "totalRolls": 77682,
+    "fullHoldTurns": 4858,
+    "openingChoices": {
+      "maui-d10-0": {
+        "games": 2318,
+        "wins": 900
+      },
+      "maui-d10-0 + standard-d8": {
+        "games": 1682,
+        "wins": 782
+      }
+    },
+    "openingDamage": [
+      3364,
+      2482
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 14428,
+      "turnabout": 5250,
+      "daring-feint": 10920,
+      "root-ward": 9072
+    },
+    "opponentCards": {
+      "sun-lance": 26068,
+      "moss-mantle": 18040,
+      "root-ward": 2804,
+      "quick-strike": 224
+    },
+    "byHand": {
+      "silken-cut / root-ward / daring-feint / turnabout": {
+        "games": 4000,
+        "wins": 1682,
+        "draws": 94,
+        "damage": 28116,
+        "ward": 92336,
+        "reactions": 21458
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "maui",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 2472,
+    "losses": 1528,
+    "draws": 0,
+    "openingGames": 1850,
+    "openingWins": 1200,
+    "secondGames": 2150,
+    "secondWins": 1272,
+    "rounds": 26728,
+    "damage": 65300,
+    "ward": 79716,
+    "focus": 25044,
+    "held": 42400,
+    "expired": 13006,
+    "reactions": 27072,
+    "reactionSuccess": 27072,
+    "turns": 26398,
+    "initiativeWins": 2078,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 0,
+    "totalRolls": 73344,
+    "fullHoldTurns": 3974,
+    "openingChoices": {
+      "maui-d10-0 + standard-d8": {
+        "games": 2150,
+        "wins": 1272
+      },
+      "maui-d10-0": {
+        "games": 1850,
+        "wins": 1200
+      }
+    },
+    "openingDamage": [
+      3608,
+      2898
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 13832,
+      "root-ward": 7548,
+      "daring-feint": 7550,
+      "turnabout": 11314
+    },
+    "opponentCards": {
+      "silken-cut": 6656,
+      "web-turn": 9006,
+      "daring-feint": 25052,
+      "hidden-meaning": 6658
+    },
+    "byHand": {
+      "silken-cut / root-ward / daring-feint / turnabout": {
+        "games": 4000,
+        "wins": 2472,
+        "draws": 0,
+        "damage": 65300,
+        "ward": 79716,
+        "reactions": 27072
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "maui",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 996,
+    "losses": 3000,
+    "draws": 4,
+    "openingGames": 1722,
+    "openingWins": 402,
+    "secondGames": 2278,
+    "secondWins": 594,
+    "rounds": 27918,
+    "damage": 31258,
+    "ward": 79632,
+    "focus": 25146,
+    "held": 35368,
+    "expired": 15894,
+    "reactions": 15696,
+    "reactionSuccess": 15696,
+    "turns": 27900,
+    "initiativeWins": 2086,
+    "openingDraws": 4,
+    "secondDraws": 0,
+    "blankRolls": 0,
+    "totalRolls": 77978,
+    "fullHoldTurns": 5246,
+    "openingChoices": {
+      "maui-d10-0 + standard-d8": {
+        "games": 2278,
+        "wins": 594
+      },
+      "maui-d10-0": {
+        "games": 1722,
+        "wins": 402
+      }
+    },
+    "openingDamage": [
+      4194,
+      4214
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 8330,
+      "root-ward": 3250,
+      "daring-feint": 4052,
+      "turnabout": 1544
+    },
+    "opponentCards": {
+      "precision-cut": 13220,
+      "perfect-riposte": 29614,
+      "quick-strike": 2464,
+      "gale-cut": 458
+    },
+    "byHand": {
+      "silken-cut / root-ward / daring-feint / turnabout": {
+        "games": 4000,
+        "wins": 996,
+        "draws": 4,
+        "damage": 31258,
+        "ward": 79632,
+        "reactions": 15696
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "maui",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 2156,
+    "losses": 1834,
+    "draws": 10,
+    "openingGames": 2128,
+    "openingWins": 678,
+    "secondGames": 1872,
+    "secondWins": 1478,
+    "rounds": 27692,
+    "damage": 63332,
+    "ward": 118172,
+    "focus": 25830,
+    "held": 31240,
+    "expired": 2696,
+    "reactions": 26490,
+    "reactionSuccess": 26490,
+    "turns": 27564,
+    "initiativeWins": 1070,
+    "openingDraws": 8,
+    "secondDraws": 2,
+    "blankRolls": 0,
+    "totalRolls": 76564,
+    "fullHoldTurns": 3874,
+    "openingChoices": {
+      "maui-d10-0": {
+        "games": 2128,
+        "wins": 678
+      },
+      "maui-d10-0 + standard-d8": {
+        "games": 1872,
+        "wins": 1478
+      }
+    },
+    "openingDamage": [
+      3744,
+      9984
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 8658,
+      "daring-feint": 10460,
+      "root-ward": 13780,
+      "turnabout": 1370
+    },
+    "opponentCards": {
+      "moss-mantle": 20490,
+      "wolf-shape": 22208,
+      "branch-lash": 23998,
+      "windstep": 1672
+    },
+    "byHand": {
+      "silken-cut / root-ward / daring-feint / turnabout": {
+        "games": 4000,
+        "wins": 2156,
+        "draws": 10,
+        "damage": 63332,
+        "ward": 118172,
+        "reactions": 26490
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "maui",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 2434,
+    "losses": 1564,
+    "draws": 2,
+    "openingGames": 1898,
+    "openingWins": 550,
+    "secondGames": 2102,
+    "secondWins": 1884,
+    "rounds": 27972,
+    "damage": 40616,
+    "ward": 99776,
+    "focus": 27408,
+    "held": 32184,
+    "expired": 9508,
+    "reactions": 19824,
+    "reactionSuccess": 19824,
+    "turns": 27972,
+    "initiativeWins": 768,
+    "openingDraws": 2,
+    "secondDraws": 0,
+    "blankRolls": 0,
+    "totalRolls": 78018,
+    "fullHoldTurns": 2766,
+    "openingChoices": {
+      "maui-d10-0 + standard-d8": {
+        "games": 2102,
+        "wins": 1884
+      },
+      "maui-d10-0": {
+        "games": 1898,
+        "wins": 550
+      }
+    },
+    "openingDamage": [
+      4204,
+      5312
+    ],
+    "mismatches": 0,
+    "cards": {
+      "silken-cut": 10618,
+      "daring-feint": 11344,
+      "root-ward": 10780,
+      "turnabout": 1066
+    },
+    "opponentCards": {
+      "sun-lance": 29282,
+      "root-ward": 17718,
+      "first-light": 10252,
+      "quick-strike": 3426
+    },
+    "byHand": {
+      "silken-cut / root-ward / daring-feint / turnabout": {
+        "games": 4000,
+        "wins": 2434,
+        "draws": 2,
+        "damage": 40616,
+        "ward": 99776,
+        "reactions": 19824
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "maui",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 1728,
+    "losses": 1842,
+    "draws": 430,
+    "openingGames": 1950,
+    "openingWins": 972,
+    "secondGames": 2050,
+    "secondWins": 756,
+    "rounds": 28000,
+    "damage": 25196,
+    "ward": 91368,
+    "focus": 14274,
+    "held": 54860,
+    "expired": 24198,
+    "reactions": 24084,
+    "reactionSuccess": 24084,
+    "turns": 28000,
+    "initiativeWins": 2034,
+    "openingDraws": 198,
+    "secondDraws": 232,
+    "blankRolls": 0,
+    "totalRolls": 78050,
+    "fullHoldTurns": 15902,
+    "openingChoices": {
+      "maui-d10-0 + standard-d8": {
+        "games": 2050,
+        "wins": 756
+      },
+      "maui-d10-0": {
+        "games": 1950,
+        "wins": 972
+      }
+    },
+    "openingDamage": [
+      0,
+      1208
+    ],
+    "mismatches": 0,
+    "cards": {
+      "root-ward": 5676,
+      "turnabout": 6084,
+      "silken-cut": 10180,
+      "daring-feint": 7094
+    },
+    "opponentCards": {
+      "silken-cut": 10830,
+      "daring-feint": 7088,
+      "turnabout": 5576,
+      "root-ward": 5722
+    },
+    "byHand": {
+      "silken-cut / root-ward / daring-feint / turnabout": {
+        "games": 4000,
+        "wins": 1728,
+        "draws": 430,
+        "damage": 25196,
+        "ward": 91368,
+        "reactions": 24084
+      }
+    },
+    "version": 7
+  }
+]

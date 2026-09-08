@@ -1,0 +1,488 @@
+[
+  {
+    "legend": "maui",
+    "opponent": "basajaun",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 80,
+    "draws": 6,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1400
+  },
+  {
+    "legend": "maui",
+    "opponent": "anansi",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 128,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1338,
+    "damage": 3372
+  },
+  {
+    "legend": "maui",
+    "opponent": "tengu",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 52,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1392,
+    "damage": 1598
+  },
+  {
+    "legend": "maui",
+    "opponent": "leshy",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 108,
+    "draws": 2,
+    "mismatches": 0,
+    "rounds": 1384,
+    "damage": 3104
+  },
+  {
+    "legend": "maui",
+    "opponent": "quetzalcoatl",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 116,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1998
+  },
+  {
+    "legend": "maui",
+    "opponent": "maui",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "maui-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 88,
+    "draws": 26,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1240
+  },
+  {
+    "legend": "maui",
+    "opponent": "basajaun",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Māui · Your collection",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 112,
+    "draws": 6,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1740
+  },
+  {
+    "legend": "maui",
+    "opponent": "anansi",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Māui · Your collection",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 54,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1308,
+    "damage": 2214
+  },
+  {
+    "legend": "maui",
+    "opponent": "tengu",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Māui · Your collection",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 44,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1282,
+    "damage": 2866
+  },
+  {
+    "legend": "maui",
+    "opponent": "leshy",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Māui · Your collection",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 154,
+    "draws": 2,
+    "mismatches": 0,
+    "rounds": 1230,
+    "damage": 4586
+  },
+  {
+    "legend": "maui",
+    "opponent": "quetzalcoatl",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Māui · Your collection",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 154,
+    "draws": 2,
+    "mismatches": 0,
+    "rounds": 1310,
+    "damage": 3878
+  },
+  {
+    "legend": "maui",
+    "opponent": "maui",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Māui · Your collection",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 88,
+    "draws": 36,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1662
+  },
+  {
+    "legend": "maui",
+    "opponent": "basajaun",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 74,
+    "draws": 6,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1382
+  },
+  {
+    "legend": "maui",
+    "opponent": "anansi",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 112,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1350,
+    "damage": 3362
+  },
+  {
+    "legend": "maui",
+    "opponent": "tengu",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 38,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1394,
+    "damage": 1478
+  },
+  {
+    "legend": "maui",
+    "opponent": "leshy",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 114,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1382,
+    "damage": 3092
+  },
+  {
+    "legend": "maui",
+    "opponent": "quetzalcoatl",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 112,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1972
+  },
+  {
+    "legend": "maui",
+    "opponent": "maui",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-maui",
+      "name": "Against the Tide",
+      "legend": "maui",
+      "cards": [
+        "silken-cut",
+        "root-ward",
+        "daring-feint",
+        "turnabout"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 118,
+    "draws": 28,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 942
+  }
+]

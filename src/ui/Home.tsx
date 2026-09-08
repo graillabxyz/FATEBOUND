@@ -1,3 +1,4 @@
+import { OmenJourney } from "./OmenProgression";
 import { LegendJourney } from "./LegendProgression";
 import { GAME } from "../content/config";
 import { LEGENDS, legendById } from "../content/legends";
@@ -122,6 +123,7 @@ export default function Home() {
       </section>
       <section className="home-lower">
         <LegendJourney compact />
+        <OmenJourney compact />
         <button
           className="journey-banner"
           onClick={() =>

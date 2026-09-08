@@ -1,0 +1,488 @@
+[
+  {
+    "legend": "tengu",
+    "opponent": "basajaun",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 32,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1064,
+    "damage": 4010
+  },
+  {
+    "legend": "tengu",
+    "opponent": "anansi",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 132,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 898,
+    "damage": 3396
+  },
+  {
+    "legend": "tengu",
+    "opponent": "tengu",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 86,
+    "draws": 8,
+    "mismatches": 0,
+    "rounds": 894,
+    "damage": 3630
+  },
+  {
+    "legend": "tengu",
+    "opponent": "leshy",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 72,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 896,
+    "damage": 4008
+  },
+  {
+    "legend": "tengu",
+    "opponent": "quetzalcoatl",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 90,
+    "draws": 4,
+    "mismatches": 0,
+    "rounds": 914,
+    "damage": 3710
+  },
+  {
+    "legend": "tengu",
+    "opponent": "maui",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "tengu-d6-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 142,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 4874
+  },
+  {
+    "legend": "tengu",
+    "opponent": "basajaun",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Tengu · Your collection",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "crush",
+        "barkskin",
+        "silken-cut"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 180,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1190,
+    "damage": 4694
+  },
+  {
+    "legend": "tengu",
+    "opponent": "anansi",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Tengu · Your collection",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "crush",
+        "barkskin",
+        "silken-cut"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 22,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1322,
+    "damage": 1674
+  },
+  {
+    "legend": "tengu",
+    "opponent": "tengu",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Tengu · Your collection",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "crush",
+        "barkskin",
+        "silken-cut"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 100,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1104,
+    "damage": 3332
+  },
+  {
+    "legend": "tengu",
+    "opponent": "leshy",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Tengu · Your collection",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "crush",
+        "barkskin",
+        "silken-cut"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 168,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 932,
+    "damage": 4456
+  },
+  {
+    "legend": "tengu",
+    "opponent": "quetzalcoatl",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Tengu · Your collection",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "crush",
+        "barkskin",
+        "silken-cut"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 176,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 946,
+    "damage": 4052
+  },
+  {
+    "legend": "tengu",
+    "opponent": "maui",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Tengu · Your collection",
+      "legend": "tengu",
+      "cards": [
+        "quick-strike",
+        "crush",
+        "barkskin",
+        "silken-cut"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 40,
+    "draws": 18,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 652
+  },
+  {
+    "legend": "tengu",
+    "opponent": "basajaun",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 68,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1064,
+    "damage": 4260
+  },
+  {
+    "legend": "tengu",
+    "opponent": "anansi",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 142,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 882,
+    "damage": 3448
+  },
+  {
+    "legend": "tengu",
+    "opponent": "tengu",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 120,
+    "draws": 8,
+    "mismatches": 0,
+    "rounds": 902,
+    "damage": 3778
+  },
+  {
+    "legend": "tengu",
+    "opponent": "leshy",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 100,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 888,
+    "damage": 4186
+  },
+  {
+    "legend": "tengu",
+    "opponent": "quetzalcoatl",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 112,
+    "draws": 2,
+    "mismatches": 0,
+    "rounds": 916,
+    "damage": 3802
+  },
+  {
+    "legend": "tengu",
+    "opponent": "maui",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-tengu",
+      "name": "Edge of the Wind",
+      "legend": "tengu",
+      "cards": [
+        "gale-cut",
+        "perfect-riposte",
+        "precision-cut",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d6",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 172,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 5308
+  }
+]

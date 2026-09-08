@@ -22,3 +22,4 @@ supabase/functions/omnipath-api/index.ts
 server/online/generated.mjs
 
 work/
+reports/campaign/**/*-progress.json

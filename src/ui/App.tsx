@@ -1,3 +1,4 @@
+import { OmenJourney } from "./OmenProgression";
 import { LegendJourney } from "./LegendProgression";
 import { validateLoadout } from "../engine/rules";
 import { MatchEmoteProvider, EmoteMenu, EmoteBubble } from "./Emotes";
@@ -366,6 +367,13 @@ export default function App() {
                         navigate("legends");
                       }}
                     />
+                    <OmenJourney
+                      compact
+                      onOpen={() => {
+                        leave();
+                        navigate("omens");
+                      }}
+                    />
                     <div className="result-actions">
                       <PrimaryButton
                         icon="attack"
@@ -438,8 +446,8 @@ export default function App() {
                   <Home />
                 ) : tab === "loadout" ? (
                   <Loadout />
-                ) : tab === "legends" ? (
-                  <Collection />
+                ) : tab === "legends" || tab === "omens" ? (
+                  <Collection key={tab} />
                 ) : tab === "pass" ? (
                   <Pass />
                 ) : tab === "social" ? (

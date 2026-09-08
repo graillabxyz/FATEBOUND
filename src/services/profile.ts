@@ -1,4 +1,14 @@
 import {
+  OMEN_JOURNEY,
+  LEGEND_BONUS_MILESTONES,
+  signatureFor,
+  omenPrice,
+  ownedLegendLoadout,
+  availableOmenMilestones,
+  unownedSignatures,
+  type AcquisitionReceipt,
+} from "../content/collection-progression";
+import {
   LEGEND_JOURNEY,
   legendJourney,
   type LegendUnlockRecord,
@@ -9,7 +19,6 @@ import {
   PACK_CONFIG,
   CARD_COIN_PRICE,
   LEGEND_COIN_PRICE,
-  OMEN_COIN_PRICE,
   PROGRESSION_PACKS,
 } from "../content/acquisition";
 import { rollPack, type PackReceipt } from "./packs";
@@ -49,6 +58,9 @@ export type Profile = {
   ownedCards: string[];
   ownedLegends: LegendId[];
   legendJourneyClaims: number[];
+  omenJourneyClaims: number[];
+  acquisitionSequence: number;
+  acquisitions: AcquisitionReceipt[];
   legendUnlockRevision: number;
   legendUnlocks: Partial<Record<LegendId, LegendUnlockRecord>>;
   ownedOmens: string[];
@@ -104,6 +116,9 @@ export function freshProfile(): Profile {
     ownedCards: [...STARTER_CARDS],
     ownedLegends: [...STARTER_LEGENDS],
     legendJourneyClaims: [],
+    omenJourneyClaims: [],
+    acquisitionSequence: 0,
+    acquisitions: [],
     legendUnlockRevision: 0,
     legendUnlocks: {
       basajaun: { source: "starter" },
@@ -259,12 +274,12 @@ export class LocalProfileService {
             );
             return draft;
           } catch {
-            return structuredClone(STARTERS[l.legend]);
+            return ownedLegendLoadout(l.legend, ownedCards, ownedOmens);
           }
         });
       for (const id of ownedLegends)
         if (!loadouts.some((l) => l.legend === id))
-          loadouts.push(structuredClone(STARTERS[id]));
+          loadouts.push(ownedLegendLoadout(id, ownedCards, ownedOmens));
       return {
         ...freshProfile(),
         ...p,
@@ -279,6 +294,22 @@ export class LocalProfileService {
             ).filter((m) => LEGEND_JOURNEY.milestones.some((v) => v === m)),
           ),
         ],
+        omenJourneyClaims: [
+          ...new Set(
+            (Array.isArray(p.omenJourneyClaims)
+              ? p.omenJourneyClaims
+              : []
+            ).filter((m) => OMEN_JOURNEY.milestones.some((v) => v === m)),
+          ),
+        ],
+        acquisitionSequence:
+          Number.isSafeInteger(p.acquisitionSequence) &&
+          p.acquisitionSequence >= 0
+            ? p.acquisitionSequence
+            : 0,
+        acquisitions: Array.isArray(p.acquisitions)
+          ? p.acquisitions.slice(-100)
+          : [],
         legendUnlockRevision:
           Number.isSafeInteger(p.legendUnlockRevision) &&
           p.legendUnlockRevision >= 0
@@ -429,6 +460,13 @@ export class LocalProfileService {
   }
   claimPass(p: Profile, level: number, track: "free" | "premium") {
     const id = `${GAME.season.id}:${level}:${track}`;
+    const stored = this.load();
+    if (stored.claimedPass.includes(id))
+      return p.claimedPass.includes(id) &&
+        stored.legendUnlockRevision <= p.legendUnlockRevision
+        ? p
+        : stored;
+    p = this.currentLegendProfile(p);
     if (
       p.claimedPass.includes(id) ||
       level > seasonLevel(p) ||
@@ -443,13 +481,52 @@ export class LocalProfileService {
     if (reward.type === "coins") n.coins += reward.amount;
     else if (reward.type === "gems") n.gems += reward.amount;
     else if (reward.type === "pack") n.packs += reward.amount;
-    else if (reward.type === "emote" && reward.id)
+    else if (
+      reward.type === "legend" ||
+      reward.type === "omen" ||
+      reward.type === "card"
+    ) {
+      if (reward.amount !== 1 || !reward.id)
+        throw new Error("Collection rewards must identify exactly one item.");
+      const items: AcquisitionReceipt["items"] = [];
+      if (reward.type === "legend") {
+        if (!legendById[reward.id as LegendId])
+          throw new Error("Unknown Legend reward.");
+        if (!n.ownedLegends.includes(reward.id as LegendId))
+          this.grantLegend(n, reward.id as LegendId, { source: "journey" });
+        else n.packs++;
+        items.push(
+          p.ownedLegends.includes(reward.id as LegendId)
+            ? { kind: "booster", amount: 1 }
+            : { kind: "legend", id: reward.id as LegendId },
+        );
+      } else if (reward.type === "omen") {
+        if (!OMENS.some((d) => d.id === reward.id))
+          throw new Error("Unknown Omen reward.");
+        if (!n.ownedOmens.includes(reward.id)) n.ownedOmens.push(reward.id);
+        else n.packs++;
+        items.push(
+          p.ownedOmens.includes(reward.id)
+            ? { kind: "booster", amount: 1 }
+            : { kind: "omen", id: reward.id },
+        );
+      } else {
+        if (!cardById[reward.id]) throw new Error("Unknown Card reward.");
+        if (!n.ownedCards.includes(reward.id)) n.ownedCards.push(reward.id);
+        else n.coins += PACK_CONFIG.duplicateCoins;
+        items.push({ kind: "card", id: reward.id });
+      }
+      this.receipt(n, `season:${id}`, items);
+      n.legendUnlockRevision++;
+    } else if (reward.type === "emote" && reward.id)
       this.grantEmote(n, reward.id);
     else {
       const cosmetic = track === "free" ? "first-light" : "obsidian";
       if (!n.cosmetics.includes(cosmetic)) n.cosmetics.push(cosmetic);
       else n.coins += 50;
     }
+    if (!["legend", "omen", "card"].includes(reward.type))
+      n.legendUnlockRevision++;
     this.save(n);
     return n;
   }
@@ -489,12 +566,19 @@ export class LocalProfileService {
   purchaseCard(p: Profile, id: string) {
     const card = cardById[id];
     if (!card) throw new Error("Unknown Card.");
-    if (p.ownedCards.includes(id)) return p;
+    const current = this.currentLegendProfile(p);
+    if (current.ownedCards.includes(id)) return current;
+    if (current !== p) throw new Error("Collection changed. Reopen the Card.");
     const cost = CARD_COIN_PRICE[card.rarity];
     if (p.coins < cost) throw new Error("Not enough Coins.");
     const n = structuredClone(p);
     n.coins -= cost;
     n.ownedCards.push(id);
+    this.receipt(n, "purchase", [{ kind: "card", id }], {
+      currency: "coins",
+      cost,
+    });
+    n.legendUnlockRevision++;
     this.save(n);
     return n;
   }
@@ -505,10 +589,22 @@ export class LocalProfileService {
   private grantLegend(p: Profile, id: LegendId, record: LegendUnlockRecord) {
     p.ownedLegends = [...new Set([...p.ownedLegends, id])];
     p.legendUnlocks[id] = record;
-    const kit = structuredClone(STARTERS[id]);
-    p.ownedCards = [...new Set([...p.ownedCards, ...kit.cards])];
-    p.ownedOmens = [...new Set([...p.ownedOmens, ...kit.dice])];
-    if (!p.loadouts.some((l) => l.id === kit.id)) p.loadouts.push(kit);
+    const build = ownedLegendLoadout(id, p.ownedCards, p.ownedOmens);
+    if (!p.loadouts.some((l) => l.id === build.id)) p.loadouts.push(build);
+  }
+  private receipt(
+    p: Profile,
+    source: string,
+    items: AcquisitionReceipt["items"],
+    extra: Partial<AcquisitionReceipt> = {},
+  ) {
+    p.acquisitions.push({
+      ...extra,
+      id: `acquisition-${++p.acquisitionSequence}`,
+      source,
+      items,
+    });
+    p.acquisitions = p.acquisitions.slice(-100);
   }
   unlockLegend(p: Profile, id: LegendId, currency: "coins" | "gems" = "coins") {
     if (!legendById[id]) throw new Error("Unknown Legend.");
@@ -527,6 +623,7 @@ export class LocalProfileService {
     const n = structuredClone(p);
     n[currency] -= cost;
     this.grantLegend(n, id, { source: currency });
+    this.receipt(n, "purchase", [{ kind: "legend", id }], { currency, cost });
     n.legendUnlockRevision++;
     this.save(n);
     return n;
@@ -543,19 +640,72 @@ export class LocalProfileService {
       throw new Error("Choose a Legend you have not unlocked yet.");
     const n = structuredClone(p);
     if (allOwned) n.coins += LEGEND_JOURNEY.completeCollectionCoins;
-    else this.grantLegend(n, id!, { source: "journey", milestone });
+    else {
+      this.grantLegend(n, id!, { source: "journey", milestone });
+      const bonus = LEGEND_BONUS_MILESTONES.includes(milestone)
+        ? signatureFor(id!)
+        : undefined;
+      const items: AcquisitionReceipt["items"] = [{ kind: "legend", id: id! }];
+      if (bonus && !n.ownedOmens.includes(bonus)) {
+        n.ownedOmens.push(bonus);
+        items.push({ kind: "omen", id: bonus });
+      } else if (bonus) {
+        n.packs++;
+        items.push({ kind: "booster", amount: 1 });
+      }
+      this.receipt(n, `legend-journey:${milestone}`, items, {
+        bonusOmen: bonus,
+      });
+    }
     n.legendJourneyClaims.push(milestone);
     n.legendUnlockRevision++;
     this.save(n);
     return n;
   }
-  purchaseOmen(p: Profile, id: string) {
-    if (!OMENS.some((d) => d.id === id)) throw new Error("Unknown Omen.");
-    if (p.ownedOmens.includes(id)) return p;
-    if (p.coins < OMEN_COIN_PRICE) throw new Error("Not enough Coins.");
+  purchaseOmen(p: Profile, id: string, currency: "coins" | "gems" = "coins") {
+    const omen = OMENS.find((d) => d.id === id);
+    if (!omen) throw new Error("Unknown Omen.");
+    if (currency !== "coins" && currency !== "gems")
+      throw new Error("Invalid currency.");
+    if (currency === "gems" && !omen.tags.includes("signature"))
+      throw new Error("Numbered Omens use Coins.");
+    const current = this.currentLegendProfile(p);
+    if (current.ownedOmens.includes(id)) return current;
+    if (current !== p) throw new Error("Collection changed. Reopen the Omen.");
+    const cost =
+      currency === "coins" ? omenPrice(id) : OMEN_JOURNEY.signatureGems;
+    if (!Number.isFinite(p[currency]) || p[currency] < cost)
+      throw new Error(`Not enough ${currency === "coins" ? "Coins" : "Gems"}.`);
     const n = structuredClone(p);
-    n.coins -= OMEN_COIN_PRICE;
+    n[currency] -= cost;
     n.ownedOmens.push(id);
+    this.receipt(n, "purchase", [{ kind: "omen", id }], { currency, cost });
+    n.legendUnlockRevision++;
+    this.save(n);
+    return n;
+  }
+  claimOmenMilestone(p: Profile, milestone: number, id?: string) {
+    const current = this.currentLegendProfile(p);
+    if (current.omenJourneyClaims.includes(milestone)) return current;
+    if (current !== p)
+      throw new Error("Collection changed. Reopen the Omen Journey.");
+    if (!availableOmenMilestones(p).some((m) => m === milestone))
+      throw new Error("Complete the required matches first.");
+    const choices = unownedSignatures(p.ownedOmens);
+    if (choices.length && !choices.some((d) => d.id === id))
+      throw new Error("Choose an unowned signature Omen.");
+    const n = structuredClone(p);
+    const items: AcquisitionReceipt["items"] = [];
+    if (choices.length) {
+      n.ownedOmens.push(id!);
+      items.push({ kind: "omen", id: id! });
+    } else {
+      n.packs++;
+      items.push({ kind: "booster", amount: 1 });
+    }
+    this.receipt(n, `omen-journey:${milestone}`, items);
+    n.omenJourneyClaims.push(milestone);
+    n.legendUnlockRevision++;
     this.save(n);
     return n;
   }
@@ -577,6 +727,12 @@ export class LocalProfileService {
     n.ownedCards = [...new Set([...n.ownedCards, ...receipt.cards])];
     n.coins += receipt.coins;
     n.pendingPack = receipt;
+    this.receipt(
+      n,
+      `booster:${receipt.id}`,
+      receipt.cards.map((id) => ({ kind: "card", id })),
+    );
+    n.legendUnlockRevision++;
     this.save(n);
     return n;
   }

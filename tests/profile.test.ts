@@ -46,8 +46,8 @@ describe("economy and profile regressions", () => {
     const n = svc.claimPass(p, 1, "free");
     expect(n.coins).toBe(p.coins + 50);
     expect(svc.claimPass(n, 1, "free")).toBe(n);
-    expect(svc.claimPass(p, 2, "free")).toBe(p);
-    expect(svc.claimPass(p, 1, "premium")).toBe(p);
+    expect(svc.claimPass(p, 2, "free")).toEqual(n);
+    expect(svc.claimPass(p, 1, "premium")).toEqual(n);
   });
 
   it("UTC quest refresh is deterministic", () => {

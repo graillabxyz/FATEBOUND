@@ -1,0 +1,488 @@
+[
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "basajaun",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 56,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1146,
+    "damage": 3280
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "anansi",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 72,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 982,
+    "damage": 2548
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "tengu",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 104,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 928,
+    "damage": 3646
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "leshy",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 82,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 860,
+    "damage": 3934
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "quetzalcoatl",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 88,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 940,
+    "damage": 3552
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "maui",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "quetzalcoatl-d10-0",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 72,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1398,
+    "damage": 3730
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "basajaun",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Quetzalcoatl · Your collection",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "quick-strike",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 34,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1342,
+    "damage": 2504
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "anansi",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Quetzalcoatl · Your collection",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "quick-strike",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 62,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1052,
+    "damage": 2390
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "tengu",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Quetzalcoatl · Your collection",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "quick-strike",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 120,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1058,
+    "damage": 3600
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "leshy",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Quetzalcoatl · Your collection",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "quick-strike",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 48,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 996,
+    "damage": 3636
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "quetzalcoatl",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Quetzalcoatl · Your collection",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "quick-strike",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 72,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1102,
+    "damage": 3364
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "maui",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Quetzalcoatl · Your collection",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "quick-strike",
+        "crush"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 82,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1400,
+    "damage": 1720
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "basajaun",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 98,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1048,
+    "damage": 3630
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "anansi",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 92,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 888,
+    "damage": 2598
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "tengu",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 142,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 820,
+    "damage": 3812
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "leshy",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 104,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 774,
+    "damage": 4046
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "quetzalcoatl",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 108,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 830,
+    "damage": 3698
+  },
+  {
+    "legend": "quetzalcoatl",
+    "opponent": "maui",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-quetzalcoatl",
+      "name": "Dawn Ascending",
+      "legend": "quetzalcoatl",
+      "cards": [
+        "sun-lance",
+        "root-ward",
+        "first-light",
+        "quick-strike"
+      ],
+      "dice": [
+        "standard-d10",
+        "standard-d8",
+        "standard-d6"
+      ]
+    },
+    "games": 200,
+    "wins": 78,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1392,
+    "damage": 4116
+  }
+]

@@ -1,0 +1,392 @@
+[
+  {
+    "legend": "leshy",
+    "opponent": "basajaun",
+    "games": 4000,
+    "wins": 2292,
+    "losses": 1708,
+    "draws": 0,
+    "openingGames": 2152,
+    "openingWins": 1352,
+    "secondGames": 1848,
+    "secondWins": 940,
+    "rounds": 20908,
+    "damage": 76910,
+    "ward": 31072,
+    "focus": 31508,
+    "held": 18006,
+    "expired": 2438,
+    "reactions": 15112,
+    "reactionSuccess": 15112,
+    "turns": 20114,
+    "initiativeWins": 2260,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 4466,
+    "totalRolls": 54190,
+    "fullHoldTurns": 8,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 2152,
+        "wins": 1352
+      },
+      "leshy-d8-0 + standard-d8": {
+        "games": 1848,
+        "wins": 940
+      }
+    },
+    "openingDamage": [
+      23470,
+      20096
+    ],
+    "mismatches": 0,
+    "cards": {
+      "wolf-shape": 13474,
+      "branch-lash": 20646,
+      "moss-mantle": 13880,
+      "windstep": 834
+    },
+    "opponentCards": {
+      "sun-lance": 27476,
+      "root-ward": 13614,
+      "quick-strike": 1612,
+      "moss-mantle": 254
+    },
+    "byHand": {
+      "branch-lash / moss-mantle / wolf-shape / windstep": {
+        "games": 4000,
+        "wins": 2292,
+        "draws": 0,
+        "damage": 76910,
+        "ward": 31072,
+        "reactions": 15112
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "leshy",
+    "opponent": "anansi",
+    "games": 4000,
+    "wins": 1752,
+    "losses": 2246,
+    "draws": 2,
+    "openingGames": 1634,
+    "openingWins": 802,
+    "secondGames": 2366,
+    "secondWins": 950,
+    "rounds": 16746,
+    "damage": 56666,
+    "ward": 28426,
+    "focus": 24514,
+    "held": 14462,
+    "expired": 2102,
+    "reactions": 12356,
+    "reactionSuccess": 12356,
+    "turns": 16100,
+    "initiativeWins": 2216,
+    "openingDraws": 0,
+    "secondDraws": 2,
+    "blankRolls": 3634,
+    "totalRolls": 42666,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "leshy-d8-0 + standard-d8": {
+        "games": 2366,
+        "wins": 950
+      },
+      "standard-d8": {
+        "games": 1634,
+        "wins": 802
+      }
+    },
+    "openingDamage": [
+      20652,
+      14968
+    ],
+    "mismatches": 0,
+    "cards": {
+      "wolf-shape": 8156,
+      "moss-mantle": 9144,
+      "branch-lash": 15286,
+      "windstep": 616
+    },
+    "opponentCards": {
+      "silken-cut": 6296,
+      "daring-feint": 17238,
+      "hidden-meaning": 4396,
+      "web-turn": 5378
+    },
+    "byHand": {
+      "branch-lash / moss-mantle / wolf-shape / windstep": {
+        "games": 4000,
+        "wins": 1752,
+        "draws": 2,
+        "damage": 56666,
+        "ward": 28426,
+        "reactions": 12356
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "leshy",
+    "opponent": "tengu",
+    "games": 4000,
+    "wins": 2684,
+    "losses": 1286,
+    "draws": 30,
+    "openingGames": 1540,
+    "openingWins": 1252,
+    "secondGames": 2460,
+    "secondWins": 1432,
+    "rounds": 17450,
+    "damage": 76686,
+    "ward": 22182,
+    "focus": 24726,
+    "held": 12162,
+    "expired": 1402,
+    "reactions": 10760,
+    "reactionSuccess": 10760,
+    "turns": 16518,
+    "initiativeWins": 2252,
+    "openingDraws": 2,
+    "secondDraws": 28,
+    "blankRolls": 3730,
+    "totalRolls": 44014,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1540,
+        "wins": 1252
+      },
+      "leshy-d8-0 + standard-d8": {
+        "games": 2460,
+        "wins": 1432
+      }
+    },
+    "openingDamage": [
+      22256,
+      20424
+    ],
+    "mismatches": 0,
+    "cards": {
+      "branch-lash": 23864,
+      "wolf-shape": 4436,
+      "windstep": 662,
+      "moss-mantle": 10266
+    },
+    "opponentCards": {
+      "perfect-riposte": 15784,
+      "quick-strike": 8484,
+      "gale-cut": 1676,
+      "precision-cut": 5148
+    },
+    "byHand": {
+      "branch-lash / moss-mantle / wolf-shape / windstep": {
+        "games": 4000,
+        "wins": 2684,
+        "draws": 30,
+        "damage": 76686,
+        "ward": 22182,
+        "reactions": 10760
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "leshy",
+    "opponent": "leshy",
+    "games": 4000,
+    "wins": 1948,
+    "losses": 2052,
+    "draws": 0,
+    "openingGames": 1886,
+    "openingWins": 1112,
+    "secondGames": 2114,
+    "secondWins": 836,
+    "rounds": 15892,
+    "damage": 82354,
+    "ward": 22396,
+    "focus": 22050,
+    "held": 11994,
+    "expired": 898,
+    "reactions": 10884,
+    "reactionSuccess": 10884,
+    "turns": 14620,
+    "initiativeWins": 2390,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 3082,
+    "totalRolls": 37974,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1886,
+        "wins": 1112
+      },
+      "leshy-d8-0 + standard-d8": {
+        "games": 2114,
+        "wins": 836
+      }
+    },
+    "openingDamage": [
+      21952,
+      26728
+    ],
+    "mismatches": 0,
+    "cards": {
+      "branch-lash": 13434,
+      "wolf-shape": 10422,
+      "moss-mantle": 9824,
+      "windstep": 612
+    },
+    "opponentCards": {
+      "wolf-shape": 10356,
+      "moss-mantle": 9866,
+      "branch-lash": 13662,
+      "windstep": 588
+    },
+    "byHand": {
+      "branch-lash / moss-mantle / wolf-shape / windstep": {
+        "games": 4000,
+        "wins": 1948,
+        "draws": 0,
+        "damage": 82354,
+        "ward": 22396,
+        "reactions": 10884
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "leshy",
+    "opponent": "quetzalcoatl",
+    "games": 4000,
+    "wins": 2630,
+    "losses": 1370,
+    "draws": 0,
+    "openingGames": 1868,
+    "openingWins": 1228,
+    "secondGames": 2132,
+    "secondWins": 1402,
+    "rounds": 17436,
+    "damage": 77206,
+    "ward": 23840,
+    "focus": 25252,
+    "held": 13108,
+    "expired": 1438,
+    "reactions": 11590,
+    "reactionSuccess": 11590,
+    "turns": 16708,
+    "initiativeWins": 1958,
+    "openingDraws": 0,
+    "secondDraws": 0,
+    "blankRolls": 3664,
+    "totalRolls": 44256,
+    "fullHoldTurns": 0,
+    "openingChoices": {
+      "standard-d8": {
+        "games": 1868,
+        "wins": 1228
+      },
+      "leshy-d8-0 + standard-d8": {
+        "games": 2132,
+        "wins": 1402
+      }
+    },
+    "openingDamage": [
+      22392,
+      21112
+    ],
+    "mismatches": 0,
+    "cards": {
+      "branch-lash": 19982,
+      "wolf-shape": 8146,
+      "moss-mantle": 10810,
+      "windstep": 660
+    },
+    "opponentCards": {
+      "sun-lance": 22404,
+      "root-ward": 11542,
+      "first-light": 1644,
+      "quick-strike": 2206
+    },
+    "byHand": {
+      "branch-lash / moss-mantle / wolf-shape / windstep": {
+        "games": 4000,
+        "wins": 2630,
+        "draws": 0,
+        "damage": 77206,
+        "ward": 23840,
+        "reactions": 11590
+      }
+    },
+    "version": 7
+  },
+  {
+    "legend": "leshy",
+    "opponent": "maui",
+    "games": 4000,
+    "wins": 1676,
+    "losses": 2314,
+    "draws": 10,
+    "openingGames": 1952,
+    "openingWins": 318,
+    "secondGames": 2048,
+    "secondWins": 1358,
+    "rounds": 27686,
+    "damage": 97078,
+    "ward": 51434,
+    "focus": 42094,
+    "held": 28828,
+    "expired": 2268,
+    "reactions": 24218,
+    "reactionSuccess": 24218,
+    "turns": 27598,
+    "initiativeWins": 1000,
+    "openingDraws": 2,
+    "secondDraws": 8,
+    "blankRolls": 6362,
+    "totalRolls": 76842,
+    "fullHoldTurns": 958,
+    "openingChoices": {
+      "leshy-d8-0 + standard-d8": {
+        "games": 2048,
+        "wins": 1358
+      },
+      "standard-d8": {
+        "games": 1952,
+        "wins": 318
+      }
+    },
+    "openingDamage": [
+      10034,
+      14586
+    ],
+    "mismatches": 0,
+    "cards": {
+      "branch-lash": 24404,
+      "wolf-shape": 21992,
+      "moss-mantle": 20390,
+      "windstep": 1584
+    },
+    "opponentCards": {
+      "root-ward": 13748,
+      "daring-feint": 10176,
+      "silken-cut": 8924,
+      "turnabout": 1312
+    },
+    "byHand": {
+      "branch-lash / moss-mantle / wolf-shape / windstep": {
+        "games": 4000,
+        "wins": 1676,
+        "draws": 10,
+        "damage": 97078,
+        "ward": 51434,
+        "reactions": 24218
+      }
+    },
+    "version": 7
+  }
+]

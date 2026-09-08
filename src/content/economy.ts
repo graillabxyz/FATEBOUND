@@ -103,7 +103,15 @@ export const COSMETICS: Cosmetic[] = [
   },
 ];
 export type PathReward = {
-  type: string;
+  type:
+    | "coins"
+    | "gems"
+    | "pack"
+    | "cosmetic"
+    | "emote"
+    | "legend"
+    | "omen"
+    | "card";
   amount: number;
   label: string;
   id?: string;
@@ -212,5 +220,5 @@ for (const level of [2, 6, 10, 16, 22, 30, 45])
   PASS_REWARDS[level - 1].free = {
     type: "pack",
     amount: 1,
-    label: "2-Card pack",
+    label: "2-Card booster",
   };

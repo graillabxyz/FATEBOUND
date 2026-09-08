@@ -1,0 +1,880 @@
+{
+  "date": "2026-09-08",
+  "method": "Economic projections, not combat or usage data. 128 synthetic profiles per policy, 100 matches each, matched seeded 50% win probability. Three matches per day. Claim available free Journey and Season rewards plus activity-only quests. Open earned boosters immediately; no money spent. Save-collectibles prioritizes unowned signature Omens then Legends; boosters-first spends spare Coins on boosters; no-spend retains Coins. 101 means not reached in 100 matches. Before uses frozen pre-audit production profile service; after uses current production service.",
+  "rows": [
+    {
+      "version": "before",
+      "strategy": "save-collectibles",
+      "profiles": 128,
+      "allLegendsMedian": 27,
+      "allSignaturesMedian": 5,
+      "firstAdditionalOmenMedian": 1,
+      "points": [
+        {
+          "match": 10,
+          "coins": {
+            "median": 295,
+            "p10": 265,
+            "p90": 425
+          },
+          "cards": {
+            "median": 31,
+            "p10": 30,
+            "p90": 31
+          },
+          "legends": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "gems": {
+            "median": 20,
+            "p10": 20,
+            "p90": 20
+          }
+        },
+        {
+          "match": 25,
+          "coins": {
+            "median": 640,
+            "p10": 580,
+            "p90": 705
+          },
+          "cards": {
+            "median": 44,
+            "p10": 42,
+            "p90": 46
+          },
+          "legends": {
+            "median": 5,
+            "p10": 5,
+            "p90": 5
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 12,
+            "p10": 12,
+            "p90": 12
+          },
+          "gems": {
+            "median": 40,
+            "p10": 40,
+            "p90": 40
+          }
+        },
+        {
+          "match": 50,
+          "coins": {
+            "median": 2750,
+            "p10": 2600,
+            "p90": 2875
+          },
+          "cards": {
+            "median": 54,
+            "p10": 50,
+            "p90": 56
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 23,
+            "p10": 23,
+            "p90": 23
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        },
+        {
+          "match": 100,
+          "coins": {
+            "median": 5585,
+            "p10": 5465,
+            "p90": 5725
+          },
+          "cards": {
+            "median": 57,
+            "p10": 54,
+            "p90": 59
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 38,
+            "p10": 38,
+            "p90": 38
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        }
+      ]
+    },
+    {
+      "version": "before",
+      "strategy": "boosters-first",
+      "profiles": 128,
+      "allLegendsMedian": 50,
+      "allSignaturesMedian": 50,
+      "firstAdditionalOmenMedian": 5,
+      "points": [
+        {
+          "match": 10,
+          "coins": {
+            "median": 60,
+            "p10": 20,
+            "p90": 90
+          },
+          "cards": {
+            "median": 45,
+            "p10": 43,
+            "p90": 46
+          },
+          "legends": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "signatures": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "packsOpened": {
+            "median": 13,
+            "p10": 13,
+            "p90": 15
+          },
+          "gems": {
+            "median": 20,
+            "p10": 20,
+            "p90": 20
+          }
+        },
+        {
+          "match": 25,
+          "coins": {
+            "median": 65,
+            "p10": 50,
+            "p90": 90
+          },
+          "cards": {
+            "median": 57,
+            "p10": 55,
+            "p90": 59
+          },
+          "legends": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "signatures": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "packsOpened": {
+            "median": 41,
+            "p10": 40,
+            "p90": 43
+          },
+          "gems": {
+            "median": 40,
+            "p10": 40,
+            "p90": 40
+          }
+        },
+        {
+          "match": 50,
+          "coins": {
+            "median": 70,
+            "p10": 50,
+            "p90": 90
+          },
+          "cards": {
+            "median": 60,
+            "p10": 58,
+            "p90": 60
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 105,
+            "p10": 103,
+            "p90": 108
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        },
+        {
+          "match": 100,
+          "coins": {
+            "median": 75,
+            "p10": 55,
+            "p90": 95
+          },
+          "cards": {
+            "median": 60,
+            "p10": 59,
+            "p90": 60
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 179,
+            "p10": 176,
+            "p90": 181
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        }
+      ]
+    },
+    {
+      "version": "before",
+      "strategy": "no-spend",
+      "profiles": 128,
+      "allLegendsMedian": 50,
+      "allSignaturesMedian": 50,
+      "firstAdditionalOmenMedian": 5,
+      "points": [
+        {
+          "match": 10,
+          "coins": {
+            "median": 775,
+            "p10": 745,
+            "p90": 905
+          },
+          "cards": {
+            "median": 31,
+            "p10": 30,
+            "p90": 31
+          },
+          "legends": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "signatures": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "packsOpened": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "gems": {
+            "median": 20,
+            "p10": 20,
+            "p90": 20
+          }
+        },
+        {
+          "match": 25,
+          "coins": {
+            "median": 1920,
+            "p10": 1860,
+            "p90": 1980
+          },
+          "cards": {
+            "median": 44,
+            "p10": 42,
+            "p90": 46
+          },
+          "legends": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "signatures": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "packsOpened": {
+            "median": 12,
+            "p10": 12,
+            "p90": 12
+          },
+          "gems": {
+            "median": 40,
+            "p10": 40,
+            "p90": 40
+          }
+        },
+        {
+          "match": 50,
+          "coins": {
+            "median": 4400,
+            "p10": 4235,
+            "p90": 4525
+          },
+          "cards": {
+            "median": 54,
+            "p10": 50,
+            "p90": 56
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 23,
+            "p10": 23,
+            "p90": 23
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        },
+        {
+          "match": 100,
+          "coins": {
+            "median": 7250,
+            "p10": 7135,
+            "p90": 7345
+          },
+          "cards": {
+            "median": 57,
+            "p10": 54,
+            "p90": 59
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 38,
+            "p10": 38,
+            "p90": 38
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        }
+      ]
+    },
+    {
+      "version": "after",
+      "strategy": "save-collectibles",
+      "profiles": 128,
+      "allLegendsMedian": 33,
+      "allSignaturesMedian": 24,
+      "firstAdditionalOmenMedian": 8,
+      "points": [
+        {
+          "match": 10,
+          "coins": {
+            "median": 175,
+            "p10": 145,
+            "p90": 305
+          },
+          "cards": {
+            "median": 24,
+            "p10": 24,
+            "p90": 24
+          },
+          "legends": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "signatures": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "packsOpened": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "gems": {
+            "median": 20,
+            "p10": 20,
+            "p90": 20
+          }
+        },
+        {
+          "match": 25,
+          "coins": {
+            "median": 120,
+            "p10": 75,
+            "p90": 210
+          },
+          "cards": {
+            "median": 36,
+            "p10": 36,
+            "p90": 38
+          },
+          "legends": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 10,
+            "p10": 10,
+            "p90": 11
+          },
+          "gems": {
+            "median": 40,
+            "p10": 40,
+            "p90": 40
+          }
+        },
+        {
+          "match": 50,
+          "coins": {
+            "median": 1750,
+            "p10": 1610,
+            "p90": 1905
+          },
+          "cards": {
+            "median": 50,
+            "p10": 47,
+            "p90": 52
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 18,
+            "p10": 18,
+            "p90": 18
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        },
+        {
+          "match": 100,
+          "coins": {
+            "median": 4245,
+            "p10": 4130,
+            "p90": 4390
+          },
+          "cards": {
+            "median": 55,
+            "p10": 52,
+            "p90": 57
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 27,
+            "p10": 27,
+            "p90": 27
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        }
+      ]
+    },
+    {
+      "version": "after",
+      "strategy": "boosters-first",
+      "profiles": 128,
+      "allLegendsMedian": 50,
+      "allSignaturesMedian": 45,
+      "firstAdditionalOmenMedian": 10,
+      "points": [
+        {
+          "match": 10,
+          "coins": {
+            "median": 120,
+            "p10": 90,
+            "p90": 135
+          },
+          "cards": {
+            "median": 32,
+            "p10": 32,
+            "p90": 34
+          },
+          "legends": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "signatures": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "packsOpened": {
+            "median": 8,
+            "p10": 8,
+            "p90": 9
+          },
+          "gems": {
+            "median": 20,
+            "p10": 20,
+            "p90": 20
+          }
+        },
+        {
+          "match": 25,
+          "coins": {
+            "median": 80,
+            "p10": 45,
+            "p90": 145
+          },
+          "cards": {
+            "median": 51,
+            "p10": 49,
+            "p90": 54
+          },
+          "legends": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "signatures": {
+            "median": 5,
+            "p10": 5,
+            "p90": 5
+          },
+          "packsOpened": {
+            "median": 20,
+            "p10": 19,
+            "p90": 21
+          },
+          "gems": {
+            "median": 40,
+            "p10": 40,
+            "p90": 40
+          }
+        },
+        {
+          "match": 50,
+          "coins": {
+            "median": 105,
+            "p10": 55,
+            "p90": 145
+          },
+          "cards": {
+            "median": 57,
+            "p10": 56,
+            "p90": 59
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 48,
+            "p10": 47,
+            "p90": 49
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        },
+        {
+          "match": 100,
+          "coins": {
+            "median": 100,
+            "p10": 55,
+            "p90": 145
+          },
+          "cards": {
+            "median": 59,
+            "p10": 57,
+            "p90": 60
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 81,
+            "p10": 80,
+            "p90": 82
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        }
+      ]
+    },
+    {
+      "version": "after",
+      "strategy": "no-spend",
+      "profiles": 128,
+      "allLegendsMedian": 50,
+      "allSignaturesMedian": 45,
+      "firstAdditionalOmenMedian": 10,
+      "points": [
+        {
+          "match": 10,
+          "coins": {
+            "median": 775,
+            "p10": 745,
+            "p90": 905
+          },
+          "cards": {
+            "median": 24,
+            "p10": 24,
+            "p90": 24
+          },
+          "legends": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "signatures": {
+            "median": 3,
+            "p10": 3,
+            "p90": 3
+          },
+          "packsOpened": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "gems": {
+            "median": 20,
+            "p10": 20,
+            "p90": 20
+          }
+        },
+        {
+          "match": 25,
+          "coins": {
+            "median": 1905,
+            "p10": 1860,
+            "p90": 1980
+          },
+          "cards": {
+            "median": 32,
+            "p10": 32,
+            "p90": 32
+          },
+          "legends": {
+            "median": 4,
+            "p10": 4,
+            "p90": 4
+          },
+          "signatures": {
+            "median": 5,
+            "p10": 5,
+            "p90": 5
+          },
+          "packsOpened": {
+            "median": 8,
+            "p10": 8,
+            "p90": 8
+          },
+          "gems": {
+            "median": 40,
+            "p10": 40,
+            "p90": 40
+          }
+        },
+        {
+          "match": 50,
+          "coins": {
+            "median": 4110,
+            "p10": 3980,
+            "p90": 4200
+          },
+          "cards": {
+            "median": 46,
+            "p10": 44,
+            "p90": 46
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 15,
+            "p10": 15,
+            "p90": 15
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        },
+        {
+          "match": 100,
+          "coins": {
+            "median": 6495,
+            "p10": 6390,
+            "p90": 6630
+          },
+          "cards": {
+            "median": 54,
+            "p10": 51,
+            "p90": 56
+          },
+          "legends": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "signatures": {
+            "median": 6,
+            "p10": 6,
+            "p90": 6
+          },
+          "packsOpened": {
+            "median": 24,
+            "p10": 24,
+            "p90": 24
+          },
+          "gems": {
+            "median": 80,
+            "p10": 80,
+            "p90": 80
+          }
+        }
+      ]
+    }
+  ],
+  "prices": {
+    "before": {
+      "legend": 800,
+      "signatureOmen": 120,
+      "booster": 100,
+      "packEveryMatches": 5,
+      "masteryPackXp": 400
+    },
+    "after": {
+      "legend": 800,
+      "signatureOmen": 600,
+      "numberedOmen": 120,
+      "booster": 160,
+      "packEveryMatches": 10,
+      "masteryPackXp": 800
+    }
+  },
+  "catalog": {
+    "legends": 6,
+    "cards": 60,
+    "signatureOmens": 6
+  }
+}

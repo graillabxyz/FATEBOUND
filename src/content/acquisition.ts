@@ -1,8 +1,8 @@
 import type { CardRarity } from "../engine/types";
 export const PACK_CONFIG = {
   id: "first-light-pair",
-  name: "First Light · 2-Card pack",
-  price: 100,
+  name: "First Light · 2-Card booster",
+  price: 160,
   duplicateCoins: 25,
   slots: [
     { common: 60, uncommon: 30, rare: 9, mythic: 1 },
@@ -18,7 +18,7 @@ export const CARD_COIN_PRICE: Record<CardRarity, number> = {
 export const LEGEND_COIN_PRICE = 800;
 export const OMEN_COIN_PRICE = 120;
 export const PROGRESSION_PACKS = {
-  matchesEvery: 5,
-  masteryEvery: 400,
+  matchesEvery: 10,
+  masteryEvery: 800,
   firstWin: 1,
 };

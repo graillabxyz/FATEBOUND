@@ -1,3 +1,4 @@
+import { OmenUnlockOptions } from "./OmenProgression";
 import { LegendUnlockOptions } from "./LegendProgression";
 import { cardRuleDetails } from "../content/card-rules";
 import { AffinityLine } from "./Affinities";
@@ -74,8 +75,8 @@ export default function Inspector({
         <p>{profile.mastery[l.id] ?? 0} Mastery XP</p>
         <SectionLabel>RECOMMENDED OMENS</SectionLabel>
         <div className="inspect-dice-row">
-          {l.diceSlots.map((n, i) => (
-            <Omen key={i} definition={omenById[`standard-d${n}`]} small />
+          {STARTERS[l.id].dice.map((id, i) => (
+            <Omen key={i} definition={omenById[id]} small />
           ))}
         </div>
         <SectionLabel>COMPATIBLE CARDS</SectionLabel>
@@ -214,6 +215,7 @@ export default function Inspector({
           />
         </div>
         <p>{d.description}</p>
+        <OmenUnlockOptions id={d.id} />
         <SectionLabel right={<span>POSITION {face + 1}</span>}>
           ORDERED FACES
         </SectionLabel>

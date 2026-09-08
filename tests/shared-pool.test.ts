@@ -291,7 +291,7 @@ describe("two-Legend starter collection and acquisition", () => {
       p = freshProfile();
     svc.save(p);
     const n = svc.openPack(p, 42);
-    expect(n.coins).toBe(150);
+    expect(n.coins).toBe(90);
     expect(n.pendingPack?.cards).toHaveLength(2);
     expect(svc.openPack(n, 99).pendingPack).toEqual(n.pendingPack);
     const id = n.pendingPack!.id;
@@ -313,7 +313,7 @@ describe("two-Legend starter collection and acquisition", () => {
     expect(svc.claimPass(reward, 2, "free")).toBe(reward);
     expect(reward.claimedPass).toContain(`${GAME.season.id}:2:free`);
   });
-  it("lets Coins unlock any rarity, readable Legend kits and Omens without premium", () => {
+  it("lets Coins unlock any rarity, individual Legends and Omens without premium", () => {
     const svc = new LocalProfileService(storage()),
       p = { ...freshProfile(), coins: 2000 };
     const n = svc.purchaseCard(p, "ritual");
@@ -322,7 +322,10 @@ describe("two-Legend starter collection and acquisition", () => {
     const l = svc.unlockLegend(n, "leshy");
     expect(l.ownedLegends).toContain("leshy");
     expect(() =>
-      validateLoadout(STARTERS.leshy, svc.ownedGameplay(l)),
+      validateLoadout(
+        l.loadouts.find((b) => b.legend === "leshy")!,
+        svc.ownedGameplay(l),
+      ),
     ).not.toThrow();
     expect(svc.purchaseOmen(l, "guardian-d6").ownedOmens).toContain(
       "guardian-d6",

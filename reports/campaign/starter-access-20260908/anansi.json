@@ -1,0 +1,488 @@
+[
+  {
+    "legend": "anansi",
+    "opponent": "basajaun",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 128,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1204,
+    "damage": 1938
+  },
+  {
+    "legend": "anansi",
+    "opponent": "anansi",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 82,
+    "draws": 10,
+    "mismatches": 0,
+    "rounds": 1028,
+    "damage": 1646
+  },
+  {
+    "legend": "anansi",
+    "opponent": "tengu",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 64,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 896,
+    "damage": 2154
+  },
+  {
+    "legend": "anansi",
+    "opponent": "leshy",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 126,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 850,
+    "damage": 2298
+  },
+  {
+    "legend": "anansi",
+    "opponent": "quetzalcoatl",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 130,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 978,
+    "damage": 1664
+  },
+  {
+    "legend": "anansi",
+    "opponent": "maui",
+    "variant": "curated",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 68,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1332,
+    "damage": 1670
+  },
+  {
+    "legend": "anansi",
+    "opponent": "basajaun",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Anansi · Your collection",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 128,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1204,
+    "damage": 1938
+  },
+  {
+    "legend": "anansi",
+    "opponent": "anansi",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Anansi · Your collection",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 82,
+    "draws": 10,
+    "mismatches": 0,
+    "rounds": 1028,
+    "damage": 1646
+  },
+  {
+    "legend": "anansi",
+    "opponent": "tengu",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Anansi · Your collection",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 64,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 896,
+    "damage": 2154
+  },
+  {
+    "legend": "anansi",
+    "opponent": "leshy",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Anansi · Your collection",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 126,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 850,
+    "damage": 2298
+  },
+  {
+    "legend": "anansi",
+    "opponent": "quetzalcoatl",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Anansi · Your collection",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 130,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 978,
+    "damage": 1664
+  },
+  {
+    "legend": "anansi",
+    "opponent": "maui",
+    "variant": "entry",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Anansi · Your collection",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "trickster-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 68,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1332,
+    "damage": 1670
+  },
+  {
+    "legend": "anansi",
+    "opponent": "basajaun",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 184,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1268,
+    "damage": 1748
+  },
+  {
+    "legend": "anansi",
+    "opponent": "anansi",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 140,
+    "draws": 8,
+    "mismatches": 0,
+    "rounds": 1062,
+    "damage": 1514
+  },
+  {
+    "legend": "anansi",
+    "opponent": "tengu",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 106,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 922,
+    "damage": 2038
+  },
+  {
+    "legend": "anansi",
+    "opponent": "leshy",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 162,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 828,
+    "damage": 2174
+  },
+  {
+    "legend": "anansi",
+    "opponent": "quetzalcoatl",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 168,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 996,
+    "damage": 1566
+  },
+  {
+    "legend": "anansi",
+    "opponent": "maui",
+    "variant": "numbered",
+    "loadout": {
+      "id": "starter-anansi",
+      "name": "Threads of Fate",
+      "legend": "anansi",
+      "cards": [
+        "silken-cut",
+        "daring-feint",
+        "web-turn",
+        "hidden-meaning"
+      ],
+      "dice": [
+        "standard-d8",
+        "standard-d6",
+        "standard-d4"
+      ]
+    },
+    "games": 200,
+    "wins": 104,
+    "draws": 0,
+    "mismatches": 0,
+    "rounds": 1290,
+    "damage": 1792
+  }
+]

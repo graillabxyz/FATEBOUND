@@ -1,7 +1,8 @@
+import { OmenJourney } from "./OmenProgression";
+import { omenPrice } from "../content/collection-progression";
 import { LegendJourney } from "./LegendProgression";
 import { Packs } from "./Packs";
 import { CardBrowser } from "./CardBrowser";
-import { OMEN_COIN_PRICE } from "../content/acquisition";
 import { EmoteCollection } from "./Emotes";
 import { TutorialSteps, Glossary } from "./Help";
 import { ENABLE_DEV_TOOLS } from "../dev/gate";
@@ -267,7 +268,7 @@ export function SocialPage() {
   );
 }
 export function ShopPage() {
-  const { inspect, profile, service, update, toast } = useGame();
+  const { inspect, profile } = useGame();
   const [tab, setTab] = useState("Featured");
   return (
     <div className="page shop-page">
@@ -276,7 +277,7 @@ export function ShopPage() {
         {[
           "Featured",
           "Cards",
-          "Packs",
+          "Boosters",
           "Legends",
           "Omens",
           "Omen Skins",
@@ -293,7 +294,7 @@ export function ShopPage() {
           </button>
         ))}
       </div>
-      {tab === "Packs" ? (
+      {tab === "Boosters" ? (
         <Packs />
       ) : tab === "Cards" ? (
         <CardBrowser />
@@ -306,8 +307,7 @@ export function ShopPage() {
                 <LegendArt id={l.id} />
                 <strong>{l.name}</strong>
                 <p>
-                  Legend + four shared Cards + one signature and two numbered
-                  Omens.
+                  One Legend. Build a Hand and equip Omens from your collection.
                 </p>
                 <button onClick={() => inspect({ type: "legend", item: l })}>
                   {profile.ownedLegends.includes(l.id)
@@ -319,29 +319,25 @@ export function ShopPage() {
           </div>
         </>
       ) : tab === "Omens" ? (
-        <div className="unlock-list">
-          {OMENS.map((d) => (
-            <article key={d.id}>
-              <Omen definition={d} />
-              <strong>{d.name}</strong>
-              <button
-                disabled={profile.ownedOmens.includes(d.id)}
-                onClick={() => {
-                  try {
-                    update(service.purchaseOmen(profile, d.id));
-                    toast("Omen unlocked.");
-                  } catch (e) {
-                    toast((e as Error).message);
-                  }
-                }}
-              >
-                {profile.ownedOmens.includes(d.id)
-                  ? "Owned"
-                  : `${OMEN_COIN_PRICE} Coins`}
-              </button>
-            </article>
-          ))}
-        </div>
+        <>
+          <OmenJourney />
+          <div className="unlock-list">
+            {OMENS.map((d) => (
+              <article key={d.id}>
+                <Omen definition={d} />
+                <strong>{d.name}</strong>
+                <button
+                  disabled={profile.ownedOmens.includes(d.id)}
+                  onClick={() => inspect({ type: "omen", item: d })}
+                >
+                  {profile.ownedOmens.includes(d.id)
+                    ? "Owned"
+                    : `View unlock · ${omenPrice(d.id)} Coins`}
+                </button>
+              </article>
+            ))}
+          </div>
+        </>
       ) : tab === "Emotes" ? (
         <EmoteCollection shop />
       ) : tab === "Bundles" ? (

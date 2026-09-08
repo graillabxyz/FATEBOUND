@@ -248,3 +248,28 @@
 .legend-grid .legend-card {
   width: 100%;
 }
+
+.acquisition-notice {
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #c9b77855;
+  border-radius: 10px;
+  background: #38463266;
+}
+.acquisition-notice small {
+  display: block;
+  color: #d5bf83;
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-bottom: 7px;
+}
+.acquisition-notice strong {
+  font: 500 18px/1.25 var(--serif);
+}
+.acquisition-notice p {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.omen-journey .legend-journey-heading h3 {
+  font-size: 22px;
+}

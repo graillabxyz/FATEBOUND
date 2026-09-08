@@ -1,3 +1,4 @@
+import { OmenJourney, AcquisitionNotice } from "./OmenProgression";
 import { LegendJourney } from "./LegendProgression";
 import { CardBrowser } from "./CardBrowser";
 import { OmenFaces } from "./OmenFaces";
@@ -9,8 +10,10 @@ import { COSMETICS } from "../content/economy";
 import { useGame } from "./context";
 import { Omen, Icon, LegendCard, PageHeading } from "./components";
 export default function Collection() {
-  const { active, profile, inspect, service } = useGame();
-  const [category, setCategory] = useState("Legends");
+  const { active, profile, inspect, service, tab } = useGame();
+  const [category, setCategory] = useState(
+    tab === "omens" ? "Omens" : "Legends",
+  );
   return (
     <div className="page collection-page">
       <PageHeading eyebrow="STORIES WORTH COLLECTING" title="The collection">
@@ -36,6 +39,7 @@ export default function Collection() {
           </button>
         ))}
       </div>
+      <AcquisitionNotice />
       {category === "Legends" ? (
         <>
           <LegendJourney />
@@ -77,6 +81,7 @@ export default function Collection() {
             <br />
             Three fixed Omens. Your choice of probabilities.
           </p>
+          <OmenJourney />
           <div className="dice-catalog">
             {OMENS.map((d) => (
               <button
